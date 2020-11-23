@@ -3842,11 +3842,23 @@ appears in the navbar.&lt;/p&gt;
     </item>
     
     <item>
-      <title>Education @ RStudio</title>
-      <link>https://nutriverse.io/home/band_one/</link>
+      <title>Contact</title>
+      <link>https://nutriverse.io/home/band_three/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://nutriverse.io/home/band_one/</guid>
-      <description>&lt;p&gt;Our mission is to equip everyone, regardless of means, to participate in a global economy that rewards data literacy.&lt;/p&gt;
+      <guid>https://nutriverse.io/home/band_three/</guid>
+      <description>&lt;p&gt;For any queries or feedback, contact us by 
+&lt;a href=&#34;mailto:contact@katilingban.io&#34;&gt;email&lt;/a&gt;, message us on 
+&lt;a href=&#34;https://twitter.com/katilingban&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;twitter&lt;/a&gt;, file an issue or seek support by visiting us on 
+&lt;a href=&#34;https://github.com/nutriverse&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;GitHub&lt;/a&gt; and going to the respective package/s you have issues on.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Explore the nutriverse</title>
+      <link>https://nutriverse.io/home/band_two/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://nutriverse.io/home/band_two/</guid>
+      <description>&lt;p&gt;Explore the various tools and tips provided by the nutriverse for nutrition data analysis.&lt;/p&gt;
 </description>
     </item>
     
@@ -3944,25 +3956,11 @@ and tidyverse so that the right people are more likely to see it.&lt;/p&gt;
     </item>
     
     <item>
-      <title>Learn the tidyverse</title>
-      <link>https://nutriverse.io/home/band_two/</link>
+      <title>Nutriverse</title>
+      <link>https://nutriverse.io/home/band_one/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://nutriverse.io/home/band_two/</guid>
-      <description>&lt;p&gt;See how the tidyverse makes data science faster, easier and more fun with &amp;ldquo;R for Data Science&amp;rdquo;. Read it 
-&lt;a href=&#34;http://r4ds.had.co.nz/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;online&lt;/a&gt;, buy 
-&lt;a href=&#34;http://amzn.to/2aHLAQ1&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;the book&lt;/a&gt; or try another 
-&lt;a href=&#34;https://nutriverse.io/learn/&#34;&gt;resource&lt;/a&gt; from the community.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Need help?</title>
-      <link>https://nutriverse.io/home/band_three/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://nutriverse.io/home/band_three/</guid>
-      <description>&lt;p&gt;First learn how to make a 
-&lt;a href=&#34;https://nutriverse.io/help/#reprex&#34;&gt;reprex&lt;/a&gt; then 
-&lt;a href=&#34;https://nutriverse.io/help/#where-to-ask&#34;&gt;share it&lt;/a&gt; with others.&lt;/p&gt;
+      <guid>https://nutriverse.io/home/band_one/</guid>
+      <description>&lt;p&gt;Our mission is to foster a community of nutrition data analysts who use R language for statistical computing. We aim to provide this community with support through the development of robust and performant R packages as tools for their analytical tasks, and learning through day-to-day technical guidance and impactful peer-to-peer learning.&lt;/p&gt;
 </description>
     </item>
     
@@ -3990,90 +3988,69 @@ in your current R session.&lt;/p&gt;
   &lt;div class=&#34;packages&#34;&gt;
   
   &lt;div class=&#34;package&#34;&gt;
-    &lt;a href=&#34;https://ggplot2.tidyverse.org/&#34; target=&#34;_blank&#34;&gt;
-    &lt;img class=&#34;package-image&#34; src=&#34;https://nutriverse.io/css/images/hex/ggplot2.png&#34; alt=&#34;&#34; aria-hidden=&#34;true&#34;&gt;&lt;/img&gt;
+    &lt;a href=&#34;https://nutriverse.io/zscorer&#34; target=&#34;_blank&#34;&gt;
+    &lt;img class=&#34;package-image&#34; src=&#34;https://nutriverse.io/css/images/hex/zscorer.png&#34; alt=&#34;&#34; aria-hidden=&#34;true&#34;&gt;&lt;/img&gt;
     &lt;/a&gt;
     
     &lt;div class=&#34;package-info&#34;&gt;
-      &lt;h3&gt;&lt;a href=&#34;https://ggplot2.tidyverse.org/&#34; target=&#34;_blank&#34;&gt;ggplot2&lt;/a&gt;&lt;/h3&gt;
-      &lt;p&gt;ggplot2 is a system for declaratively creating graphics, based on The Grammar of Graphics. You provide the data, tell ggplot2 how to map variables to aesthetics, what graphical primitives to use, and it takes care of the details.&amp;nbsp;&lt;a href=&#34;https://ggplot2.tidyverse.org/&#34; aria-hidden=&#34;true&#34;  target=&#34;_blank&#34;&gt;Go to docs...&lt;/a&gt;&lt;/p&gt;
+      &lt;h3&gt;&lt;a href=&#34;https://nutriverse.io/zscorer&#34; target=&#34;_blank&#34;&gt;zscorer&lt;/a&gt;&lt;/h3&gt;
+      &lt;p&gt;Anthropometric z-score calculator&amp;nbsp;&lt;a href=&#34;https://nutriverse.io/zscorer&#34; aria-hidden=&#34;true&#34;  target=&#34;_blank&#34;&gt;Go to docs...&lt;/a&gt;&lt;/p&gt;
     &lt;/div&gt; 
   &lt;/div&gt; 
   
   &lt;div class=&#34;package&#34;&gt;
-    &lt;a href=&#34;https://dplyr.tidyverse.org/&#34; target=&#34;_blank&#34;&gt;
-    &lt;img class=&#34;package-image&#34; src=&#34;https://nutriverse.io/css/images/hex/dplyr.png&#34; alt=&#34;&#34; aria-hidden=&#34;true&#34;&gt;&lt;/img&gt;
-    &lt;/a&gt;
     
     &lt;div class=&#34;package-info&#34;&gt;
-      &lt;h3&gt;&lt;a href=&#34;https://dplyr.tidyverse.org/&#34; target=&#34;_blank&#34;&gt;dplyr&lt;/a&gt;&lt;/h3&gt;
-      &lt;p&gt;dplyr provides a grammar of data manipulation, providing a consistent set of verbs that solve the most common data manipulation challenges.&amp;nbsp;&lt;a href=&#34;https://dplyr.tidyverse.org/&#34; aria-hidden=&#34;true&#34;  target=&#34;_blank&#34;&gt;Go to docs...&lt;/a&gt;&lt;/p&gt;
+      &lt;h3&gt;&lt;a href=&#34;https://nutriverse.io/nipnTK&#34; target=&#34;_blank&#34;&gt;nipnTK&lt;/a&gt;&lt;/h3&gt;
+      &lt;p&gt;National Information Platforms for Nutrition (NiPN) data quality toolkit&amp;nbsp;&lt;a href=&#34;https://nutriverse.io/nipnTK&#34; aria-hidden=&#34;true&#34;  target=&#34;_blank&#34;&gt;Go to docs...&lt;/a&gt;&lt;/p&gt;
     &lt;/div&gt; 
   &lt;/div&gt; 
   
   &lt;div class=&#34;package&#34;&gt;
-    &lt;a href=&#34;https://tidyr.tidyverse.org/&#34; target=&#34;_blank&#34;&gt;
-    &lt;img class=&#34;package-image&#34; src=&#34;https://nutriverse.io/css/images/hex/tidyr.png&#34; alt=&#34;&#34; aria-hidden=&#34;true&#34;&gt;&lt;/img&gt;
-    &lt;/a&gt;
     
     &lt;div class=&#34;package-info&#34;&gt;
-      &lt;h3&gt;&lt;a href=&#34;https://tidyr.tidyverse.org/&#34; target=&#34;_blank&#34;&gt;tidyr&lt;/a&gt;&lt;/h3&gt;
-      &lt;p&gt;tidyr provides a set of functions that help you get to tidy data. Tidy data is data with a consistent form: in brief, every variable goes in a column, and every column is a variable.&amp;nbsp;&lt;a href=&#34;https://tidyr.tidyverse.org/&#34; aria-hidden=&#34;true&#34;  target=&#34;_blank&#34;&gt;Go to docs...&lt;/a&gt;&lt;/p&gt;
+      &lt;h3&gt;&lt;a href=&#34;https://nutriverse.io/anthrocheckr&#34; target=&#34;_blank&#34;&gt;anthrocheckr&lt;/a&gt;&lt;/h3&gt;
+      &lt;p&gt;An implementation of anthropometric measurement standardisation Tests in R&amp;nbsp;&lt;a href=&#34;https://nutriverse.io/anthrocheckr&#34; aria-hidden=&#34;true&#34;  target=&#34;_blank&#34;&gt;Go to docs...&lt;/a&gt;&lt;/p&gt;
     &lt;/div&gt; 
   &lt;/div&gt; 
   
   &lt;div class=&#34;package&#34;&gt;
-    &lt;a href=&#34;https://readr.tidyverse.org/&#34; target=&#34;_blank&#34;&gt;
-    &lt;img class=&#34;package-image&#34; src=&#34;https://nutriverse.io/css/images/hex/readr.png&#34; alt=&#34;&#34; aria-hidden=&#34;true&#34;&gt;&lt;/img&gt;
-    &lt;/a&gt;
     
     &lt;div class=&#34;package-info&#34;&gt;
-      &lt;h3&gt;&lt;a href=&#34;https://readr.tidyverse.org/&#34; target=&#34;_blank&#34;&gt;readr&lt;/a&gt;&lt;/h3&gt;
-      &lt;p&gt;readr provides a fast and friendly way to read rectangular data (like csv, tsv, and fwf). It is designed to flexibly parse many types of data found in the wild, while still cleanly failing when data unexpectedly changes. &amp;nbsp;&lt;a href=&#34;https://readr.tidyverse.org/&#34; aria-hidden=&#34;true&#34;  target=&#34;_blank&#34;&gt;Go to docs...&lt;/a&gt;&lt;/p&gt;
+      &lt;h3&gt;&lt;a href=&#34;https://nutriverse.io/nutricheckr&#34; target=&#34;_blank&#34;&gt;nutricheckr&lt;/a&gt;&lt;/h3&gt;
+      &lt;p&gt;Tools for nutrition assessment and analysis&amp;nbsp;&lt;a href=&#34;https://nutriverse.io/nutricheckr&#34; aria-hidden=&#34;true&#34;  target=&#34;_blank&#34;&gt;Go to docs...&lt;/a&gt;&lt;/p&gt;
     &lt;/div&gt; 
   &lt;/div&gt; 
   
   &lt;div class=&#34;package&#34;&gt;
-    &lt;a href=&#34;https://purrr.tidyverse.org/&#34; target=&#34;_blank&#34;&gt;
-    &lt;img class=&#34;package-image&#34; src=&#34;https://nutriverse.io/css/images/hex/purrr.png&#34; alt=&#34;&#34; aria-hidden=&#34;true&#34;&gt;&lt;/img&gt;
-    &lt;/a&gt;
     
     &lt;div class=&#34;package-info&#34;&gt;
-      &lt;h3&gt;&lt;a href=&#34;https://purrr.tidyverse.org/&#34; target=&#34;_blank&#34;&gt;purrr&lt;/a&gt;&lt;/h3&gt;
-      &lt;p&gt;purrr enhances R’s functional programming (FP) toolkit by providing a complete and consistent set of tools for working with functions and vectors. Once you master the basic concepts, purrr allows you to replace many for loops with code that is easier to write and more expressive.&amp;nbsp;&lt;a href=&#34;https://purrr.tidyverse.org/&#34; aria-hidden=&#34;true&#34;  target=&#34;_blank&#34;&gt;Go to docs...&lt;/a&gt;&lt;/p&gt;
+      &lt;h3&gt;&lt;a href=&#34;https://nutriverse.io/intergrowth&#34; target=&#34;_blank&#34;&gt;intergrowth&lt;/a&gt;&lt;/h3&gt;
+      &lt;p&gt;An R implementation of the INTERGROWTH-21st standards and tools&amp;nbsp;&lt;a href=&#34;https://nutriverse.io/intergrowth&#34; aria-hidden=&#34;true&#34;  target=&#34;_blank&#34;&gt;Go to docs...&lt;/a&gt;&lt;/p&gt;
     &lt;/div&gt; 
   &lt;/div&gt; 
   
   &lt;div class=&#34;package&#34;&gt;
-    &lt;a href=&#34;https://tibble.tidyverse.org/&#34; target=&#34;_blank&#34;&gt;
-    &lt;img class=&#34;package-image&#34; src=&#34;https://nutriverse.io/css/images/hex/tibble.png&#34; alt=&#34;&#34; aria-hidden=&#34;true&#34;&gt;&lt;/img&gt;
-    &lt;/a&gt;
     
     &lt;div class=&#34;package-info&#34;&gt;
-      &lt;h3&gt;&lt;a href=&#34;https://tibble.tidyverse.org/&#34; target=&#34;_blank&#34;&gt;tibble&lt;/a&gt;&lt;/h3&gt;
-      &lt;p&gt;tibble is a modern re-imagining of the data frame, keeping what time has proven to be effective, and throwing out what it has not. Tibbles are data.frames that are lazy and surly: they do less and complain more forcing you to confront problems earlier, typically leading to cleaner, more expressive code.&amp;nbsp;&lt;a href=&#34;https://tibble.tidyverse.org/&#34; aria-hidden=&#34;true&#34;  target=&#34;_blank&#34;&gt;Go to docs...&lt;/a&gt;&lt;/p&gt;
+      &lt;h3&gt;&lt;a href=&#34;https://nutriverse.io/nutricea&#34; target=&#34;_blank&#34;&gt;nutricea&lt;/a&gt;&lt;/h3&gt;
+      &lt;p&gt;Nutrition cost-effectiveness analysis (CEA) in R&amp;nbsp;&lt;a href=&#34;https://nutriverse.io/nutricea&#34; aria-hidden=&#34;true&#34;  target=&#34;_blank&#34;&gt;Go to docs...&lt;/a&gt;&lt;/p&gt;
     &lt;/div&gt; 
   &lt;/div&gt; 
   
   &lt;div class=&#34;package&#34;&gt;
-    &lt;a href=&#34;https://stringr.tidyverse.org/&#34; target=&#34;_blank&#34;&gt;
-    &lt;img class=&#34;package-image&#34; src=&#34;https://nutriverse.io/css/images/hex/stringr.png&#34; alt=&#34;&#34; aria-hidden=&#34;true&#34;&gt;&lt;/img&gt;
-    &lt;/a&gt;
     
     &lt;div class=&#34;package-info&#34;&gt;
-      &lt;h3&gt;&lt;a href=&#34;https://stringr.tidyverse.org/&#34; target=&#34;_blank&#34;&gt;stringr&lt;/a&gt;&lt;/h3&gt;
-      &lt;p&gt;stringr provides a cohesive set of functions designed to make working with strings as easy as possible. It is built on top of stringi, which uses the ICU C library to provide fast, correct implementations of common string manipulations.&amp;nbsp;&lt;a href=&#34;https://stringr.tidyverse.org/&#34; aria-hidden=&#34;true&#34;  target=&#34;_blank&#34;&gt;Go to docs...&lt;/a&gt;&lt;/p&gt;
+      &lt;h3&gt;&lt;a href=&#34;https://nutriverse.io/nutribudgetr&#34; target=&#34;_blank&#34;&gt;nutribudgetr&lt;/a&gt;&lt;/h3&gt;
+      &lt;p&gt;An implementation of SPRING&amp;#39;s nutrition budget analysis tool in R&amp;nbsp;&lt;a href=&#34;https://nutriverse.io/nutribudgetr&#34; aria-hidden=&#34;true&#34;  target=&#34;_blank&#34;&gt;Go to docs...&lt;/a&gt;&lt;/p&gt;
     &lt;/div&gt; 
   &lt;/div&gt; 
   
   &lt;div class=&#34;package&#34;&gt;
-    &lt;a href=&#34;https://forcats.tidyverse.org/&#34; target=&#34;_blank&#34;&gt;
-    &lt;img class=&#34;package-image&#34; src=&#34;https://nutriverse.io/css/images/hex/forcats.png&#34; alt=&#34;&#34; aria-hidden=&#34;true&#34;&gt;&lt;/img&gt;
-    &lt;/a&gt;
     
     &lt;div class=&#34;package-info&#34;&gt;
-      &lt;h3&gt;&lt;a href=&#34;https://forcats.tidyverse.org/&#34; target=&#34;_blank&#34;&gt;forcats&lt;/a&gt;&lt;/h3&gt;
-      &lt;p&gt;forcats provides a suite of useful tools that solve common problems with factors. R uses factors to handle categorical variables, variables that have a fixed and known set of possible values.&amp;nbsp;&lt;a href=&#34;https://forcats.tidyverse.org/&#34; aria-hidden=&#34;true&#34;  target=&#34;_blank&#34;&gt;Go to docs...&lt;/a&gt;&lt;/p&gt;
+      &lt;h3&gt;&lt;a href=&#34;https://nutriverse.io/gnr&#34; target=&#34;_blank&#34;&gt;gnr&lt;/a&gt;&lt;/h3&gt;
+      &lt;p&gt;R companion to the Global Nutrition Report&amp;nbsp;&lt;a href=&#34;https://nutriverse.io/gnr&#34; aria-hidden=&#34;true&#34;  target=&#34;_blank&#34;&gt;Go to docs...&lt;/a&gt;&lt;/p&gt;
     &lt;/div&gt; 
   &lt;/div&gt; 
   
