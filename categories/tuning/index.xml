@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>tuning | Nutriverse</title>
+    <link>https://nutriverse.io/categories/tuning/</link>
+      <atom:link href="https://nutriverse.io/categories/tuning/index.xml" rel="self" type="application/rss+xml" />
+    <description>tuning</description>
+    <generator>Hugo -- gohugo.io</generator><language>en-gb</language>
+    <item>
+      <title>Nested resampling</title>
+      <link>https://nutriverse.io/learn/work/nested-resampling/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://nutriverse.io/learn/work/nested-resampling/</guid>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;To use the code in this article, you will need to install the following packages: furrr, kernlab, mlbench, scales, and tidymodels.&lt;/p&gt;
+&lt;p&gt;In this article, we discuss an alternative method for evaluating and tuning models, called 
+&lt;a href=&#34;https://scholar.google.com/scholar?hl=en&amp;amp;as_sdt=0%2C7&amp;amp;q=%22nested&amp;#43;resampling%22&amp;#43;inner&amp;#43;outer&amp;amp;btnG=&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;nested resampling&lt;/a&gt;. While it is more computationally taxing and challenging to implement than other resampling methods, it has the potential to produce better estimates of model performance.&lt;/p&gt;
+&lt;h2 id=&#34;resampling-models&#34;&gt;Resampling models&lt;/h2&gt;
+&lt;p&gt;A typical scheme for splitting the data when developing a predictive model is to create an initial split of the data into a training and test set. If resampling is used, it is executed on the training set. A series of binary splits is created. In rsample, we use the term &lt;em&gt;analysis set&lt;/em&gt; for the data that are used to fit the model and the term &lt;em&gt;assessment set&lt;/em&gt; for the set used to compute performance:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;figs/resampling.svg&#34; width=&#34;70%&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;A common method for tuning models is 
+&lt;a href=&#34;https://nutriverse.io/learn/work/tune-svm/&#34;&gt;grid search&lt;/a&gt; where a candidate set of tuning parameters is created. The full set of models for every combination of the tuning parameter grid and the resamples is fitted. Each time, the assessment data are used to measure performance and the average value is determined for each tuning parameter.&lt;/p&gt;
+&lt;p&gt;The potential problem is that once we pick the tuning parameter associated with the best performance, this performance value is usually quoted as the performance of the model. There is serious potential for &lt;em&gt;optimization bias&lt;/em&gt; since we use the same data to tune the model and to assess performance. This would result in an optimistic estimate of performance.&lt;/p&gt;
+&lt;p&gt;Nested resampling uses an additional layer of resampling that separates the tuning activities from the process used to estimate the efficacy of the model. An &lt;em&gt;outer&lt;/em&gt; resampling scheme is used and, for every split in the outer resample, another full set of resampling splits are created on the original analysis set. For example, if 10-fold cross-validation is used on the outside and 5-fold cross-validation on the inside, a total of 500 models will be fit. The parameter tuning will be conducted 10 times and the best parameters are determined from the average of the 5 assessment sets. This process occurs 10 times.&lt;/p&gt;
+&lt;p&gt;Once the tuning results are complete, a model is fit to each of the outer resampling splits using the best parameter associated with that resample. The average of the outer method&amp;rsquo;s assessment sets are a unbiased estimate of the model.&lt;/p&gt;
+&lt;p&gt;We will simulate some regression data to illustrate the methods. The mlbench package has a function &lt;code&gt;mlbench::mlbench.friedman1()&lt;/code&gt; that can simulate a complex regression data structure from the 
+&lt;a href=&#34;https://scholar.google.com/scholar?hl=en&amp;amp;q=%22Multivariate&amp;#43;adaptive&amp;#43;regression&amp;#43;splines%22&amp;amp;btnG=&amp;amp;as_sdt=1%2C7&amp;amp;as_sdtp=&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;original MARS publication&lt;/a&gt;. A training set size of 100 data points are generated as well as a large set that will be used to characterize how well the resampling procedure performed.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#00f&#34;&gt;library&lt;/span&gt;(mlbench)
+sim_data &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;function&lt;/span&gt;(n) {
+  tmp &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;mlbench.friedman1&lt;/span&gt;(n, sd &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;1&lt;/span&gt;)
+  tmp &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;cbind&lt;/span&gt;(tmp&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;x, tmp&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;y)
+  tmp &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;as.data.frame&lt;/span&gt;(tmp)
+  &lt;span style=&#34;color:#00f&#34;&gt;names&lt;/span&gt;(tmp)&lt;span style=&#34;color:#00f&#34;&gt;[ncol&lt;/span&gt;(tmp)] &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;y&amp;#34;&lt;/span&gt;
+  tmp
+}
+
+&lt;span style=&#34;color:#00f&#34;&gt;set.seed&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;9815&lt;/span&gt;)
+train_dat &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;sim_data&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;100&lt;/span&gt;)
+large_dat &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;sim_data&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;10&lt;/span&gt;^5)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;nested-resampling&#34;&gt;Nested resampling&lt;/h2&gt;
+&lt;p&gt;To get started, the types of resampling methods need to be specified. This isn&amp;rsquo;t a large data set, so 5 repeats of 10-fold cross validation will be used as the &lt;em&gt;outer&lt;/em&gt; resampling method for generating the estimate of overall performance. To tune the model, it would be good to have precise estimates for each of the values of the tuning parameter so let&amp;rsquo;s use 25 iterations of the bootstrap. This means that there will eventually be &lt;code&gt;5 * 10 * 25 = 1250&lt;/code&gt; models that are fit to the data &lt;em&gt;per tuning parameter&lt;/em&gt;. These models will be discarded once the performance of the model has been quantified.&lt;/p&gt;
+&lt;p&gt;To create the tibble with the resampling specifications:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#00f&#34;&gt;library&lt;/span&gt;(tidymodels)
+results &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;nested_cv&lt;/span&gt;(train_dat, 
+                     outside &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;vfold_cv&lt;/span&gt;(repeats &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;5&lt;/span&gt;), 
+                     inside &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;bootstraps&lt;/span&gt;(times &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;25&lt;/span&gt;))
+results
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; [1] &amp;#34;nested_cv&amp;#34;  &amp;#34;vfold_cv&amp;#34;   &amp;#34;rset&amp;#34;       &amp;#34;tbl_df&amp;#34;     &amp;#34;tbl&amp;#34;       &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; [6] &amp;#34;data.frame&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # Nested resampling:&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; #  outer: 10-fold cross-validation repeated 5 times&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; #  inner: Bootstrap sampling&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # A tibble: 50 x 4&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;    splits          id      id2    inner_resamples  &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;    &amp;lt;named list&amp;gt;    &amp;lt;chr&amp;gt;   &amp;lt;chr&amp;gt;  &amp;lt;named list&amp;gt;     &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  1 &amp;lt;split [90/10]&amp;gt; Repeat1 Fold01 &amp;lt;tibble [25 × 2]&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  2 &amp;lt;split [90/10]&amp;gt; Repeat1 Fold02 &amp;lt;tibble [25 × 2]&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  3 &amp;lt;split [90/10]&amp;gt; Repeat1 Fold03 &amp;lt;tibble [25 × 2]&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  4 &amp;lt;split [90/10]&amp;gt; Repeat1 Fold04 &amp;lt;tibble [25 × 2]&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  5 &amp;lt;split [90/10]&amp;gt; Repeat1 Fold05 &amp;lt;tibble [25 × 2]&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  6 &amp;lt;split [90/10]&amp;gt; Repeat1 Fold06 &amp;lt;tibble [25 × 2]&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  7 &amp;lt;split [90/10]&amp;gt; Repeat1 Fold07 &amp;lt;tibble [25 × 2]&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  8 &amp;lt;split [90/10]&amp;gt; Repeat1 Fold08 &amp;lt;tibble [25 × 2]&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  9 &amp;lt;split [90/10]&amp;gt; Repeat1 Fold09 &amp;lt;tibble [25 × 2]&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 10 &amp;lt;split [90/10]&amp;gt; Repeat1 Fold10 &amp;lt;tibble [25 × 2]&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # … with 40 more rows&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The splitting information for each resample is contained in the &lt;code&gt;split&lt;/code&gt; objects. Focusing on the second fold of the first repeat:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;results&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;splits[[2]]
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &amp;lt;Training/Validation/Total&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &amp;lt;90/10/100&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;&amp;lt;90/10/100&amp;gt;&lt;/code&gt; indicates the number of observations in the analysis set, assessment set, and the original data.&lt;/p&gt;
+&lt;p&gt;Each element of &lt;code&gt;inner_resamples&lt;/code&gt; has its own tibble with the bootstrapping splits.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;results&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;inner_resamples[[5]]
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # Bootstrap sampling &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # A tibble: 25 x 2&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;    splits          id         &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;    &amp;lt;list&amp;gt;          &amp;lt;chr&amp;gt;      &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  1 &amp;lt;split [90/31]&amp;gt; Bootstrap01&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  2 &amp;lt;split [90/33]&amp;gt; Bootstrap02&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  3 &amp;lt;split [90/37]&amp;gt; Bootstrap03&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  4 &amp;lt;split [90/31]&amp;gt; Bootstrap04&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  5 &amp;lt;split [90/32]&amp;gt; Bootstrap05&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  6 &amp;lt;split [90/32]&amp;gt; Bootstrap06&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  7 &amp;lt;split [90/36]&amp;gt; Bootstrap07&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  8 &amp;lt;split [90/34]&amp;gt; Bootstrap08&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  9 &amp;lt;split [90/29]&amp;gt; Bootstrap09&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 10 &amp;lt;split [90/31]&amp;gt; Bootstrap10&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # … with 15 more rows&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;These are self-contained, meaning that the bootstrap sample is aware that it is a sample of a specific 90% of the data:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;results&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;inner_resamples[[5]]&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;splits[[1]]
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &amp;lt;Training/Validation/Total&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &amp;lt;90/31/90&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;To start, we need to define how the model will be created and measured. Let&amp;rsquo;s use a radial basis support vector machine model via the function &lt;code&gt;kernlab::ksvm&lt;/code&gt;. This model is generally considered to have &lt;em&gt;two&lt;/em&gt; tuning parameters: the SVM cost value and the kernel parameter &lt;code&gt;sigma&lt;/code&gt;. For illustration purposes here, only the cost value will be tuned and the function &lt;code&gt;kernlab::sigest&lt;/code&gt; will be used to estimate &lt;code&gt;sigma&lt;/code&gt; during each model fit. This is automatically done by &lt;code&gt;ksvm&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;After the model is fit to the analysis set, the root-mean squared error (RMSE) is computed on the assessment set. &lt;strong&gt;One important note:&lt;/strong&gt; for this model, it is critical to center and scale the predictors before computing dot products. We don&amp;rsquo;t do this operation here because &lt;code&gt;mlbench.friedman1&lt;/code&gt; simulates all of the predictors to be standardized uniform random variables.&lt;/p&gt;
+&lt;p&gt;Our function to fit the model and compute the RMSE is:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#00f&#34;&gt;library&lt;/span&gt;(kernlab)
+
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# `object` will be an `rsplit` object from our `results` tibble&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# `cost` is the tuning parameter&lt;/span&gt;
+svm_rmse &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;function&lt;/span&gt;(object, cost &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;1&lt;/span&gt;) {
+  y_col &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;ncol&lt;/span&gt;(object&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;data)
+  mod &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; 
+    &lt;span style=&#34;color:#00f&#34;&gt;svm_rbf&lt;/span&gt;(mode &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;regression&amp;#34;&lt;/span&gt;, cost &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; cost) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+    &lt;span style=&#34;color:#00f&#34;&gt;set_engine&lt;/span&gt;(&lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;kernlab&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+    &lt;span style=&#34;color:#00f&#34;&gt;fit&lt;/span&gt;(y &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt; ., data &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;analysis&lt;/span&gt;(object))
+  
+  holdout_pred &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; 
+    &lt;span style=&#34;color:#00f&#34;&gt;predict&lt;/span&gt;(mod, &lt;span style=&#34;color:#00f&#34;&gt;assessment&lt;/span&gt;(object) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; dplyr&lt;span style=&#34;color:#666&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#00f&#34;&gt;select&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt;y)) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+    &lt;span style=&#34;color:#00f&#34;&gt;bind_cols&lt;/span&gt;(&lt;span style=&#34;color:#00f&#34;&gt;assessment&lt;/span&gt;(object) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; dplyr&lt;span style=&#34;color:#666&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#00f&#34;&gt;select&lt;/span&gt;(y))
+  &lt;span style=&#34;color:#00f&#34;&gt;rmse&lt;/span&gt;(holdout_pred, truth &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; y, estimate &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; .pred)&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;.estimate
+}
+
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# In some case, we want to parameterize the function over the tuning parameter:&lt;/span&gt;
+rmse_wrapper &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;function&lt;/span&gt;(cost, object) &lt;span style=&#34;color:#00f&#34;&gt;svm_rmse&lt;/span&gt;(object, cost)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;For the nested resampling, a model needs to be fit for each tuning parameter and each bootstrap split. To do this, create a wrapper:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# `object` will be an `rsplit` object for the bootstrap samples&lt;/span&gt;
+tune_over_cost &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;function&lt;/span&gt;(object) {
+  &lt;span style=&#34;color:#00f&#34;&gt;tibble&lt;/span&gt;(cost &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;2&lt;/span&gt; ^ &lt;span style=&#34;color:#00f&#34;&gt;seq&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;-2&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;8&lt;/span&gt;, by &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;1&lt;/span&gt;)) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+    &lt;span style=&#34;color:#00f&#34;&gt;mutate&lt;/span&gt;(RMSE &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;map_dbl&lt;/span&gt;(cost, rmse_wrapper, object &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; object))
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Since this will be called across the set of outer cross-validation splits, another wrapper is required:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# `object` is an `rsplit` object in `results$inner_resamples` &lt;/span&gt;
+summarize_tune_results &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;function&lt;/span&gt;(object) {
+  &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# Return row-bound tibble that has the 25 bootstrap results&lt;/span&gt;
+  &lt;span style=&#34;color:#00f&#34;&gt;map_df&lt;/span&gt;(object&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;splits, tune_over_cost) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+    &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# For each value of the tuning parameter, compute the &lt;/span&gt;
+    &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# average RMSE which is the inner bootstrap estimate. &lt;/span&gt;
+    &lt;span style=&#34;color:#00f&#34;&gt;group_by&lt;/span&gt;(cost) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+    &lt;span style=&#34;color:#00f&#34;&gt;summarize&lt;/span&gt;(mean_RMSE &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;mean&lt;/span&gt;(RMSE, na.rm &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#008000;font-weight:bold&#34;&gt;TRUE&lt;/span&gt;),
+              n &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;length&lt;/span&gt;(RMSE))
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now that those functions are defined, we can execute all the inner resampling loops:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;tuning_results &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;map&lt;/span&gt;(results&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;inner_resamples, summarize_tune_results) 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Alternatively, since these computations can be run in parallel, we can use the furrr package. Instead of using &lt;code&gt;map()&lt;/code&gt;, the function &lt;code&gt;future_map()&lt;/code&gt; parallelizes the iterations using the 
+&lt;a href=&#34;https://cran.r-project.org/web/packages/future/vignettes/future-1-overview.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;future package&lt;/a&gt;. The &lt;code&gt;multisession&lt;/code&gt; plan uses the local cores to process the inner resampling loop. The end results are the same as the sequential computations.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#00f&#34;&gt;library&lt;/span&gt;(furrr)
+&lt;span style=&#34;color:#00f&#34;&gt;plan&lt;/span&gt;(multisession)
+
+tuning_results &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;future_map&lt;/span&gt;(results&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;inner_resamples, summarize_tune_results) 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The object &lt;code&gt;tuning_results&lt;/code&gt; is a list of data frames for each of the 50 outer resamples.&lt;/p&gt;
+&lt;p&gt;Let&amp;rsquo;s make a plot of the averaged results to see what the relationship is between the RMSE and the tuning parameters for each of the inner bootstrapping operations:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#00f&#34;&gt;library&lt;/span&gt;(scales)
+
+pooled_inner &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; tuning_results &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; bind_rows
+
+best_cost &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;function&lt;/span&gt;(dat) dat&lt;span style=&#34;color:#00f&#34;&gt;[which.min&lt;/span&gt;(dat&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;mean_RMSE),]
+
+p &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;ggplot&lt;/span&gt;(pooled_inner, &lt;span style=&#34;color:#00f&#34;&gt;aes&lt;/span&gt;(x &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; cost, y &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; mean_RMSE)) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;scale_x_continuous&lt;/span&gt;(trans &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#39;log2&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#00f&#34;&gt;xlab&lt;/span&gt;(&lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;SVM Cost&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;ylab&lt;/span&gt;(&lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;Inner RMSE&amp;#34;&lt;/span&gt;)
+
+&lt;span style=&#34;color:#00f&#34;&gt;for &lt;/span&gt;(i in &lt;span style=&#34;color:#666&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;:&lt;/span&gt;&lt;span style=&#34;color:#00f&#34;&gt;length&lt;/span&gt;(tuning_results))
+  p &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; p  &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#00f&#34;&gt;geom_line&lt;/span&gt;(data &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; tuning_results[[i]], alpha &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;.2&lt;/span&gt;) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#00f&#34;&gt;geom_point&lt;/span&gt;(data &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;best_cost&lt;/span&gt;(tuning_results[[i]]), pch &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;16&lt;/span&gt;, alpha &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;3&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;4&lt;/span&gt;)
+
+p &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; p &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;geom_smooth&lt;/span&gt;(data &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; pooled_inner, se &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#008000;font-weight:bold&#34;&gt;FALSE&lt;/span&gt;)
+p
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;figs/rmse-plot-1.svg&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Each gray line is a separate bootstrap resampling curve created from a different 90% of the data. The blue line is a LOESS smooth of all the results pooled together.&lt;/p&gt;
+&lt;p&gt;To determine the best parameter estimate for each of the outer resampling iterations:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;cost_vals &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; 
+  tuning_results &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;map_df&lt;/span&gt;(best_cost) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;select&lt;/span&gt;(cost)
+
+results &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;bind_cols&lt;/span&gt;(results, cost_vals) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;mutate&lt;/span&gt;(cost &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;factor&lt;/span&gt;(cost, levels &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;paste&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;2&lt;/span&gt; ^ &lt;span style=&#34;color:#00f&#34;&gt;seq&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;-2&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;8&lt;/span&gt;, by &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;1&lt;/span&gt;))))
+
+&lt;span style=&#34;color:#00f&#34;&gt;ggplot&lt;/span&gt;(results, &lt;span style=&#34;color:#00f&#34;&gt;aes&lt;/span&gt;(x &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; cost)) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;geom_bar&lt;/span&gt;() &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;xlab&lt;/span&gt;(&lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;SVM Cost&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;scale_x_discrete&lt;/span&gt;(drop &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#008000;font-weight:bold&#34;&gt;FALSE&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;figs/choose-1.svg&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Most of the resamples produced an optimal cost value of 2.0, but the distribution is right-skewed due to the flat trend in the resampling profile once the cost value becomes 10 or larger.&lt;/p&gt;
+&lt;p&gt;Now that we have these estimates, we can compute the outer resampling results for each of the 50 splits using the corresponding tuning parameter value:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;results &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; 
+  results &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;mutate&lt;/span&gt;(RMSE &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;map2_dbl&lt;/span&gt;(splits, cost, svm_rmse))
+
+&lt;span style=&#34;color:#00f&#34;&gt;summary&lt;/span&gt;(results&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;RMSE)
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;    1.57    2.09    2.68    2.69    3.25    4.25&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The estimated RMSE for the model tuning process is 2.69.&lt;/p&gt;
+&lt;p&gt;What is the RMSE estimate for the non-nested procedure when only the outer resampling method is used? For each cost value in the tuning grid, 50 SVM models are fit and their RMSE values are averaged. The table of cost values and mean RMSE estimates is used to determine the best cost value. The associated RMSE is the biased estimate.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;not_nested &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;map&lt;/span&gt;(results&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;splits, tune_over_cost) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  bind_rows
+
+outer_summary &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; not_nested &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;group_by&lt;/span&gt;(cost) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;summarize&lt;/span&gt;(outer_RMSE &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;mean&lt;/span&gt;(RMSE), n &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;length&lt;/span&gt;(RMSE))
+
+outer_summary
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # A tibble: 11 x 3&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;      cost outer_RMSE     n&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;     &amp;lt;dbl&amp;gt;      &amp;lt;dbl&amp;gt; &amp;lt;int&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  1   0.25       3.54    50&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  2   0.5        3.11    50&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  3   1          2.77    50&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  4   2          2.62    50&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  5   4          2.65    50&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  6   8          2.75    50&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  7  16          2.82    50&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  8  32          2.82    50&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  9  64          2.83    50&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 10 128          2.83    50&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 11 256          2.82    50&lt;/span&gt;
+
+&lt;span style=&#34;color:#00f&#34;&gt;ggplot&lt;/span&gt;(outer_summary, &lt;span style=&#34;color:#00f&#34;&gt;aes&lt;/span&gt;(x &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; cost, y &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; outer_RMSE)) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;geom_point&lt;/span&gt;() &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;geom_line&lt;/span&gt;() &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;scale_x_continuous&lt;/span&gt;(trans &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#39;log2&amp;#39;&lt;/span&gt;) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#00f&#34;&gt;xlab&lt;/span&gt;(&lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;SVM Cost&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;ylab&lt;/span&gt;(&lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;RMSE&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;figs/not-nested-1.svg&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;The non-nested procedure estimates the RMSE to be 2.62. Both estimates are fairly close.&lt;/p&gt;
+&lt;p&gt;The approximately true RMSE for an SVM model with a cost value of 2.0 can be approximated with the large sample that was simulated at the beginning.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;finalModel &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;ksvm&lt;/span&gt;(y &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt; ., data &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; train_dat, C &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;2&lt;/span&gt;)
+large_pred &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;predict&lt;/span&gt;(finalModel, large_dat[, &lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#00f&#34;&gt;ncol&lt;/span&gt;(large_dat)])
+&lt;span style=&#34;color:#00f&#34;&gt;sqrt&lt;/span&gt;(&lt;span style=&#34;color:#00f&#34;&gt;mean&lt;/span&gt;((large_dat&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;y &lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt; large_pred) ^ &lt;span style=&#34;color:#666&#34;&gt;2&lt;/span&gt;, na.rm &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#008000;font-weight:bold&#34;&gt;TRUE&lt;/span&gt;))
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; [1] 2.71&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The nested procedure produces a closer estimate to the approximate truth but the non-nested estimate is very similar.&lt;/p&gt;
+&lt;h2 id=&#34;session-information&#34;&gt;Session information&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;#&amp;gt; ─ Session info ───────────────────────────────────────────────────────────────
+#&amp;gt;  setting  value                       
+#&amp;gt;  version  R version 3.6.2 (2019-12-12)
+#&amp;gt;  os       macOS Mojave 10.14.6        
+#&amp;gt;  system   x86_64, darwin15.6.0        
+#&amp;gt;  ui       X11                         
+#&amp;gt;  language (EN)                        
+#&amp;gt;  collate  en_US.UTF-8                 
+#&amp;gt;  ctype    en_US.UTF-8                 
+#&amp;gt;  tz       America/Denver              
+#&amp;gt;  date     2020-04-17                  
+#&amp;gt; 
+#&amp;gt; ─ Packages ───────────────────────────────────────────────────────────────────
+#&amp;gt;  package    * version date       lib source        
+#&amp;gt;  broom      * 0.5.5   2020-02-29 [1] CRAN (R 3.6.0)
+#&amp;gt;  dials      * 0.0.6   2020-04-03 [1] CRAN (R 3.6.2)
+#&amp;gt;  dplyr      * 0.8.5   2020-03-07 [1] CRAN (R 3.6.0)
+#&amp;gt;  furrr      * 0.1.0   2018-05-16 [1] CRAN (R 3.6.0)
+#&amp;gt;  ggplot2    * 3.3.0   2020-03-05 [1] CRAN (R 3.6.0)
+#&amp;gt;  infer      * 0.5.1   2019-11-19 [1] CRAN (R 3.6.0)
+#&amp;gt;  kernlab    * 0.9-29  2019-11-12 [1] CRAN (R 3.6.0)
+#&amp;gt;  mlbench    * 2.1-1   2012-07-10 [1] CRAN (R 3.6.0)
+#&amp;gt;  parsnip    * 0.1.0   2020-04-09 [1] CRAN (R 3.6.2)
+#&amp;gt;  purrr      * 0.3.3   2019-10-18 [1] CRAN (R 3.6.0)
+#&amp;gt;  recipes    * 0.1.10  2020-03-18 [1] CRAN (R 3.6.0)
+#&amp;gt;  rlang        0.4.5   2020-03-01 [1] CRAN (R 3.6.0)
+#&amp;gt;  rsample    * 0.0.6   2020-03-31 [1] CRAN (R 3.6.2)
+#&amp;gt;  scales     * 1.1.0   2019-11-18 [1] CRAN (R 3.6.0)
+#&amp;gt;  tibble     * 2.1.3   2019-06-06 [1] CRAN (R 3.6.2)
+#&amp;gt;  tidymodels * 0.1.0   2020-02-16 [1] CRAN (R 3.6.0)
+#&amp;gt;  tune       * 0.1.0   2020-04-02 [1] CRAN (R 3.6.2)
+#&amp;gt;  workflows  * 0.1.1   2020-03-17 [1] CRAN (R 3.6.0)
+#&amp;gt;  yardstick  * 0.0.6   2020-03-17 [1] CRAN (R 3.6.0)
+#&amp;gt; 
+#&amp;gt; [1] /Library/Frameworks/R.framework/Versions/3.6/Resources/library
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

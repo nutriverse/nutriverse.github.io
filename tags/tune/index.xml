@@ -1,0 +1,1232 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>tune | Nutriverse</title>
+    <link>https://nutriverse.io/tags/tune/</link>
+      <atom:link href="https://nutriverse.io/tags/tune/index.xml" rel="self" type="application/rss+xml" />
+    <description>tune</description>
+    <generator>Hugo -- gohugo.io</generator><language>en-gb</language>
+    <item>
+      <title>Evaluate your model with resampling</title>
+      <link>https://nutriverse.io/start/resampling/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://nutriverse.io/start/resampling/</guid>
+      <description>&lt;h2 id=&#34;intro&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;So far, we have 
+&lt;a href=&#34;https://nutriverse.io/start/models/&#34;&gt;built a model&lt;/a&gt; and 
+&lt;a href=&#34;https://nutriverse.io/start/recipes/&#34;&gt;preprocessed data with a recipe&lt;/a&gt;. We also introduced 
+&lt;a href=&#34;https://nutriverse.io/start/recipes/#fit-workflow&#34;&gt;workflows&lt;/a&gt; as a way to bundle a 
+&lt;a href=&#34;https://tidymodels.github.io/parsnip/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;parsnip model&lt;/a&gt; and 
+&lt;a href=&#34;https://tidymodels.github.io/recipes/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;recipe&lt;/a&gt; together. Once we have a model trained, we need a way to measure how well that model predicts new data. This tutorial explains how to characterize model performance based on &lt;strong&gt;resampling&lt;/strong&gt; statistics.&lt;/p&gt;
+&lt;p&gt;To use code in this article,  you will need to install the following packages: modeldata, ranger, and tidymodels.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#00f&#34;&gt;library&lt;/span&gt;(tidymodels) &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# for the rsample package, along with the rest of tidymodels&lt;/span&gt;
+
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# Helper packages&lt;/span&gt;
+&lt;span style=&#34;color:#00f&#34;&gt;library&lt;/span&gt;(modeldata)  &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# for the cells data&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;data&#34;&gt;The cell image data&lt;/h2&gt;
+&lt;p&gt;Let&amp;rsquo;s use data from 
+&lt;a href=&#34;http://www.biomedcentral.com/1471-2105/8/340&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Hill, LaPan, Li, and Haney (2007)&lt;/a&gt;, available in the 
+&lt;a href=&#34;https://cran.r-project.org/web/packages/modeldata/index.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;modeldata package&lt;/a&gt;, to predict cell image segmentation quality with resampling. To start, we load this data into R:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#00f&#34;&gt;data&lt;/span&gt;(cells, package &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;modeldata&amp;#34;&lt;/span&gt;)
+cells
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # A tibble: 2,019 x 58&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   case  class angle_ch_1 area_ch_1 avg_inten_ch_1 avg_inten_ch_2 avg_inten_ch_3&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   &amp;lt;fct&amp;gt; &amp;lt;fct&amp;gt;      &amp;lt;dbl&amp;gt;     &amp;lt;int&amp;gt;          &amp;lt;dbl&amp;gt;          &amp;lt;dbl&amp;gt;          &amp;lt;dbl&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 1 Test  PS        143.         185           15.7           4.95           9.55&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 2 Train PS        134.         819           31.9         207.            69.9 &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 3 Train WS        107.         431           28.0         116.            63.9 &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 4 Train PS         69.2        298           19.5         102.            28.2 &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 5 Test  PS          2.89       285           24.3         112.            20.5 &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # … with 2,014 more rows, and 51 more variables: avg_inten_ch_4 &amp;lt;dbl&amp;gt;,&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; #   convex_hull_area_ratio_ch_1 &amp;lt;dbl&amp;gt;, convex_hull_perim_ratio_ch_1 &amp;lt;dbl&amp;gt;,&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; #   diff_inten_density_ch_1 &amp;lt;dbl&amp;gt;, diff_inten_density_ch_3 &amp;lt;dbl&amp;gt;, …&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We have data for 2019 cells, with 58 variables. The main outcome variable of interest for us here is called &lt;code&gt;class&lt;/code&gt;, which you can see is a factor. But before we jump into predicting the &lt;code&gt;class&lt;/code&gt; variable, we need to understand it better. Below is a brief primer on cell image segmentation.&lt;/p&gt;
+&lt;h3 id=&#34;predicting-image-segmentation-quality&#34;&gt;Predicting image segmentation quality&lt;/h3&gt;
+&lt;p&gt;Some biologists conduct experiments on cells. In drug discovery, a particular type of cell can be treated with either a drug or control and then observed to see what the effect is (if any). A common approach for this kind of measurement is cell imaging. Different parts of the cells can be colored so that the locations of a cell can be determined.&lt;/p&gt;
+&lt;p&gt;For example, in top panel of this image of five cells, the green color is meant to define the boundary of the cell (coloring something called the cytoskeleton) while the blue color defines the nucleus of the cell.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;img/cells.png&#34; width=&#34;70%&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Using these colors, the cells in an image can be &lt;em&gt;segmented&lt;/em&gt; so that we know which pixels belong to which cell. If this is done well, the cell can be measured in different ways that are important to the biology. Sometimes the shape of the cell matters and different mathematical tools are used to summarize characteristics like the size or &amp;ldquo;oblongness&amp;rdquo; of the cell.&lt;/p&gt;
+&lt;p&gt;The bottom panel shows some segmentation results. Cells 1 and 5 are fairly well segmented. However, cells 2 to 4 are bunched up together because the segmentation was not very good. The consequence of bad segmentation is data contamination; when the biologist analyzes the shape or size of these cells, the data are inaccurate and could lead to the wrong conclusion.&lt;/p&gt;
+&lt;p&gt;A cell-based experiment might involve millions of cells so it is unfeasible to visually assess them all. Instead, a subsample can be created and these cells can be manually labeled by experts as either poorly segmented (&lt;code&gt;PS&lt;/code&gt;) or well-segmented (&lt;code&gt;WS&lt;/code&gt;). If we can predict these labels accurately, the larger data set can be improved by filtering out the cells most likely to be poorly segmented.&lt;/p&gt;
+&lt;h3 id=&#34;back-to-the-cells-data&#34;&gt;Back to the cells data&lt;/h3&gt;
+&lt;p&gt;The &lt;code&gt;cells&lt;/code&gt; data has &lt;code&gt;class&lt;/code&gt; labels for 2019 cells — each cell is labeled as either poorly segmented (&lt;code&gt;PS&lt;/code&gt;) or well-segmented (&lt;code&gt;WS&lt;/code&gt;). Each also has a total of 56 predictors based on automated image analysis measurements. For example, &lt;code&gt;avg_inten_ch_1&lt;/code&gt; is the mean intensity of the data contained in the nucleus, &lt;code&gt;area_ch_1&lt;/code&gt; is the total size of the cell, and so on (some predictors are fairly arcane in nature).&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;cells
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # A tibble: 2,019 x 58&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   case  class angle_ch_1 area_ch_1 avg_inten_ch_1 avg_inten_ch_2 avg_inten_ch_3&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   &amp;lt;fct&amp;gt; &amp;lt;fct&amp;gt;      &amp;lt;dbl&amp;gt;     &amp;lt;int&amp;gt;          &amp;lt;dbl&amp;gt;          &amp;lt;dbl&amp;gt;          &amp;lt;dbl&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 1 Test  PS        143.         185           15.7           4.95           9.55&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 2 Train PS        134.         819           31.9         207.            69.9 &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 3 Train WS        107.         431           28.0         116.            63.9 &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 4 Train PS         69.2        298           19.5         102.            28.2 &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 5 Test  PS          2.89       285           24.3         112.            20.5 &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # … with 2,014 more rows, and 51 more variables: avg_inten_ch_4 &amp;lt;dbl&amp;gt;,&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; #   convex_hull_area_ratio_ch_1 &amp;lt;dbl&amp;gt;, convex_hull_perim_ratio_ch_1 &amp;lt;dbl&amp;gt;,&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; #   diff_inten_density_ch_1 &amp;lt;dbl&amp;gt;, diff_inten_density_ch_3 &amp;lt;dbl&amp;gt;, …&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The rates of the classes are somewhat imbalanced; there are more poorly segmented cells than well-segmented cells:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;cells &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;count&lt;/span&gt;(class) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;mutate&lt;/span&gt;(prop &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; n&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#00f&#34;&gt;sum&lt;/span&gt;(n))
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # A tibble: 2 x 3&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   class     n  prop&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   &amp;lt;fct&amp;gt; &amp;lt;int&amp;gt; &amp;lt;dbl&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 1 PS     1300 0.644&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 2 WS      719 0.356&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;data-split&#34;&gt;Data splitting&lt;/h2&gt;
+&lt;p&gt;In our previous 
+&lt;a href=&#34;https://nutriverse.io/start/recipes/#data-split&#34;&gt;&lt;em&gt;Preprocess your data with recipes&lt;/em&gt;&lt;/a&gt; article, we started by splitting our data. It is common when beginning a modeling project to 
+&lt;a href=&#34;https://bookdown.org/max/FES/data-splitting.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;separate the data set&lt;/a&gt; into two partitions:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;The &lt;em&gt;training set&lt;/em&gt; is used to estimate parameters, compare models and feature engineering techniques, tune models, etc.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The &lt;em&gt;test set&lt;/em&gt; is held in reserve until the end of the project, at which point there should only be one or two models under serious consideration. It is used as an unbiased source for measuring final model performance.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;There are different ways to create these partitions of the data. The most common approach is to use a random sample. Suppose that one quarter of the data were reserved for the test set. Random sampling would randomly select 25% for the test set and use the remainder for the training set. We can use the 
+&lt;a href=&#34;https://tidymodels.github.io/rsample/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;rsample&lt;/a&gt; package for this purpose.&lt;/p&gt;
+&lt;p&gt;Since random sampling uses random numbers, it is important to set the random number seed. This ensures that the random numbers can be reproduced at a later time (if needed).&lt;/p&gt;
+&lt;p&gt;The function &lt;code&gt;rsample::initial_split()&lt;/code&gt; takes the original data and saves the information on how to make the partitions. In the original analysis, the authors made their own training/test set and that information is contained in the column &lt;code&gt;case&lt;/code&gt;. To demonstrate how to make a split, we&amp;rsquo;ll remove this column before we make our own split:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#00f&#34;&gt;set.seed&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;123&lt;/span&gt;)
+cell_split &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;initial_split&lt;/span&gt;(cells &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;select&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt;case), 
+                            strata &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; class)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Here we used the 
+&lt;a href=&#34;https://tidymodels.github.io/rsample/reference/initial_split.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;strata&lt;/code&gt; argument&lt;/a&gt;, which conducts a stratified split. This ensures that, despite the imbalance we noticed in our &lt;code&gt;class&lt;/code&gt; variable, our training and test data sets will keep roughly the same proportions of poorly and well-segmented cells as in the original data. After the &lt;code&gt;initial_split&lt;/code&gt;, the &lt;code&gt;training()&lt;/code&gt; and &lt;code&gt;testing()&lt;/code&gt; functions return the actual data sets.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;cell_train &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;training&lt;/span&gt;(cell_split)
+cell_test  &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;testing&lt;/span&gt;(cell_split)
+
+&lt;span style=&#34;color:#00f&#34;&gt;nrow&lt;/span&gt;(cell_train)
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; [1] 1515&lt;/span&gt;
+&lt;span style=&#34;color:#00f&#34;&gt;nrow&lt;/span&gt;(cell_train)&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#00f&#34;&gt;nrow&lt;/span&gt;(cells)
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; [1] 0.7503715&lt;/span&gt;
+
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# training set proportions by class&lt;/span&gt;
+cell_train &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;count&lt;/span&gt;(class) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;mutate&lt;/span&gt;(prop &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; n&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#00f&#34;&gt;sum&lt;/span&gt;(n))
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # A tibble: 2 x 3&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   class     n  prop&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   &amp;lt;fct&amp;gt; &amp;lt;int&amp;gt; &amp;lt;dbl&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 1 PS      975 0.644&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 2 WS      540 0.356&lt;/span&gt;
+
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# test set proportions by class&lt;/span&gt;
+cell_test &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;count&lt;/span&gt;(class) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;mutate&lt;/span&gt;(prop &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; n&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#00f&#34;&gt;sum&lt;/span&gt;(n))
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # A tibble: 2 x 3&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   class     n  prop&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   &amp;lt;fct&amp;gt; &amp;lt;int&amp;gt; &amp;lt;dbl&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 1 PS      325 0.645&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 2 WS      179 0.355&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The majority of the modeling work is then conducted on the training set data.&lt;/p&gt;
+&lt;h2 id=&#34;modeling&#34;&gt;Modeling&lt;/h2&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://en.wikipedia.org/wiki/Random_forest&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Random forest models&lt;/a&gt; are 
+&lt;a href=&#34;https://en.wikipedia.org/wiki/Ensemble_learning&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;ensembles&lt;/a&gt; of 
+&lt;a href=&#34;https://en.wikipedia.org/wiki/Decision_tree&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;decision trees&lt;/a&gt;. A large number of decision tree models are created for the ensemble based on slightly different versions of the training set. When creating the individual decision trees, the fitting process encourages them to be as diverse as possible. The collection of trees are combined into the random forest model and, when a new sample is predicted, the votes from each tree are used to calculate the final predicted value for the new sample. For categorical outcome variables like &lt;code&gt;class&lt;/code&gt; in our &lt;code&gt;cells&lt;/code&gt; data example, the majority vote across all the trees in the random forest determines the predicted class for the new sample.&lt;/p&gt;
+&lt;p&gt;One of the benefits of a random forest model is that it is very low maintenance;  it requires very little preprocessing of the data and the default parameters tend to give reasonable results. For that reason, we won&amp;rsquo;t create a recipe for the &lt;code&gt;cells&lt;/code&gt; data.&lt;/p&gt;
+&lt;p&gt;At the same time, the number of trees in the ensemble should be large (in the thousands) and this makes the model moderately expensive to compute.&lt;/p&gt;
+&lt;p&gt;To fit a random forest model on the training set, let&amp;rsquo;s use the 
+&lt;a href=&#34;https://tidymodels.github.io/parsnip/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;parsnip&lt;/a&gt; package with the 
+&lt;a href=&#34;https://cran.r-project.org/web/packages/ranger/index.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;ranger&lt;/a&gt; engine. We first define the model that we want to create:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;rf_mod &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;rand_forest&lt;/span&gt;(trees &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;1000&lt;/span&gt;) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;set_engine&lt;/span&gt;(&lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;ranger&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;set_mode&lt;/span&gt;(&lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;classification&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Starting with this parsnip model object, the &lt;code&gt;fit()&lt;/code&gt; function can be used with a model formula. Since random forest models use random numbers, we again set the seed prior to computing:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#00f&#34;&gt;set.seed&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;234&lt;/span&gt;)
+rf_fit &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; 
+  rf_mod &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;fit&lt;/span&gt;(class &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt; ., data &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; cell_train)
+rf_fit
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; parsnip model object&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; Fit time:  2.4s &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; Ranger result&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; Call:&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  ranger::ranger(formula = formula, data = data, num.trees = ~1000,      num.threads = 1, verbose = FALSE, seed = sample.int(10^5,          1), probability = TRUE) &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; Type:                             Probability estimation &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; Number of trees:                  1000 &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; Sample size:                      1515 &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; Number of independent variables:  56 &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; Mtry:                             7 &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; Target node size:                 10 &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; Variable importance mode:         none &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; Splitrule:                        gini &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; OOB prediction error (Brier s.):  0.1218873&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This new &lt;code&gt;rf_fit&lt;/code&gt; object is our fitted model, trained on our training data set.&lt;/p&gt;
+&lt;h2 id=&#34;performance&#34;&gt;Estimating performance&lt;/h2&gt;
+&lt;p&gt;During a modeling project, we might create a variety of different models. To choose between them, we need to consider how well these models do, as measured by some performance statistics. In our example in this article, some options we could use are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;the area under the Receiver Operating Characteristic (ROC) curve, and&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;overall classification accuracy.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The ROC curve uses the class probability estimates to give us a sense of performance across the entire set of potential probability cutoffs. Overall accuracy uses the hard class predictions to measure performance. The hard class predictions tell us whether our model predicted &lt;code&gt;PS&lt;/code&gt; or &lt;code&gt;WS&lt;/code&gt; for each cell. But, behind those predictions, the model is actually estimating a probability. A simple 50% probability cutoff is used to categorize a cell as poorly segmented.&lt;/p&gt;
+&lt;p&gt;The 
+&lt;a href=&#34;https://tidymodels.github.io/yardstick/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;yardstick package&lt;/a&gt; has functions for computing both of these measures called &lt;code&gt;roc_auc()&lt;/code&gt; and &lt;code&gt;accuracy()&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;At first glance, it might seem like a good idea to use the training set data to compute these statistics. (This is actually a very bad idea.) Let&amp;rsquo;s see what happens if we try this. To evaluate performance based on the training set, we call the &lt;code&gt;predict()&lt;/code&gt; method to get both types of predictions (i.e. probabilities and hard class predictions).&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;rf_training_pred &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;predict&lt;/span&gt;(rf_fit, cell_train) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;bind_cols&lt;/span&gt;(&lt;span style=&#34;color:#00f&#34;&gt;predict&lt;/span&gt;(rf_fit, cell_train, type &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;prob&amp;#34;&lt;/span&gt;)) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# Add the true outcome data back in&lt;/span&gt;
+  &lt;span style=&#34;color:#00f&#34;&gt;bind_cols&lt;/span&gt;(cell_train &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+              &lt;span style=&#34;color:#00f&#34;&gt;select&lt;/span&gt;(class))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Using the yardstick functions, this model has spectacular results, so spectacular that you might be starting to get suspicious:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;rf_training_pred &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;                &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# training set predictions&lt;/span&gt;
+  &lt;span style=&#34;color:#00f&#34;&gt;roc_auc&lt;/span&gt;(truth &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; class, .pred_PS)
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # A tibble: 1 x 3&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   .metric .estimator .estimate&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   &amp;lt;chr&amp;gt;   &amp;lt;chr&amp;gt;          &amp;lt;dbl&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 1 roc_auc binary          1.00&lt;/span&gt;
+rf_training_pred &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;                &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# training set predictions&lt;/span&gt;
+  &lt;span style=&#34;color:#00f&#34;&gt;accuracy&lt;/span&gt;(truth &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; class, .pred_class)
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # A tibble: 1 x 3&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   .metric  .estimator .estimate&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   &amp;lt;chr&amp;gt;    &amp;lt;chr&amp;gt;          &amp;lt;dbl&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 1 accuracy binary         0.993&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now that we have this model with exceptional performance, we proceed to the test set. Unfortunately, we discover that, although our results aren&amp;rsquo;t bad, they are certainly worse than what we initially thought based on predicting the training set:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;rf_testing_pred &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;predict&lt;/span&gt;(rf_fit, cell_test) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;bind_cols&lt;/span&gt;(&lt;span style=&#34;color:#00f&#34;&gt;predict&lt;/span&gt;(rf_fit, cell_test, type &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;prob&amp;#34;&lt;/span&gt;)) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;bind_cols&lt;/span&gt;(cell_test &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;select&lt;/span&gt;(class))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;rf_testing_pred &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;                   &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# test set predictions&lt;/span&gt;
+  &lt;span style=&#34;color:#00f&#34;&gt;roc_auc&lt;/span&gt;(truth &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; class, .pred_PS)
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # A tibble: 1 x 3&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   .metric .estimator .estimate&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   &amp;lt;chr&amp;gt;   &amp;lt;chr&amp;gt;          &amp;lt;dbl&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 1 roc_auc binary         0.909&lt;/span&gt;
+rf_testing_pred &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;                   &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# test set predictions&lt;/span&gt;
+  &lt;span style=&#34;color:#00f&#34;&gt;accuracy&lt;/span&gt;(truth &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; class, .pred_class)
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # A tibble: 1 x 3&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   .metric  .estimator .estimate&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   &amp;lt;chr&amp;gt;    &amp;lt;chr&amp;gt;          &amp;lt;dbl&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 1 accuracy binary         0.837&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;what-happened-here&#34;&gt;What happened here?&lt;/h3&gt;
+&lt;p&gt;There are several reasons why training set statistics like the ones shown in this section can be unrealistically optimistic:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Models like random forests, neural networks, and other black-box methods can essentially memorize the training set. Re-predicting that same set should always result in nearly perfect results.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The training set does not have the capacity to be a good arbiter of performance. It is not an independent piece of information; predicting the training set can only reflect what the model already knows.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;To understand that second point better, think about an analogy from teaching. Suppose you give a class a test, then give them the answers, then provide the same test. The student scores on the &lt;em&gt;second&lt;/em&gt; test do not accurately reflect what they know about the subject; these scores would probably be higher than their results on the first test.&lt;/p&gt;
+&lt;h2 id=&#34;resampling&#34;&gt;Resampling to the rescue&lt;/h2&gt;
+&lt;p&gt;Resampling methods, such as cross-validation and the bootstrap, are empirical simulation systems. They create a series of data sets similar to the training/testing split discussed previously; a subset of the data are used for creating the model and a different subset is used to measure performance. Resampling is always used with the &lt;em&gt;training set&lt;/em&gt;. This schematic from 
+&lt;a href=&#34;https://bookdown.org/max/FES/resampling.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Kuhn and Johnson (2019)&lt;/a&gt; illustrates data usage for resampling methods:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;img/resampling.svg&#34; width=&#34;85%&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;In the first level of this diagram, you see what happens when you use &lt;code&gt;rsample::initial_split()&lt;/code&gt;, which splits the original data into training and test sets. Then, the training set is chosen for resampling, and the test set is held out.&lt;/p&gt;
+&lt;p&gt;Let&amp;rsquo;s use 10-fold cross-validation (CV) in this example. This method randomly allocates the 1515 cells in the training set to 10 groups of roughly equal size, called &amp;ldquo;folds&amp;rdquo;. For the first iteration of resampling, the first fold of about 151 cells are held out for the purpose of measuring performance. This is similar to a test set but, to avoid confusion, we call these data the &lt;em&gt;assessment set&lt;/em&gt; in the tidymodels framework.&lt;/p&gt;
+&lt;p&gt;The other 90% of the data (about 1363 cells) are used to fit the model. Again, this sounds similar to a training set, so in tidymodels we call this data the &lt;em&gt;analysis set&lt;/em&gt;. This model, trained on the analysis set, is applied to the assessment set to generate predictions, and performance statistics are computed based on those predictions.&lt;/p&gt;
+&lt;p&gt;In this example, 10-fold CV moves iteratively through the folds and leaves a different 10% out each time for model assessment. At the end of this process, there are 10 sets of performance statistics that were created on 10 data sets that were not used in the modeling process. For the cell example, this means 10 accuracies and 10 areas under the ROC curve. While 10 models were created, these are not used further; we do not keep the models themselves trained on these folds because their only purpose is calculating performance metrics.&lt;/p&gt;
+&lt;p&gt;The final resampling estimates for the model are the &lt;strong&gt;averages&lt;/strong&gt; of the performance statistics replicates. For example, suppose for our data the results were:&lt;/p&gt;
+&lt;table class=&#34;table&#34; style=&#34;width: auto !important; margin-left: auto; margin-right: auto;&#34;&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style=&#34;text-align:left;&#34;&gt; resample &lt;/th&gt;
+   &lt;th style=&#34;text-align:right;&#34;&gt; accuracy &lt;/th&gt;
+   &lt;th style=&#34;text-align:right;&#34;&gt; roc_auc &lt;/th&gt;
+   &lt;th style=&#34;text-align:right;&#34;&gt; assessment size &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; Fold01 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 0.7828947 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 0.8419206 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 152 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; Fold02 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 0.8092105 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 0.8939982 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 152 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; Fold03 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 0.8486842 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 0.9174923 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 152 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; Fold04 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 0.8355263 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 0.8941946 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 152 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; Fold05 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 0.8684211 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 0.9063232 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 152 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; Fold06 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 0.8410596 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 0.9136661 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 151 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; Fold07 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 0.8807947 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 0.9368932 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 151 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; Fold08 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 0.7814570 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 0.8890798 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 151 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; Fold09 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 0.8145695 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 0.9075369 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 151 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; Fold10 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 0.8675497 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 0.9310806 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 151 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;From these resampling statistics, the final estimate of performance for this random forest model would be 0.903 for the area under the ROC curve and 0.833 for accuracy.&lt;/p&gt;
+&lt;p&gt;These resampling statistics are an effective method for measuring model performance &lt;em&gt;without&lt;/em&gt; predicting the training set directly as a whole.&lt;/p&gt;
+&lt;h2 id=&#34;fit-resamples&#34;&gt;Fit a model with resampling&lt;/h2&gt;
+&lt;p&gt;To generate these results, the first step is to create a resampling object using rsample. There are 
+&lt;a href=&#34;https://tidymodels.github.io/rsample/reference/index.html#section-resampling-methods&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;several resampling methods&lt;/a&gt; implemented in rsample; cross-validation folds can be created using &lt;code&gt;vfold_cv()&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#00f&#34;&gt;set.seed&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;345&lt;/span&gt;)
+folds &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;vfold_cv&lt;/span&gt;(cell_train, v &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;10&lt;/span&gt;)
+folds
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; #  10-fold cross-validation &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # A tibble: 10 x 2&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;    splits             id    &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;    &amp;lt;named list&amp;gt;       &amp;lt;chr&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  1 &amp;lt;split [1.4K/152]&amp;gt; Fold01&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  2 &amp;lt;split [1.4K/152]&amp;gt; Fold02&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  3 &amp;lt;split [1.4K/152]&amp;gt; Fold03&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  4 &amp;lt;split [1.4K/152]&amp;gt; Fold04&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  5 &amp;lt;split [1.4K/152]&amp;gt; Fold05&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  6 &amp;lt;split [1.4K/151]&amp;gt; Fold06&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  7 &amp;lt;split [1.4K/151]&amp;gt; Fold07&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  8 &amp;lt;split [1.4K/151]&amp;gt; Fold08&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  9 &amp;lt;split [1.4K/151]&amp;gt; Fold09&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 10 &amp;lt;split [1.4K/151]&amp;gt; Fold10&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The list column for &lt;code&gt;splits&lt;/code&gt; contains the information on which rows belong in the analysis and assessment sets. There are functions that can be used to extract the individual resampled data called &lt;code&gt;analysis()&lt;/code&gt; and &lt;code&gt;assessment()&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;However, the tune package contains high-level functions that can do the required computations to resample a model for the purpose of measuring performance. You have several options for building an object for resampling:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Resample a model specification preprocessed with a formula or 
+&lt;a href=&#34;https://nutriverse.io/start/recipes/&#34;&gt;recipe&lt;/a&gt;, or&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Resample a 
+&lt;a href=&#34;https://tidymodels.github.io/workflows/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;workflow()&lt;/code&gt;&lt;/a&gt; that bundles together a model specification and formula/recipe.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;For this example, let&amp;rsquo;s use a &lt;code&gt;workflow()&lt;/code&gt; that bundles together the random forest model and a formula, since we are not using a recipe. Whichever of these options you use, the syntax to &lt;code&gt;fit_resamples()&lt;/code&gt; is very similar to &lt;code&gt;fit()&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;rf_wf &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;workflow&lt;/span&gt;() &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#00f&#34;&gt;add_model&lt;/span&gt;(rf_mod) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#00f&#34;&gt;add_formula&lt;/span&gt;(class &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt; .)
+
+&lt;span style=&#34;color:#00f&#34;&gt;set.seed&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;456&lt;/span&gt;)
+rf_fit_rs &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; 
+  rf_wf &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;fit_resamples&lt;/span&gt;(folds)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;rf_fit_rs
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; #  10-fold cross-validation &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # A tibble: 10 x 4&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;    splits             id     .metrics         .notes          &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  * &amp;lt;list&amp;gt;             &amp;lt;chr&amp;gt;  &amp;lt;list&amp;gt;           &amp;lt;list&amp;gt;          &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  1 &amp;lt;split [1.4K/152]&amp;gt; Fold01 &amp;lt;tibble [2 × 3]&amp;gt; &amp;lt;tibble [0 × 1]&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  2 &amp;lt;split [1.4K/152]&amp;gt; Fold02 &amp;lt;tibble [2 × 3]&amp;gt; &amp;lt;tibble [0 × 1]&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  3 &amp;lt;split [1.4K/152]&amp;gt; Fold03 &amp;lt;tibble [2 × 3]&amp;gt; &amp;lt;tibble [0 × 1]&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  4 &amp;lt;split [1.4K/152]&amp;gt; Fold04 &amp;lt;tibble [2 × 3]&amp;gt; &amp;lt;tibble [0 × 1]&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  5 &amp;lt;split [1.4K/152]&amp;gt; Fold05 &amp;lt;tibble [2 × 3]&amp;gt; &amp;lt;tibble [0 × 1]&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  6 &amp;lt;split [1.4K/151]&amp;gt; Fold06 &amp;lt;tibble [2 × 3]&amp;gt; &amp;lt;tibble [0 × 1]&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  7 &amp;lt;split [1.4K/151]&amp;gt; Fold07 &amp;lt;tibble [2 × 3]&amp;gt; &amp;lt;tibble [0 × 1]&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  8 &amp;lt;split [1.4K/151]&amp;gt; Fold08 &amp;lt;tibble [2 × 3]&amp;gt; &amp;lt;tibble [0 × 1]&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  9 &amp;lt;split [1.4K/151]&amp;gt; Fold09 &amp;lt;tibble [2 × 3]&amp;gt; &amp;lt;tibble [0 × 1]&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 10 &amp;lt;split [1.4K/151]&amp;gt; Fold10 &amp;lt;tibble [2 × 3]&amp;gt; &amp;lt;tibble [0 × 1]&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The results are similar to the &lt;code&gt;folds&lt;/code&gt; results with some extra columns. The column &lt;code&gt;.metrics&lt;/code&gt; contains the performance statistics created from the 10 assessment sets. These can be manually unnested but the tune package contains a number of simple functions that can extract these data:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#00f&#34;&gt;collect_metrics&lt;/span&gt;(rf_fit_rs)
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # A tibble: 2 x 5&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   .metric  .estimator  mean     n std_err&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   &amp;lt;chr&amp;gt;    &amp;lt;chr&amp;gt;      &amp;lt;dbl&amp;gt; &amp;lt;int&amp;gt;   &amp;lt;dbl&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 1 accuracy binary     0.833    10 0.0111 &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 2 roc_auc  binary     0.903    10 0.00842&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Think about these values we now have for accuracy and AUC. These performance metrics are now more realistic (i.e. lower) than our ill-advised first attempt at computing performance metrics in the section above. If we wanted to try different model types for this data set, we could more confidently compare performance metrics computed using resampling to choose between models. Also, remember that at the end of our project, we return to our test set to estimate final model performance. We have looked at this once already before we started using resampling, but let&amp;rsquo;s remind ourselves of the results:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;rf_testing_pred &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;                   &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# test set predictions&lt;/span&gt;
+  &lt;span style=&#34;color:#00f&#34;&gt;roc_auc&lt;/span&gt;(truth &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; class, .pred_PS)
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # A tibble: 1 x 3&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   .metric .estimator .estimate&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   &amp;lt;chr&amp;gt;   &amp;lt;chr&amp;gt;          &amp;lt;dbl&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 1 roc_auc binary         0.909&lt;/span&gt;
+rf_testing_pred &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;                   &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# test set predictions&lt;/span&gt;
+  &lt;span style=&#34;color:#00f&#34;&gt;accuracy&lt;/span&gt;(truth &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; class, .pred_class)
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # A tibble: 1 x 3&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   .metric  .estimator .estimate&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   &amp;lt;chr&amp;gt;    &amp;lt;chr&amp;gt;          &amp;lt;dbl&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 1 accuracy binary         0.837&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The performance metrics from the test set are much closer to the performance metrics computed using resampling than our first (&amp;ldquo;bad idea&amp;rdquo;) attempt. Resampling allows us to simulate how well our model will perform on new data, and the test set acts as the final, unbiased check for our model&amp;rsquo;s performance.&lt;/p&gt;
+&lt;h2 id=&#34;session-information&#34;&gt;Session information&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;#&amp;gt; ─ Session info ───────────────────────────────────────────────────────────────
+#&amp;gt;  setting  value                       
+#&amp;gt;  version  R version 3.6.2 (2019-12-12)
+#&amp;gt;  os       macOS Mojave 10.14.6        
+#&amp;gt;  system   x86_64, darwin15.6.0        
+#&amp;gt;  ui       X11                         
+#&amp;gt;  language (EN)                        
+#&amp;gt;  collate  en_US.UTF-8                 
+#&amp;gt;  ctype    en_US.UTF-8                 
+#&amp;gt;  tz       America/Denver              
+#&amp;gt;  date     2020-04-21                  
+#&amp;gt; 
+#&amp;gt; ─ Packages ───────────────────────────────────────────────────────────────────
+#&amp;gt;  package    * version date       lib source        
+#&amp;gt;  broom      * 0.5.5   2020-02-29 [1] CRAN (R 3.6.0)
+#&amp;gt;  dials      * 0.0.6   2020-04-03 [1] CRAN (R 3.6.2)
+#&amp;gt;  dplyr      * 0.8.5   2020-03-07 [1] CRAN (R 3.6.0)
+#&amp;gt;  ggplot2    * 3.3.0   2020-03-05 [1] CRAN (R 3.6.0)
+#&amp;gt;  infer      * 0.5.1   2019-11-19 [1] CRAN (R 3.6.0)
+#&amp;gt;  modeldata  * 0.0.1   2019-12-06 [1] CRAN (R 3.6.0)
+#&amp;gt;  parsnip    * 0.1.0   2020-04-09 [1] CRAN (R 3.6.2)
+#&amp;gt;  purrr      * 0.3.4   2020-04-17 [1] CRAN (R 3.6.2)
+#&amp;gt;  ranger     * 0.12.1  2020-01-10 [1] CRAN (R 3.6.0)
+#&amp;gt;  recipes    * 0.1.10  2020-03-18 [1] CRAN (R 3.6.0)
+#&amp;gt;  rlang        0.4.5   2020-03-01 [1] CRAN (R 3.6.0)
+#&amp;gt;  rsample    * 0.0.6   2020-03-31 [1] CRAN (R 3.6.2)
+#&amp;gt;  tibble     * 2.1.3   2019-06-06 [1] CRAN (R 3.6.2)
+#&amp;gt;  tidymodels * 0.1.0   2020-02-16 [1] CRAN (R 3.6.0)
+#&amp;gt;  tune       * 0.1.0   2020-04-02 [1] CRAN (R 3.6.2)
+#&amp;gt;  workflows  * 0.1.1   2020-03-17 [1] CRAN (R 3.6.0)
+#&amp;gt;  yardstick  * 0.0.6   2020-03-17 [1] CRAN (R 3.6.0)
+#&amp;gt; 
+#&amp;gt; [1] /Library/Frameworks/R.framework/Versions/3.6/Resources/library
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+    <item>
+      <title>Iterative Bayesian optimization of a classification model</title>
+      <link>https://nutriverse.io/learn/work/bayes-opt/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://nutriverse.io/learn/work/bayes-opt/</guid>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;To use the code in this article, you will need to install the following packages: kernlab, modeldata, tidymodels, and tidyr.&lt;/p&gt;
+&lt;p&gt;Many of the examples for model tuning focus on 
+&lt;a href=&#34;https://nutriverse.io/learn/work/tune-svm/&#34;&gt;grid search&lt;/a&gt;. For that method, all the candidate tuning parameter combinations are defined prior to evaluation. Alternatively, &lt;em&gt;iterative search&lt;/em&gt; can be used to analyze the existing tuning parameter results and then &lt;em&gt;predict&lt;/em&gt; which tuning parameters to try next.&lt;/p&gt;
+&lt;p&gt;There are a variety of methods for iterative search and the focus in this article is on &lt;em&gt;Bayesian optimization&lt;/em&gt;. For more information on this method, these resources might be helpful:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://scholar.google.com/scholar?hl=en&amp;amp;as_sdt=0%2C7&amp;amp;q=Practical&amp;#43;Bayesian&amp;#43;Optimization&amp;#43;of&amp;#43;Machine&amp;#43;Learning&amp;#43;Algorithms&amp;amp;btnG=&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;em&gt;Practical bayesian optimization of machine learning algorithms&lt;/em&gt;&lt;/a&gt; (2012). J Snoek, H Larochelle, and RP Adams. Advances in neural information.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://www.cs.toronto.edu/~rgrosse/courses/csc411_f18/tutorials/tut8_adams_slides.pdf&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;em&gt;A Tutorial on Bayesian Optimization for Machine Learning&lt;/em&gt;&lt;/a&gt; (2018). R Adams.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;
+&lt;a href=&#34;http://www.gaussianprocess.org/gpml/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;em&gt;Gaussian Processes for Machine Learning&lt;/em&gt;&lt;/a&gt; (2006). C E Rasmussen and C Williams.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://scholar.google.com/scholar?hl=en&amp;amp;as_sdt=0%2C7&amp;amp;q=%22Bayesian&amp;#43;Optimization%22&amp;amp;btnG=&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Other articles!&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;cell-segmenting-revisited&#34;&gt;Cell segmenting revisited&lt;/h2&gt;
+&lt;p&gt;To demonstrate this approach to tuning models, let&amp;rsquo;s return to the cell segmentation data from the 
+&lt;a href=&#34;https://nutriverse.io/start/resampling/&#34;&gt;Getting Started&lt;/a&gt; article on resampling:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#00f&#34;&gt;library&lt;/span&gt;(tidymodels)
+&lt;span style=&#34;color:#00f&#34;&gt;library&lt;/span&gt;(modeldata)
+
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# Load data&lt;/span&gt;
+&lt;span style=&#34;color:#00f&#34;&gt;data&lt;/span&gt;(cells)
+
+&lt;span style=&#34;color:#00f&#34;&gt;set.seed&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;2369&lt;/span&gt;)
+tr_te_split &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;initial_split&lt;/span&gt;(cells &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;select&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt;case), prop &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;3&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;4&lt;/span&gt;)
+cell_train &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;training&lt;/span&gt;(tr_te_split)
+cell_test  &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;testing&lt;/span&gt;(tr_te_split)
+
+&lt;span style=&#34;color:#00f&#34;&gt;set.seed&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;1697&lt;/span&gt;)
+folds &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;vfold_cv&lt;/span&gt;(cell_train, v &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;10&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;the-tuning-scheme&#34;&gt;The tuning scheme&lt;/h2&gt;
+&lt;p&gt;Since the predictors are highly correlated, we can used a recipe to convert the original predictors to principal component scores. There is also slight class imbalance in these data; about 64% of the data are poorly segmented. To mitigate this, the data will be down-sampled at the end of the pre-processing so that the number of poorly and well segmented cells occur with equal frequency. We can use a recipe for all this pre-processing, but the number of principal components will need to be &lt;em&gt;tuned&lt;/em&gt; so that we have enough (but not too many) representations of the data.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;cell_pre_proc &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt;
+  &lt;span style=&#34;color:#00f&#34;&gt;recipe&lt;/span&gt;(class &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt; ., data &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; cell_train) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#00f&#34;&gt;step_YeoJohnson&lt;/span&gt;(&lt;span style=&#34;color:#00f&#34;&gt;all_predictors&lt;/span&gt;()) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#00f&#34;&gt;step_normalize&lt;/span&gt;(&lt;span style=&#34;color:#00f&#34;&gt;all_predictors&lt;/span&gt;()) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#00f&#34;&gt;step_pca&lt;/span&gt;(&lt;span style=&#34;color:#00f&#34;&gt;all_predictors&lt;/span&gt;(), num_comp &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;tune&lt;/span&gt;()) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#00f&#34;&gt;step_downsample&lt;/span&gt;(class)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;In this analysis, we will use a support vector machine to model the data. Let&amp;rsquo;s use a radial basis function (RBF) kernel and tune its main parameter ($\sigma$). Additionally, the main SVM parameter, the cost value, also needs optimization.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;svm_mod &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt;
+  &lt;span style=&#34;color:#00f&#34;&gt;svm_rbf&lt;/span&gt;(mode &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;classification&amp;#34;&lt;/span&gt;, cost &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;tune&lt;/span&gt;(), rbf_sigma &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;tune&lt;/span&gt;()) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#00f&#34;&gt;set_engine&lt;/span&gt;(&lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;kernlab&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;These two objects (the recipe and model) will be combined into a single object via the &lt;code&gt;workflow()&lt;/code&gt; function from the 
+&lt;a href=&#34;https://tidymodels.github.io/workflows/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;workflows&lt;/a&gt; package; this object will be used in the optimization process.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;svm_wflow &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt;
+  &lt;span style=&#34;color:#00f&#34;&gt;workflow&lt;/span&gt;() &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#00f&#34;&gt;add_model&lt;/span&gt;(svm_mod) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#00f&#34;&gt;add_recipe&lt;/span&gt;(cell_pre_proc)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;From this object, we can derive information about what parameters are slated to be tuned. A parameter set is derived by:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;svm_set &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;parameters&lt;/span&gt;(svm_wflow)
+svm_set
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; Collection of 3 parameters for tuning&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;         id parameter type object class&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;       cost           cost    nparam[+]&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  rbf_sigma      rbf_sigma    nparam[+]&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   num_comp       num_comp    nparam[+]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The default range for the number of PCA components is rather small for this data set. A member of the parameter set can be modified using the &lt;code&gt;update()&lt;/code&gt; function. Let&amp;rsquo;s constrain the search to one to twenty components by updating the &lt;code&gt;num_comp&lt;/code&gt; parameter. Additionally, the lower bound of this parameter is set to zero which specifies that the original predictor set should also be evaluated (i.e., with no PCA step at all):&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;svm_set &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; 
+  svm_set &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;update&lt;/span&gt;(num_comp &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;num_comp&lt;/span&gt;(&lt;span style=&#34;color:#00f&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;0L&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;20L&lt;/span&gt;)))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;sequential-tuning&#34;&gt;Sequential tuning&lt;/h2&gt;
+&lt;p&gt;Bayesian optimization is a sequential method that uses a model to predict new candidate parameters for assessment. When scoring potential parameter value, the mean and variance of performance are predicted. The strategy used to define how these two statistical quantities are used is defined by an &lt;em&gt;acquisition function&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;For example, one approach for scoring new candidates is to use a confidence bound. Suppose accuracy is being optimized. For a metric that we want to maximize, a lower confidence bound can be used. The multiplier on the standard error (denoted as &lt;code&gt;\(\kappa\)&lt;/code&gt;) is a value that can be used to make trade-offs between &lt;strong&gt;exploration&lt;/strong&gt; and &lt;strong&gt;exploitation&lt;/strong&gt;.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Exploration&lt;/strong&gt; means that the search will consider candidates in untested space.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Exploitation&lt;/strong&gt; focuses in areas where the previous best results occurred.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The variance predicted by the Bayesian model is mostly spatial variation; the value will be large for candidate values that are not close to values that have already been evaluated. If the standard error multiplier is high, the search process will be more likely to avoid areas without candidate values in the vicinity.&lt;/p&gt;
+&lt;p&gt;We&amp;rsquo;ll use another acquisition function, &lt;em&gt;expected improvement&lt;/em&gt;, that determines which candidates are likely to be helpful relative to the current best results. This is the default acquisition function. More information on these functions can be found in the 
+&lt;a href=&#34;https://tidymodels.github.io/tune/articles/acquisition_functions.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;package vignette for acquisition functions&lt;/a&gt;.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#00f&#34;&gt;set.seed&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;12&lt;/span&gt;)
+search_res &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt;
+  svm_wflow &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;tune_bayes&lt;/span&gt;(
+    resamples &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; folds,
+    &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# To use non-default parameter ranges&lt;/span&gt;
+    param_info &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; svm_set,
+    &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# Generate five at semi-random to start&lt;/span&gt;
+    initial &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;5&lt;/span&gt;,
+    iter &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;50&lt;/span&gt;,
+    &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# How to measure performance?&lt;/span&gt;
+    metrics &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;metric_set&lt;/span&gt;(roc_auc),
+    control &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;control_bayes&lt;/span&gt;(no_improve &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;30&lt;/span&gt;, verbose &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#008000;font-weight:bold&#34;&gt;TRUE&lt;/span&gt;)
+  )
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &amp;gt;  Generating a set of 5 initial parameter results&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Initialization complete&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; Optimizing roc_auc using the expected improvement&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ── Iteration 1 ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Current best:		roc_auc=0.8655 (@iter 0)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Generating 5000 candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Predicted candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i cost=0.58, rbf_sigma=1.54e-09, num_comp=12&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ⓧ Newest results:	roc_auc=0.8624 (+/-0.00897)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ── Iteration 2 ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Current best:		roc_auc=0.8655 (@iter 0)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Generating 5000 candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Predicted candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i cost=0.0251, rbf_sigma=6.36e-06, num_comp=16&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ⓧ Newest results:	roc_auc=0.8606 (+/-0.00908)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ── Iteration 3 ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Current best:		roc_auc=0.8655 (@iter 0)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Generating 5000 candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Predicted candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i cost=23, rbf_sigma=1.02e-10, num_comp=7&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ⓧ Newest results:	roc_auc=0.8634 (+/-0.00923)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ── Iteration 4 ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Current best:		roc_auc=0.8655 (@iter 0)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Generating 5000 candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Predicted candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i cost=0.0894, rbf_sigma=1.09e-10, num_comp=0&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ⓧ Newest results:	roc_auc=0.8494 (+/-0.0116)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ── Iteration 5 ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Current best:		roc_auc=0.8655 (@iter 0)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Generating 5000 candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Predicted candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i cost=0.402, rbf_sigma=0.413, num_comp=20&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ⓧ Newest results:	roc_auc=0.8236 (+/-0.00885)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ── Iteration 6 ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Current best:		roc_auc=0.8655 (@iter 0)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Generating 5000 candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Predicted candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i cost=24, rbf_sigma=0.942, num_comp=8&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ⓧ Newest results:	roc_auc=0.8054 (+/-0.0114)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ── Iteration 7 ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Current best:		roc_auc=0.8655 (@iter 0)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Generating 5000 candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Predicted candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i cost=30.3, rbf_sigma=2.25e-06, num_comp=13&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ⓧ Newest results:	roc_auc=0.8622 (+/-0.009)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ── Iteration 8 ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Current best:		roc_auc=0.8655 (@iter 0)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Generating 5000 candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Predicted candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i cost=25, rbf_sigma=1.07e-10, num_comp=20&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ⓧ Newest results:	roc_auc=0.8655 (+/-0.00848)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ── Iteration 9 ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Current best:		roc_auc=0.8655 (@iter 0)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Generating 5000 candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Predicted candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i cost=2.1, rbf_sigma=5.29e-06, num_comp=0&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ⓧ Newest results:	roc_auc=0.8494 (+/-0.0116)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ── Iteration 10 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Current best:		roc_auc=0.8655 (@iter 0)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Generating 5000 candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Predicted candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i cost=9.87, rbf_sigma=0.000395, num_comp=20&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ♥ Newest results:	roc_auc=0.8681 (+/-0.00898)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ── Iteration 11 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Current best:		roc_auc=0.8681 (@iter 10)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Generating 5000 candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Predicted candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i cost=0.073, rbf_sigma=0.000585, num_comp=0&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ⓧ Newest results:	roc_auc=0.8509 (+/-0.0116)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ── Iteration 12 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Current best:		roc_auc=0.8681 (@iter 10)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Generating 5000 candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Predicted candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i cost=0.00101, rbf_sigma=1.29e-07, num_comp=0&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ⓧ Newest results:	roc_auc=0.8494 (+/-0.0116)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ── Iteration 13 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Current best:		roc_auc=0.8681 (@iter 10)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Generating 5000 candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Predicted candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i cost=0.0553, rbf_sigma=0.000291, num_comp=12&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ⓧ Newest results:	roc_auc=0.8625 (+/-0.00898)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ── Iteration 14 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Current best:		roc_auc=0.8681 (@iter 10)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Generating 5000 candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Predicted candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i cost=11.8, rbf_sigma=0.00143, num_comp=20&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ♥ Newest results:	roc_auc=0.8691 (+/-0.00837)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ── Iteration 15 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Current best:		roc_auc=0.8691 (@iter 14)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Generating 5000 candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Predicted candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i cost=0.0915, rbf_sigma=0.03, num_comp=20&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ♥ Newest results:	roc_auc=0.8728 (+/-0.00842)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ── Iteration 16 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Current best:		roc_auc=0.8728 (@iter 15)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Generating 5000 candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Predicted candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i cost=0.0289, rbf_sigma=8.48e-09, num_comp=20&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ⓧ Newest results:	roc_auc=0.8655 (+/-0.00848)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ── Iteration 17 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Current best:		roc_auc=0.8728 (@iter 15)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Generating 5000 candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Predicted candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i cost=0.0021, rbf_sigma=0.0109, num_comp=20&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ⓧ Newest results:	roc_auc=0.8696 (+/-0.00881)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ── Iteration 18 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Current best:		roc_auc=0.8728 (@iter 15)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Generating 5000 candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Predicted candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i cost=0.461, rbf_sigma=0.908, num_comp=0&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ⓧ Newest results:	roc_auc=0.7732 (+/-0.0168)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ── Iteration 19 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Current best:		roc_auc=0.8728 (@iter 15)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Generating 5000 candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Predicted candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i cost=0.00132, rbf_sigma=8.1e-08, num_comp=11&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ⓧ Newest results:	roc_auc=0.8621 (+/-0.00933)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ── Iteration 20 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Current best:		roc_auc=0.8728 (@iter 15)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Generating 5000 candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Predicted candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i cost=20.2, rbf_sigma=1.64e-09, num_comp=0&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ⓧ Newest results:	roc_auc=0.8494 (+/-0.0116)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ── Iteration 21 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Current best:		roc_auc=0.8728 (@iter 15)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Generating 5000 candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Predicted candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i cost=0.00173, rbf_sigma=0.126, num_comp=11&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ⓧ Newest results:	roc_auc=0.8721 (+/-0.00749)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ── Iteration 22 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Current best:		roc_auc=0.8728 (@iter 15)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Generating 5000 candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Predicted candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i cost=0.00853, rbf_sigma=0.989, num_comp=0&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ⓧ Newest results:	roc_auc=0.7369 (+/-0.0313)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ── Iteration 23 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Current best:		roc_auc=0.8728 (@iter 15)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Generating 5000 candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Predicted candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i cost=0.00673, rbf_sigma=1.55e-10, num_comp=17&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ⓧ Newest results:	roc_auc=0.787 (+/-0.0485)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ── Iteration 24 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Current best:		roc_auc=0.8728 (@iter 15)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Generating 5000 candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Predicted candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i cost=0.871, rbf_sigma=1.72e-10, num_comp=19&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ⓧ Newest results:	roc_auc=0.864 (+/-0.00842)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ── Iteration 25 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Current best:		roc_auc=0.8728 (@iter 15)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Generating 5000 candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Predicted candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i cost=3.8, rbf_sigma=6.24e-10, num_comp=19&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ⓧ Newest results:	roc_auc=0.864 (+/-0.00842)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ── Iteration 26 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Current best:		roc_auc=0.8728 (@iter 15)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Generating 5000 candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Predicted candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i cost=5.2, rbf_sigma=0.791, num_comp=1&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ⓧ Newest results:	roc_auc=0.7319 (+/-0.0173)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ── Iteration 27 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Current best:		roc_auc=0.8728 (@iter 15)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Generating 5000 candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Predicted candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i cost=0.213, rbf_sigma=9.11e-10, num_comp=20&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ⓧ Newest results:	roc_auc=0.8655 (+/-0.00848)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ── Iteration 28 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Current best:		roc_auc=0.8728 (@iter 15)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Generating 5000 candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Predicted candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i cost=6.99, rbf_sigma=3.03e-10, num_comp=0&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ⓧ Newest results:	roc_auc=0.8494 (+/-0.0116)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ── Iteration 29 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Current best:		roc_auc=0.8728 (@iter 15)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Generating 5000 candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Predicted candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i cost=0.00102, rbf_sigma=0.344, num_comp=5&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ⓧ Newest results:	roc_auc=0.8631 (+/-0.0079)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ── Iteration 30 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Current best:		roc_auc=0.8728 (@iter 15)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Generating 5000 candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Predicted candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i cost=20.3, rbf_sigma=1.28e-05, num_comp=3&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ⓧ Newest results:	roc_auc=0.8503 (+/-0.0112)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ── Iteration 31 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Current best:		roc_auc=0.8728 (@iter 15)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Generating 5000 candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Predicted candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i cost=0.0012, rbf_sigma=3.75e-05, num_comp=7&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ⓧ Newest results:	roc_auc=0.8634 (+/-0.00923)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ── Iteration 32 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Current best:		roc_auc=0.8728 (@iter 15)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Generating 5000 candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Predicted candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i cost=0.0142, rbf_sigma=2.58e-10, num_comp=1&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ⓧ Newest results:	roc_auc=0.7015 (+/-0.0374)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ── Iteration 33 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Current best:		roc_auc=0.8728 (@iter 15)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Generating 5000 candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Predicted candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i cost=0.00411, rbf_sigma=0.557, num_comp=1&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ⓧ Newest results:	roc_auc=0.747 (+/-0.0173)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ── Iteration 34 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Current best:		roc_auc=0.8728 (@iter 15)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Generating 5000 candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Predicted candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i cost=0.161, rbf_sigma=0.167, num_comp=1&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ⓧ Newest results:	roc_auc=0.7541 (+/-0.0177)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ── Iteration 35 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Current best:		roc_auc=0.8728 (@iter 15)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Generating 5000 candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Predicted candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i cost=2.48, rbf_sigma=0.783, num_comp=19&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ⓧ Newest results:	roc_auc=0.7748 (+/-0.014)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ── Iteration 36 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Current best:		roc_auc=0.8728 (@iter 15)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Generating 5000 candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Predicted candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i cost=0.0138, rbf_sigma=0.624, num_comp=19&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ⓧ Newest results:	roc_auc=0.7938 (+/-0.0117)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ── Iteration 37 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Current best:		roc_auc=0.8728 (@iter 15)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Generating 5000 candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Predicted candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i cost=0.00341, rbf_sigma=1.11e-10, num_comp=2&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ⓧ Newest results:	roc_auc=0.7311 (+/-0.0404)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ── Iteration 38 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Current best:		roc_auc=0.8728 (@iter 15)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Generating 5000 candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Predicted candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i cost=0.00113, rbf_sigma=1.48e-10, num_comp=14&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ⓧ Newest results:	roc_auc=0.7888 (+/-0.0489)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ── Iteration 39 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Current best:		roc_auc=0.8728 (@iter 15)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Generating 5000 candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Predicted candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i cost=17.1, rbf_sigma=1.71e-10, num_comp=9&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ⓧ Newest results:	roc_auc=0.8638 (+/-0.00874)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ── Iteration 40 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Current best:		roc_auc=0.8728 (@iter 15)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Generating 5000 candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Predicted candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i cost=13.3, rbf_sigma=0.968, num_comp=17&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ⓧ Newest results:	roc_auc=0.7691 (+/-0.0158)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ── Iteration 41 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Current best:		roc_auc=0.8728 (@iter 15)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Generating 5000 candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Predicted candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i cost=0.0026, rbf_sigma=0.995, num_comp=3&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ⓧ Newest results:	roc_auc=0.8496 (+/-0.0093)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ── Iteration 42 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Current best:		roc_auc=0.8728 (@iter 15)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Generating 5000 candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Predicted candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i cost=23.6, rbf_sigma=0.856, num_comp=13&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ⓧ Newest results:	roc_auc=0.7972 (+/-0.0144)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ── Iteration 43 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Current best:		roc_auc=0.8728 (@iter 15)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Generating 5000 candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Predicted candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i cost=0.00142, rbf_sigma=7.1e-06, num_comp=18&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ⓧ Newest results:	roc_auc=0.8593 (+/-0.00882)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ── Iteration 44 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Current best:		roc_auc=0.8728 (@iter 15)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Generating 5000 candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Predicted candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i cost=31.4, rbf_sigma=1.7e-10, num_comp=15&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ⓧ Newest results:	roc_auc=0.8616 (+/-0.00899)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ── Iteration 45 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Current best:		roc_auc=0.8728 (@iter 15)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Generating 5000 candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Predicted candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i cost=31.4, rbf_sigma=0.0118, num_comp=6&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ♥ Newest results:	roc_auc=0.8779 (+/-0.00726)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ── Iteration 46 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Current best:		roc_auc=0.8779 (@iter 45)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Generating 5000 candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Predicted candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i cost=11, rbf_sigma=0.718, num_comp=10&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ⓧ Newest results:	roc_auc=0.8247 (+/-0.0103)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ── Iteration 47 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Current best:		roc_auc=0.8779 (@iter 45)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Generating 5000 candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Predicted candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i cost=27.1, rbf_sigma=3.61e-06, num_comp=8&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ⓧ Newest results:	roc_auc=0.8645 (+/-0.00874)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ── Iteration 48 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Current best:		roc_auc=0.8779 (@iter 45)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Generating 5000 candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Predicted candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i cost=20.4, rbf_sigma=1.23e-10, num_comp=4&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ⓧ Newest results:	roc_auc=0.8513 (+/-0.0109)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ── Iteration 49 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Current best:		roc_auc=0.8779 (@iter 45)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Generating 5000 candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Predicted candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i cost=0.0011, rbf_sigma=0.677, num_comp=16&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ⓧ Newest results:	roc_auc=0.8075 (+/-0.0119)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ── Iteration 50 ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Current best:		roc_auc=0.8779 (@iter 45)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Gaussian process model&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Generating 5000 candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Predicted candidates&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i cost=0.00133, rbf_sigma=0.592, num_comp=14&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; i Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ✓ Estimating performance&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ⓧ Newest results:	roc_auc=0.8311 (+/-0.014)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The resulting tibble is a stacked set of rows of the rsample object with an additional column for the iteration number:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;search_res
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; #  10-fold cross-validation &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # A tibble: 510 x 5&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;    splits             id     .metrics         .notes           .iter&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  * &amp;lt;list&amp;gt;             &amp;lt;chr&amp;gt;  &amp;lt;list&amp;gt;           &amp;lt;list&amp;gt;           &amp;lt;dbl&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  1 &amp;lt;split [1.4K/152]&amp;gt; Fold01 &amp;lt;tibble [5 × 6]&amp;gt; &amp;lt;tibble [0 × 1]&amp;gt;     0&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  2 &amp;lt;split [1.4K/152]&amp;gt; Fold02 &amp;lt;tibble [5 × 6]&amp;gt; &amp;lt;tibble [0 × 1]&amp;gt;     0&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  3 &amp;lt;split [1.4K/152]&amp;gt; Fold03 &amp;lt;tibble [5 × 6]&amp;gt; &amp;lt;tibble [0 × 1]&amp;gt;     0&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  4 &amp;lt;split [1.4K/152]&amp;gt; Fold04 &amp;lt;tibble [5 × 6]&amp;gt; &amp;lt;tibble [0 × 1]&amp;gt;     0&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  5 &amp;lt;split [1.4K/152]&amp;gt; Fold05 &amp;lt;tibble [5 × 6]&amp;gt; &amp;lt;tibble [0 × 1]&amp;gt;     0&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  6 &amp;lt;split [1.4K/151]&amp;gt; Fold06 &amp;lt;tibble [5 × 6]&amp;gt; &amp;lt;tibble [0 × 1]&amp;gt;     0&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  7 &amp;lt;split [1.4K/151]&amp;gt; Fold07 &amp;lt;tibble [5 × 6]&amp;gt; &amp;lt;tibble [0 × 1]&amp;gt;     0&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  8 &amp;lt;split [1.4K/151]&amp;gt; Fold08 &amp;lt;tibble [5 × 6]&amp;gt; &amp;lt;tibble [0 × 1]&amp;gt;     0&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  9 &amp;lt;split [1.4K/151]&amp;gt; Fold09 &amp;lt;tibble [5 × 6]&amp;gt; &amp;lt;tibble [0 × 1]&amp;gt;     0&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 10 &amp;lt;split [1.4K/151]&amp;gt; Fold10 &amp;lt;tibble [5 × 6]&amp;gt; &amp;lt;tibble [0 × 1]&amp;gt;     0&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # … with 500 more rows&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;As with grid search, we can summarize the results over resamples:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;estimates &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;collect_metrics&lt;/span&gt;(search_res) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;arrange&lt;/span&gt;(.iter)
+
+estimates
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # A tibble: 55 x 9&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;        cost rbf_sigma num_comp .iter .metric .estimator  mean     n std_err&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;       &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;    &amp;lt;int&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt;   &amp;lt;chr&amp;gt;      &amp;lt;dbl&amp;gt; &amp;lt;int&amp;gt;   &amp;lt;dbl&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  1  0.00207  1.56e- 5       10     0 roc_auc binary     0.864    10 0.00888&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  2  0.0304   6.41e- 9        5     0 roc_auc binary     0.859    10 0.00922&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  3  0.348    4.43e- 2        1     0 roc_auc binary     0.757    10 0.0177 &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  4  1.45     2.04e- 3       15     0 roc_auc binary     0.865    10 0.00962&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  5 15.5      1.28e- 7       20     0 roc_auc binary     0.865    10 0.00848&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  6  0.580    1.54e- 9       12     1 roc_auc binary     0.862    10 0.00897&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  7  0.0251   6.36e- 6       16     2 roc_auc binary     0.861    10 0.00908&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  8 23.0      1.02e-10        7     3 roc_auc binary     0.863    10 0.00923&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  9  0.0894   1.09e-10        0     4 roc_auc binary     0.849    10 0.0116 &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 10  0.402    4.13e- 1       20     5 roc_auc binary     0.824    10 0.00885&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # … with 45 more rows&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The best performance of the initial set of candidate values was &lt;code&gt;AUC = 0.865 &lt;/code&gt;. The best results were achieved at iteration 45 with a corresponding AUC value of 0.878. The five best results are:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#00f&#34;&gt;show_best&lt;/span&gt;(search_res, metric &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;roc_auc&amp;#34;&lt;/span&gt;)
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # A tibble: 5 x 9&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;       cost rbf_sigma num_comp .iter .metric .estimator  mean     n std_err&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;      &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;    &amp;lt;int&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt;   &amp;lt;chr&amp;gt;      &amp;lt;dbl&amp;gt; &amp;lt;int&amp;gt;   &amp;lt;dbl&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 1 31.4       0.0118         6    45 roc_auc binary     0.878    10 0.00726&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 2  0.0915    0.0300        20    15 roc_auc binary     0.873    10 0.00842&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 3  0.00173   0.126         11    21 roc_auc binary     0.872    10 0.00749&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 4  0.00210   0.0109        20    17 roc_auc binary     0.870    10 0.00881&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 5 11.8       0.00143       20    14 roc_auc binary     0.869    10 0.00837&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;A plot of the search iterations can be created via:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#00f&#34;&gt;autoplot&lt;/span&gt;(search_res, type &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;performance&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;figs/bo-plot-1.svg&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;There are many parameter combinations have roughly equivalent results.&lt;/p&gt;
+&lt;p&gt;How did the parameters change over iterations? Since two of the parameters are usually treated on the log scale, we can use &lt;code&gt;mutate()&lt;/code&gt; to transform them, and then construct a plot using ggplot2:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#00f&#34;&gt;library&lt;/span&gt;(tidyr)
+
+&lt;span style=&#34;color:#00f&#34;&gt;collect_metrics&lt;/span&gt;(search_res) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#00f&#34;&gt;select&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;-.&lt;/span&gt;metric,&lt;span style=&#34;color:#666&#34;&gt;-.&lt;/span&gt;estimator,&lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt;mean,&lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt;n,&lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt;std_err) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#00f&#34;&gt;mutate&lt;/span&gt;(cost &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;log10&lt;/span&gt;(cost), 
+         rbf_sigma &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;log10&lt;/span&gt;(rbf_sigma)) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#00f&#34;&gt;pivot_longer&lt;/span&gt;(cols &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;-.i&lt;/span&gt;ter),
+               names_to &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;parameter&amp;#34;&lt;/span&gt;,
+               values_to &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;value&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#00f&#34;&gt;ggplot&lt;/span&gt;(&lt;span style=&#34;color:#00f&#34;&gt;aes&lt;/span&gt;(x &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; .iter, y &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; value)) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#00f&#34;&gt;geom_point&lt;/span&gt;() &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#00f&#34;&gt;facet_wrap&lt;/span&gt;( &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt; parameter, scales &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;free_y&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;figs/bo-param-plot-1.svg&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;h2 id=&#34;session-information&#34;&gt;Session information&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;#&amp;gt; ─ Session info ───────────────────────────────────────────────────────────────
+#&amp;gt;  setting  value                       
+#&amp;gt;  version  R version 3.6.2 (2019-12-12)
+#&amp;gt;  os       macOS Mojave 10.14.6        
+#&amp;gt;  system   x86_64, darwin15.6.0        
+#&amp;gt;  ui       X11                         
+#&amp;gt;  language (EN)                        
+#&amp;gt;  collate  en_US.UTF-8                 
+#&amp;gt;  ctype    en_US.UTF-8                 
+#&amp;gt;  tz       America/Denver              
+#&amp;gt;  date     2020-04-17                  
+#&amp;gt; 
+#&amp;gt; ─ Packages ───────────────────────────────────────────────────────────────────
+#&amp;gt;  package    * version date       lib source        
+#&amp;gt;  broom      * 0.5.5   2020-02-29 [1] CRAN (R 3.6.0)
+#&amp;gt;  dials      * 0.0.6   2020-04-03 [1] CRAN (R 3.6.2)
+#&amp;gt;  dplyr      * 0.8.5   2020-03-07 [1] CRAN (R 3.6.0)
+#&amp;gt;  ggplot2    * 3.3.0   2020-03-05 [1] CRAN (R 3.6.0)
+#&amp;gt;  infer      * 0.5.1   2019-11-19 [1] CRAN (R 3.6.0)
+#&amp;gt;  kernlab    * 0.9-29  2019-11-12 [1] CRAN (R 3.6.0)
+#&amp;gt;  modeldata  * 0.0.1   2019-12-06 [1] CRAN (R 3.6.0)
+#&amp;gt;  parsnip    * 0.1.0   2020-04-09 [1] CRAN (R 3.6.2)
+#&amp;gt;  purrr      * 0.3.3   2019-10-18 [1] CRAN (R 3.6.0)
+#&amp;gt;  recipes    * 0.1.10  2020-03-18 [1] CRAN (R 3.6.0)
+#&amp;gt;  rlang      * 0.4.5   2020-03-01 [1] CRAN (R 3.6.0)
+#&amp;gt;  rsample    * 0.0.6   2020-03-31 [1] CRAN (R 3.6.2)
+#&amp;gt;  tibble     * 2.1.3   2019-06-06 [1] CRAN (R 3.6.2)
+#&amp;gt;  tidymodels * 0.1.0   2020-02-16 [1] CRAN (R 3.6.0)
+#&amp;gt;  tidyr      * 1.0.2   2020-01-24 [1] CRAN (R 3.6.0)
+#&amp;gt;  tune       * 0.1.0   2020-04-02 [1] CRAN (R 3.6.2)
+#&amp;gt;  workflows  * 0.1.1   2020-03-17 [1] CRAN (R 3.6.0)
+#&amp;gt;  yardstick  * 0.0.6   2020-03-17 [1] CRAN (R 3.6.0)
+#&amp;gt; 
+#&amp;gt; [1] /Library/Frameworks/R.framework/Versions/3.6/Resources/library
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

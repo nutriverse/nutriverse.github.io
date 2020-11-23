@@ -1,0 +1,616 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>resampling | Nutriverse</title>
+    <link>https://nutriverse.io/categories/resampling/</link>
+      <atom:link href="https://nutriverse.io/categories/resampling/index.xml" rel="self" type="application/rss+xml" />
+    <description>resampling</description>
+    <generator>Hugo -- gohugo.io</generator><language>en-gb</language>
+    <item>
+      <title>Bootstrap resampling and tidy regression models</title>
+      <link>https://nutriverse.io/learn/statistics/bootstrap/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://nutriverse.io/learn/statistics/bootstrap/</guid>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;To use the code in this article, you will need to install the following packages: tidymodels and tidyr.&lt;/p&gt;
+&lt;p&gt;Combining fitted models in a tidy way is useful for performing bootstrapping or permutation tests. These approaches have been explored before, for instance by 
+&lt;a href=&#34;https://rstudio-pubs-static.s3.amazonaws.com/19698_a4c472606e3c43e4b94720506e49bb7b.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Andrew MacDonald here&lt;/a&gt;, and 
+&lt;a href=&#34;https://github.com/hadley/dplyr/issues/269&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Hadley has explored efficient support for bootstrapping&lt;/a&gt; as a potential enhancement to dplyr. The tidymodels package 
+&lt;a href=&#34;https://broom.tidyverse.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;broom&lt;/a&gt; fits naturally with 
+&lt;a href=&#34;https://dplyr.tidyverse.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;dplyr&lt;/a&gt; in performing these analyses.&lt;/p&gt;
+&lt;p&gt;Bootstrapping consists of randomly sampling a data set with replacement, then performing the analysis individually on each bootstrapped replicate. The variation in the resulting estimate is then a reasonable approximation of the variance in our estimate.&lt;/p&gt;
+&lt;p&gt;Let&amp;rsquo;s say we want to fit a nonlinear model to the weight/mileage relationship in the &lt;code&gt;mtcars&lt;/code&gt; data set.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#00f&#34;&gt;library&lt;/span&gt;(tidymodels)
+
+&lt;span style=&#34;color:#00f&#34;&gt;ggplot&lt;/span&gt;(mtcars, &lt;span style=&#34;color:#00f&#34;&gt;aes&lt;/span&gt;(mpg, wt)) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt; 
+    &lt;span style=&#34;color:#00f&#34;&gt;geom_point&lt;/span&gt;()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;figs/unnamed-chunk-1-1.svg&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;We might use the method of nonlinear least squares (via the &lt;code&gt;nls()&lt;/code&gt; function) to fit a model.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;nlsfit &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;nls&lt;/span&gt;(mpg &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt; k &lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt; wt &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt; b, mtcars, start &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;list&lt;/span&gt;(k &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;1&lt;/span&gt;, b &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;0&lt;/span&gt;))
+&lt;span style=&#34;color:#00f&#34;&gt;summary&lt;/span&gt;(nlsfit)
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; Formula: mpg ~ k/wt + b&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; Parameters:&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   Estimate Std. Error t value Pr(&amp;gt;|t|)    &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; k    45.83       4.25   10.79  7.6e-12 ***&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; b     4.39       1.54    2.85   0.0077 ** &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ---&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; Signif. codes:  0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1 &amp;#39; &amp;#39; 1&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; Residual standard error: 2.77 on 30 degrees of freedom&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; Number of iterations to convergence: 1 &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; Achieved convergence tolerance: 2.88e-08&lt;/span&gt;
+
+&lt;span style=&#34;color:#00f&#34;&gt;ggplot&lt;/span&gt;(mtcars, &lt;span style=&#34;color:#00f&#34;&gt;aes&lt;/span&gt;(wt, mpg)) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#00f&#34;&gt;geom_point&lt;/span&gt;() &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+    &lt;span style=&#34;color:#00f&#34;&gt;geom_line&lt;/span&gt;(&lt;span style=&#34;color:#00f&#34;&gt;aes&lt;/span&gt;(y &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;predict&lt;/span&gt;(nlsfit)))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;figs/unnamed-chunk-2-1.svg&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;While this does provide a p-value and confidence intervals for the parameters, these are based on model assumptions that may not hold in real data. Bootstrapping is a popular method for providing confidence intervals and predictions that are more robust to the nature of the data.&lt;/p&gt;
+&lt;h2 id=&#34;bootstrapping-models&#34;&gt;Bootstrapping models&lt;/h2&gt;
+&lt;p&gt;We can use the &lt;code&gt;bootstraps()&lt;/code&gt; function in the rsample package to sample bootstrap replications. First, we construct 2000 bootstrap replicates of the data, each of which has been randomly sampled with replacement. The resulting object is an &lt;code&gt;rset&lt;/code&gt;, which is a data frame with a column of &lt;code&gt;rsplit&lt;/code&gt; objects.&lt;/p&gt;
+&lt;p&gt;An &lt;code&gt;rsplit&lt;/code&gt; object has two main components: an analysis data set and an assessment data set, accessible via &lt;code&gt;analysis(rsplit)&lt;/code&gt; and &lt;code&gt;assessment(rsplit)&lt;/code&gt; respectively. For bootstrap samples, the analysis data set is the bootstrap sample itself, and the assessment data set consists of all the out-of-bag samples.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#00f&#34;&gt;set.seed&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;27&lt;/span&gt;)
+boots &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;bootstraps&lt;/span&gt;(mtcars, times &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;2000&lt;/span&gt;, apparent &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#008000;font-weight:bold&#34;&gt;TRUE&lt;/span&gt;)
+boots
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # Bootstrap sampling with apparent sample &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # A tibble: 2,001 x 2&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;    splits          id           &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;    &amp;lt;list&amp;gt;          &amp;lt;chr&amp;gt;        &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  1 &amp;lt;split [32/13]&amp;gt; Bootstrap0001&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  2 &amp;lt;split [32/10]&amp;gt; Bootstrap0002&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  3 &amp;lt;split [32/13]&amp;gt; Bootstrap0003&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  4 &amp;lt;split [32/11]&amp;gt; Bootstrap0004&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  5 &amp;lt;split [32/9]&amp;gt;  Bootstrap0005&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  6 &amp;lt;split [32/10]&amp;gt; Bootstrap0006&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  7 &amp;lt;split [32/11]&amp;gt; Bootstrap0007&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  8 &amp;lt;split [32/13]&amp;gt; Bootstrap0008&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  9 &amp;lt;split [32/11]&amp;gt; Bootstrap0009&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 10 &amp;lt;split [32/11]&amp;gt; Bootstrap0010&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # … with 1,991 more rows&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Let&amp;rsquo;s create a helper function to fit an &lt;code&gt;nls()&lt;/code&gt; model on each bootstrap sample, and then use &lt;code&gt;purrr::map()&lt;/code&gt; to apply this function to all the bootstrap samples at once. Similarly, we create a column of tidy coefficient information by unnesting.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;fit_nls_on_bootstrap &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;function&lt;/span&gt;(split) {
+    &lt;span style=&#34;color:#00f&#34;&gt;nls&lt;/span&gt;(mpg &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt; k &lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt; wt &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt; b, &lt;span style=&#34;color:#00f&#34;&gt;analysis&lt;/span&gt;(split), start &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;list&lt;/span&gt;(k &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;1&lt;/span&gt;, b &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;0&lt;/span&gt;))
+}
+
+boot_models &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt;
+  boots &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;mutate&lt;/span&gt;(model &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;map&lt;/span&gt;(splits, fit_nls_on_bootstrap),
+         coef_info &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;map&lt;/span&gt;(model, tidy))
+
+&lt;span style=&#34;color:#00f&#34;&gt;library&lt;/span&gt;(tidyr)
+boot_coefs &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; 
+  boot_models &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;unnest&lt;/span&gt;(coef_info)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The unnested coefficient information contains a summary of each replication combined in a single data frame:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;boot_coefs
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # A tibble: 4,002 x 8&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;    splits         id           model term  estimate std.error statistic  p.value&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;    &amp;lt;list&amp;gt;         &amp;lt;chr&amp;gt;        &amp;lt;lis&amp;gt; &amp;lt;chr&amp;gt;    &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;    &amp;lt;dbl&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  1 &amp;lt;split [32/13… Bootstrap00… &amp;lt;nls&amp;gt; k        42.1       4.05     10.4  1.91e-11&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  2 &amp;lt;split [32/13… Bootstrap00… &amp;lt;nls&amp;gt; b         5.39      1.43      3.78 6.93e- 4&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  3 &amp;lt;split [32/10… Bootstrap00… &amp;lt;nls&amp;gt; k        49.9       5.66      8.82 7.82e-10&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  4 &amp;lt;split [32/10… Bootstrap00… &amp;lt;nls&amp;gt; b         3.73      1.92      1.94 6.13e- 2&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  5 &amp;lt;split [32/13… Bootstrap00… &amp;lt;nls&amp;gt; k        37.8       2.68     14.1  9.01e-15&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  6 &amp;lt;split [32/13… Bootstrap00… &amp;lt;nls&amp;gt; b         6.73      1.17      5.75 2.78e- 6&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  7 &amp;lt;split [32/11… Bootstrap00… &amp;lt;nls&amp;gt; k        45.6       4.45     10.2  2.70e-11&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  8 &amp;lt;split [32/11… Bootstrap00… &amp;lt;nls&amp;gt; b         4.75      1.62      2.93 6.38e- 3&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  9 &amp;lt;split [32/9]&amp;gt; Bootstrap00… &amp;lt;nls&amp;gt; k        43.6       4.63      9.41 1.85e-10&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 10 &amp;lt;split [32/9]&amp;gt; Bootstrap00… &amp;lt;nls&amp;gt; b         5.89      1.68      3.51 1.44e- 3&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # … with 3,992 more rows&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;confidence-intervals&#34;&gt;Confidence intervals&lt;/h2&gt;
+&lt;p&gt;We can then calculate confidence intervals (using what is called the 
+&lt;a href=&#34;https://www.uvm.edu/~dhowell/StatPages/Randomization%20Tests/ResamplingWithR/BootstMeans/bootstrapping_means.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;percentile method&lt;/a&gt;):&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;percentile_intervals &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;int_pctl&lt;/span&gt;(boot_models, coef_info)
+percentile_intervals
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # A tibble: 2 x 6&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   term   .lower .estimate .upper .alpha .method   &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   &amp;lt;chr&amp;gt;   &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;  &amp;lt;dbl&amp;gt;  &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt;     &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 1 b      0.0475      4.12   7.31   0.05 percentile&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 2 k     37.6        46.7   59.8    0.05 percentile&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Or we can use histograms to get a more detailed idea of the uncertainty in each estimate:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#00f&#34;&gt;ggplot&lt;/span&gt;(boot_coefs, &lt;span style=&#34;color:#00f&#34;&gt;aes&lt;/span&gt;(estimate)) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#00f&#34;&gt;geom_histogram&lt;/span&gt;(bins &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;30&lt;/span&gt;) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#00f&#34;&gt;facet_wrap&lt;/span&gt;( &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt; term, scales &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;free&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#00f&#34;&gt;geom_vline&lt;/span&gt;(&lt;span style=&#34;color:#00f&#34;&gt;aes&lt;/span&gt;(xintercept &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; .lower), data &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; percentile_intervals, col &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;blue&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#00f&#34;&gt;geom_vline&lt;/span&gt;(&lt;span style=&#34;color:#00f&#34;&gt;aes&lt;/span&gt;(xintercept &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; .upper), data &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; percentile_intervals, col &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;blue&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;figs/unnamed-chunk-6-1.svg&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;The rsample package also has functions for 
+&lt;a href=&#34;https://tidymodels.github.io/rsample/reference/int_pctl.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;other types of confidence intervals&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;possible-model-fits&#34;&gt;Possible model fits&lt;/h2&gt;
+&lt;p&gt;We can use &lt;code&gt;augment()&lt;/code&gt; to visualize the uncertainty in the fitted curve. Since there are so many bootstrap samples, we&amp;rsquo;ll only show a sample of the model fits in our visualization:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;boot_aug &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; 
+  boot_models &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;sample_n&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;200&lt;/span&gt;) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;mutate&lt;/span&gt;(augmented &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;map&lt;/span&gt;(model, augment)) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;unnest&lt;/span&gt;(augmented)
+
+boot_aug
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # A tibble: 6,400 x 8&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;    splits         id            model coef_info         mpg    wt .fitted .resid&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;    &amp;lt;list&amp;gt;         &amp;lt;chr&amp;gt;         &amp;lt;lis&amp;gt; &amp;lt;list&amp;gt;          &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;   &amp;lt;dbl&amp;gt;  &amp;lt;dbl&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  1 &amp;lt;split [32/11… Bootstrap1644 &amp;lt;nls&amp;gt; &amp;lt;tibble [2 × 5…  16.4  4.07    15.6  0.829&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  2 &amp;lt;split [32/11… Bootstrap1644 &amp;lt;nls&amp;gt; &amp;lt;tibble [2 × 5…  19.7  2.77    21.9 -2.21 &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  3 &amp;lt;split [32/11… Bootstrap1644 &amp;lt;nls&amp;gt; &amp;lt;tibble [2 × 5…  19.2  3.84    16.4  2.84 &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  4 &amp;lt;split [32/11… Bootstrap1644 &amp;lt;nls&amp;gt; &amp;lt;tibble [2 × 5…  21.4  2.78    21.8 -0.437&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  5 &amp;lt;split [32/11… Bootstrap1644 &amp;lt;nls&amp;gt; &amp;lt;tibble [2 × 5…  26    2.14    27.8 -1.75 &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  6 &amp;lt;split [32/11… Bootstrap1644 &amp;lt;nls&amp;gt; &amp;lt;tibble [2 × 5…  33.9  1.84    32.0  1.88 &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  7 &amp;lt;split [32/11… Bootstrap1644 &amp;lt;nls&amp;gt; &amp;lt;tibble [2 × 5…  32.4  2.2     27.0  5.35 &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  8 &amp;lt;split [32/11… Bootstrap1644 &amp;lt;nls&amp;gt; &amp;lt;tibble [2 × 5…  30.4  1.62    36.1 -5.70 &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  9 &amp;lt;split [32/11… Bootstrap1644 &amp;lt;nls&amp;gt; &amp;lt;tibble [2 × 5…  21.5  2.46    24.4 -2.86 &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 10 &amp;lt;split [32/11… Bootstrap1644 &amp;lt;nls&amp;gt; &amp;lt;tibble [2 × 5…  26    2.14    27.8 -1.75 &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # … with 6,390 more rows&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#00f&#34;&gt;ggplot&lt;/span&gt;(boot_aug, &lt;span style=&#34;color:#00f&#34;&gt;aes&lt;/span&gt;(wt, mpg)) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#00f&#34;&gt;geom_line&lt;/span&gt;(&lt;span style=&#34;color:#00f&#34;&gt;aes&lt;/span&gt;(y &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; .fitted, group &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; id), alpha &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;.2&lt;/span&gt;, col &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;blue&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#00f&#34;&gt;geom_point&lt;/span&gt;()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;figs/unnamed-chunk-8-1.svg&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;With only a few small changes, we could easily perform bootstrapping with other kinds of predictive or hypothesis testing models, since the &lt;code&gt;tidy()&lt;/code&gt; and &lt;code&gt;augment()&lt;/code&gt; functions works for many statistical outputs. As another example, we could use &lt;code&gt;smooth.spline()&lt;/code&gt;, which fits a cubic smoothing spline to data:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;fit_spline_on_bootstrap &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;function&lt;/span&gt;(split) {
+    data &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;analysis&lt;/span&gt;(split)
+    &lt;span style=&#34;color:#00f&#34;&gt;smooth.spline&lt;/span&gt;(data&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;wt, data&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;mpg, df &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;4&lt;/span&gt;)
+}
+
+boot_splines &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; 
+  boots &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;sample_n&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;200&lt;/span&gt;) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;mutate&lt;/span&gt;(spline &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;map&lt;/span&gt;(splits, fit_spline_on_bootstrap),
+         aug_train &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;map&lt;/span&gt;(spline, augment))
+
+splines_aug &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; 
+  boot_splines &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;unnest&lt;/span&gt;(aug_train)
+
+&lt;span style=&#34;color:#00f&#34;&gt;ggplot&lt;/span&gt;(splines_aug, &lt;span style=&#34;color:#00f&#34;&gt;aes&lt;/span&gt;(x, y)) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#00f&#34;&gt;geom_line&lt;/span&gt;(&lt;span style=&#34;color:#00f&#34;&gt;aes&lt;/span&gt;(y &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; .fitted, group &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; id), alpha &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;0.2&lt;/span&gt;, col &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;blue&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
+  &lt;span style=&#34;color:#00f&#34;&gt;geom_point&lt;/span&gt;()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;figs/unnamed-chunk-9-1.svg&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;h2 id=&#34;session-information&#34;&gt;Session information&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;#&amp;gt; ─ Session info ───────────────────────────────────────────────────────────────
+#&amp;gt;  setting  value                       
+#&amp;gt;  version  R version 3.6.2 (2019-12-12)
+#&amp;gt;  os       macOS Mojave 10.14.6        
+#&amp;gt;  system   x86_64, darwin15.6.0        
+#&amp;gt;  ui       X11                         
+#&amp;gt;  language (EN)                        
+#&amp;gt;  collate  en_US.UTF-8                 
+#&amp;gt;  ctype    en_US.UTF-8                 
+#&amp;gt;  tz       America/Denver              
+#&amp;gt;  date     2020-04-17                  
+#&amp;gt; 
+#&amp;gt; ─ Packages ───────────────────────────────────────────────────────────────────
+#&amp;gt;  package    * version date       lib source        
+#&amp;gt;  broom      * 0.5.5   2020-02-29 [1] CRAN (R 3.6.0)
+#&amp;gt;  dials      * 0.0.6   2020-04-03 [1] CRAN (R 3.6.2)
+#&amp;gt;  dplyr      * 0.8.5   2020-03-07 [1] CRAN (R 3.6.0)
+#&amp;gt;  ggplot2    * 3.3.0   2020-03-05 [1] CRAN (R 3.6.0)
+#&amp;gt;  infer      * 0.5.1   2019-11-19 [1] CRAN (R 3.6.0)
+#&amp;gt;  parsnip    * 0.1.0   2020-04-09 [1] CRAN (R 3.6.2)
+#&amp;gt;  purrr      * 0.3.3   2019-10-18 [1] CRAN (R 3.6.0)
+#&amp;gt;  recipes    * 0.1.10  2020-03-18 [1] CRAN (R 3.6.0)
+#&amp;gt;  rlang        0.4.5   2020-03-01 [1] CRAN (R 3.6.0)
+#&amp;gt;  rsample    * 0.0.6   2020-03-31 [1] CRAN (R 3.6.2)
+#&amp;gt;  tibble     * 2.1.3   2019-06-06 [1] CRAN (R 3.6.2)
+#&amp;gt;  tidymodels * 0.1.0   2020-02-16 [1] CRAN (R 3.6.0)
+#&amp;gt;  tidyr      * 1.0.2   2020-01-24 [1] CRAN (R 3.6.0)
+#&amp;gt;  tune       * 0.1.0   2020-04-02 [1] CRAN (R 3.6.2)
+#&amp;gt;  workflows  * 0.1.1   2020-03-17 [1] CRAN (R 3.6.0)
+#&amp;gt;  yardstick  * 0.0.6   2020-03-17 [1] CRAN (R 3.6.0)
+#&amp;gt; 
+#&amp;gt; [1] /Library/Frameworks/R.framework/Versions/3.6/Resources/library
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+    <item>
+      <title>Evaluate your model with resampling</title>
+      <link>https://nutriverse.io/start/resampling/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://nutriverse.io/start/resampling/</guid>
+      <description>&lt;h2 id=&#34;intro&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;So far, we have 
+&lt;a href=&#34;https://nutriverse.io/start/models/&#34;&gt;built a model&lt;/a&gt; and 
+&lt;a href=&#34;https://nutriverse.io/start/recipes/&#34;&gt;preprocessed data with a recipe&lt;/a&gt;. We also introduced 
+&lt;a href=&#34;https://nutriverse.io/start/recipes/#fit-workflow&#34;&gt;workflows&lt;/a&gt; as a way to bundle a 
+&lt;a href=&#34;https://tidymodels.github.io/parsnip/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;parsnip model&lt;/a&gt; and 
+&lt;a href=&#34;https://tidymodels.github.io/recipes/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;recipe&lt;/a&gt; together. Once we have a model trained, we need a way to measure how well that model predicts new data. This tutorial explains how to characterize model performance based on &lt;strong&gt;resampling&lt;/strong&gt; statistics.&lt;/p&gt;
+&lt;p&gt;To use code in this article,  you will need to install the following packages: modeldata, ranger, and tidymodels.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#00f&#34;&gt;library&lt;/span&gt;(tidymodels) &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# for the rsample package, along with the rest of tidymodels&lt;/span&gt;
+
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# Helper packages&lt;/span&gt;
+&lt;span style=&#34;color:#00f&#34;&gt;library&lt;/span&gt;(modeldata)  &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# for the cells data&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;data&#34;&gt;The cell image data&lt;/h2&gt;
+&lt;p&gt;Let&amp;rsquo;s use data from 
+&lt;a href=&#34;http://www.biomedcentral.com/1471-2105/8/340&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Hill, LaPan, Li, and Haney (2007)&lt;/a&gt;, available in the 
+&lt;a href=&#34;https://cran.r-project.org/web/packages/modeldata/index.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;modeldata package&lt;/a&gt;, to predict cell image segmentation quality with resampling. To start, we load this data into R:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#00f&#34;&gt;data&lt;/span&gt;(cells, package &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;modeldata&amp;#34;&lt;/span&gt;)
+cells
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # A tibble: 2,019 x 58&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   case  class angle_ch_1 area_ch_1 avg_inten_ch_1 avg_inten_ch_2 avg_inten_ch_3&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   &amp;lt;fct&amp;gt; &amp;lt;fct&amp;gt;      &amp;lt;dbl&amp;gt;     &amp;lt;int&amp;gt;          &amp;lt;dbl&amp;gt;          &amp;lt;dbl&amp;gt;          &amp;lt;dbl&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 1 Test  PS        143.         185           15.7           4.95           9.55&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 2 Train PS        134.         819           31.9         207.            69.9 &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 3 Train WS        107.         431           28.0         116.            63.9 &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 4 Train PS         69.2        298           19.5         102.            28.2 &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 5 Test  PS          2.89       285           24.3         112.            20.5 &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # … with 2,014 more rows, and 51 more variables: avg_inten_ch_4 &amp;lt;dbl&amp;gt;,&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; #   convex_hull_area_ratio_ch_1 &amp;lt;dbl&amp;gt;, convex_hull_perim_ratio_ch_1 &amp;lt;dbl&amp;gt;,&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; #   diff_inten_density_ch_1 &amp;lt;dbl&amp;gt;, diff_inten_density_ch_3 &amp;lt;dbl&amp;gt;, …&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We have data for 2019 cells, with 58 variables. The main outcome variable of interest for us here is called &lt;code&gt;class&lt;/code&gt;, which you can see is a factor. But before we jump into predicting the &lt;code&gt;class&lt;/code&gt; variable, we need to understand it better. Below is a brief primer on cell image segmentation.&lt;/p&gt;
+&lt;h3 id=&#34;predicting-image-segmentation-quality&#34;&gt;Predicting image segmentation quality&lt;/h3&gt;
+&lt;p&gt;Some biologists conduct experiments on cells. In drug discovery, a particular type of cell can be treated with either a drug or control and then observed to see what the effect is (if any). A common approach for this kind of measurement is cell imaging. Different parts of the cells can be colored so that the locations of a cell can be determined.&lt;/p&gt;
+&lt;p&gt;For example, in top panel of this image of five cells, the green color is meant to define the boundary of the cell (coloring something called the cytoskeleton) while the blue color defines the nucleus of the cell.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;img/cells.png&#34; width=&#34;70%&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Using these colors, the cells in an image can be &lt;em&gt;segmented&lt;/em&gt; so that we know which pixels belong to which cell. If this is done well, the cell can be measured in different ways that are important to the biology. Sometimes the shape of the cell matters and different mathematical tools are used to summarize characteristics like the size or &amp;ldquo;oblongness&amp;rdquo; of the cell.&lt;/p&gt;
+&lt;p&gt;The bottom panel shows some segmentation results. Cells 1 and 5 are fairly well segmented. However, cells 2 to 4 are bunched up together because the segmentation was not very good. The consequence of bad segmentation is data contamination; when the biologist analyzes the shape or size of these cells, the data are inaccurate and could lead to the wrong conclusion.&lt;/p&gt;
+&lt;p&gt;A cell-based experiment might involve millions of cells so it is unfeasible to visually assess them all. Instead, a subsample can be created and these cells can be manually labeled by experts as either poorly segmented (&lt;code&gt;PS&lt;/code&gt;) or well-segmented (&lt;code&gt;WS&lt;/code&gt;). If we can predict these labels accurately, the larger data set can be improved by filtering out the cells most likely to be poorly segmented.&lt;/p&gt;
+&lt;h3 id=&#34;back-to-the-cells-data&#34;&gt;Back to the cells data&lt;/h3&gt;
+&lt;p&gt;The &lt;code&gt;cells&lt;/code&gt; data has &lt;code&gt;class&lt;/code&gt; labels for 2019 cells — each cell is labeled as either poorly segmented (&lt;code&gt;PS&lt;/code&gt;) or well-segmented (&lt;code&gt;WS&lt;/code&gt;). Each also has a total of 56 predictors based on automated image analysis measurements. For example, &lt;code&gt;avg_inten_ch_1&lt;/code&gt; is the mean intensity of the data contained in the nucleus, &lt;code&gt;area_ch_1&lt;/code&gt; is the total size of the cell, and so on (some predictors are fairly arcane in nature).&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;cells
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # A tibble: 2,019 x 58&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   case  class angle_ch_1 area_ch_1 avg_inten_ch_1 avg_inten_ch_2 avg_inten_ch_3&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   &amp;lt;fct&amp;gt; &amp;lt;fct&amp;gt;      &amp;lt;dbl&amp;gt;     &amp;lt;int&amp;gt;          &amp;lt;dbl&amp;gt;          &amp;lt;dbl&amp;gt;          &amp;lt;dbl&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 1 Test  PS        143.         185           15.7           4.95           9.55&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 2 Train PS        134.         819           31.9         207.            69.9 &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 3 Train WS        107.         431           28.0         116.            63.9 &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 4 Train PS         69.2        298           19.5         102.            28.2 &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 5 Test  PS          2.89       285           24.3         112.            20.5 &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # … with 2,014 more rows, and 51 more variables: avg_inten_ch_4 &amp;lt;dbl&amp;gt;,&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; #   convex_hull_area_ratio_ch_1 &amp;lt;dbl&amp;gt;, convex_hull_perim_ratio_ch_1 &amp;lt;dbl&amp;gt;,&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; #   diff_inten_density_ch_1 &amp;lt;dbl&amp;gt;, diff_inten_density_ch_3 &amp;lt;dbl&amp;gt;, …&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The rates of the classes are somewhat imbalanced; there are more poorly segmented cells than well-segmented cells:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;cells &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;count&lt;/span&gt;(class) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;mutate&lt;/span&gt;(prop &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; n&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#00f&#34;&gt;sum&lt;/span&gt;(n))
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # A tibble: 2 x 3&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   class     n  prop&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   &amp;lt;fct&amp;gt; &amp;lt;int&amp;gt; &amp;lt;dbl&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 1 PS     1300 0.644&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 2 WS      719 0.356&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;data-split&#34;&gt;Data splitting&lt;/h2&gt;
+&lt;p&gt;In our previous 
+&lt;a href=&#34;https://nutriverse.io/start/recipes/#data-split&#34;&gt;&lt;em&gt;Preprocess your data with recipes&lt;/em&gt;&lt;/a&gt; article, we started by splitting our data. It is common when beginning a modeling project to 
+&lt;a href=&#34;https://bookdown.org/max/FES/data-splitting.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;separate the data set&lt;/a&gt; into two partitions:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;The &lt;em&gt;training set&lt;/em&gt; is used to estimate parameters, compare models and feature engineering techniques, tune models, etc.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The &lt;em&gt;test set&lt;/em&gt; is held in reserve until the end of the project, at which point there should only be one or two models under serious consideration. It is used as an unbiased source for measuring final model performance.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;There are different ways to create these partitions of the data. The most common approach is to use a random sample. Suppose that one quarter of the data were reserved for the test set. Random sampling would randomly select 25% for the test set and use the remainder for the training set. We can use the 
+&lt;a href=&#34;https://tidymodels.github.io/rsample/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;rsample&lt;/a&gt; package for this purpose.&lt;/p&gt;
+&lt;p&gt;Since random sampling uses random numbers, it is important to set the random number seed. This ensures that the random numbers can be reproduced at a later time (if needed).&lt;/p&gt;
+&lt;p&gt;The function &lt;code&gt;rsample::initial_split()&lt;/code&gt; takes the original data and saves the information on how to make the partitions. In the original analysis, the authors made their own training/test set and that information is contained in the column &lt;code&gt;case&lt;/code&gt;. To demonstrate how to make a split, we&amp;rsquo;ll remove this column before we make our own split:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#00f&#34;&gt;set.seed&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;123&lt;/span&gt;)
+cell_split &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;initial_split&lt;/span&gt;(cells &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;select&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt;case), 
+                            strata &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; class)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Here we used the 
+&lt;a href=&#34;https://tidymodels.github.io/rsample/reference/initial_split.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;strata&lt;/code&gt; argument&lt;/a&gt;, which conducts a stratified split. This ensures that, despite the imbalance we noticed in our &lt;code&gt;class&lt;/code&gt; variable, our training and test data sets will keep roughly the same proportions of poorly and well-segmented cells as in the original data. After the &lt;code&gt;initial_split&lt;/code&gt;, the &lt;code&gt;training()&lt;/code&gt; and &lt;code&gt;testing()&lt;/code&gt; functions return the actual data sets.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;cell_train &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;training&lt;/span&gt;(cell_split)
+cell_test  &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;testing&lt;/span&gt;(cell_split)
+
+&lt;span style=&#34;color:#00f&#34;&gt;nrow&lt;/span&gt;(cell_train)
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; [1] 1515&lt;/span&gt;
+&lt;span style=&#34;color:#00f&#34;&gt;nrow&lt;/span&gt;(cell_train)&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#00f&#34;&gt;nrow&lt;/span&gt;(cells)
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; [1] 0.7503715&lt;/span&gt;
+
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# training set proportions by class&lt;/span&gt;
+cell_train &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;count&lt;/span&gt;(class) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;mutate&lt;/span&gt;(prop &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; n&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#00f&#34;&gt;sum&lt;/span&gt;(n))
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # A tibble: 2 x 3&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   class     n  prop&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   &amp;lt;fct&amp;gt; &amp;lt;int&amp;gt; &amp;lt;dbl&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 1 PS      975 0.644&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 2 WS      540 0.356&lt;/span&gt;
+
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# test set proportions by class&lt;/span&gt;
+cell_test &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;count&lt;/span&gt;(class) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;mutate&lt;/span&gt;(prop &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; n&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#00f&#34;&gt;sum&lt;/span&gt;(n))
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # A tibble: 2 x 3&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   class     n  prop&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   &amp;lt;fct&amp;gt; &amp;lt;int&amp;gt; &amp;lt;dbl&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 1 PS      325 0.645&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 2 WS      179 0.355&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The majority of the modeling work is then conducted on the training set data.&lt;/p&gt;
+&lt;h2 id=&#34;modeling&#34;&gt;Modeling&lt;/h2&gt;
+&lt;p&gt;
+&lt;a href=&#34;https://en.wikipedia.org/wiki/Random_forest&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Random forest models&lt;/a&gt; are 
+&lt;a href=&#34;https://en.wikipedia.org/wiki/Ensemble_learning&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;ensembles&lt;/a&gt; of 
+&lt;a href=&#34;https://en.wikipedia.org/wiki/Decision_tree&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;decision trees&lt;/a&gt;. A large number of decision tree models are created for the ensemble based on slightly different versions of the training set. When creating the individual decision trees, the fitting process encourages them to be as diverse as possible. The collection of trees are combined into the random forest model and, when a new sample is predicted, the votes from each tree are used to calculate the final predicted value for the new sample. For categorical outcome variables like &lt;code&gt;class&lt;/code&gt; in our &lt;code&gt;cells&lt;/code&gt; data example, the majority vote across all the trees in the random forest determines the predicted class for the new sample.&lt;/p&gt;
+&lt;p&gt;One of the benefits of a random forest model is that it is very low maintenance;  it requires very little preprocessing of the data and the default parameters tend to give reasonable results. For that reason, we won&amp;rsquo;t create a recipe for the &lt;code&gt;cells&lt;/code&gt; data.&lt;/p&gt;
+&lt;p&gt;At the same time, the number of trees in the ensemble should be large (in the thousands) and this makes the model moderately expensive to compute.&lt;/p&gt;
+&lt;p&gt;To fit a random forest model on the training set, let&amp;rsquo;s use the 
+&lt;a href=&#34;https://tidymodels.github.io/parsnip/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;parsnip&lt;/a&gt; package with the 
+&lt;a href=&#34;https://cran.r-project.org/web/packages/ranger/index.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;ranger&lt;/a&gt; engine. We first define the model that we want to create:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;rf_mod &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;rand_forest&lt;/span&gt;(trees &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;1000&lt;/span&gt;) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;set_engine&lt;/span&gt;(&lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;ranger&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;set_mode&lt;/span&gt;(&lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;classification&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Starting with this parsnip model object, the &lt;code&gt;fit()&lt;/code&gt; function can be used with a model formula. Since random forest models use random numbers, we again set the seed prior to computing:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#00f&#34;&gt;set.seed&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;234&lt;/span&gt;)
+rf_fit &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; 
+  rf_mod &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;fit&lt;/span&gt;(class &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt; ., data &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; cell_train)
+rf_fit
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; parsnip model object&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; Fit time:  2.4s &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; Ranger result&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; Call:&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  ranger::ranger(formula = formula, data = data, num.trees = ~1000,      num.threads = 1, verbose = FALSE, seed = sample.int(10^5,          1), probability = TRUE) &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; Type:                             Probability estimation &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; Number of trees:                  1000 &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; Sample size:                      1515 &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; Number of independent variables:  56 &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; Mtry:                             7 &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; Target node size:                 10 &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; Variable importance mode:         none &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; Splitrule:                        gini &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; OOB prediction error (Brier s.):  0.1218873&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This new &lt;code&gt;rf_fit&lt;/code&gt; object is our fitted model, trained on our training data set.&lt;/p&gt;
+&lt;h2 id=&#34;performance&#34;&gt;Estimating performance&lt;/h2&gt;
+&lt;p&gt;During a modeling project, we might create a variety of different models. To choose between them, we need to consider how well these models do, as measured by some performance statistics. In our example in this article, some options we could use are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;the area under the Receiver Operating Characteristic (ROC) curve, and&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;overall classification accuracy.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The ROC curve uses the class probability estimates to give us a sense of performance across the entire set of potential probability cutoffs. Overall accuracy uses the hard class predictions to measure performance. The hard class predictions tell us whether our model predicted &lt;code&gt;PS&lt;/code&gt; or &lt;code&gt;WS&lt;/code&gt; for each cell. But, behind those predictions, the model is actually estimating a probability. A simple 50% probability cutoff is used to categorize a cell as poorly segmented.&lt;/p&gt;
+&lt;p&gt;The 
+&lt;a href=&#34;https://tidymodels.github.io/yardstick/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;yardstick package&lt;/a&gt; has functions for computing both of these measures called &lt;code&gt;roc_auc()&lt;/code&gt; and &lt;code&gt;accuracy()&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;At first glance, it might seem like a good idea to use the training set data to compute these statistics. (This is actually a very bad idea.) Let&amp;rsquo;s see what happens if we try this. To evaluate performance based on the training set, we call the &lt;code&gt;predict()&lt;/code&gt; method to get both types of predictions (i.e. probabilities and hard class predictions).&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;rf_training_pred &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;predict&lt;/span&gt;(rf_fit, cell_train) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;bind_cols&lt;/span&gt;(&lt;span style=&#34;color:#00f&#34;&gt;predict&lt;/span&gt;(rf_fit, cell_train, type &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;prob&amp;#34;&lt;/span&gt;)) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# Add the true outcome data back in&lt;/span&gt;
+  &lt;span style=&#34;color:#00f&#34;&gt;bind_cols&lt;/span&gt;(cell_train &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+              &lt;span style=&#34;color:#00f&#34;&gt;select&lt;/span&gt;(class))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Using the yardstick functions, this model has spectacular results, so spectacular that you might be starting to get suspicious:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;rf_training_pred &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;                &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# training set predictions&lt;/span&gt;
+  &lt;span style=&#34;color:#00f&#34;&gt;roc_auc&lt;/span&gt;(truth &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; class, .pred_PS)
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # A tibble: 1 x 3&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   .metric .estimator .estimate&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   &amp;lt;chr&amp;gt;   &amp;lt;chr&amp;gt;          &amp;lt;dbl&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 1 roc_auc binary          1.00&lt;/span&gt;
+rf_training_pred &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;                &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# training set predictions&lt;/span&gt;
+  &lt;span style=&#34;color:#00f&#34;&gt;accuracy&lt;/span&gt;(truth &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; class, .pred_class)
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # A tibble: 1 x 3&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   .metric  .estimator .estimate&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   &amp;lt;chr&amp;gt;    &amp;lt;chr&amp;gt;          &amp;lt;dbl&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 1 accuracy binary         0.993&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now that we have this model with exceptional performance, we proceed to the test set. Unfortunately, we discover that, although our results aren&amp;rsquo;t bad, they are certainly worse than what we initially thought based on predicting the training set:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;rf_testing_pred &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;predict&lt;/span&gt;(rf_fit, cell_test) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;bind_cols&lt;/span&gt;(&lt;span style=&#34;color:#00f&#34;&gt;predict&lt;/span&gt;(rf_fit, cell_test, type &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;prob&amp;#34;&lt;/span&gt;)) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;bind_cols&lt;/span&gt;(cell_test &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;select&lt;/span&gt;(class))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;rf_testing_pred &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;                   &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# test set predictions&lt;/span&gt;
+  &lt;span style=&#34;color:#00f&#34;&gt;roc_auc&lt;/span&gt;(truth &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; class, .pred_PS)
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # A tibble: 1 x 3&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   .metric .estimator .estimate&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   &amp;lt;chr&amp;gt;   &amp;lt;chr&amp;gt;          &amp;lt;dbl&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 1 roc_auc binary         0.909&lt;/span&gt;
+rf_testing_pred &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;                   &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# test set predictions&lt;/span&gt;
+  &lt;span style=&#34;color:#00f&#34;&gt;accuracy&lt;/span&gt;(truth &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; class, .pred_class)
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # A tibble: 1 x 3&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   .metric  .estimator .estimate&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   &amp;lt;chr&amp;gt;    &amp;lt;chr&amp;gt;          &amp;lt;dbl&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 1 accuracy binary         0.837&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;what-happened-here&#34;&gt;What happened here?&lt;/h3&gt;
+&lt;p&gt;There are several reasons why training set statistics like the ones shown in this section can be unrealistically optimistic:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Models like random forests, neural networks, and other black-box methods can essentially memorize the training set. Re-predicting that same set should always result in nearly perfect results.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The training set does not have the capacity to be a good arbiter of performance. It is not an independent piece of information; predicting the training set can only reflect what the model already knows.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;To understand that second point better, think about an analogy from teaching. Suppose you give a class a test, then give them the answers, then provide the same test. The student scores on the &lt;em&gt;second&lt;/em&gt; test do not accurately reflect what they know about the subject; these scores would probably be higher than their results on the first test.&lt;/p&gt;
+&lt;h2 id=&#34;resampling&#34;&gt;Resampling to the rescue&lt;/h2&gt;
+&lt;p&gt;Resampling methods, such as cross-validation and the bootstrap, are empirical simulation systems. They create a series of data sets similar to the training/testing split discussed previously; a subset of the data are used for creating the model and a different subset is used to measure performance. Resampling is always used with the &lt;em&gt;training set&lt;/em&gt;. This schematic from 
+&lt;a href=&#34;https://bookdown.org/max/FES/resampling.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Kuhn and Johnson (2019)&lt;/a&gt; illustrates data usage for resampling methods:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;img/resampling.svg&#34; width=&#34;85%&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;In the first level of this diagram, you see what happens when you use &lt;code&gt;rsample::initial_split()&lt;/code&gt;, which splits the original data into training and test sets. Then, the training set is chosen for resampling, and the test set is held out.&lt;/p&gt;
+&lt;p&gt;Let&amp;rsquo;s use 10-fold cross-validation (CV) in this example. This method randomly allocates the 1515 cells in the training set to 10 groups of roughly equal size, called &amp;ldquo;folds&amp;rdquo;. For the first iteration of resampling, the first fold of about 151 cells are held out for the purpose of measuring performance. This is similar to a test set but, to avoid confusion, we call these data the &lt;em&gt;assessment set&lt;/em&gt; in the tidymodels framework.&lt;/p&gt;
+&lt;p&gt;The other 90% of the data (about 1363 cells) are used to fit the model. Again, this sounds similar to a training set, so in tidymodels we call this data the &lt;em&gt;analysis set&lt;/em&gt;. This model, trained on the analysis set, is applied to the assessment set to generate predictions, and performance statistics are computed based on those predictions.&lt;/p&gt;
+&lt;p&gt;In this example, 10-fold CV moves iteratively through the folds and leaves a different 10% out each time for model assessment. At the end of this process, there are 10 sets of performance statistics that were created on 10 data sets that were not used in the modeling process. For the cell example, this means 10 accuracies and 10 areas under the ROC curve. While 10 models were created, these are not used further; we do not keep the models themselves trained on these folds because their only purpose is calculating performance metrics.&lt;/p&gt;
+&lt;p&gt;The final resampling estimates for the model are the &lt;strong&gt;averages&lt;/strong&gt; of the performance statistics replicates. For example, suppose for our data the results were:&lt;/p&gt;
+&lt;table class=&#34;table&#34; style=&#34;width: auto !important; margin-left: auto; margin-right: auto;&#34;&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style=&#34;text-align:left;&#34;&gt; resample &lt;/th&gt;
+   &lt;th style=&#34;text-align:right;&#34;&gt; accuracy &lt;/th&gt;
+   &lt;th style=&#34;text-align:right;&#34;&gt; roc_auc &lt;/th&gt;
+   &lt;th style=&#34;text-align:right;&#34;&gt; assessment size &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; Fold01 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 0.7828947 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 0.8419206 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 152 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; Fold02 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 0.8092105 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 0.8939982 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 152 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; Fold03 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 0.8486842 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 0.9174923 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 152 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; Fold04 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 0.8355263 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 0.8941946 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 152 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; Fold05 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 0.8684211 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 0.9063232 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 152 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; Fold06 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 0.8410596 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 0.9136661 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 151 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; Fold07 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 0.8807947 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 0.9368932 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 151 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; Fold08 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 0.7814570 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 0.8890798 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 151 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; Fold09 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 0.8145695 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 0.9075369 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 151 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; Fold10 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 0.8675497 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 0.9310806 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 151 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;From these resampling statistics, the final estimate of performance for this random forest model would be 0.903 for the area under the ROC curve and 0.833 for accuracy.&lt;/p&gt;
+&lt;p&gt;These resampling statistics are an effective method for measuring model performance &lt;em&gt;without&lt;/em&gt; predicting the training set directly as a whole.&lt;/p&gt;
+&lt;h2 id=&#34;fit-resamples&#34;&gt;Fit a model with resampling&lt;/h2&gt;
+&lt;p&gt;To generate these results, the first step is to create a resampling object using rsample. There are 
+&lt;a href=&#34;https://tidymodels.github.io/rsample/reference/index.html#section-resampling-methods&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;several resampling methods&lt;/a&gt; implemented in rsample; cross-validation folds can be created using &lt;code&gt;vfold_cv()&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#00f&#34;&gt;set.seed&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;345&lt;/span&gt;)
+folds &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;vfold_cv&lt;/span&gt;(cell_train, v &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;10&lt;/span&gt;)
+folds
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; #  10-fold cross-validation &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # A tibble: 10 x 2&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;    splits             id    &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;    &amp;lt;named list&amp;gt;       &amp;lt;chr&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  1 &amp;lt;split [1.4K/152]&amp;gt; Fold01&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  2 &amp;lt;split [1.4K/152]&amp;gt; Fold02&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  3 &amp;lt;split [1.4K/152]&amp;gt; Fold03&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  4 &amp;lt;split [1.4K/152]&amp;gt; Fold04&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  5 &amp;lt;split [1.4K/152]&amp;gt; Fold05&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  6 &amp;lt;split [1.4K/151]&amp;gt; Fold06&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  7 &amp;lt;split [1.4K/151]&amp;gt; Fold07&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  8 &amp;lt;split [1.4K/151]&amp;gt; Fold08&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  9 &amp;lt;split [1.4K/151]&amp;gt; Fold09&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 10 &amp;lt;split [1.4K/151]&amp;gt; Fold10&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The list column for &lt;code&gt;splits&lt;/code&gt; contains the information on which rows belong in the analysis and assessment sets. There are functions that can be used to extract the individual resampled data called &lt;code&gt;analysis()&lt;/code&gt; and &lt;code&gt;assessment()&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;However, the tune package contains high-level functions that can do the required computations to resample a model for the purpose of measuring performance. You have several options for building an object for resampling:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Resample a model specification preprocessed with a formula or 
+&lt;a href=&#34;https://nutriverse.io/start/recipes/&#34;&gt;recipe&lt;/a&gt;, or&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Resample a 
+&lt;a href=&#34;https://tidymodels.github.io/workflows/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;workflow()&lt;/code&gt;&lt;/a&gt; that bundles together a model specification and formula/recipe.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;For this example, let&amp;rsquo;s use a &lt;code&gt;workflow()&lt;/code&gt; that bundles together the random forest model and a formula, since we are not using a recipe. Whichever of these options you use, the syntax to &lt;code&gt;fit_resamples()&lt;/code&gt; is very similar to &lt;code&gt;fit()&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;rf_wf &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;workflow&lt;/span&gt;() &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#00f&#34;&gt;add_model&lt;/span&gt;(rf_mod) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#00f&#34;&gt;add_formula&lt;/span&gt;(class &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt; .)
+
+&lt;span style=&#34;color:#00f&#34;&gt;set.seed&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;456&lt;/span&gt;)
+rf_fit_rs &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; 
+  rf_wf &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;fit_resamples&lt;/span&gt;(folds)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;rf_fit_rs
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; #  10-fold cross-validation &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # A tibble: 10 x 4&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;    splits             id     .metrics         .notes          &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  * &amp;lt;list&amp;gt;             &amp;lt;chr&amp;gt;  &amp;lt;list&amp;gt;           &amp;lt;list&amp;gt;          &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  1 &amp;lt;split [1.4K/152]&amp;gt; Fold01 &amp;lt;tibble [2 × 3]&amp;gt; &amp;lt;tibble [0 × 1]&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  2 &amp;lt;split [1.4K/152]&amp;gt; Fold02 &amp;lt;tibble [2 × 3]&amp;gt; &amp;lt;tibble [0 × 1]&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  3 &amp;lt;split [1.4K/152]&amp;gt; Fold03 &amp;lt;tibble [2 × 3]&amp;gt; &amp;lt;tibble [0 × 1]&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  4 &amp;lt;split [1.4K/152]&amp;gt; Fold04 &amp;lt;tibble [2 × 3]&amp;gt; &amp;lt;tibble [0 × 1]&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  5 &amp;lt;split [1.4K/152]&amp;gt; Fold05 &amp;lt;tibble [2 × 3]&amp;gt; &amp;lt;tibble [0 × 1]&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  6 &amp;lt;split [1.4K/151]&amp;gt; Fold06 &amp;lt;tibble [2 × 3]&amp;gt; &amp;lt;tibble [0 × 1]&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  7 &amp;lt;split [1.4K/151]&amp;gt; Fold07 &amp;lt;tibble [2 × 3]&amp;gt; &amp;lt;tibble [0 × 1]&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  8 &amp;lt;split [1.4K/151]&amp;gt; Fold08 &amp;lt;tibble [2 × 3]&amp;gt; &amp;lt;tibble [0 × 1]&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  9 &amp;lt;split [1.4K/151]&amp;gt; Fold09 &amp;lt;tibble [2 × 3]&amp;gt; &amp;lt;tibble [0 × 1]&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 10 &amp;lt;split [1.4K/151]&amp;gt; Fold10 &amp;lt;tibble [2 × 3]&amp;gt; &amp;lt;tibble [0 × 1]&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The results are similar to the &lt;code&gt;folds&lt;/code&gt; results with some extra columns. The column &lt;code&gt;.metrics&lt;/code&gt; contains the performance statistics created from the 10 assessment sets. These can be manually unnested but the tune package contains a number of simple functions that can extract these data:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#00f&#34;&gt;collect_metrics&lt;/span&gt;(rf_fit_rs)
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # A tibble: 2 x 5&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   .metric  .estimator  mean     n std_err&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   &amp;lt;chr&amp;gt;    &amp;lt;chr&amp;gt;      &amp;lt;dbl&amp;gt; &amp;lt;int&amp;gt;   &amp;lt;dbl&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 1 accuracy binary     0.833    10 0.0111 &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 2 roc_auc  binary     0.903    10 0.00842&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Think about these values we now have for accuracy and AUC. These performance metrics are now more realistic (i.e. lower) than our ill-advised first attempt at computing performance metrics in the section above. If we wanted to try different model types for this data set, we could more confidently compare performance metrics computed using resampling to choose between models. Also, remember that at the end of our project, we return to our test set to estimate final model performance. We have looked at this once already before we started using resampling, but let&amp;rsquo;s remind ourselves of the results:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;rf_testing_pred &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;                   &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# test set predictions&lt;/span&gt;
+  &lt;span style=&#34;color:#00f&#34;&gt;roc_auc&lt;/span&gt;(truth &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; class, .pred_PS)
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # A tibble: 1 x 3&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   .metric .estimator .estimate&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   &amp;lt;chr&amp;gt;   &amp;lt;chr&amp;gt;          &amp;lt;dbl&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 1 roc_auc binary         0.909&lt;/span&gt;
+rf_testing_pred &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;                   &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# test set predictions&lt;/span&gt;
+  &lt;span style=&#34;color:#00f&#34;&gt;accuracy&lt;/span&gt;(truth &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; class, .pred_class)
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # A tibble: 1 x 3&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   .metric  .estimator .estimate&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   &amp;lt;chr&amp;gt;    &amp;lt;chr&amp;gt;          &amp;lt;dbl&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 1 accuracy binary         0.837&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The performance metrics from the test set are much closer to the performance metrics computed using resampling than our first (&amp;ldquo;bad idea&amp;rdquo;) attempt. Resampling allows us to simulate how well our model will perform on new data, and the test set acts as the final, unbiased check for our model&amp;rsquo;s performance.&lt;/p&gt;
+&lt;h2 id=&#34;session-information&#34;&gt;Session information&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;#&amp;gt; ─ Session info ───────────────────────────────────────────────────────────────
+#&amp;gt;  setting  value                       
+#&amp;gt;  version  R version 3.6.2 (2019-12-12)
+#&amp;gt;  os       macOS Mojave 10.14.6        
+#&amp;gt;  system   x86_64, darwin15.6.0        
+#&amp;gt;  ui       X11                         
+#&amp;gt;  language (EN)                        
+#&amp;gt;  collate  en_US.UTF-8                 
+#&amp;gt;  ctype    en_US.UTF-8                 
+#&amp;gt;  tz       America/Denver              
+#&amp;gt;  date     2020-04-21                  
+#&amp;gt; 
+#&amp;gt; ─ Packages ───────────────────────────────────────────────────────────────────
+#&amp;gt;  package    * version date       lib source        
+#&amp;gt;  broom      * 0.5.5   2020-02-29 [1] CRAN (R 3.6.0)
+#&amp;gt;  dials      * 0.0.6   2020-04-03 [1] CRAN (R 3.6.2)
+#&amp;gt;  dplyr      * 0.8.5   2020-03-07 [1] CRAN (R 3.6.0)
+#&amp;gt;  ggplot2    * 3.3.0   2020-03-05 [1] CRAN (R 3.6.0)
+#&amp;gt;  infer      * 0.5.1   2019-11-19 [1] CRAN (R 3.6.0)
+#&amp;gt;  modeldata  * 0.0.1   2019-12-06 [1] CRAN (R 3.6.0)
+#&amp;gt;  parsnip    * 0.1.0   2020-04-09 [1] CRAN (R 3.6.2)
+#&amp;gt;  purrr      * 0.3.4   2020-04-17 [1] CRAN (R 3.6.2)
+#&amp;gt;  ranger     * 0.12.1  2020-01-10 [1] CRAN (R 3.6.0)
+#&amp;gt;  recipes    * 0.1.10  2020-03-18 [1] CRAN (R 3.6.0)
+#&amp;gt;  rlang        0.4.5   2020-03-01 [1] CRAN (R 3.6.0)
+#&amp;gt;  rsample    * 0.0.6   2020-03-31 [1] CRAN (R 3.6.2)
+#&amp;gt;  tibble     * 2.1.3   2019-06-06 [1] CRAN (R 3.6.2)
+#&amp;gt;  tidymodels * 0.1.0   2020-02-16 [1] CRAN (R 3.6.0)
+#&amp;gt;  tune       * 0.1.0   2020-04-02 [1] CRAN (R 3.6.2)
+#&amp;gt;  workflows  * 0.1.1   2020-03-17 [1] CRAN (R 3.6.0)
+#&amp;gt;  yardstick  * 0.0.6   2020-03-17 [1] CRAN (R 3.6.0)
+#&amp;gt; 
+#&amp;gt; [1] /Library/Frameworks/R.framework/Versions/3.6/Resources/library
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

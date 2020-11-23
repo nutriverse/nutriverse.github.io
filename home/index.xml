@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Homes | Nutriverse</title>
+    <link>https://nutriverse.io/home/</link>
+      <atom:link href="https://nutriverse.io/home/index.xml" rel="self" type="application/rss+xml" />
+    <description>Homes</description>
+    <generator>Hugo -- gohugo.io</generator><language>en-gb</language>
+    <item>
+      <title>Education @ RStudio</title>
+      <link>https://nutriverse.io/home/band_one/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://nutriverse.io/home/band_one/</guid>
+      <description>&lt;p&gt;Our mission is to equip everyone, regardless of means, to participate in a global economy that rewards data literacy.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Learn the tidyverse</title>
+      <link>https://nutriverse.io/home/band_two/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://nutriverse.io/home/band_two/</guid>
+      <description>&lt;p&gt;See how the tidyverse makes data science faster, easier and more fun with &amp;ldquo;R for Data Science&amp;rdquo;. Read it 
+&lt;a href=&#34;http://r4ds.had.co.nz/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;online&lt;/a&gt;, buy 
+&lt;a href=&#34;http://amzn.to/2aHLAQ1&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;the book&lt;/a&gt; or try another 
+&lt;a href=&#34;https://nutriverse.io/learn/&#34;&gt;resource&lt;/a&gt; from the community.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Need help?</title>
+      <link>https://nutriverse.io/home/band_three/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://nutriverse.io/home/band_three/</guid>
+      <description>&lt;p&gt;First learn how to make a 
+&lt;a href=&#34;https://nutriverse.io/help/#reprex&#34;&gt;reprex&lt;/a&gt; then 
+&lt;a href=&#34;https://nutriverse.io/help/#where-to-ask&#34;&gt;share it&lt;/a&gt; with others.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

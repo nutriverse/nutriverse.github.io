@@ -1,10 +1,221 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>/</loc>
-    <priority>0</priority>
+    <loc>https://nutriverse.io/start/models/</loc>
+  </url>
+  
+  <url>
+    <loc>https://nutriverse.io/learn/statistics/</loc>
+  </url>
+  
+  <url>
+    <loc>https://nutriverse.io/learn/models/parsnip-ranger-glmnet/</loc>
+  </url>
+  
+  <url>
+    <loc>https://nutriverse.io/learn/models/parsnip-nnet/</loc>
+  </url>
+  
+  <url>
+    <loc>https://nutriverse.io/learn/models/</loc>
+  </url>
+  
+  <url>
+    <loc>https://nutriverse.io/learn/work/nested-resampling/</loc>
+  </url>
+  
+  <url>
+    <loc>https://nutriverse.io/start/recipes/</loc>
+  </url>
+  
+  <url>
+    <loc>https://nutriverse.io/learn/statistics/bootstrap/</loc>
+  </url>
+  
+  <url>
+    <loc>https://nutriverse.io/start/resampling/</loc>
+  </url>
+  
+  <url>
+    <loc>https://nutriverse.io/learn/work/bayes-opt/</loc>
+  </url>
+  
+  <url>
+    <loc>https://nutriverse.io/learn/work/</loc>
+  </url>
+  
+  <url>
+    <loc>https://nutriverse.io/learn/statistics/infer/</loc>
+  </url>
+  
+  <url>
+    <loc>https://nutriverse.io/learn/models/pls/</loc>
+  </url>
+  
+  <url>
+    <loc>https://nutriverse.io/learn/statistics/xtabs/</loc>
+  </url>
+  
+  <url>
+    <loc>https://nutriverse.io/categories/</loc>
+    <lastmod>2020-03-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://nutriverse.io/author/hadley-wickham/</loc>
+    <lastmod>2020-03-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://nutriverse.io/author/</loc>
+    <lastmod>2020-03-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://nutriverse.io/</loc>
+    <lastmod>2020-03-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://nutriverse.io/categories/package/</loc>
+    <lastmod>2020-03-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://nutriverse.io/tags/pkgdown/</loc>
+    <lastmod>2020-03-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://nutriverse.io/blog/2020/03/pkgdown-1-5-0/</loc>
+    <lastmod>2020-03-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://nutriverse.io/blog/</loc>
+    <lastmod>2020-03-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://nutriverse.io/tags/</loc>
+    <lastmod>2020-03-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://nutriverse.io/tags/web/</loc>
+    <lastmod>2020-03-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://nutriverse.io/events/rstudio-conf-2020/</loc>
+    <lastmod>2020-01-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://nutriverse.io/events/</loc>
+    <lastmod>2020-01-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://nutriverse.io/author/ernest/</loc>
+  </url>
+  
+  <url>
+    <loc>https://nutriverse.io/tags/broom/</loc>
+  </url>
+  
+  <url>
+    <loc>https://nutriverse.io/tags/dials/</loc>
+  </url>
+  
+  <url>
+    <loc>https://nutriverse.io/home/band_one/</loc>
+  </url>
+  
+  <url>
+    <loc>https://nutriverse.io/help/</loc>
+  </url>
+  
+  <url>
+    <loc>https://nutriverse.io/start/</loc>
+  </url>
+  
+  <url>
+    <loc>https://nutriverse.io/home/</loc>
+  </url>
+  
+  <url>
+    <loc>https://nutriverse.io/tags/infer/</loc>
+  </url>
+  
+  <url>
+    <loc>https://nutriverse.io/learn/</loc>
+  </url>
+  
+  <url>
+    <loc>https://nutriverse.io/home/band_two/</loc>
+  </url>
+  
+  <url>
+    <loc>https://nutriverse.io/categories/model-fitting/</loc>
+  </url>
+  
+  <url>
+    <loc>https://nutriverse.io/categories/model-tuning/</loc>
+  </url>
+  
+  <url>
+    <loc>https://nutriverse.io/home/band_three/</loc>
+  </url>
+  
+  <url>
+    <loc>https://nutriverse.io/tags/parsnip/</loc>
+  </url>
+  
+  <url>
+    <loc>https://nutriverse.io/events/archive/</loc>
+  </url>
+  
+  <url>
+    <loc>https://nutriverse.io/categories/pre-processing/</loc>
+  </url>
+  
+  <url>
+    <loc>https://nutriverse.io/tags/recipes/</loc>
+  </url>
+  
+  <url>
+    <loc>https://nutriverse.io/categories/resampling/</loc>
+  </url>
+  
+  <url>
+    <loc>https://nutriverse.io/tags/rsample/</loc>
+  </url>
+  
+  <url>
+    <loc>https://nutriverse.io/categories/statistical-analysis/</loc>
+  </url>
+  
+  <url>
+    <loc>https://nutriverse.io/packages/</loc>
+  </url>
+  
+  <url>
+    <loc>https://nutriverse.io/tags/tune/</loc>
+  </url>
+  
+  <url>
+    <loc>https://nutriverse.io/categories/tuning/</loc>
+  </url>
+  
+  <url>
+    <loc>https://nutriverse.io/tags/workflows/</loc>
+  </url>
+  
+  <url>
+    <loc>https://nutriverse.io/tags/yardstick/</loc>
   </url>
   
 </urlset>

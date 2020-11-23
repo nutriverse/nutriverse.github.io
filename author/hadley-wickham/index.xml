@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hadley Wickham | Nutriverse</title>
+    <link>https://nutriverse.io/author/hadley-wickham/</link>
+      <atom:link href="https://nutriverse.io/author/hadley-wickham/index.xml" rel="self" type="application/rss+xml" />
+    <description>Hadley Wickham</description>
+    <generator>Hugo -- gohugo.io</generator><language>en-gb</language><lastBuildDate>Wed, 25 Mar 2020 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>pkgdown 1.5.0</title>
+      <link>https://nutriverse.io/blog/2020/03/pkgdown-1-5-0/</link>
+      <pubDate>Wed, 25 Mar 2020 00:00:00 +0000</pubDate>
+      <guid>https://nutriverse.io/blog/2020/03/pkgdown-1-5-0/</guid>
+      <description>&lt;p&gt;We&amp;rsquo;re well chuffed to announce that 
+&lt;a href=&#34;https://pkgdown.r-lib.org/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;pkgdown&lt;/a&gt; 1.5.0 is now available on CRAN. pkgdown is designed to make it quick and easy to build a website for your package. Install it with:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#00f&#34;&gt;install.packages&lt;/span&gt;(&lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;pkgdown&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The most important changes are highlighted below and you can see a full list of changes in the 
+&lt;a href=&#34;https://pkgdown.r-lib.org/news/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;changelog&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&#34;articles&#34;&gt;Articles&lt;/h2&gt;
+&lt;p&gt;For packages with many vignettes/articles, we&amp;rsquo;ve provided much greater control over the 
+&lt;a href=&#34;https://pkgdown.r-lib.org/articles&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;articles index&lt;/a&gt; and navbar. There are two major new features in this release:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;The articles index page now displays article &lt;code&gt;description&lt;/code&gt;s, taken from
+YAML metadata in the header of each article. This lets you provide
+more context for each article.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The articles navbar is now controlled by the &lt;code&gt;articles&lt;/code&gt; section in
+&lt;code&gt;_pkgdown.yml&lt;/code&gt;. The ordering of the sections, and articles within
+them, control the order of the articles in the navbar, and you can
+use the new &lt;code&gt;navbar&lt;/code&gt; field to control whether or not each section
+appears in the navbar.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Learn more about both of these features in 
+&lt;a href=&#34;https://pkgdown.r-lib.org/reference/build_articles.html#index-and-navbar&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;?&lt;code&gt;build_articles&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Thanks to 
+&lt;a href=&#34;https://github.com/gadenbuie&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Garrick Aden-Buie&lt;/a&gt;, you also get much richer control over Open Graph and Twitter metadata for individual articles. See new 
+&lt;a href=&#34;https://pkgdown.r-lib.org/articles/metadata.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;vignette(&amp;quot;metadata&amp;quot;)&lt;/code&gt;&lt;/a&gt; for details.&lt;/p&gt;
+&lt;h2 id=&#34;reference-index&#34;&gt;Reference index&lt;/h2&gt;
+&lt;p&gt;For packages with many documentation topics, you can add an additional layer of hierarchy to the reference index, using the new &lt;code&gt;subtitle&lt;/code&gt; field. To give you some sense for what that might look like, here&amp;rsquo;s an example for a partial (and imaginary) dplyr reference index:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;color:#008000;font-weight:bold&#34;&gt;references&lt;/span&gt;:&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;&lt;/span&gt;- &lt;span style=&#34;color:#008000;font-weight:bold&#34;&gt;title&lt;/span&gt;:&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;Data&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;manipulation&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;&lt;/span&gt;- &lt;span style=&#34;color:#008000;font-weight:bold&#34;&gt;subtitle&lt;/span&gt;:&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;One&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;table&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;&lt;/span&gt;- &lt;span style=&#34;color:#008000;font-weight:bold&#34;&gt;contents&lt;/span&gt;:&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;  &lt;/span&gt;- arrange&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;  &lt;/span&gt;- filter&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;  &lt;/span&gt;- mutate&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;&lt;/span&gt;- &lt;span style=&#34;color:#008000;font-weight:bold&#34;&gt;subtitle&lt;/span&gt;:&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;two&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;table&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;&lt;/span&gt;- &lt;span style=&#34;color:#008000;font-weight:bold&#34;&gt;contents&lt;/span&gt;:&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;  &lt;/span&gt;- ends_with(&lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;_join&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;&lt;/span&gt;- &lt;span style=&#34;color:#008000;font-weight:bold&#34;&gt;title&lt;/span&gt;:&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;Datasets&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;&lt;/span&gt;- &lt;span style=&#34;color:#008000;font-weight:bold&#34;&gt;contents&lt;/span&gt;:&lt;span style=&#34;color:#bbb&#34;&gt; 
+&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;  &lt;/span&gt;- has_keyword(&lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;datasets&amp;#34;&lt;/span&gt;)&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;tables-of-contents&#34;&gt;Tables of contents&lt;/h2&gt;
+&lt;p&gt;Sidebar tables of contents now use 
+&lt;a href=&#34;https://afeld.github.io/bootstrap-toc/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;bootstrap-toc&lt;/a&gt;, which considerably improves navigation for long articles and reference pages.&lt;/p&gt;
+&lt;h2 id=&#34;other-source-repositories&#34;&gt;Other source repositories&lt;/h2&gt;
+&lt;p&gt;You can now control the links to source files (in reference pages and articles) and issues and users (in the NEWS) with new the &lt;code&gt;repo$url&lt;/code&gt; config parameter. This makes it easier to use pkgdown with GitHub enterprise, packages in subdirectories, and other source hosts (like bitbucket).&lt;/p&gt;
+&lt;p&gt;The YAML looks something like this:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span style=&#34;color:#008000;font-weight:bold&#34;&gt;repo&lt;/span&gt;:&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;  &lt;/span&gt;&lt;span style=&#34;color:#008000;font-weight:bold&#34;&gt;url&lt;/span&gt;:&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#008000;font-weight:bold&#34;&gt;home&lt;/span&gt;:&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;https://github.com/r-lib/pkgdown/&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#008000;font-weight:bold&#34;&gt;source&lt;/span&gt;:&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;https://github.com/r-lib/pkgdown/blob/master/&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#008000;font-weight:bold&#34;&gt;issue&lt;/span&gt;:&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;https://github.com/r-lib/pkgdown/issues/&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#bbb&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#008000;font-weight:bold&#34;&gt;user&lt;/span&gt;:&lt;span style=&#34;color:#bbb&#34;&gt; &lt;/span&gt;https://github.com/&lt;span style=&#34;color:#bbb&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The individual components (e.g. path, issue number, username) are pasted on the end of these urls so they should have trailing &lt;code&gt;/&lt;/code&gt;s.&lt;/p&gt;
+&lt;p&gt;pkgdown now detects GitLab urls automatically (since they use the same structure as GitHub), so you don&amp;rsquo;t need to set these links if you package is hosted on GitLab, and you&amp;rsquo;ve included a link to your source repo in the &lt;code&gt;URL&lt;/code&gt; or &lt;code&gt;BugReports&lt;/code&gt; &lt;code&gt;DESCRIPTION&lt;/code&gt; fields.&lt;/p&gt;
+&lt;h2 id=&#34;acknowledgements&#34;&gt;Acknowledgements&lt;/h2&gt;
+&lt;p&gt;A big thank you goes to 
+&lt;a href=&#34;https://github.com/jayhesselberth&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@jayhesselberth&lt;/a&gt; (the co-maintainer of pkgdown), and to to the 61 other people who helped make this release possible:
+
+&lt;a href=&#34;https://github.com/AshesITR&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@AshesITR&lt;/a&gt;,  
+&lt;a href=&#34;https://github.com/baptiste&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@baptiste&lt;/a&gt;, 
+&lt;a href=&#34;https://github.com/Bisaloo&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@Bisaloo&lt;/a&gt;, 
+&lt;a href=&#34;https://github.com/carloscinelli&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@carloscinelli&lt;/a&gt;, 
+&lt;a href=&#34;https://github.com/cboettig&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@cboettig&lt;/a&gt;, 
+&lt;a href=&#34;https://github.com/coatless&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@coatless&lt;/a&gt;, 
+&lt;a href=&#34;https://github.com/coolbutuseless&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@coolbutuseless&lt;/a&gt;, 
+&lt;a href=&#34;https://github.com/DanielEWeeks&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@DanielEWeeks&lt;/a&gt;, 
+&lt;a href=&#34;https://github.com/davidchall&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@davidchall&lt;/a&gt;, 
+&lt;a href=&#34;https://github.com/DavorJ&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@DavorJ&lt;/a&gt;, 
+&lt;a href=&#34;https://github.com/dimagor&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@dimagor&lt;/a&gt;, 
+&lt;a href=&#34;https://github.com/erikcs&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@erikcs&lt;/a&gt;, 
+&lt;a href=&#34;https://github.com/ferroao&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@ferroao&lt;/a&gt;, 
+&lt;a href=&#34;https://github.com/floriandeboissieu&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@floriandeboissieu&lt;/a&gt;, 
+&lt;a href=&#34;https://github.com/flying-sheep&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@flying-sheep&lt;/a&gt;, 
+&lt;a href=&#34;https://github.com/fmichonneau&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@fmichonneau&lt;/a&gt;, 
+&lt;a href=&#34;https://github.com/fmmattioni&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@fmmattioni&lt;/a&gt;, 
+&lt;a href=&#34;https://github.com/gaborcsardi&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@gaborcsardi&lt;/a&gt;, 
+&lt;a href=&#34;https://github.com/genomaths&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@genomaths&lt;/a&gt;, 
+&lt;a href=&#34;https://github.com/gustavdelius&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@gustavdelius&lt;/a&gt;, 
+&lt;a href=&#34;https://github.com/hadley&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@hadley&lt;/a&gt;, 
+&lt;a href=&#34;https://github.com/hbaniecki&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@hbaniecki&lt;/a&gt;, 
+&lt;a href=&#34;https://github.com/ijlyttle&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@ijlyttle&lt;/a&gt;, 
+&lt;a href=&#34;https://github.com/IndrajeetPatil&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@IndrajeetPatil&lt;/a&gt;, 
+&lt;a href=&#34;https://github.com/jangorecki&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@jangorecki&lt;/a&gt;, 
+&lt;a href=&#34;https://github.com/jayhesselberth&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@jayhesselberth&lt;/a&gt;, 
+&lt;a href=&#34;https://github.com/jeffwong-nflx&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@jeffwong-nflx&lt;/a&gt;, 
+&lt;a href=&#34;https://github.com/jennybc&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@jennybc&lt;/a&gt;, 
+&lt;a href=&#34;https://github.com/jeroen&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@jeroen&lt;/a&gt;, 
+&lt;a href=&#34;https://github.com/jimhester&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@jimhester&lt;/a&gt;, 
+&lt;a href=&#34;https://github.com/JoshuaSturm&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@JoshuaSturm&lt;/a&gt;, 
+&lt;a href=&#34;https://github.com/jranke&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@jranke&lt;/a&gt;, 
+&lt;a href=&#34;https://github.com/kevinushey&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@kevinushey&lt;/a&gt;, 
+&lt;a href=&#34;https://github.com/kevinwang09&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@kevinwang09&lt;/a&gt;, 
+&lt;a href=&#34;https://github.com/krlmlr&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@krlmlr&lt;/a&gt;, 
+&lt;a href=&#34;https://github.com/lbusett&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@lbusett&lt;/a&gt;, 
+&lt;a href=&#34;https://github.com/lcolladotor&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@lcolladotor&lt;/a&gt;, 
+&lt;a href=&#34;https://github.com/lgatto&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@lgatto&lt;/a&gt;, 
+&lt;a href=&#34;https://github.com/lindeloev&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@lindeloev&lt;/a&gt;, 
+&lt;a href=&#34;https://github.com/lionel-&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@lionel-&lt;/a&gt;, 
+&lt;a href=&#34;https://github.com/lorenzwalthert&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@lorenzwalthert&lt;/a&gt;, 
+&lt;a href=&#34;https://github.com/m-l-1&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@m-l-1&lt;/a&gt;, 
+&lt;a href=&#34;https://github.com/maelle&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@maelle&lt;/a&gt;, 
+&lt;a href=&#34;https://github.com/mattmalin&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@mattmalin&lt;/a&gt;, 
+&lt;a href=&#34;https://github.com/meghapsimatrix&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@meghapsimatrix&lt;/a&gt;, 
+&lt;a href=&#34;https://github.com/mikldk&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@mikldk&lt;/a&gt;, 
+&lt;a href=&#34;https://github.com/mllg&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@mllg&lt;/a&gt;, 
+&lt;a href=&#34;https://github.com/ms609&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@ms609&lt;/a&gt;, 
+&lt;a href=&#34;https://github.com/nealrichardson&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@nealrichardson&lt;/a&gt;, 
+&lt;a href=&#34;https://github.com/nschiett&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@nschiett&lt;/a&gt;, 
+&lt;a href=&#34;https://github.com/nteetor&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@nteetor&lt;/a&gt;, 
+&lt;a href=&#34;https://github.com/pat-s&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@pat-s&lt;/a&gt;, 
+&lt;a href=&#34;https://github.com/peterdesmet&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@peterdesmet&lt;/a&gt;, 
+&lt;a href=&#34;https://github.com/rupertoverall&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@rupertoverall&lt;/a&gt;, 
+&lt;a href=&#34;https://github.com/schloerke&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@schloerke&lt;/a&gt;, 
+&lt;a href=&#34;https://github.com/slowkow&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@slowkow&lt;/a&gt;, 
+&lt;a href=&#34;https://github.com/t-kalinowski&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@t-kalinowski&lt;/a&gt;, 
+&lt;a href=&#34;https://github.com/wendtke&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@wendtke&lt;/a&gt;, 
+&lt;a href=&#34;https://github.com/ycphs&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@ycphs&lt;/a&gt;, 
+&lt;a href=&#34;https://github.com/yiluheihei&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@yiluheihei&lt;/a&gt;, and 
+&lt;a href=&#34;https://github.com/yonicd&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;@yonicd&lt;/a&gt;.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
