@@ -11,8 +11,18 @@
       <link>https://nutriverse.io/learn/work/bayes-opt/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://nutriverse.io/learn/work/bayes-opt/</guid>
-      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
-&lt;p&gt;To use the code in this article, you will need to install the following packages: kernlab, modeldata, tidymodels, and tidyr.&lt;/p&gt;
+      <description>
+
+
+
+&lt;h2 id=&#34;introduction&#34;&gt;Introduction
+  &lt;a href=&#34;#introduction&#34;&gt;
+    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+    &lt;/svg&gt;
+  &lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;To use the code in this article, you will need to install the following packages: kernlab, modeldata, tidymodels, and tidyr.&lt;/p&gt;
 &lt;p&gt;Many of the examples for model tuning focus on 
 &lt;a href=&#34;https://nutriverse.io/learn/work/tune-svm/&#34;&gt;grid search&lt;/a&gt;. For that method, all the candidate tuning parameter combinations are defined prior to evaluation. Alternatively, &lt;em&gt;iterative search&lt;/em&gt; can be used to analyze the existing tuning parameter results and then &lt;em&gt;predict&lt;/em&gt; which tuning parameters to try next.&lt;/p&gt;
 &lt;p&gt;There are a variety of methods for iterative search and the focus in this article is on &lt;em&gt;Bayesian optimization&lt;/em&gt;. For more information on this method, these resources might be helpful:&lt;/p&gt;
@@ -34,8 +44,18 @@
 &lt;a href=&#34;https://scholar.google.com/scholar?hl=en&amp;amp;as_sdt=0%2C7&amp;amp;q=%22Bayesian&amp;#43;Optimization%22&amp;amp;btnG=&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Other articles!&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;cell-segmenting-revisited&#34;&gt;Cell segmenting revisited&lt;/h2&gt;
-&lt;p&gt;To demonstrate this approach to tuning models, let&amp;rsquo;s return to the cell segmentation data from the 
+
+
+
+
+&lt;h2 id=&#34;cell-segmenting-revisited&#34;&gt;Cell segmenting revisited
+  &lt;a href=&#34;#cell-segmenting-revisited&#34;&gt;
+    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+    &lt;/svg&gt;
+  &lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;To demonstrate this approach to tuning models, let&amp;rsquo;s return to the cell segmentation data from the 
 &lt;a href=&#34;https://nutriverse.io/start/resampling/&#34;&gt;Getting Started&lt;/a&gt; article on resampling:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#00f&#34;&gt;library&lt;/span&gt;(tidymodels)
 &lt;span style=&#34;color:#00f&#34;&gt;library&lt;/span&gt;(modeldata)
@@ -50,8 +70,18 @@ cell_test  &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;spa
 
 &lt;span style=&#34;color:#00f&#34;&gt;set.seed&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;1697&lt;/span&gt;)
 folds &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;vfold_cv&lt;/span&gt;(cell_train, v &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;10&lt;/span&gt;)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;the-tuning-scheme&#34;&gt;The tuning scheme&lt;/h2&gt;
-&lt;p&gt;Since the predictors are highly correlated, we can used a recipe to convert the original predictors to principal component scores. There is also slight class imbalance in these data; about 64% of the data are poorly segmented. To mitigate this, the data will be down-sampled at the end of the pre-processing so that the number of poorly and well segmented cells occur with equal frequency. We can use a recipe for all this pre-processing, but the number of principal components will need to be &lt;em&gt;tuned&lt;/em&gt; so that we have enough (but not too many) representations of the data.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+&lt;h2 id=&#34;the-tuning-scheme&#34;&gt;The tuning scheme
+  &lt;a href=&#34;#the-tuning-scheme&#34;&gt;
+    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+    &lt;/svg&gt;
+  &lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;Since the predictors are highly correlated, we can used a recipe to convert the original predictors to principal component scores. There is also slight class imbalance in these data; about 64% of the data are poorly segmented. To mitigate this, the data will be down-sampled at the end of the pre-processing so that the number of poorly and well segmented cells occur with equal frequency. We can use a recipe for all this pre-processing, but the number of principal components will need to be &lt;em&gt;tuned&lt;/em&gt; so that we have enough (but not too many) representations of the data.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;cell_pre_proc &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt;
   &lt;span style=&#34;color:#00f&#34;&gt;recipe&lt;/span&gt;(class &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt; ., data &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; cell_train) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
   &lt;span style=&#34;color:#00f&#34;&gt;step_YeoJohnson&lt;/span&gt;(&lt;span style=&#34;color:#00f&#34;&gt;all_predictors&lt;/span&gt;()) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
@@ -81,8 +111,18 @@ svm_set
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;svm_set &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; 
   svm_set &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
   &lt;span style=&#34;color:#00f&#34;&gt;update&lt;/span&gt;(num_comp &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;num_comp&lt;/span&gt;(&lt;span style=&#34;color:#00f&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;0L&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;20L&lt;/span&gt;)))
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;sequential-tuning&#34;&gt;Sequential tuning&lt;/h2&gt;
-&lt;p&gt;Bayesian optimization is a sequential method that uses a model to predict new candidate parameters for assessment. When scoring potential parameter value, the mean and variance of performance are predicted. The strategy used to define how these two statistical quantities are used is defined by an &lt;em&gt;acquisition function&lt;/em&gt;.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+&lt;h2 id=&#34;sequential-tuning&#34;&gt;Sequential tuning
+  &lt;a href=&#34;#sequential-tuning&#34;&gt;
+    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+    &lt;/svg&gt;
+  &lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;Bayesian optimization is a sequential method that uses a model to predict new candidate parameters for assessment. When scoring potential parameter value, the mean and variance of performance are predicted. The strategy used to define how these two statistical quantities are used is defined by an &lt;em&gt;acquisition function&lt;/em&gt;.&lt;/p&gt;
 &lt;p&gt;For example, one approach for scoring new candidates is to use a confidence bound. Suppose accuracy is being optimized. For a metric that we want to maximize, a lower confidence bound can be used. The multiplier on the standard error (denoted as &lt;code&gt;\(\kappa\)&lt;/code&gt;) is a value that can be used to make trade-offs between &lt;strong&gt;exploration&lt;/strong&gt; and &lt;strong&gt;exploitation&lt;/strong&gt;.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -779,8 +819,18 @@ estimates
   &lt;span style=&#34;color:#00f&#34;&gt;geom_point&lt;/span&gt;() &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
   &lt;span style=&#34;color:#00f&#34;&gt;facet_wrap&lt;/span&gt;( &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt; parameter, scales &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;free_y&amp;#34;&lt;/span&gt;)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;figs/bo-param-plot-1.svg&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;h2 id=&#34;session-information&#34;&gt;Session information&lt;/h2&gt;
-&lt;pre&gt;&lt;code&gt;#&amp;gt; ─ Session info ───────────────────────────────────────────────────────────────
+
+
+
+
+&lt;h2 id=&#34;session-information&#34;&gt;Session information
+  &lt;a href=&#34;#session-information&#34;&gt;
+    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+    &lt;/svg&gt;
+  &lt;/a&gt;
+&lt;/h2&gt;&lt;pre&gt;&lt;code&gt;#&amp;gt; ─ Session info ───────────────────────────────────────────────────────────────
 #&amp;gt;  setting  value                       
 #&amp;gt;  version  R version 3.6.2 (2019-12-12)
 #&amp;gt;  os       macOS Mojave 10.14.6        

@@ -11,16 +11,36 @@
       <link>https://nutriverse.io/start/models/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://nutriverse.io/start/models/</guid>
-      <description>&lt;h2 id=&#34;intro&#34;&gt;Introduction&lt;/h2&gt;
-&lt;p&gt;How do you create a statistical model using tidymodels? In this article, we will walk you through the steps. We start with data for modeling, learn how to specify and train models with different engines using the 
+      <description>
+
+
+
+&lt;h2 id=&#34;intro&#34;&gt;Introduction
+  &lt;a href=&#34;#intro&#34;&gt;
+    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+    &lt;/svg&gt;
+  &lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;How do you create a statistical model using tidymodels? In this article, we will walk you through the steps. We start with data for modeling, learn how to specify and train models with different engines using the 
 &lt;a href=&#34;https://tidymodels.github.io/parsnip/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;parsnip package&lt;/a&gt;, and understand why these functions are designed this way.&lt;/p&gt;
 &lt;p&gt;To use code in this article,  you will need to install the following packages: readr, rstanarm, and tidymodels.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#00f&#34;&gt;library&lt;/span&gt;(tidymodels)  &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# for the parsnip package, along with the rest of tidymodels&lt;/span&gt;
 
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# Helper packages&lt;/span&gt;
 &lt;span style=&#34;color:#00f&#34;&gt;library&lt;/span&gt;(readr)       &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# for importing data&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;data&#34;&gt;The Sea Urchins Data&lt;/h2&gt;
-&lt;p&gt;Let&amp;rsquo;s use the data from 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+&lt;h2 id=&#34;data&#34;&gt;The Sea Urchins Data
+  &lt;a href=&#34;#data&#34;&gt;
+    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+    &lt;/svg&gt;
+  &lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;Let&amp;rsquo;s use the data from 
 &lt;a href=&#34;https://link.springer.com/article/10.1007/BF00349318&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Constable (1993)&lt;/a&gt; to explore how three different feeding regimes affect the size of sea urchins over time. The initial size of the sea urchins at the beginning of the experiment probably affects how big they grow as they are fed.&lt;/p&gt;
 &lt;p&gt;To start, let&amp;rsquo;s read our urchins data into R, which we&amp;rsquo;ll do by providing 
 &lt;a href=&#34;https://readr.tidyverse.org/reference/read_delim.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;readr::read_csv()&lt;/code&gt;&lt;/a&gt; with a url where our CSV data is located (&amp;ldquo;&lt;a href=&#34;https://tidymodels.org/start/models/urchins.csv&#34;&gt;https://tidymodels.org/start/models/urchins.csv&lt;/a&gt;&amp;rdquo;):&lt;/p&gt;
@@ -74,8 +94,18 @@
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; `geom_smooth()` using formula &amp;#39;y ~ x&amp;#39;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;figs/urchin-plot-1.svg&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;We can see that urchins that were larger in volume at the start of the experiment tended to have wider sutures at the end, but the slopes of the lines look different so this effect may depend on the feeding regime condition.&lt;/p&gt;
-&lt;h2 id=&#34;build-model&#34;&gt;Build and fit a model&lt;/h2&gt;
-&lt;p&gt;A standard two-way analysis of variance (
+
+
+
+
+&lt;h2 id=&#34;build-model&#34;&gt;Build and fit a model
+  &lt;a href=&#34;#build-model&#34;&gt;
+    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+    &lt;/svg&gt;
+  &lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;A standard two-way analysis of variance (
 &lt;a href=&#34;https://www.itl.nist.gov/div898/handbook/prc/section4/prc43.htm&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;ANOVA&lt;/a&gt;) model makes sense for this dataset because we have both a continuous predictor and a categorical predictor. Since the slopes appear to be different for at least two of the feeding regimes, let&amp;rsquo;s build a model that allows for two-way interactions. Specifying an R formula with our variables in this way:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;width &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt; initial_volume &lt;span style=&#34;color:#666&#34;&gt;*&lt;/span&gt; food_regime
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;allows our regression model depending on initial volume to have separate slopes and intercepts for each food regime.&lt;/p&gt;
@@ -126,8 +156,18 @@ lm_fit
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 4 food_regimeHigh                 0.0214    0.0145       1.47  0.145   &lt;/span&gt;
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 5 initial_volume:food_regimeLow  -0.00126   0.000510    -2.47  0.0162  &lt;/span&gt;
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 6 initial_volume:food_regimeHigh  0.000525  0.000702     0.748 0.457&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;predict-model&#34;&gt;Use a model to predict&lt;/h2&gt;
-&lt;p&gt;This fitted object &lt;code&gt;lm_fit&lt;/code&gt; has the &lt;code&gt;lm&lt;/code&gt; model output built-in, which you can access with &lt;code&gt;lm_fit$fit&lt;/code&gt;, but there are some benefits to using the fitted parsnip model object when it comes to predicting.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+&lt;h2 id=&#34;predict-model&#34;&gt;Use a model to predict
+  &lt;a href=&#34;#predict-model&#34;&gt;
+    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+    &lt;/svg&gt;
+  &lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;This fitted object &lt;code&gt;lm_fit&lt;/code&gt; has the &lt;code&gt;lm&lt;/code&gt; model output built-in, which you can access with &lt;code&gt;lm_fit$fit&lt;/code&gt;, but there are some benefits to using the fitted parsnip model object when it comes to predicting.&lt;/p&gt;
 &lt;p&gt;Suppose that, for a publication, it would be particularly interesting to make a plot of the mean body size for urchins that started the experiment with an initial volume of 20ml. To create such a graph, we start with some new example data that we will make predictions for, to show in our graph:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;new_points &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;expand.grid&lt;/span&gt;(initial_volume &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;20&lt;/span&gt;, 
                           food_regime &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;Initial&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;Low&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;High&amp;#34;&lt;/span&gt;))
@@ -175,8 +215,18 @@ plot_data &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt;
                 width &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;.2&lt;/span&gt;) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt; 
   &lt;span style=&#34;color:#00f&#34;&gt;labs&lt;/span&gt;(y &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;urchin size&amp;#34;&lt;/span&gt;)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;figs/lm-all-pred-1.svg&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;h2 id=&#34;new-engine&#34;&gt;Model with a different engine&lt;/h2&gt;
-&lt;p&gt;Every one on your team is happy with that plot &lt;em&gt;except&lt;/em&gt; that one person who just read their first book on 
+
+
+
+
+&lt;h2 id=&#34;new-engine&#34;&gt;Model with a different engine
+  &lt;a href=&#34;#new-engine&#34;&gt;
+    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+    &lt;/svg&gt;
+  &lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;Every one on your team is happy with that plot &lt;em&gt;except&lt;/em&gt; that one person who just read their first book on 
 &lt;a href=&#34;https://bayesian.org/what-is-bayesian-analysis/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Bayesian analysis&lt;/a&gt;. They are interested in knowing if the results would be different if the model were estimated using a Bayesian approach. In such an analysis, a 
 &lt;a href=&#34;https://towardsdatascience.com/introduction-to-bayesian-linear-regression-e66e60791ea7&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;em&gt;prior distribution&lt;/em&gt;&lt;/a&gt; needs to be declared for each model parameter that represents the possible values of the parameters (before being exposed to the observed data). After some discussion, the group agrees that the priors should be bell-shaped but, since no one has any idea what the range of values should be, to take a conservative approach and make the priors &lt;em&gt;wide&lt;/em&gt; using a Cauchy distribution (which is the same as a t-distribution with a single degree of freedom).&lt;/p&gt;
 &lt;p&gt;The 
@@ -251,8 +301,18 @@ bayes_fit &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;figs/stan-pred-1.svg&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;This isn&amp;rsquo;t very different from the non-Bayesian results (except in interpretation).&lt;/p&gt;
 &lt;div class=&#34;note&#34;&gt;The &lt;a href=&#34;https://parsnip.tidymodels.org/&#34;&gt;parsnip&lt;/a&gt; package can work with many model types, engines, and arguments. Check out &lt;a href=&#34;https://nutriverse.io/find/parsnip/&#34;&gt;tidymodels.org/find/parsnip&lt;/a&gt; to see what is available.&lt;/div&gt;
-&lt;h2 id=&#34;why&#34;&gt;Why does it work that way?&lt;/h2&gt;
-&lt;p&gt;The extra step of defining the model using a function like &lt;code&gt;linear_reg()&lt;/code&gt; might seem superfluous since a call to &lt;code&gt;lm()&lt;/code&gt; is much more succinct. However, the problem with standard modeling functions is that they don&amp;rsquo;t separate what you want to do from the execution. For example, the process of executing a formula has to happen repeatedly across model calls even when the formula does not change; we can&amp;rsquo;t recycle those computations.&lt;/p&gt;
+
+
+
+
+&lt;h2 id=&#34;why&#34;&gt;Why does it work that way?
+  &lt;a href=&#34;#why&#34;&gt;
+    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+    &lt;/svg&gt;
+  &lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;The extra step of defining the model using a function like &lt;code&gt;linear_reg()&lt;/code&gt; might seem superfluous since a call to &lt;code&gt;lm()&lt;/code&gt; is much more succinct. However, the problem with standard modeling functions is that they don&amp;rsquo;t separate what you want to do from the execution. For example, the process of executing a formula has to happen repeatedly across model calls even when the formula does not change; we can&amp;rsquo;t recycle those computations.&lt;/p&gt;
 &lt;p&gt;Also, using the tidymodels framework, we can do some interesting things by incrementally creating a model (instead of using single function call). 
 &lt;a href=&#34;https://nutriverse.io/start/tuning/&#34;&gt;Model tuning&lt;/a&gt; with tidymodels uses the specification of the model to declare what parts of the model should be tuned. That would be very difficult to do if &lt;code&gt;linear_reg()&lt;/code&gt; immediately fit the model.&lt;/p&gt;
 &lt;p&gt;If you are familiar with the tidyverse, you may have noticed that our modeling code uses the magrittr pipe (&lt;code&gt;%&amp;gt;%&lt;/code&gt;). With dplyr and other tidyverse packages, the pipe works well because all of the functions take the &lt;em&gt;data&lt;/em&gt; as the first argument. For example:&lt;/p&gt;
@@ -274,8 +334,18 @@ bayes_fit &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt;
   &lt;span style=&#34;color:#00f&#34;&gt;geom_jitter&lt;/span&gt;() &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;                         &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# same&lt;/span&gt;
   &lt;span style=&#34;color:#00f&#34;&gt;geom_smooth&lt;/span&gt;(method &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; lm, se &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#008000;font-weight:bold&#34;&gt;FALSE&lt;/span&gt;) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;  &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# same                    &lt;/span&gt;
   &lt;span style=&#34;color:#00f&#34;&gt;labs&lt;/span&gt;(x &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;Volume&amp;#34;&lt;/span&gt;, y &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;Width&amp;#34;&lt;/span&gt;)         &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# etc&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;session-info&#34;&gt;Session information&lt;/h2&gt;
-&lt;pre&gt;&lt;code&gt;#&amp;gt; ─ Session info ───────────────────────────────────────────────────────────────
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+&lt;h2 id=&#34;session-info&#34;&gt;Session information
+  &lt;a href=&#34;#session-info&#34;&gt;
+    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+    &lt;/svg&gt;
+  &lt;/a&gt;
+&lt;/h2&gt;&lt;pre&gt;&lt;code&gt;#&amp;gt; ─ Session info ───────────────────────────────────────────────────────────────
 #&amp;gt;  setting  value                       
 #&amp;gt;  version  R version 4.0.0 (2020-04-24)
 #&amp;gt;  os       macOS Mojave 10.14.6        
@@ -316,8 +386,18 @@ bayes_fit &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt;
       <link>https://nutriverse.io/start/recipes/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://nutriverse.io/start/recipes/</guid>
-      <description>&lt;h2 id=&#34;intro&#34;&gt;Introduction&lt;/h2&gt;
-&lt;p&gt;In our 
+      <description>
+
+
+
+&lt;h2 id=&#34;intro&#34;&gt;Introduction
+  &lt;a href=&#34;#intro&#34;&gt;
+    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+    &lt;/svg&gt;
+  &lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;In our 
 &lt;a href=&#34;https://nutriverse.io/start/models/&#34;&gt;&lt;em&gt;Build a Model&lt;/em&gt;&lt;/a&gt; article, we learned how to specify and train models with different engines using the 
 &lt;a href=&#34;https://tidymodels.github.io/parsnip/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;parsnip package&lt;/a&gt;. In this article, we&amp;rsquo;ll explore another tidymodels package, 
 &lt;a href=&#34;https://tidymodels.github.io/recipes/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;recipes&lt;/a&gt;, which is designed to help you preprocess your data &lt;em&gt;before&lt;/em&gt; training your model. Recipes are built as a series of preprocessing steps, such as:&lt;/p&gt;
@@ -342,8 +422,18 @@ bayes_fit &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt;
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# Helper packages&lt;/span&gt;
 &lt;span style=&#34;color:#00f&#34;&gt;library&lt;/span&gt;(nycflights13)    &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# for flight data&lt;/span&gt;
 &lt;span style=&#34;color:#00f&#34;&gt;library&lt;/span&gt;(skimr)           &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# for variable summaries&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;data&#34;&gt;The New York City flight data&lt;/h2&gt;
-&lt;p&gt;Let&amp;rsquo;s use the 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+&lt;h2 id=&#34;data&#34;&gt;The New York City flight data
+  &lt;a href=&#34;#data&#34;&gt;
+    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+    &lt;/svg&gt;
+  &lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;Let&amp;rsquo;s use the 
 &lt;a href=&#34;https://github.com/hadley/nycflights13&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;nycflights13 data&lt;/a&gt; to predict whether a plane arrives more than 30 minutes late. This data set contains information on 325,819 flights departing near New York City in 2013. Let&amp;rsquo;s start by loading the data and making a few changes to the variables:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#00f&#34;&gt;set.seed&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;123&lt;/span&gt;)
 
@@ -471,8 +561,18 @@ flight_data &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt;
 &lt;/table&gt;
 &lt;p&gt;Because we&amp;rsquo;ll be using a simple logistic regression model, the variables &lt;code&gt;dest&lt;/code&gt; and &lt;code&gt;carrier&lt;/code&gt; will be converted to 
 &lt;a href=&#34;https://bookdown.org/max/FES/creating-dummy-variables-for-unordered-categories.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;dummy variables&lt;/a&gt;. However, some of these values do not occur very frequently and this could complicate our analysis. We&amp;rsquo;ll discuss specific steps later in this article that we can add to our recipe to address this issue before modeling.&lt;/p&gt;
-&lt;h2 id=&#34;data-split&#34;&gt;Data splitting&lt;/h2&gt;
-&lt;p&gt;To get started, let&amp;rsquo;s split this single dataset into two: a &lt;em&gt;training&lt;/em&gt; set and a &lt;em&gt;testing&lt;/em&gt; set. We&amp;rsquo;ll keep most of the rows in the original dataset (subset chosen randomly) in the &lt;em&gt;training&lt;/em&gt; set. The training data will be used to &lt;em&gt;fit&lt;/em&gt; the model, and the &lt;em&gt;testing&lt;/em&gt; set will be used to measure model performance.&lt;/p&gt;
+
+
+
+
+&lt;h2 id=&#34;data-split&#34;&gt;Data splitting
+  &lt;a href=&#34;#data-split&#34;&gt;
+    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+    &lt;/svg&gt;
+  &lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;To get started, let&amp;rsquo;s split this single dataset into two: a &lt;em&gt;training&lt;/em&gt; set and a &lt;em&gt;testing&lt;/em&gt; set. We&amp;rsquo;ll keep most of the rows in the original dataset (subset chosen randomly) in the &lt;em&gt;training&lt;/em&gt; set. The training data will be used to &lt;em&gt;fit&lt;/em&gt; the model, and the &lt;em&gt;testing&lt;/em&gt; set will be used to measure model performance.&lt;/p&gt;
 &lt;p&gt;To do this, we can use the 
 &lt;a href=&#34;https://tidymodels.github.io/rsample/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;rsample&lt;/a&gt; package to create an object that contains the information on &lt;em&gt;how&lt;/em&gt; to split the data, and then two more rsample functions to create data frames for the training and testing sets:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# Fix the random numbers by setting the seed &lt;/span&gt;
@@ -484,8 +584,18 @@ data_split &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;spa
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# Create data frames for the two sets:&lt;/span&gt;
 train_data &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;training&lt;/span&gt;(data_split)
 test_data  &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;testing&lt;/span&gt;(data_split)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;recipe&#34;&gt;Create recipe and roles&lt;/h2&gt;
-&lt;p&gt;To get started, let&amp;rsquo;s create a recipe for a simple logistic regression model. Before training the model, we can use a recipe to create a few new predictors and conduct some preprocessing required by the model.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+&lt;h2 id=&#34;recipe&#34;&gt;Create recipe and roles
+  &lt;a href=&#34;#recipe&#34;&gt;
+    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+    &lt;/svg&gt;
+  &lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;To get started, let&amp;rsquo;s create a recipe for a simple logistic regression model. Before training the model, we can use a recipe to create a few new predictors and conduct some preprocessing required by the model.&lt;/p&gt;
 &lt;p&gt;Let&amp;rsquo;s initiate a new recipe:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;flights_rec &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; 
   &lt;span style=&#34;color:#00f&#34;&gt;recipe&lt;/span&gt;(arr_delay &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt; ., data &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; train_data) 
@@ -521,8 +631,18 @@ test_data  &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;spa
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  8 date      date    predictor original&lt;/span&gt;
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  9 time_hour date    ID        original&lt;/span&gt;
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 10 arr_delay nominal outcome   original&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;features&#34;&gt;Create features&lt;/h2&gt;
-&lt;p&gt;Now we can start adding steps onto our recipe using the pipe operator. Perhaps it is reasonable for the date of the flight to have an effect on the likelihood of a late arrival. A little bit of &lt;strong&gt;feature engineering&lt;/strong&gt; might go a long way to improving our model. How should the date be encoded into the model? The &lt;code&gt;date&lt;/code&gt; column has an R &lt;code&gt;date&lt;/code&gt; object so including that column &amp;ldquo;as is&amp;rdquo; will mean that the model will convert it to a numeric format equal to the number of days after a reference date:&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+&lt;h2 id=&#34;features&#34;&gt;Create features
+  &lt;a href=&#34;#features&#34;&gt;
+    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+    &lt;/svg&gt;
+  &lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;Now we can start adding steps onto our recipe using the pipe operator. Perhaps it is reasonable for the date of the flight to have an effect on the likelihood of a late arrival. A little bit of &lt;strong&gt;feature engineering&lt;/strong&gt; might go a long way to improving our model. How should the date be encoded into the model? The &lt;code&gt;date&lt;/code&gt; column has an R &lt;code&gt;date&lt;/code&gt; object so including that column &amp;ldquo;as is&amp;rdquo; will mean that the model will convert it to a numeric format equal to the number of days after a reference date:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;flight_data &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
   &lt;span style=&#34;color:#00f&#34;&gt;distinct&lt;/span&gt;(date) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
   &lt;span style=&#34;color:#00f&#34;&gt;mutate&lt;/span&gt;(numeric_date &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;as.numeric&lt;/span&gt;(date)) 
@@ -643,8 +763,18 @@ test_data  &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;spa
   &lt;span style=&#34;color:#00f&#34;&gt;step_dummy&lt;/span&gt;(&lt;span style=&#34;color:#00f&#34;&gt;all_nominal&lt;/span&gt;(), &lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#00f&#34;&gt;all_outcomes&lt;/span&gt;()) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
   &lt;span style=&#34;color:#00f&#34;&gt;step_zv&lt;/span&gt;(&lt;span style=&#34;color:#00f&#34;&gt;all_predictors&lt;/span&gt;())
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now we&amp;rsquo;ve created a &lt;em&gt;specification&lt;/em&gt; of what should be done with the data. How do we use the recipe we made?&lt;/p&gt;
-&lt;h2 id=&#34;fit-workflow&#34;&gt;Fit a model with a recipe&lt;/h2&gt;
-&lt;p&gt;Let&amp;rsquo;s use logistic regression to model the flight data. As we saw in 
+
+
+
+
+&lt;h2 id=&#34;fit-workflow&#34;&gt;Fit a model with a recipe
+  &lt;a href=&#34;#fit-workflow&#34;&gt;
+    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+    &lt;/svg&gt;
+  &lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;Let&amp;rsquo;s use logistic regression to model the flight data. As we saw in 
 &lt;a href=&#34;https://nutriverse.io/start/models/&#34;&gt;&lt;em&gt;Build a Model&lt;/em&gt;&lt;/a&gt;, we start by 
 &lt;a href=&#34;https://nutriverse.io/start/models/#build-model&#34;&gt;building a model specification&lt;/a&gt; using the parsnip package:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;lr_mod &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; 
@@ -703,8 +833,18 @@ flights_wflow
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 4 distance             0.00686 0.00150        4.57 4.84e- 6&lt;/span&gt;
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 5 date_USChristmasDay  1.12    0.173          6.49 8.45e-11&lt;/span&gt;
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # … with 152 more rows&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;predict-workflow&#34;&gt;Use a trained workflow to predict&lt;/h2&gt;
-&lt;p&gt;Our goal was to predict whether a plane arrives more than 30 minutes late. We have just:&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+&lt;h2 id=&#34;predict-workflow&#34;&gt;Use a trained workflow to predict
+  &lt;a href=&#34;#predict-workflow&#34;&gt;
+    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+    &lt;/svg&gt;
+  &lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;Our goal was to predict whether a plane arrives more than 30 minutes late. We have just:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;Built the model (&lt;code&gt;lr_mod&lt;/code&gt;),&lt;/p&gt;
@@ -764,8 +904,18 @@ flights_pred
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 1 roc_auc binary         0.765&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Not too bad! We leave it to the reader to test out this workflow 
 &lt;a href=&#34;https://tidymodels.github.io/workflows/reference/add_formula.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;em&gt;without&lt;/em&gt;&lt;/a&gt; this recipe. You can use &lt;code&gt;workflows::add_formula(arr_delay ~ .)&lt;/code&gt; instead of &lt;code&gt;add_recipe()&lt;/code&gt; (remember to remove the identification variables first!), and see whether our recipe improved our model&amp;rsquo;s ability to predict late arrivals.&lt;/p&gt;
-&lt;h2 id=&#34;session-info&#34;&gt;Session information&lt;/h2&gt;
-&lt;pre&gt;&lt;code&gt;#&amp;gt; ─ Session info ───────────────────────────────────────────────────────────────
+
+
+
+
+&lt;h2 id=&#34;session-info&#34;&gt;Session information
+  &lt;a href=&#34;#session-info&#34;&gt;
+    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+    &lt;/svg&gt;
+  &lt;/a&gt;
+&lt;/h2&gt;&lt;pre&gt;&lt;code&gt;#&amp;gt; ─ Session info ───────────────────────────────────────────────────────────────
 #&amp;gt;  setting  value                       
 #&amp;gt;  version  R version 3.6.2 (2019-12-12)
 #&amp;gt;  os       macOS Mojave 10.14.6        
@@ -806,8 +956,18 @@ flights_pred
       <link>https://nutriverse.io/learn/statistics/bootstrap/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://nutriverse.io/learn/statistics/bootstrap/</guid>
-      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
-&lt;p&gt;To use the code in this article, you will need to install the following packages: tidymodels and tidyr.&lt;/p&gt;
+      <description>
+
+
+
+&lt;h2 id=&#34;introduction&#34;&gt;Introduction
+  &lt;a href=&#34;#introduction&#34;&gt;
+    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+    &lt;/svg&gt;
+  &lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;To use the code in this article, you will need to install the following packages: tidymodels and tidyr.&lt;/p&gt;
 &lt;p&gt;Combining fitted models in a tidy way is useful for performing bootstrapping or permutation tests. These approaches have been explored before, for instance by 
 &lt;a href=&#34;https://rstudio-pubs-static.s3.amazonaws.com/19698_a4c472606e3c43e4b94720506e49bb7b.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Andrew MacDonald here&lt;/a&gt;, and 
 &lt;a href=&#34;https://github.com/hadley/dplyr/issues/269&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Hadley has explored efficient support for bootstrapping&lt;/a&gt; as a potential enhancement to dplyr. The tidymodels package 
@@ -843,8 +1003,18 @@ flights_pred
     &lt;span style=&#34;color:#00f&#34;&gt;geom_line&lt;/span&gt;(&lt;span style=&#34;color:#00f&#34;&gt;aes&lt;/span&gt;(y &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;predict&lt;/span&gt;(nlsfit)))
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;figs/unnamed-chunk-2-1.svg&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;While this does provide a p-value and confidence intervals for the parameters, these are based on model assumptions that may not hold in real data. Bootstrapping is a popular method for providing confidence intervals and predictions that are more robust to the nature of the data.&lt;/p&gt;
-&lt;h2 id=&#34;bootstrapping-models&#34;&gt;Bootstrapping models&lt;/h2&gt;
-&lt;p&gt;We can use the &lt;code&gt;bootstraps()&lt;/code&gt; function in the rsample package to sample bootstrap replications. First, we construct 2000 bootstrap replicates of the data, each of which has been randomly sampled with replacement. The resulting object is an &lt;code&gt;rset&lt;/code&gt;, which is a data frame with a column of &lt;code&gt;rsplit&lt;/code&gt; objects.&lt;/p&gt;
+
+
+
+
+&lt;h2 id=&#34;bootstrapping-models&#34;&gt;Bootstrapping models
+  &lt;a href=&#34;#bootstrapping-models&#34;&gt;
+    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+    &lt;/svg&gt;
+  &lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;We can use the &lt;code&gt;bootstraps()&lt;/code&gt; function in the rsample package to sample bootstrap replications. First, we construct 2000 bootstrap replicates of the data, each of which has been randomly sampled with replacement. The resulting object is an &lt;code&gt;rset&lt;/code&gt;, which is a data frame with a column of &lt;code&gt;rsplit&lt;/code&gt; objects.&lt;/p&gt;
 &lt;p&gt;An &lt;code&gt;rsplit&lt;/code&gt; object has two main components: an analysis data set and an assessment data set, accessible via &lt;code&gt;analysis(rsplit)&lt;/code&gt; and &lt;code&gt;assessment(rsplit)&lt;/code&gt; respectively. For bootstrap samples, the analysis data set is the bootstrap sample itself, and the assessment data set consists of all the out-of-bag samples.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#00f&#34;&gt;set.seed&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;27&lt;/span&gt;)
 boots &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;bootstraps&lt;/span&gt;(mtcars, times &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;2000&lt;/span&gt;, apparent &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#008000;font-weight:bold&#34;&gt;TRUE&lt;/span&gt;)
@@ -894,8 +1064,18 @@ boot_coefs &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt;
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  9 &amp;lt;split [32/9]&amp;gt; Bootstrap00… &amp;lt;nls&amp;gt; k        43.6       4.63      9.41 1.85e-10&lt;/span&gt;
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 10 &amp;lt;split [32/9]&amp;gt; Bootstrap00… &amp;lt;nls&amp;gt; b         5.89      1.68      3.51 1.44e- 3&lt;/span&gt;
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # … with 3,992 more rows&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;confidence-intervals&#34;&gt;Confidence intervals&lt;/h2&gt;
-&lt;p&gt;We can then calculate confidence intervals (using what is called the 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+&lt;h2 id=&#34;confidence-intervals&#34;&gt;Confidence intervals
+  &lt;a href=&#34;#confidence-intervals&#34;&gt;
+    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+    &lt;/svg&gt;
+  &lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;We can then calculate confidence intervals (using what is called the 
 &lt;a href=&#34;https://www.uvm.edu/~dhowell/StatPages/Randomization%20Tests/ResamplingWithR/BootstMeans/bootstrapping_means.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;percentile method&lt;/a&gt;):&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;percentile_intervals &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;int_pctl&lt;/span&gt;(boot_models, coef_info)
 percentile_intervals
@@ -913,8 +1093,18 @@ percentile_intervals
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;figs/unnamed-chunk-6-1.svg&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;The rsample package also has functions for 
 &lt;a href=&#34;https://tidymodels.github.io/rsample/reference/int_pctl.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;other types of confidence intervals&lt;/a&gt;.&lt;/p&gt;
-&lt;h2 id=&#34;possible-model-fits&#34;&gt;Possible model fits&lt;/h2&gt;
-&lt;p&gt;We can use &lt;code&gt;augment()&lt;/code&gt; to visualize the uncertainty in the fitted curve. Since there are so many bootstrap samples, we&amp;rsquo;ll only show a sample of the model fits in our visualization:&lt;/p&gt;
+
+
+
+
+&lt;h2 id=&#34;possible-model-fits&#34;&gt;Possible model fits
+  &lt;a href=&#34;#possible-model-fits&#34;&gt;
+    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+    &lt;/svg&gt;
+  &lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;We can use &lt;code&gt;augment()&lt;/code&gt; to visualize the uncertainty in the fitted curve. Since there are so many bootstrap samples, we&amp;rsquo;ll only show a sample of the model fits in our visualization:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;boot_aug &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; 
   boot_models &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
   &lt;span style=&#34;color:#00f&#34;&gt;sample_n&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;200&lt;/span&gt;) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
@@ -960,8 +1150,18 @@ splines_aug &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt;
   &lt;span style=&#34;color:#00f&#34;&gt;geom_line&lt;/span&gt;(&lt;span style=&#34;color:#00f&#34;&gt;aes&lt;/span&gt;(y &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; .fitted, group &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; id), alpha &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;0.2&lt;/span&gt;, col &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;blue&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
   &lt;span style=&#34;color:#00f&#34;&gt;geom_point&lt;/span&gt;()
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;figs/unnamed-chunk-9-1.svg&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;h2 id=&#34;session-information&#34;&gt;Session information&lt;/h2&gt;
-&lt;pre&gt;&lt;code&gt;#&amp;gt; ─ Session info ───────────────────────────────────────────────────────────────
+
+
+
+
+&lt;h2 id=&#34;session-information&#34;&gt;Session information
+  &lt;a href=&#34;#session-information&#34;&gt;
+    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+    &lt;/svg&gt;
+  &lt;/a&gt;
+&lt;/h2&gt;&lt;pre&gt;&lt;code&gt;#&amp;gt; ─ Session info ───────────────────────────────────────────────────────────────
 #&amp;gt;  setting  value                       
 #&amp;gt;  version  R version 3.6.2 (2019-12-12)
 #&amp;gt;  os       macOS Mojave 10.14.6        

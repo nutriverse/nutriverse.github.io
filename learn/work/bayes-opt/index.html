@@ -457,7 +457,7 @@ div.warning {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.68.3" />
+<meta name="generator" content="Hugo 0.72.0" />
 <title>nutriverse</title>
 <meta property="og:title" content="Iterative Bayesian optimization of a classification model" />
 <meta property="og:description" content="Identify the best hyperparameters for a model using Bayesian optimization of iterative search.
@@ -591,8 +591,18 @@ div.warning {
         </p>
 
       <div class="article-content">
-      <h2 id="introduction">Introduction</h2>
-<p>To use the code in this article, you will need to install the following packages: kernlab, modeldata, tidymodels, and tidyr.</p>
+      
+
+
+
+<h2 id="introduction">Introduction
+  <a href="#introduction">
+    <svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 0h24v24H0z" fill="currentColor"></path>
+      <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
+    </svg>
+  </a>
+</h2><p>To use the code in this article, you will need to install the following packages: kernlab, modeldata, tidymodels, and tidyr.</p>
 <p>Many of the examples for model tuning focus on 
 <a href="/learn/work/tune-svm/">grid search</a>. For that method, all the candidate tuning parameter combinations are defined prior to evaluation. Alternatively, <em>iterative search</em> can be used to analyze the existing tuning parameter results and then <em>predict</em> which tuning parameters to try next.</p>
 <p>There are a variety of methods for iterative search and the focus in this article is on <em>Bayesian optimization</em>. For more information on this method, these resources might be helpful:</p>
@@ -614,8 +624,18 @@ div.warning {
 <a href="https://scholar.google.com/scholar?hl=en&amp;as_sdt=0%2C7&amp;q=%22Bayesian&#43;Optimization%22&amp;btnG=" target="_blank" rel="noopener">Other articles!</a></p>
 </li>
 </ul>
-<h2 id="cell-segmenting-revisited">Cell segmenting revisited</h2>
-<p>To demonstrate this approach to tuning models, let&rsquo;s return to the cell segmentation data from the 
+
+
+
+
+<h2 id="cell-segmenting-revisited">Cell segmenting revisited
+  <a href="#cell-segmenting-revisited">
+    <svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 0h24v24H0z" fill="currentColor"></path>
+      <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
+    </svg>
+  </a>
+</h2><p>To demonstrate this approach to tuning models, let&rsquo;s return to the cell segmentation data from the 
 <a href="/start/resampling/">Getting Started</a> article on resampling:</p>
 <div class="highlight"><pre style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#00f">library</span>(tidymodels)
 <span style="color:#00f">library</span>(modeldata)
@@ -630,8 +650,18 @@ cell_test  <span style="color:#666">&lt;-</span> <span style="color:#00f">testin
 
 <span style="color:#00f">set.seed</span>(<span style="color:#666">1697</span>)
 folds <span style="color:#666">&lt;-</span> <span style="color:#00f">vfold_cv</span>(cell_train, v <span style="color:#666">=</span> <span style="color:#666">10</span>)
-</code></pre></div><h2 id="the-tuning-scheme">The tuning scheme</h2>
-<p>Since the predictors are highly correlated, we can used a recipe to convert the original predictors to principal component scores. There is also slight class imbalance in these data; about 64% of the data are poorly segmented. To mitigate this, the data will be down-sampled at the end of the pre-processing so that the number of poorly and well segmented cells occur with equal frequency. We can use a recipe for all this pre-processing, but the number of principal components will need to be <em>tuned</em> so that we have enough (but not too many) representations of the data.</p>
+</code></pre></div>
+
+
+
+<h2 id="the-tuning-scheme">The tuning scheme
+  <a href="#the-tuning-scheme">
+    <svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 0h24v24H0z" fill="currentColor"></path>
+      <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
+    </svg>
+  </a>
+</h2><p>Since the predictors are highly correlated, we can used a recipe to convert the original predictors to principal component scores. There is also slight class imbalance in these data; about 64% of the data are poorly segmented. To mitigate this, the data will be down-sampled at the end of the pre-processing so that the number of poorly and well segmented cells occur with equal frequency. We can use a recipe for all this pre-processing, but the number of principal components will need to be <em>tuned</em> so that we have enough (but not too many) representations of the data.</p>
 <div class="highlight"><pre style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">cell_pre_proc <span style="color:#666">&lt;-</span>
   <span style="color:#00f">recipe</span>(class <span style="color:#666">~</span> ., data <span style="color:#666">=</span> cell_train) <span style="color:#666">%&gt;%</span>
   <span style="color:#00f">step_YeoJohnson</span>(<span style="color:#00f">all_predictors</span>()) <span style="color:#666">%&gt;%</span>
@@ -661,8 +691,18 @@ svm_set
 <div class="highlight"><pre style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">svm_set <span style="color:#666">&lt;-</span> 
   svm_set <span style="color:#666">%&gt;%</span> 
   <span style="color:#00f">update</span>(num_comp <span style="color:#666">=</span> <span style="color:#00f">num_comp</span>(<span style="color:#00f">c</span>(<span style="color:#666">0L</span>, <span style="color:#666">20L</span>)))
-</code></pre></div><h2 id="sequential-tuning">Sequential tuning</h2>
-<p>Bayesian optimization is a sequential method that uses a model to predict new candidate parameters for assessment. When scoring potential parameter value, the mean and variance of performance are predicted. The strategy used to define how these two statistical quantities are used is defined by an <em>acquisition function</em>.</p>
+</code></pre></div>
+
+
+
+<h2 id="sequential-tuning">Sequential tuning
+  <a href="#sequential-tuning">
+    <svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 0h24v24H0z" fill="currentColor"></path>
+      <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
+    </svg>
+  </a>
+</h2><p>Bayesian optimization is a sequential method that uses a model to predict new candidate parameters for assessment. When scoring potential parameter value, the mean and variance of performance are predicted. The strategy used to define how these two statistical quantities are used is defined by an <em>acquisition function</em>.</p>
 <p>For example, one approach for scoring new candidates is to use a confidence bound. Suppose accuracy is being optimized. For a metric that we want to maximize, a lower confidence bound can be used. The multiplier on the standard error (denoted as <code>\(\kappa\)</code>) is a value that can be used to make trade-offs between <strong>exploration</strong> and <strong>exploitation</strong>.</p>
 <ul>
 <li>
@@ -1359,8 +1399,18 @@ estimates
   <span style="color:#00f">geom_point</span>() <span style="color:#666">+</span>
   <span style="color:#00f">facet_wrap</span>( <span style="color:#666">~</span> parameter, scales <span style="color:#666">=</span> <span style="color:#ba2121">&#34;free_y&#34;</span>)
 </code></pre></div><p><img src="figs/bo-param-plot-1.svg" width="672" /></p>
-<h2 id="session-information">Session information</h2>
-<pre><code>#&gt; ─ Session info ───────────────────────────────────────────────────────────────
+
+
+
+
+<h2 id="session-information">Session information
+  <a href="#session-information">
+    <svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 0h24v24H0z" fill="currentColor"></path>
+      <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
+    </svg>
+  </a>
+</h2><pre><code>#&gt; ─ Session info ───────────────────────────────────────────────────────────────
 #&gt;  setting  value                       
 #&gt;  version  R version 3.6.2 (2019-12-12)
 #&gt;  os       macOS Mojave 10.14.6        

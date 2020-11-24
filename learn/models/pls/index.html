@@ -457,7 +457,7 @@ div.warning {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.68.3" />
+<meta name="generator" content="Hugo 0.72.0" />
 <title>nutriverse</title>
 <meta property="og:title" content="Multivariate analysis using partial least squares" />
 <meta property="og:description" content="Build and fit a predictive model with more than one outcome.
@@ -591,8 +591,18 @@ div.warning {
         </p>
 
       <div class="article-content">
-      <h2 id="introduction">Introduction</h2>
-<p>To use the code in this article, you will need to install the following packages: modeldata, pls, tidymodels, and tidyr.</p>
+      
+
+
+
+<h2 id="introduction">Introduction
+  <a href="#introduction">
+    <svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 0h24v24H0z" fill="currentColor"></path>
+      <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
+    </svg>
+  </a>
+</h2><p>To use the code in this article, you will need to install the following packages: modeldata, pls, tidymodels, and tidyr.</p>
 <p>&ldquo;Multivariate analysis&rdquo; usually refers to multiple <em>outcomes</em> being modeled, analyzed, and/or predicted. There are multivariate versions of many common statistical tools. For example, suppose there was a data set with columns <code>y1</code> and <code>y2</code> representing two outcomes to be predicted. The <code>lm()</code> function would look something like:</p>
 <div class="highlight"><pre style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#00f">lm</span>(<span style="color:#00f">cbind</span>(y1, y2) <span style="color:#666">~</span> ., data <span style="color:#666">=</span> dat)
 </code></pre></div><p>This <code>cbind()</code> call is pretty awkward and is a consequence of how the traditional formula infrastructure works. The recipes package is a lot easier to work with! This article demonstrates how to model multiple outcomes.</p>
@@ -608,8 +618,18 @@ div.warning {
 <div class="highlight"><pre style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#00f">library</span>(modeldata)
 <span style="color:#00f">data</span>(meats)
 </code></pre></div><p>The three <em>outcomes</em> have fairly high correlations also.</p>
-<h2 id="preprocessing-the-data">Preprocessing the data</h2>
-<p>If the outcomes can be predicted using a linear model, partial least squares (PLS) is an ideal method. PLS models the data as a function of a set of unobserved <em>latent</em> variables that are derived in a manner similar to principal component analysis (PCA).</p>
+
+
+
+
+<h2 id="preprocessing-the-data">Preprocessing the data
+  <a href="#preprocessing-the-data">
+    <svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 0h24v24H0z" fill="currentColor"></path>
+      <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
+    </svg>
+  </a>
+</h2><p>If the outcomes can be predicted using a linear model, partial least squares (PLS) is an ideal method. PLS models the data as a function of a set of unobserved <em>latent</em> variables that are derived in a manner similar to principal component analysis (PCA).</p>
 <p>PLS, unlike PCA, also incorporates the outcome data when creating the PLS components. Like PCA, it tries to maximize the variance of the predictors that are explained by the components but it also tries to simultaneously maximize the correlation between those components and the outcomes. In this way, PLS <em>chases</em> variation of the predictors and outcomes.</p>
 <p>Since we are working with variances and covariances, we need to standardize the data. The recipe will center and scale all of the variables.</p>
 <p>Many base R functions that deal with multivariate outcomes using a formula require the use of <code>cbind()</code> on the left-hand side of the formula to work with the traditional formula methods. In tidymodels, recipes do not; the outcomes can be symbolically &ldquo;added&rdquo; together on the left-hand side:</p>
@@ -627,8 +647,18 @@ folds <span style="color:#666">&lt;-</span> <span style="color:#00f">vfold_cv</s
 folds <span style="color:#666">&lt;-</span> 
   folds <span style="color:#666">%&gt;%</span>
   <span style="color:#00f">mutate</span>(recipes <span style="color:#666">=</span> <span style="color:#00f">map</span>(splits, prepper, recipe <span style="color:#666">=</span> norm_rec))
-</code></pre></div><h2 id="partial-least-squares">Partial least squares</h2>
-<p>The complicated parts for moving forward are:</p>
+</code></pre></div>
+
+
+
+<h2 id="partial-least-squares">Partial least squares
+  <a href="#partial-least-squares">
+    <svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 0h24v24H0z" fill="currentColor"></path>
+      <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
+    </svg>
+  </a>
+</h2><p>The complicated parts for moving forward are:</p>
 <ol>
 <li>Formatting the predictors and outcomes into the format that the pls package requires, and</li>
 <li>Estimating the proportions.</li>
@@ -694,8 +724,18 @@ get_var_explained <span style="color:#666">&lt;-</span> <span style="color:#00f"
   <span style="color:#00f">geom_line</span>() <span style="color:#666">+</span> 
   <span style="color:#00f">geom_point</span>() 
 </code></pre></div><p><img src="figs/plot-1.svg" width="100%" /></p>
-<h2 id="session-information">Session information</h2>
-<pre><code>#&gt; ─ Session info ───────────────────────────────────────────────────────────────
+
+
+
+
+<h2 id="session-information">Session information
+  <a href="#session-information">
+    <svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 0h24v24H0z" fill="currentColor"></path>
+      <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
+    </svg>
+  </a>
+</h2><pre><code>#&gt; ─ Session info ───────────────────────────────────────────────────────────────
 #&gt;  setting  value                       
 #&gt;  version  R version 3.6.2 (2019-12-12)
 #&gt;  os       macOS Mojave 10.14.6        

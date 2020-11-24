@@ -11,8 +11,18 @@
       <link>https://nutriverse.io/learn/statistics/infer/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://nutriverse.io/learn/statistics/infer/</guid>
-      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
-&lt;p&gt;This article only requires the tidymodels package.&lt;/p&gt;
+      <description>
+
+
+
+&lt;h2 id=&#34;introduction&#34;&gt;Introduction
+  &lt;a href=&#34;#introduction&#34;&gt;
+    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+    &lt;/svg&gt;
+  &lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;This article only requires the tidymodels package.&lt;/p&gt;
 &lt;p&gt;The tidymodels package 
 &lt;a href=&#34;https://tidymodels.github.io/infer/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;infer&lt;/a&gt; implements an expressive grammar to perform statistical inference that coheres with the &lt;code&gt;tidyverse&lt;/code&gt; design framework. Rather than providing methods for specific statistical tests, this package consolidates the principles that are shared among common hypothesis tests into a set of 4 main verbs (functions), supplemented with many utilities to visualize and extract information from their outputs.&lt;/p&gt;
 &lt;p&gt;Regardless of which hypothesis test we&amp;rsquo;re using, we&amp;rsquo;re still asking the same kind of question:&lt;/p&gt;
@@ -56,8 +66,18 @@ dplyr&lt;span style=&#34;color:#666&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;c
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; $ finrela &amp;lt;fct&amp;gt; below average, below average, far above average, far below av…&lt;/span&gt;
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; $ weight  &amp;lt;dbl&amp;gt; 0.875, 0.430, 1.554, 1.010, 0.859, 1.007, 0.988, 0.550, 3.496…&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Each row is an individual survey response, containing some basic demographic information on the respondent as well as some additional variables. See &lt;code&gt;?gss&lt;/code&gt; for more information on the variables included and their source. Note that this data (and our examples on it) are for demonstration purposes only, and will not necessarily provide accurate estimates unless weighted properly. For these examples, let&amp;rsquo;s suppose that this data set is a representative sample of a population we want to learn about: American adults.&lt;/p&gt;
-&lt;h2 id=&#34;specify-variables&#34;&gt;Specify variables&lt;/h2&gt;
-&lt;p&gt;The &lt;code&gt;specify()&lt;/code&gt; function can be used to specify which of the variables in the data set you&amp;rsquo;re interested in. If you&amp;rsquo;re only interested in, say, the &lt;code&gt;age&lt;/code&gt; of the respondents, you might write:&lt;/p&gt;
+
+
+
+
+&lt;h2 id=&#34;specify-variables&#34;&gt;Specify variables
+  &lt;a href=&#34;#specify-variables&#34;&gt;
+    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+    &lt;/svg&gt;
+  &lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;The &lt;code&gt;specify()&lt;/code&gt; function can be used to specify which of the variables in the data set you&amp;rsquo;re interested in. If you&amp;rsquo;re only interested in, say, the &lt;code&gt;age&lt;/code&gt; of the respondents, you might write:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;gss &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
   &lt;span style=&#34;color:#00f&#34;&gt;specify&lt;/span&gt;(response &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; age)
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; Response: age (numeric)&lt;/span&gt;
@@ -140,8 +160,18 @@ gss &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  9 no degree&lt;/span&gt;
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 10 no degree&lt;/span&gt;
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # … with 2,980 more rows&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;declare-the-hypothesis&#34;&gt;Declare the hypothesis&lt;/h2&gt;
-&lt;p&gt;The next step in the infer pipeline is often to declare a null hypothesis using &lt;code&gt;hypothesize()&lt;/code&gt;. The first step is to supply one of &amp;ldquo;independence&amp;rdquo; or &amp;ldquo;point&amp;rdquo; to the &lt;code&gt;null&lt;/code&gt; argument. If your null hypothesis assumes independence between two variables, then this is all you need to supply to &lt;code&gt;hypothesize()&lt;/code&gt;:&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+&lt;h2 id=&#34;declare-the-hypothesis&#34;&gt;Declare the hypothesis
+  &lt;a href=&#34;#declare-the-hypothesis&#34;&gt;
+    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+    &lt;/svg&gt;
+  &lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;The next step in the infer pipeline is often to declare a null hypothesis using &lt;code&gt;hypothesize()&lt;/code&gt;. The first step is to supply one of &amp;ldquo;independence&amp;rdquo; or &amp;ldquo;point&amp;rdquo; to the &lt;code&gt;null&lt;/code&gt; argument. If your null hypothesis assumes independence between two variables, then this is all you need to supply to &lt;code&gt;hypothesize()&lt;/code&gt;:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;gss &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
   &lt;span style=&#34;color:#00f&#34;&gt;specify&lt;/span&gt;(college &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt; partyid, success &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;degree&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
   &lt;span style=&#34;color:#00f&#34;&gt;hypothesize&lt;/span&gt;(null &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;independence&amp;#34;&lt;/span&gt;)
@@ -183,8 +213,18 @@ gss &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 10    40&lt;/span&gt;
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # … with 1,746 more rows&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Again, from the front-end, the dataframe outputted from &lt;code&gt;hypothesize()&lt;/code&gt; looks almost exactly the same as it did when it came out of &lt;code&gt;specify()&lt;/code&gt;, but infer now &amp;ldquo;knows&amp;rdquo; your null hypothesis.&lt;/p&gt;
-&lt;h2 id=&#34;generate-the-distribution&#34;&gt;Generate the distribution&lt;/h2&gt;
-&lt;p&gt;Once we&amp;rsquo;ve asserted our null hypothesis using &lt;code&gt;hypothesize()&lt;/code&gt;, we can construct a null distribution based on this hypothesis. We can do this using one of several methods, supplied in the &lt;code&gt;type&lt;/code&gt; argument:&lt;/p&gt;
+
+
+
+
+&lt;h2 id=&#34;generate-the-distribution&#34;&gt;Generate the distribution
+  &lt;a href=&#34;#generate-the-distribution&#34;&gt;
+    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+    &lt;/svg&gt;
+  &lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;Once we&amp;rsquo;ve asserted our null hypothesis using &lt;code&gt;hypothesize()&lt;/code&gt;, we can construct a null distribution based on this hypothesis. We can do this using one of several methods, supplied in the &lt;code&gt;type&lt;/code&gt; argument:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;bootstrap&lt;/code&gt;: A bootstrap sample will be drawn for each replicate, where a sample of size equal to the input sample size is drawn (with replacement) from the input sample data.&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;permute&lt;/code&gt;: For each replicate, each input value will be randomly reassigned (without replacement) to a new output value in the sample.&lt;/li&gt;
@@ -236,8 +276,18 @@ gss &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  9 dem        55         1&lt;/span&gt;
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 10 rep        47         1&lt;/span&gt;
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # … with 14,814,990 more rows&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;calculate-statistics&#34;&gt;Calculate statistics&lt;/h2&gt;
-&lt;p&gt;Depending on whether you&amp;rsquo;re carrying out computation-based inference or theory-based inference, you will either supply &lt;code&gt;calculate()&lt;/code&gt; with the output of &lt;code&gt;generate()&lt;/code&gt; or &lt;code&gt;hypothesize()&lt;/code&gt;, respectively. The function, for one, takes in a &lt;code&gt;stat&lt;/code&gt; argument, which is currently one of &lt;code&gt;&amp;quot;mean&amp;quot;&lt;/code&gt;, &lt;code&gt;&amp;quot;median&amp;quot;&lt;/code&gt;, &lt;code&gt;&amp;quot;sum&amp;quot;&lt;/code&gt;, &lt;code&gt;&amp;quot;sd&amp;quot;&lt;/code&gt;, &lt;code&gt;&amp;quot;prop&amp;quot;&lt;/code&gt;, &lt;code&gt;&amp;quot;count&amp;quot;&lt;/code&gt;, &lt;code&gt;&amp;quot;diff in means&amp;quot;&lt;/code&gt;, &lt;code&gt;&amp;quot;diff in medians&amp;quot;&lt;/code&gt;, &lt;code&gt;&amp;quot;diff in props&amp;quot;&lt;/code&gt;, &lt;code&gt;&amp;quot;Chisq&amp;quot;&lt;/code&gt;, &lt;code&gt;&amp;quot;F&amp;quot;&lt;/code&gt;, &lt;code&gt;&amp;quot;t&amp;quot;&lt;/code&gt;, &lt;code&gt;&amp;quot;z&amp;quot;&lt;/code&gt;, &lt;code&gt;&amp;quot;slope&amp;quot;&lt;/code&gt;, or &lt;code&gt;&amp;quot;correlation&amp;quot;&lt;/code&gt;. For example, continuing our example above to calculate the null distribution of mean hours worked per week:&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+&lt;h2 id=&#34;calculate-statistics&#34;&gt;Calculate statistics
+  &lt;a href=&#34;#calculate-statistics&#34;&gt;
+    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+    &lt;/svg&gt;
+  &lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;Depending on whether you&amp;rsquo;re carrying out computation-based inference or theory-based inference, you will either supply &lt;code&gt;calculate()&lt;/code&gt; with the output of &lt;code&gt;generate()&lt;/code&gt; or &lt;code&gt;hypothesize()&lt;/code&gt;, respectively. The function, for one, takes in a &lt;code&gt;stat&lt;/code&gt; argument, which is currently one of &lt;code&gt;&amp;quot;mean&amp;quot;&lt;/code&gt;, &lt;code&gt;&amp;quot;median&amp;quot;&lt;/code&gt;, &lt;code&gt;&amp;quot;sum&amp;quot;&lt;/code&gt;, &lt;code&gt;&amp;quot;sd&amp;quot;&lt;/code&gt;, &lt;code&gt;&amp;quot;prop&amp;quot;&lt;/code&gt;, &lt;code&gt;&amp;quot;count&amp;quot;&lt;/code&gt;, &lt;code&gt;&amp;quot;diff in means&amp;quot;&lt;/code&gt;, &lt;code&gt;&amp;quot;diff in medians&amp;quot;&lt;/code&gt;, &lt;code&gt;&amp;quot;diff in props&amp;quot;&lt;/code&gt;, &lt;code&gt;&amp;quot;Chisq&amp;quot;&lt;/code&gt;, &lt;code&gt;&amp;quot;F&amp;quot;&lt;/code&gt;, &lt;code&gt;&amp;quot;t&amp;quot;&lt;/code&gt;, &lt;code&gt;&amp;quot;z&amp;quot;&lt;/code&gt;, &lt;code&gt;&amp;quot;slope&amp;quot;&lt;/code&gt;, or &lt;code&gt;&amp;quot;correlation&amp;quot;&lt;/code&gt;. For example, continuing our example above to calculate the null distribution of mean hours worked per week:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;gss &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
   &lt;span style=&#34;color:#00f&#34;&gt;specify&lt;/span&gt;(response &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; hours) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
   &lt;span style=&#34;color:#00f&#34;&gt;hypothesize&lt;/span&gt;(null &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;point&amp;#34;&lt;/span&gt;, mu &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;40&lt;/span&gt;) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
@@ -277,8 +327,18 @@ gss &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  9         9  0.247 &lt;/span&gt;
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 10        10 -0.214 &lt;/span&gt;
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # … with 4,990 more rows&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;other-utilities&#34;&gt;Other utilities&lt;/h2&gt;
-&lt;p&gt;The infer package also offers several utilities to extract meaning out of summary statistics and null distributions; the package provides functions to visualize where a statistic is relative to a distribution (with &lt;code&gt;visualize()&lt;/code&gt;), calculate p-values (with &lt;code&gt;get_p_value()&lt;/code&gt;), and calculate confidence intervals (with &lt;code&gt;get_confidence_interval()&lt;/code&gt;).&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+&lt;h2 id=&#34;other-utilities&#34;&gt;Other utilities
+  &lt;a href=&#34;#other-utilities&#34;&gt;
+    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+    &lt;/svg&gt;
+  &lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;The infer package also offers several utilities to extract meaning out of summary statistics and null distributions; the package provides functions to visualize where a statistic is relative to a distribution (with &lt;code&gt;visualize()&lt;/code&gt;), calculate p-values (with &lt;code&gt;get_p_value()&lt;/code&gt;), and calculate confidence intervals (with &lt;code&gt;get_confidence_interval()&lt;/code&gt;).&lt;/p&gt;
 &lt;p&gt;To illustrate, we&amp;rsquo;ll go back to the example of determining whether the mean number of hours worked per week is 40 hours.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# find the point estimate&lt;/span&gt;
 point_estimate &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; gss &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
@@ -329,8 +389,18 @@ null_dist &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;&lt;/span&gt;
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 1  40.1  41.4&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;As you can see, 40 hours per week is not contained in this interval, which aligns with our previous conclusion that this finding is significant at the confidence level &lt;code&gt;\(\alpha = .05\)&lt;/code&gt;.&lt;/p&gt;
-&lt;h2 id=&#34;theoretical-methods&#34;&gt;Theoretical methods&lt;/h2&gt;
-&lt;p&gt;The infer package also provides functionality to use theoretical methods for &lt;code&gt;&amp;quot;Chisq&amp;quot;&lt;/code&gt;, &lt;code&gt;&amp;quot;F&amp;quot;&lt;/code&gt; and &lt;code&gt;&amp;quot;t&amp;quot;&lt;/code&gt; test statistics.&lt;/p&gt;
+
+
+
+
+&lt;h2 id=&#34;theoretical-methods&#34;&gt;Theoretical methods
+  &lt;a href=&#34;#theoretical-methods&#34;&gt;
+    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+    &lt;/svg&gt;
+  &lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;The infer package also provides functionality to use theoretical methods for &lt;code&gt;&amp;quot;Chisq&amp;quot;&lt;/code&gt;, &lt;code&gt;&amp;quot;F&amp;quot;&lt;/code&gt; and &lt;code&gt;&amp;quot;t&amp;quot;&lt;/code&gt; test statistics.&lt;/p&gt;
 &lt;p&gt;Generally, to find a null distribution using theory-based methods, use the same code that you would use to find the null distribution using randomization-based methods, but skip the &lt;code&gt;generate()&lt;/code&gt; step. For example, if we wanted to find a null distribution for the relationship between age (&lt;code&gt;age&lt;/code&gt;) and party identification (&lt;code&gt;partyid&lt;/code&gt;) using randomization, we could write:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;null_f_distn &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; gss &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
    &lt;span style=&#34;color:#00f&#34;&gt;specify&lt;/span&gt;(age &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt; partyid) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
@@ -355,8 +425,18 @@ null_dist &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
   &lt;span style=&#34;color:#00f&#34;&gt;shade_p_value&lt;/span&gt;(obs_stat &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; F_hat, direction &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;greater&amp;#34;&lt;/span&gt;)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;figs/unnamed-chunk-5-1.svg&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;That&amp;rsquo;s it! This vignette covers most all of the key functionality of infer. See &lt;code&gt;help(package = &amp;quot;infer&amp;quot;)&lt;/code&gt; for a full list of functions and vignettes.&lt;/p&gt;
-&lt;h2 id=&#34;session-information&#34;&gt;Session information&lt;/h2&gt;
-&lt;pre&gt;&lt;code&gt;#&amp;gt; ─ Session info ───────────────────────────────────────────────────────────────
+
+
+
+
+&lt;h2 id=&#34;session-information&#34;&gt;Session information
+  &lt;a href=&#34;#session-information&#34;&gt;
+    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+    &lt;/svg&gt;
+  &lt;/a&gt;
+&lt;/h2&gt;&lt;pre&gt;&lt;code&gt;#&amp;gt; ─ Session info ───────────────────────────────────────────────────────────────
 #&amp;gt;  setting  value                       
 #&amp;gt;  version  R version 3.6.2 (2019-12-12)
 #&amp;gt;  os       macOS Mojave 10.14.6        
@@ -395,8 +475,18 @@ null_dist &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
       <link>https://nutriverse.io/learn/statistics/xtabs/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://nutriverse.io/learn/statistics/xtabs/</guid>
-      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
-&lt;p&gt;This article only requires that you have the tidymodels package installed.&lt;/p&gt;
+      <description>
+
+
+
+&lt;h2 id=&#34;introduction&#34;&gt;Introduction
+  &lt;a href=&#34;#introduction&#34;&gt;
+    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+    &lt;/svg&gt;
+  &lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;This article only requires that you have the tidymodels package installed.&lt;/p&gt;
 &lt;p&gt;In this vignette, we&amp;rsquo;ll walk through conducting a &lt;code&gt;\(\chi^2\)&lt;/code&gt; (chi-squared) test of independence and a chi-squared goodness of fit test using infer. We&amp;rsquo;ll start out with a chi-squared test of independence, which can be used to test the association between two categorical variables. Then, we&amp;rsquo;ll move on to a chi-squared goodness of fit test, which tests how well the distribution of one categorical variable can be approximated by some theoretical distribution.&lt;/p&gt;
 &lt;p&gt;Throughout this vignette, we&amp;rsquo;ll make use of the &lt;code&gt;ad_data&lt;/code&gt; data set (available in the modeldata package, which is part of tidymodels). This data set is related to cognitive impairment in 333 patients from 
 &lt;a href=&#34;https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3079734/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Craig-Schapiro &lt;em&gt;et al&lt;/em&gt; (2011)&lt;/a&gt;. See &lt;code&gt;?ad_data&lt;/code&gt; for more information on the variables included and their source. One of the main research questions in these data were how a person&amp;rsquo;s genetics related to the Apolipoprotein E gene affect their cognitive skills. The data shows:&lt;/p&gt;
@@ -420,8 +510,18 @@ ad_data &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 10 E2E3     Impaired&lt;/span&gt;
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # … with 323 more rows&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The three main genetic variants are called E2, E3, and E4. The values in &lt;code&gt;Genotype&lt;/code&gt; represent the genetic makeup of patients based on what they inherited from their parents (i.e, a value of &amp;ldquo;E2E4&amp;rdquo; means E2 from one parent and E4 from the other).&lt;/p&gt;
-&lt;h2 id=&#34;test-of-independence&#34;&gt;Test of independence&lt;/h2&gt;
-&lt;p&gt;To carry out a chi-squared test of independence, we&amp;rsquo;ll examine the association between their cognitive ability (impaired and healthy) and the genetic makeup. This is what the relationship looks like in the sample data:&lt;/p&gt;
+
+
+
+
+&lt;h2 id=&#34;test-of-independence&#34;&gt;Test of independence
+  &lt;a href=&#34;#test-of-independence&#34;&gt;
+    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+    &lt;/svg&gt;
+  &lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;To carry out a chi-squared test of independence, we&amp;rsquo;ll examine the association between their cognitive ability (impaired and healthy) and the genetic makeup. This is what the relationship looks like in the sample data:&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;figs/plot-indep-1.svg&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;If there were no relationship, we would expect to see the purple bars reaching to the same length, regardless of cognitive ability. Are the differences we see here, though, just due to random noise?&lt;/p&gt;
 &lt;p&gt;First, to calculate the observed statistic, we can use &lt;code&gt;specify()&lt;/code&gt; and &lt;code&gt;calculate()&lt;/code&gt;.&lt;/p&gt;
@@ -485,8 +585,18 @@ p_value_independence
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   statistic chisq_df  p_value&lt;/span&gt;
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;       &amp;lt;dbl&amp;gt;    &amp;lt;int&amp;gt;    &amp;lt;dbl&amp;gt;&lt;/span&gt;
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 1      21.6        5 0.000630&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;goodness-of-fit&#34;&gt;Goodness of fit&lt;/h2&gt;
-&lt;p&gt;Now, moving on to a chi-squared goodness of fit test, we&amp;rsquo;ll take a look at just the genotype data. Many papers have investigated the relationship of Apolipoprotein E to diseases. For example, 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+&lt;h2 id=&#34;goodness-of-fit&#34;&gt;Goodness of fit
+  &lt;a href=&#34;#goodness-of-fit&#34;&gt;
+    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+    &lt;/svg&gt;
+  &lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;Now, moving on to a chi-squared goodness of fit test, we&amp;rsquo;ll take a look at just the genotype data. Many papers have investigated the relationship of Apolipoprotein E to diseases. For example, 
 &lt;a href=&#34;https://annals.org/aim/article-abstract/717641/meta-analysis-apolipoprotein-e-genotypes-risk-coronary-heart-disease&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Song &lt;em&gt;et al&lt;/em&gt; (2004)&lt;/a&gt; conducted a meta-analysis of numerous studies that looked at this gene and heart disease. In their paper, they describe the frequency of the different genotypes across many samples. For the cognition study, it might be interesting to see if our sample of genotypes was consistent with this literature (treating the rates, for this analysis, as known).&lt;/p&gt;
 &lt;p&gt;The rates of the meta-analysis and our observed data are:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# Song, Y., Stampfer, M. J., &amp;amp; Liu, S. (2004). Meta-Analysis: Apolipoprotein E &lt;/span&gt;
@@ -544,8 +654,18 @@ p_value_gof
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   statistic chisq_df  p_value&lt;/span&gt;
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;       &amp;lt;dbl&amp;gt;    &amp;lt;dbl&amp;gt;    &amp;lt;dbl&amp;gt;&lt;/span&gt;
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 1      23.4        5 0.000285&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;session-information&#34;&gt;Session information&lt;/h2&gt;
-&lt;pre&gt;&lt;code&gt;#&amp;gt; ─ Session info ───────────────────────────────────────────────────────────────
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+&lt;h2 id=&#34;session-information&#34;&gt;Session information
+  &lt;a href=&#34;#session-information&#34;&gt;
+    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+    &lt;/svg&gt;
+  &lt;/a&gt;
+&lt;/h2&gt;&lt;pre&gt;&lt;code&gt;#&amp;gt; ─ Session info ───────────────────────────────────────────────────────────────
 #&amp;gt;  setting  value                       
 #&amp;gt;  version  R version 3.6.2 (2019-12-12)
 #&amp;gt;  os       macOS Mojave 10.14.6        
