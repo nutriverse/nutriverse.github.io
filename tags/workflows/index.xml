@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>workflows | Nutriverse</title>
+    <title>workflows | nutriverse</title>
     <link>https://nutriverse.io/tags/workflows/</link>
       <atom:link href="https://nutriverse.io/tags/workflows/index.xml" rel="self" type="application/rss+xml" />
     <description>workflows</description>
