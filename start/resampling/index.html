@@ -1,0 +1,1227 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!DOCTYPE html>
+<html lang="en-gb">
+
+
+
+<link rel="stylesheet" href="/css/fonts.css">
+<link rel="stylesheet" href="/css/main-site.css">
+<link rel="stylesheet" href="/css/fa5-all.css">
+<style type="text/css">
+    /* Google Fonts */
+ @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap'); 
+
+body {
+	background-color: white;
+	color: #404040;
+}
+
+/* Links */
+
+a {
+  color: #4254A7;
+}
+
+a:hover {
+  color: #4254A7;
+}
+
+a:focus {
+  outline-color: #4254A7;
+}
+
+.column25-left .sectionTitle a:hover:not(.current),
+.column16-left .sectionTitle a:hover:not(.current) { /* Tutorial left sidebar */
+  color: #404040;
+}
+
+.icon-attribution, 
+.icon-attribution a {
+  color: #404040;
+  opacity: 75%;
+}
+
+
+/* Landing page content bands */
+
+#homeContent .band.first {
+  background-color: #fcfcfc;
+}
+
+#homeContent .band.second {
+  background-color: #EEF4ED;
+}
+
+#homeContent .band.third {
+  background-color: #fcfcfc;
+}
+
+/* Top navigation bar menu */
+
+#rStudioHeader {
+  background-color: white;
+  color: black;
+}
+
+#rStudioHeader .productName {
+  color: #4254A7;
+}
+
+#rStudioHeader .productName:hover,
+#rStudioHeader .productName:focus {
+  color: 00000075;
+}
+
+#rStudioHeader #menu .menuItem.a {
+  background-color: #75aadb;
+  color: black;
+}
+
+#rStudioHeader #menu .menuItem:hover {
+  background-color: white;
+  color: #4254A7;
+}
+
+#rStudioHeader #menu .menuItem.current {
+  background-color: #fcfcfc;
+  color: #4254A7;
+  text-decoration: none;
+}
+
+/* Footer */
+
+#rStudioFooter.band {
+  background-color: #4254a730;
+}
+
+#rStudioFooter .bandContent #copyright {
+  color: #134074;
+}
+
+/* Tables */
+
+table tbody tr:nth-child(even){
+  background-color: #fcfcfc;
+}
+
+table tbody tr:nth-child(odd){
+  background-color: #1a162d10;
+}
+
+.latest {
+  border-top: .5em solid #dae8f6;
+}
+
+
+/* ------Accent Font------- */
+
+
+
+  h1, h2, 
+  .article-title:not(a), /* Title on single pages, but not the Learn list article links*/
+  div.tagline, /* homepage bands */
+  #TableOfContents a, /* Sidebar on regular pages*/
+  .articleCategory a, /* Sidebar on Blog & Learn list pages */
+  .column75 .sectionTitle:not(.back-to), /* e.g. Blog list title, NOT "back to learn" */
+  .column25-left .section:nth-child(n+2) .sectionTitle, /* Tutorial sidebar, all but 1st child */
+  .column16-left .section:nth-child(n+2) .sectionTitle,
+  a.learn-top-nav-item,  /* Bulleted toc items on Learn list page */
+  .itemTitle, /* Blog list page titles & Learn List page subsection Titles */
+  .tags-list a    /* taxonomy tags on Tutorial page, e.g. packages */                
+                            { 
+    font-family: 'Libre Baskerville' ;
+  }
+
+
+
+
+
+/* ----Accent color for headers, toc, etc.----- */
+
+
+
+  h1,
+  div.sectionTitle {
+    color: #4254A7;
+  }
+  
+  /* Sidebar links */
+  
+  a.learn-top-nav-item, /* Learn list page bulleted toc */
+  #TableOfContents a,
+  .articleCategory a,
+  .column25-left .section:nth-child(n+2) a.sectionTitle,
+  .column16-left .section:nth-child(n+2) a.sectionTitle { 
+    color: #4254A7;
+    opacity: .8;
+  }
+  
+  .column25-left .section:nth-child(n+2) a.sectionTitle.current,
+  .column16-left .section:nth-child(n+2) a.sectionTitle.current { 
+    color: #4254A7;
+  }
+  
+  a.learn-top-nav-item:hover,
+  #TableOfContents a:hover,
+  .articleCategory a:hover,
+  .column25-left .section:nth-child(n+2) a.sectionTitle:hover,
+  .column16-left .section:nth-child(n+2) a.sectionTitle:hover {
+    color: #333850eb; 
+    opacity: 95%;
+    text-decoration: none;
+  }
+  
+  .column25-left .sectionTitle.start:first-of-type a,
+  .column16-left .sectionTitle.start:first-of-type a {
+    color: #4254A7;
+  }
+  
+  .column25-left .sectionTitle.current,
+  .column16-left .sectionTitle.current {
+    color: #4254A7;
+  }
+  
+  /* headers and accent colors */
+  
+  .article-title,             /* Most page titles */
+  .column75 div.sectionTitle {  /* Learn page section title */
+    color: #4254A7;
+  }
+  
+  h2 {
+    color: #333850eb;
+  }
+  
+  .itemTitle a { /* For Learn Page headers */
+    color: #333850eb;
+  }
+  
+  .itemTitle a:hover { /* For Learn List Page headers */
+    color: #333850eb;
+    opacity: 80%;
+    text-decoration: none;
+  }
+  
+  h3 {
+    color: #333850eb;
+    opacity: 95%;
+  }
+  
+  h3 a {
+    color: #4254A7;
+    /*text-transform: none;
+    font-size: 1.5em;
+    letter-spacing: normal; */ /* was in tm, but check if i need here? */
+  }
+  
+  h4 {
+    color: #333850eb;
+    opacity: 90%;
+  }
+  
+  /* taxonomy tags, e.g. tutorial package links*/
+  
+  .tags-list .learning-objective {
+    color: #333850eb;
+    opacity: 85%;
+  }
+  
+  .tags-list a {
+    color: #333850eb;
+    opacity: 56%;
+  }
+  
+  .tags-list a:hover {
+    opacity: 95%;
+  }
+
+
+
+/* Custom colored bullets */
+
+
+
+  /*.article-content ul{
+    list-style: none;
+  } */
+
+  .article-content ul li::before {
+  	content: "\2022";
+  	color: #f6b73c ;
+  	display: inline-block;
+  	width: 1.5em;
+  	margin-left: -1.7em;
+  }
+  	
+  .article-content ul > li > p {
+    display: inline;
+  }
+
+  .article-content ul > li { /*to add back in space between bullet items that I took away by making p display inline */
+    margin-top: 1em;
+    margin-bottom: 1em;
+  }
+  
+  .learn-top-nav ul li::before, /* For learn list page */
+  .tutorial #TableOfContents ul li::before { /* For tutorials toc bullets */
+  	content: "\2022";
+  	color: #f6b73c ;
+  	display: inline-block;
+  	width: 1.5em;
+  	margin-left: -1.8em; 
+  }
+
+.article-content ul, /* Regular lists */
+.learn-top-nav ul,
+.tutorial #TableOfContents ul {
+  	list-style: none;
+  	line-height: 1.6em;
+  	padding-left: 2.5em;
+  	/* margin-bottom: 0; */
+  }
+  
+/* But also give div tip outline the same color as bullets*/
+
+div.note, 
+div.rstudio-tip, 
+div.warning {
+  border-color: #f6b73c ;
+}
+    
+
+
+
+/* ------Capitalization of Headers------- */
+
+
+  
+  div.tagline {
+    font-size: 1.2rem !important;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 2pt;
+  }
+  
+  #menu {
+    text-transform: uppercase;
+    letter-spacing: 2pt;
+    font-size: 0.9rem !important;
+  }
+  
+  .column25 .sectionTitle,
+  .column25 .sectionTitle a,
+  .column16 .sectionTitle,
+  .column16 .sectionTitle a {
+    text-transform: uppercase;
+    letter-spacing: 2pt;
+    font-size: 0.8rem;
+    font-weight: bold;
+  }
+  
+  .icon-attribution, 
+  .icon-attribution a {
+    text-transform: uppercase;
+  }
+  
+  /* Getting Started / Tutorial sidebar title */
+  .column25-left .sectionTitle.start:first-of-type a,
+  .column16-left .sectionTitle.start:first-of-type a {
+    text-transform: uppercase;
+    letter-spacing: 2pt;
+    font-weight: bold;
+    font-size: 0.8rem;
+  }
+  
+  /*.e.g "Back to Learn" link */
+  .column75 .section .sectionTitle a {
+    text-transform: uppercase;
+    letter-spacing: 2pt;
+    font-weight: bold;
+    font-size: 0.8rem;
+  }
+  
+  /*  */
+  
+
+  
+
+/* -----Hexes------*/
+
+
+  #homeContent .band.first .bandContent {
+    background-image: url(../css/images/tidy-back-01-thin.svg);
+  }
+  
+  #homeContent .band.second .bandContent {
+    background-image: url(../css/images/tidy-back-02-thin.svg);
+  }
+  
+  #homeContent .band.third .bandContent {
+    background-image: url(../css/images/tidy-back-03-thin.svg);
+  }
+  
+  .package-section .packages .package {
+    background-image: url(../css/images/tidy-packages-back-01-thin.svg); 
+  }
+
+  .package-section .packages .package:first-of-type {
+      background-image: url(../css/images/tidy-packages-back-02-thin.svg); 
+  }
+
+  .package-section .packages .package:last-of-type {
+      background-image: url(../css/images/tidy-packages-back-03-thin.svg); 
+  } 
+
+
+
+/*----- Borders------ */
+
+
+
+/*--- Event Stickies ---*/
+
+
+  .event {
+    -moz-box-shadow: 0 0px 0px 0px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0 0px 0px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0px 0px 0px rgba(0, 0, 0, 0.1);
+  }
+
+
+
+
+  .event:nth-child(2) {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg); 
+  }
+  .event:nth-child(3) {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg); 
+  }
+
+
+
+
+  .section .event {
+    background-color: #eab0c41a;
+  }
+
+
+
+
+  .section .event {
+    border-top: 7pt solid #a19ea936;
+  }
+
+
+
+
+  .section .event a{
+      color: #1a162d;
+  }
+
+
+
+
+  .section .event {
+      color: #404040;
+  }
+
+
+/* ------Test Drive Button-------*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+</style>
+
+  <link rel="stylesheet" href="/css/">
+
+
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.72.0" />
+<title>nutriverse</title>
+<meta property="og:title" content="Evaluate your model with resampling" />
+<meta property="og:description" content="Measure model performance by generating different versions of the training data through resampling.
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nutriverse.io/start/resampling/" />
+
+
+
+<meta property="twitter:card" content="summary_large_image">
+
+
+
+<meta property="og:title" content="Evaluate your model with resampling" />
+<meta property="og:description" content="Measure model performance by generating different versions of the training data through resampling.
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nutriverse.io/start/resampling/" />
+
+
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Evaluate your model with resampling"/>
+<meta name="twitter:description" content="Measure model performance by generating different versions of the training data through resampling.
+"/>
+
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="/images/favicons/apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicons/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/images/favicons/favicon-16x16.png" />
+<link rel="manifest" href="/images/favicons/site.webmanifest" />
+<link rel="mask-icon" href="/images/favicons/safari-pinned-tab.svg" />
+<link rel="shortcut icon" href="/images/favicons/favicon.ico" />
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-config" href="/images/favicons/browserconfig.xml" >
+
+
+
+<script type="text/javascript" src="/js/jquery-3.5.1.min.js"></script>
+<script type="text/javascript" src="/js/site.js"></script>
+
+
+
+<link rel="icon" href="/images/favicon.ico" />
+
+
+  
+<script type="text/javascript" src="/js/clipboard.js"></script>
+
+
+
+
+
+
+  
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
+
+  
+
+
+
+
+
+
+
+  <body>
+    <div id="appTidyverseSite" class="shrinkHeader alwaysShrinkHeader">
+      <div id="main">
+        
+        <div id="rStudioHeader">
+          <div class="band">
+            <div class="innards bandContent">
+              <div>
+                
+                    <a href="/" class="nav-logo">
+                      <img src="/images/nutriverse_banner_bi.png" width="127" height="40" alt="nutriverse">
+                    </a>
+              </div>
+              <div id="menu">
+  <div id="menuToggler"></div>
+  <div id="menuItems" class="">
+    
+    
+      
+      
+      
+    <a class="menuItem " href="/packages/">Packages</a>
+    
+      
+      
+      
+    <a class="menuItem " href="/blog/">Blog</a>
+    
+  </div>
+</div>
+
+            </div>
+          </div>
+        </div>
+</head>
+<body>
+
+
+ 
+
+
+
+
+<div class="band padForHeader pushFooter">
+  <div class="bandContent">
+    <div class="full splitColumns withMobileMargins">
+
+      
+<div class="column25-left hideOnMobile">
+  <div class="section">
+    <div class="section">
+      <div class="start sectionTitle">
+          
+          <a class = "sectionTitle " href="/start/">
+          Get Started
+          
+          </a>
+      </div>
+    </div>
+  
+    <div class="section">
+        <div class="sectionTitle">1&nbsp&nbsp<a class = "sectionTitle " href="/start/models/">Build a model</a>
+        </div>
+    </div>
+    
+    <div class="section">
+        <div class="sectionTitle">2&nbsp&nbsp<a class = "sectionTitle " href="/start/recipes/">Preprocess your data with recipes</a>
+        </div>
+    </div>
+    
+    <div class="section">
+        <div class="sectionTitle">3&nbsp&nbsp<a class = "sectionTitle current" href="/start/resampling/">Evaluate your model with resampling</a>
+        </div>
+    </div>
+    
+  </div>
+</div>
+
+      
+      <div class="column75">
+
+      <h1 class="article-title">3&nbsp;&nbsp;&nbsp;Evaluate your model with resampling</h1>
+      
+      <div class="tags-list">
+      <i class="fas fa-box-open" style="color:#1a162dde;"></i>&nbsp;
+      <h1 class="learning-objective">Tidymodels packages: </h1>
+      
+        <a href="https://nutriverse.io/tags/parsnip/">parsnip</a>, 
+        <a href="https://nutriverse.io/tags/rsample/">rsample</a>, 
+        <a href="https://nutriverse.io/tags/tune/">tune</a>, 
+        <a href="https://nutriverse.io/tags/workflows/">workflows</a>, 
+        <a href="https://nutriverse.io/tags/yardstick/">yardstick</a></div>
+        
+      <div class="section">
+        <div class="listItem learn-top-nav">
+          <div class="tutorial"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#intro">Introduction</a></li>
+    <li><a href="#data">The cell image data</a></li>
+    <li><a href="#data-split">Data splitting</a></li>
+    <li><a href="#modeling">Modeling</a></li>
+    <li><a href="#performance">Estimating performance</a></li>
+    <li><a href="#resampling">Resampling to the rescue</a></li>
+    <li><a href="#fit-resamples">Fit a model with resampling</a></li>
+    <li><a href="#session-information">Session information</a></li>
+  </ul>
+</nav></div>
+        </div>
+      </div>
+      
+      <div class="article-content">
+      
+
+
+
+<h2 id="intro">Introduction
+  <a href="#intro">
+    <svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 0h24v24H0z" fill="currentColor"></path>
+      <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
+    </svg>
+  </a>
+</h2><p>So far, we have 
+<a href="/start/models/">built a model</a> and 
+<a href="/start/recipes/">preprocessed data with a recipe</a>. We also introduced 
+<a href="/start/recipes/#fit-workflow">workflows</a> as a way to bundle a 
+<a href="https://tidymodels.github.io/parsnip/" target="_blank" rel="noopener">parsnip model</a> and 
+<a href="https://tidymodels.github.io/recipes/" target="_blank" rel="noopener">recipe</a> together. Once we have a model trained, we need a way to measure how well that model predicts new data. This tutorial explains how to characterize model performance based on <strong>resampling</strong> statistics.</p>
+<p>To use code in this article,  you will need to install the following packages: modeldata, ranger, and tidymodels.</p>
+<div class="highlight"><pre style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#00f">library</span>(tidymodels) <span style="color:#408080;font-style:italic"># for the rsample package, along with the rest of tidymodels</span>
+
+<span style="color:#408080;font-style:italic"># Helper packages</span>
+<span style="color:#00f">library</span>(modeldata)  <span style="color:#408080;font-style:italic"># for the cells data</span>
+</code></pre></div>
+
+
+
+<h2 id="data">The cell image data
+  <a href="#data">
+    <svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 0h24v24H0z" fill="currentColor"></path>
+      <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
+    </svg>
+  </a>
+</h2><p>Let&rsquo;s use data from 
+<a href="http://www.biomedcentral.com/1471-2105/8/340" target="_blank" rel="noopener">Hill, LaPan, Li, and Haney (2007)</a>, available in the 
+<a href="https://cran.r-project.org/web/packages/modeldata/index.html" target="_blank" rel="noopener">modeldata package</a>, to predict cell image segmentation quality with resampling. To start, we load this data into R:</p>
+<div class="highlight"><pre style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#00f">data</span>(cells, package <span style="color:#666">=</span> <span style="color:#ba2121">&#34;modeldata&#34;</span>)
+cells
+<span style="color:#408080;font-style:italic">#&gt; # A tibble: 2,019 x 58</span>
+<span style="color:#408080;font-style:italic">#&gt;   case  class angle_ch_1 area_ch_1 avg_inten_ch_1 avg_inten_ch_2 avg_inten_ch_3</span>
+<span style="color:#408080;font-style:italic">#&gt;   &lt;fct&gt; &lt;fct&gt;      &lt;dbl&gt;     &lt;int&gt;          &lt;dbl&gt;          &lt;dbl&gt;          &lt;dbl&gt;</span>
+<span style="color:#408080;font-style:italic">#&gt; 1 Test  PS        143.         185           15.7           4.95           9.55</span>
+<span style="color:#408080;font-style:italic">#&gt; 2 Train PS        134.         819           31.9         207.            69.9 </span>
+<span style="color:#408080;font-style:italic">#&gt; 3 Train WS        107.         431           28.0         116.            63.9 </span>
+<span style="color:#408080;font-style:italic">#&gt; 4 Train PS         69.2        298           19.5         102.            28.2 </span>
+<span style="color:#408080;font-style:italic">#&gt; 5 Test  PS          2.89       285           24.3         112.            20.5 </span>
+<span style="color:#408080;font-style:italic">#&gt; # … with 2,014 more rows, and 51 more variables: avg_inten_ch_4 &lt;dbl&gt;,</span>
+<span style="color:#408080;font-style:italic">#&gt; #   convex_hull_area_ratio_ch_1 &lt;dbl&gt;, convex_hull_perim_ratio_ch_1 &lt;dbl&gt;,</span>
+<span style="color:#408080;font-style:italic">#&gt; #   diff_inten_density_ch_1 &lt;dbl&gt;, diff_inten_density_ch_3 &lt;dbl&gt;, …</span>
+</code></pre></div><p>We have data for 2019 cells, with 58 variables. The main outcome variable of interest for us here is called <code>class</code>, which you can see is a factor. But before we jump into predicting the <code>class</code> variable, we need to understand it better. Below is a brief primer on cell image segmentation.</p>
+
+
+
+
+<h3 id="predicting-image-segmentation-quality">Predicting image segmentation quality
+  <a href="#predicting-image-segmentation-quality">
+    <svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 0h24v24H0z" fill="currentColor"></path>
+      <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
+    </svg>
+  </a>
+</h3><p>Some biologists conduct experiments on cells. In drug discovery, a particular type of cell can be treated with either a drug or control and then observed to see what the effect is (if any). A common approach for this kind of measurement is cell imaging. Different parts of the cells can be colored so that the locations of a cell can be determined.</p>
+<p>For example, in top panel of this image of five cells, the green color is meant to define the boundary of the cell (coloring something called the cytoskeleton) while the blue color defines the nucleus of the cell.</p>
+<p><img src="img/cells.png" width="70%" style="display: block; margin: auto;" /></p>
+<p>Using these colors, the cells in an image can be <em>segmented</em> so that we know which pixels belong to which cell. If this is done well, the cell can be measured in different ways that are important to the biology. Sometimes the shape of the cell matters and different mathematical tools are used to summarize characteristics like the size or &ldquo;oblongness&rdquo; of the cell.</p>
+<p>The bottom panel shows some segmentation results. Cells 1 and 5 are fairly well segmented. However, cells 2 to 4 are bunched up together because the segmentation was not very good. The consequence of bad segmentation is data contamination; when the biologist analyzes the shape or size of these cells, the data are inaccurate and could lead to the wrong conclusion.</p>
+<p>A cell-based experiment might involve millions of cells so it is unfeasible to visually assess them all. Instead, a subsample can be created and these cells can be manually labeled by experts as either poorly segmented (<code>PS</code>) or well-segmented (<code>WS</code>). If we can predict these labels accurately, the larger data set can be improved by filtering out the cells most likely to be poorly segmented.</p>
+
+
+
+
+<h3 id="back-to-the-cells-data">Back to the cells data
+  <a href="#back-to-the-cells-data">
+    <svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 0h24v24H0z" fill="currentColor"></path>
+      <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
+    </svg>
+  </a>
+</h3><p>The <code>cells</code> data has <code>class</code> labels for 2019 cells — each cell is labeled as either poorly segmented (<code>PS</code>) or well-segmented (<code>WS</code>). Each also has a total of 56 predictors based on automated image analysis measurements. For example, <code>avg_inten_ch_1</code> is the mean intensity of the data contained in the nucleus, <code>area_ch_1</code> is the total size of the cell, and so on (some predictors are fairly arcane in nature).</p>
+<div class="highlight"><pre style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">cells
+<span style="color:#408080;font-style:italic">#&gt; # A tibble: 2,019 x 58</span>
+<span style="color:#408080;font-style:italic">#&gt;   case  class angle_ch_1 area_ch_1 avg_inten_ch_1 avg_inten_ch_2 avg_inten_ch_3</span>
+<span style="color:#408080;font-style:italic">#&gt;   &lt;fct&gt; &lt;fct&gt;      &lt;dbl&gt;     &lt;int&gt;          &lt;dbl&gt;          &lt;dbl&gt;          &lt;dbl&gt;</span>
+<span style="color:#408080;font-style:italic">#&gt; 1 Test  PS        143.         185           15.7           4.95           9.55</span>
+<span style="color:#408080;font-style:italic">#&gt; 2 Train PS        134.         819           31.9         207.            69.9 </span>
+<span style="color:#408080;font-style:italic">#&gt; 3 Train WS        107.         431           28.0         116.            63.9 </span>
+<span style="color:#408080;font-style:italic">#&gt; 4 Train PS         69.2        298           19.5         102.            28.2 </span>
+<span style="color:#408080;font-style:italic">#&gt; 5 Test  PS          2.89       285           24.3         112.            20.5 </span>
+<span style="color:#408080;font-style:italic">#&gt; # … with 2,014 more rows, and 51 more variables: avg_inten_ch_4 &lt;dbl&gt;,</span>
+<span style="color:#408080;font-style:italic">#&gt; #   convex_hull_area_ratio_ch_1 &lt;dbl&gt;, convex_hull_perim_ratio_ch_1 &lt;dbl&gt;,</span>
+<span style="color:#408080;font-style:italic">#&gt; #   diff_inten_density_ch_1 &lt;dbl&gt;, diff_inten_density_ch_3 &lt;dbl&gt;, …</span>
+</code></pre></div><p>The rates of the classes are somewhat imbalanced; there are more poorly segmented cells than well-segmented cells:</p>
+<div class="highlight"><pre style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">cells <span style="color:#666">%&gt;%</span> 
+  <span style="color:#00f">count</span>(class) <span style="color:#666">%&gt;%</span> 
+  <span style="color:#00f">mutate</span>(prop <span style="color:#666">=</span> n<span style="color:#666">/</span><span style="color:#00f">sum</span>(n))
+<span style="color:#408080;font-style:italic">#&gt; # A tibble: 2 x 3</span>
+<span style="color:#408080;font-style:italic">#&gt;   class     n  prop</span>
+<span style="color:#408080;font-style:italic">#&gt;   &lt;fct&gt; &lt;int&gt; &lt;dbl&gt;</span>
+<span style="color:#408080;font-style:italic">#&gt; 1 PS     1300 0.644</span>
+<span style="color:#408080;font-style:italic">#&gt; 2 WS      719 0.356</span>
+</code></pre></div>
+
+
+
+<h2 id="data-split">Data splitting
+  <a href="#data-split">
+    <svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 0h24v24H0z" fill="currentColor"></path>
+      <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
+    </svg>
+  </a>
+</h2><p>In our previous 
+<a href="/start/recipes/#data-split"><em>Preprocess your data with recipes</em></a> article, we started by splitting our data. It is common when beginning a modeling project to 
+<a href="https://bookdown.org/max/FES/data-splitting.html" target="_blank" rel="noopener">separate the data set</a> into two partitions:</p>
+<ul>
+<li>
+<p>The <em>training set</em> is used to estimate parameters, compare models and feature engineering techniques, tune models, etc.</p>
+</li>
+<li>
+<p>The <em>test set</em> is held in reserve until the end of the project, at which point there should only be one or two models under serious consideration. It is used as an unbiased source for measuring final model performance.</p>
+</li>
+</ul>
+<p>There are different ways to create these partitions of the data. The most common approach is to use a random sample. Suppose that one quarter of the data were reserved for the test set. Random sampling would randomly select 25% for the test set and use the remainder for the training set. We can use the 
+<a href="https://tidymodels.github.io/rsample/" target="_blank" rel="noopener">rsample</a> package for this purpose.</p>
+<p>Since random sampling uses random numbers, it is important to set the random number seed. This ensures that the random numbers can be reproduced at a later time (if needed).</p>
+<p>The function <code>rsample::initial_split()</code> takes the original data and saves the information on how to make the partitions. In the original analysis, the authors made their own training/test set and that information is contained in the column <code>case</code>. To demonstrate how to make a split, we&rsquo;ll remove this column before we make our own split:</p>
+<div class="highlight"><pre style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#00f">set.seed</span>(<span style="color:#666">123</span>)
+cell_split <span style="color:#666">&lt;-</span> <span style="color:#00f">initial_split</span>(cells <span style="color:#666">%&gt;%</span> <span style="color:#00f">select</span>(<span style="color:#666">-</span>case), 
+                            strata <span style="color:#666">=</span> class)
+</code></pre></div><p>Here we used the 
+<a href="https://tidymodels.github.io/rsample/reference/initial_split.html" target="_blank" rel="noopener"><code>strata</code> argument</a>, which conducts a stratified split. This ensures that, despite the imbalance we noticed in our <code>class</code> variable, our training and test data sets will keep roughly the same proportions of poorly and well-segmented cells as in the original data. After the <code>initial_split</code>, the <code>training()</code> and <code>testing()</code> functions return the actual data sets.</p>
+<div class="highlight"><pre style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">cell_train <span style="color:#666">&lt;-</span> <span style="color:#00f">training</span>(cell_split)
+cell_test  <span style="color:#666">&lt;-</span> <span style="color:#00f">testing</span>(cell_split)
+
+<span style="color:#00f">nrow</span>(cell_train)
+<span style="color:#408080;font-style:italic">#&gt; [1] 1515</span>
+<span style="color:#00f">nrow</span>(cell_train)<span style="color:#666">/</span><span style="color:#00f">nrow</span>(cells)
+<span style="color:#408080;font-style:italic">#&gt; [1] 0.7503715</span>
+
+<span style="color:#408080;font-style:italic"># training set proportions by class</span>
+cell_train <span style="color:#666">%&gt;%</span> 
+  <span style="color:#00f">count</span>(class) <span style="color:#666">%&gt;%</span> 
+  <span style="color:#00f">mutate</span>(prop <span style="color:#666">=</span> n<span style="color:#666">/</span><span style="color:#00f">sum</span>(n))
+<span style="color:#408080;font-style:italic">#&gt; # A tibble: 2 x 3</span>
+<span style="color:#408080;font-style:italic">#&gt;   class     n  prop</span>
+<span style="color:#408080;font-style:italic">#&gt;   &lt;fct&gt; &lt;int&gt; &lt;dbl&gt;</span>
+<span style="color:#408080;font-style:italic">#&gt; 1 PS      975 0.644</span>
+<span style="color:#408080;font-style:italic">#&gt; 2 WS      540 0.356</span>
+
+<span style="color:#408080;font-style:italic"># test set proportions by class</span>
+cell_test <span style="color:#666">%&gt;%</span> 
+  <span style="color:#00f">count</span>(class) <span style="color:#666">%&gt;%</span> 
+  <span style="color:#00f">mutate</span>(prop <span style="color:#666">=</span> n<span style="color:#666">/</span><span style="color:#00f">sum</span>(n))
+<span style="color:#408080;font-style:italic">#&gt; # A tibble: 2 x 3</span>
+<span style="color:#408080;font-style:italic">#&gt;   class     n  prop</span>
+<span style="color:#408080;font-style:italic">#&gt;   &lt;fct&gt; &lt;int&gt; &lt;dbl&gt;</span>
+<span style="color:#408080;font-style:italic">#&gt; 1 PS      325 0.645</span>
+<span style="color:#408080;font-style:italic">#&gt; 2 WS      179 0.355</span>
+</code></pre></div><p>The majority of the modeling work is then conducted on the training set data.</p>
+
+
+
+
+<h2 id="modeling">Modeling
+  <a href="#modeling">
+    <svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 0h24v24H0z" fill="currentColor"></path>
+      <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
+    </svg>
+  </a>
+</h2><p>
+<a href="https://en.wikipedia.org/wiki/Random_forest" target="_blank" rel="noopener">Random forest models</a> are 
+<a href="https://en.wikipedia.org/wiki/Ensemble_learning" target="_blank" rel="noopener">ensembles</a> of 
+<a href="https://en.wikipedia.org/wiki/Decision_tree" target="_blank" rel="noopener">decision trees</a>. A large number of decision tree models are created for the ensemble based on slightly different versions of the training set. When creating the individual decision trees, the fitting process encourages them to be as diverse as possible. The collection of trees are combined into the random forest model and, when a new sample is predicted, the votes from each tree are used to calculate the final predicted value for the new sample. For categorical outcome variables like <code>class</code> in our <code>cells</code> data example, the majority vote across all the trees in the random forest determines the predicted class for the new sample.</p>
+<p>One of the benefits of a random forest model is that it is very low maintenance;  it requires very little preprocessing of the data and the default parameters tend to give reasonable results. For that reason, we won&rsquo;t create a recipe for the <code>cells</code> data.</p>
+<p>At the same time, the number of trees in the ensemble should be large (in the thousands) and this makes the model moderately expensive to compute.</p>
+<p>To fit a random forest model on the training set, let&rsquo;s use the 
+<a href="https://tidymodels.github.io/parsnip/" target="_blank" rel="noopener">parsnip</a> package with the 
+<a href="https://cran.r-project.org/web/packages/ranger/index.html" target="_blank" rel="noopener">ranger</a> engine. We first define the model that we want to create:</p>
+<div class="highlight"><pre style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">rf_mod <span style="color:#666">&lt;-</span> 
+  <span style="color:#00f">rand_forest</span>(trees <span style="color:#666">=</span> <span style="color:#666">1000</span>) <span style="color:#666">%&gt;%</span> 
+  <span style="color:#00f">set_engine</span>(<span style="color:#ba2121">&#34;ranger&#34;</span>) <span style="color:#666">%&gt;%</span> 
+  <span style="color:#00f">set_mode</span>(<span style="color:#ba2121">&#34;classification&#34;</span>)
+</code></pre></div><p>Starting with this parsnip model object, the <code>fit()</code> function can be used with a model formula. Since random forest models use random numbers, we again set the seed prior to computing:</p>
+<div class="highlight"><pre style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#00f">set.seed</span>(<span style="color:#666">234</span>)
+rf_fit <span style="color:#666">&lt;-</span> 
+  rf_mod <span style="color:#666">%&gt;%</span> 
+  <span style="color:#00f">fit</span>(class <span style="color:#666">~</span> ., data <span style="color:#666">=</span> cell_train)
+rf_fit
+<span style="color:#408080;font-style:italic">#&gt; parsnip model object</span>
+<span style="color:#408080;font-style:italic">#&gt; </span>
+<span style="color:#408080;font-style:italic">#&gt; Fit time:  2.4s </span>
+<span style="color:#408080;font-style:italic">#&gt; Ranger result</span>
+<span style="color:#408080;font-style:italic">#&gt; </span>
+<span style="color:#408080;font-style:italic">#&gt; Call:</span>
+<span style="color:#408080;font-style:italic">#&gt;  ranger::ranger(formula = formula, data = data, num.trees = ~1000,      num.threads = 1, verbose = FALSE, seed = sample.int(10^5,          1), probability = TRUE) </span>
+<span style="color:#408080;font-style:italic">#&gt; </span>
+<span style="color:#408080;font-style:italic">#&gt; Type:                             Probability estimation </span>
+<span style="color:#408080;font-style:italic">#&gt; Number of trees:                  1000 </span>
+<span style="color:#408080;font-style:italic">#&gt; Sample size:                      1515 </span>
+<span style="color:#408080;font-style:italic">#&gt; Number of independent variables:  56 </span>
+<span style="color:#408080;font-style:italic">#&gt; Mtry:                             7 </span>
+<span style="color:#408080;font-style:italic">#&gt; Target node size:                 10 </span>
+<span style="color:#408080;font-style:italic">#&gt; Variable importance mode:         none </span>
+<span style="color:#408080;font-style:italic">#&gt; Splitrule:                        gini </span>
+<span style="color:#408080;font-style:italic">#&gt; OOB prediction error (Brier s.):  0.1218873</span>
+</code></pre></div><p>This new <code>rf_fit</code> object is our fitted model, trained on our training data set.</p>
+
+
+
+
+<h2 id="performance">Estimating performance
+  <a href="#performance">
+    <svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 0h24v24H0z" fill="currentColor"></path>
+      <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
+    </svg>
+  </a>
+</h2><p>During a modeling project, we might create a variety of different models. To choose between them, we need to consider how well these models do, as measured by some performance statistics. In our example in this article, some options we could use are:</p>
+<ul>
+<li>
+<p>the area under the Receiver Operating Characteristic (ROC) curve, and</p>
+</li>
+<li>
+<p>overall classification accuracy.</p>
+</li>
+</ul>
+<p>The ROC curve uses the class probability estimates to give us a sense of performance across the entire set of potential probability cutoffs. Overall accuracy uses the hard class predictions to measure performance. The hard class predictions tell us whether our model predicted <code>PS</code> or <code>WS</code> for each cell. But, behind those predictions, the model is actually estimating a probability. A simple 50% probability cutoff is used to categorize a cell as poorly segmented.</p>
+<p>The 
+<a href="https://tidymodels.github.io/yardstick/" target="_blank" rel="noopener">yardstick package</a> has functions for computing both of these measures called <code>roc_auc()</code> and <code>accuracy()</code>.</p>
+<p>At first glance, it might seem like a good idea to use the training set data to compute these statistics. (This is actually a very bad idea.) Let&rsquo;s see what happens if we try this. To evaluate performance based on the training set, we call the <code>predict()</code> method to get both types of predictions (i.e. probabilities and hard class predictions).</p>
+<div class="highlight"><pre style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">rf_training_pred <span style="color:#666">&lt;-</span> 
+  <span style="color:#00f">predict</span>(rf_fit, cell_train) <span style="color:#666">%&gt;%</span> 
+  <span style="color:#00f">bind_cols</span>(<span style="color:#00f">predict</span>(rf_fit, cell_train, type <span style="color:#666">=</span> <span style="color:#ba2121">&#34;prob&#34;</span>)) <span style="color:#666">%&gt;%</span> 
+  <span style="color:#408080;font-style:italic"># Add the true outcome data back in</span>
+  <span style="color:#00f">bind_cols</span>(cell_train <span style="color:#666">%&gt;%</span> 
+              <span style="color:#00f">select</span>(class))
+</code></pre></div><p>Using the yardstick functions, this model has spectacular results, so spectacular that you might be starting to get suspicious:</p>
+<div class="highlight"><pre style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">rf_training_pred <span style="color:#666">%&gt;%</span>                <span style="color:#408080;font-style:italic"># training set predictions</span>
+  <span style="color:#00f">roc_auc</span>(truth <span style="color:#666">=</span> class, .pred_PS)
+<span style="color:#408080;font-style:italic">#&gt; # A tibble: 1 x 3</span>
+<span style="color:#408080;font-style:italic">#&gt;   .metric .estimator .estimate</span>
+<span style="color:#408080;font-style:italic">#&gt;   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;</span>
+<span style="color:#408080;font-style:italic">#&gt; 1 roc_auc binary          1.00</span>
+rf_training_pred <span style="color:#666">%&gt;%</span>                <span style="color:#408080;font-style:italic"># training set predictions</span>
+  <span style="color:#00f">accuracy</span>(truth <span style="color:#666">=</span> class, .pred_class)
+<span style="color:#408080;font-style:italic">#&gt; # A tibble: 1 x 3</span>
+<span style="color:#408080;font-style:italic">#&gt;   .metric  .estimator .estimate</span>
+<span style="color:#408080;font-style:italic">#&gt;   &lt;chr&gt;    &lt;chr&gt;          &lt;dbl&gt;</span>
+<span style="color:#408080;font-style:italic">#&gt; 1 accuracy binary         0.993</span>
+</code></pre></div><p>Now that we have this model with exceptional performance, we proceed to the test set. Unfortunately, we discover that, although our results aren&rsquo;t bad, they are certainly worse than what we initially thought based on predicting the training set:</p>
+<div class="highlight"><pre style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">rf_testing_pred <span style="color:#666">&lt;-</span> 
+  <span style="color:#00f">predict</span>(rf_fit, cell_test) <span style="color:#666">%&gt;%</span> 
+  <span style="color:#00f">bind_cols</span>(<span style="color:#00f">predict</span>(rf_fit, cell_test, type <span style="color:#666">=</span> <span style="color:#ba2121">&#34;prob&#34;</span>)) <span style="color:#666">%&gt;%</span> 
+  <span style="color:#00f">bind_cols</span>(cell_test <span style="color:#666">%&gt;%</span> <span style="color:#00f">select</span>(class))
+</code></pre></div><div class="highlight"><pre style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">rf_testing_pred <span style="color:#666">%&gt;%</span>                   <span style="color:#408080;font-style:italic"># test set predictions</span>
+  <span style="color:#00f">roc_auc</span>(truth <span style="color:#666">=</span> class, .pred_PS)
+<span style="color:#408080;font-style:italic">#&gt; # A tibble: 1 x 3</span>
+<span style="color:#408080;font-style:italic">#&gt;   .metric .estimator .estimate</span>
+<span style="color:#408080;font-style:italic">#&gt;   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;</span>
+<span style="color:#408080;font-style:italic">#&gt; 1 roc_auc binary         0.909</span>
+rf_testing_pred <span style="color:#666">%&gt;%</span>                   <span style="color:#408080;font-style:italic"># test set predictions</span>
+  <span style="color:#00f">accuracy</span>(truth <span style="color:#666">=</span> class, .pred_class)
+<span style="color:#408080;font-style:italic">#&gt; # A tibble: 1 x 3</span>
+<span style="color:#408080;font-style:italic">#&gt;   .metric  .estimator .estimate</span>
+<span style="color:#408080;font-style:italic">#&gt;   &lt;chr&gt;    &lt;chr&gt;          &lt;dbl&gt;</span>
+<span style="color:#408080;font-style:italic">#&gt; 1 accuracy binary         0.837</span>
+</code></pre></div>
+
+
+
+<h3 id="what-happened-here">What happened here?
+  <a href="#what-happened-here">
+    <svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 0h24v24H0z" fill="currentColor"></path>
+      <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
+    </svg>
+  </a>
+</h3><p>There are several reasons why training set statistics like the ones shown in this section can be unrealistically optimistic:</p>
+<ul>
+<li>
+<p>Models like random forests, neural networks, and other black-box methods can essentially memorize the training set. Re-predicting that same set should always result in nearly perfect results.</p>
+</li>
+<li>
+<p>The training set does not have the capacity to be a good arbiter of performance. It is not an independent piece of information; predicting the training set can only reflect what the model already knows.</p>
+</li>
+</ul>
+<p>To understand that second point better, think about an analogy from teaching. Suppose you give a class a test, then give them the answers, then provide the same test. The student scores on the <em>second</em> test do not accurately reflect what they know about the subject; these scores would probably be higher than their results on the first test.</p>
+
+
+
+
+<h2 id="resampling">Resampling to the rescue
+  <a href="#resampling">
+    <svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 0h24v24H0z" fill="currentColor"></path>
+      <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
+    </svg>
+  </a>
+</h2><p>Resampling methods, such as cross-validation and the bootstrap, are empirical simulation systems. They create a series of data sets similar to the training/testing split discussed previously; a subset of the data are used for creating the model and a different subset is used to measure performance. Resampling is always used with the <em>training set</em>. This schematic from 
+<a href="https://bookdown.org/max/FES/resampling.html" target="_blank" rel="noopener">Kuhn and Johnson (2019)</a> illustrates data usage for resampling methods:</p>
+<p><img src="img/resampling.svg" width="85%" style="display: block; margin: auto;" /></p>
+<p>In the first level of this diagram, you see what happens when you use <code>rsample::initial_split()</code>, which splits the original data into training and test sets. Then, the training set is chosen for resampling, and the test set is held out.</p>
+<p>Let&rsquo;s use 10-fold cross-validation (CV) in this example. This method randomly allocates the 1515 cells in the training set to 10 groups of roughly equal size, called &ldquo;folds&rdquo;. For the first iteration of resampling, the first fold of about 151 cells are held out for the purpose of measuring performance. This is similar to a test set but, to avoid confusion, we call these data the <em>assessment set</em> in the tidymodels framework.</p>
+<p>The other 90% of the data (about 1363 cells) are used to fit the model. Again, this sounds similar to a training set, so in tidymodels we call this data the <em>analysis set</em>. This model, trained on the analysis set, is applied to the assessment set to generate predictions, and performance statistics are computed based on those predictions.</p>
+<p>In this example, 10-fold CV moves iteratively through the folds and leaves a different 10% out each time for model assessment. At the end of this process, there are 10 sets of performance statistics that were created on 10 data sets that were not used in the modeling process. For the cell example, this means 10 accuracies and 10 areas under the ROC curve. While 10 models were created, these are not used further; we do not keep the models themselves trained on these folds because their only purpose is calculating performance metrics.</p>
+<p>The final resampling estimates for the model are the <strong>averages</strong> of the performance statistics replicates. For example, suppose for our data the results were:</p>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> resample </th>
+   <th style="text-align:right;"> accuracy </th>
+   <th style="text-align:right;"> roc_auc </th>
+   <th style="text-align:right;"> assessment size </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> Fold01 </td>
+   <td style="text-align:right;"> 0.7828947 </td>
+   <td style="text-align:right;"> 0.8419206 </td>
+   <td style="text-align:right;"> 152 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Fold02 </td>
+   <td style="text-align:right;"> 0.8092105 </td>
+   <td style="text-align:right;"> 0.8939982 </td>
+   <td style="text-align:right;"> 152 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Fold03 </td>
+   <td style="text-align:right;"> 0.8486842 </td>
+   <td style="text-align:right;"> 0.9174923 </td>
+   <td style="text-align:right;"> 152 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Fold04 </td>
+   <td style="text-align:right;"> 0.8355263 </td>
+   <td style="text-align:right;"> 0.8941946 </td>
+   <td style="text-align:right;"> 152 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Fold05 </td>
+   <td style="text-align:right;"> 0.8684211 </td>
+   <td style="text-align:right;"> 0.9063232 </td>
+   <td style="text-align:right;"> 152 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Fold06 </td>
+   <td style="text-align:right;"> 0.8410596 </td>
+   <td style="text-align:right;"> 0.9136661 </td>
+   <td style="text-align:right;"> 151 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Fold07 </td>
+   <td style="text-align:right;"> 0.8807947 </td>
+   <td style="text-align:right;"> 0.9368932 </td>
+   <td style="text-align:right;"> 151 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Fold08 </td>
+   <td style="text-align:right;"> 0.7814570 </td>
+   <td style="text-align:right;"> 0.8890798 </td>
+   <td style="text-align:right;"> 151 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Fold09 </td>
+   <td style="text-align:right;"> 0.8145695 </td>
+   <td style="text-align:right;"> 0.9075369 </td>
+   <td style="text-align:right;"> 151 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Fold10 </td>
+   <td style="text-align:right;"> 0.8675497 </td>
+   <td style="text-align:right;"> 0.9310806 </td>
+   <td style="text-align:right;"> 151 </td>
+  </tr>
+</tbody>
+</table>
+<p>From these resampling statistics, the final estimate of performance for this random forest model would be 0.903 for the area under the ROC curve and 0.833 for accuracy.</p>
+<p>These resampling statistics are an effective method for measuring model performance <em>without</em> predicting the training set directly as a whole.</p>
+
+
+
+
+<h2 id="fit-resamples">Fit a model with resampling
+  <a href="#fit-resamples">
+    <svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 0h24v24H0z" fill="currentColor"></path>
+      <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
+    </svg>
+  </a>
+</h2><p>To generate these results, the first step is to create a resampling object using rsample. There are 
+<a href="https://tidymodels.github.io/rsample/reference/index.html#section-resampling-methods" target="_blank" rel="noopener">several resampling methods</a> implemented in rsample; cross-validation folds can be created using <code>vfold_cv()</code>:</p>
+<div class="highlight"><pre style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#00f">set.seed</span>(<span style="color:#666">345</span>)
+folds <span style="color:#666">&lt;-</span> <span style="color:#00f">vfold_cv</span>(cell_train, v <span style="color:#666">=</span> <span style="color:#666">10</span>)
+folds
+<span style="color:#408080;font-style:italic">#&gt; #  10-fold cross-validation </span>
+<span style="color:#408080;font-style:italic">#&gt; # A tibble: 10 x 2</span>
+<span style="color:#408080;font-style:italic">#&gt;    splits             id    </span>
+<span style="color:#408080;font-style:italic">#&gt;    &lt;named list&gt;       &lt;chr&gt; </span>
+<span style="color:#408080;font-style:italic">#&gt;  1 &lt;split [1.4K/152]&gt; Fold01</span>
+<span style="color:#408080;font-style:italic">#&gt;  2 &lt;split [1.4K/152]&gt; Fold02</span>
+<span style="color:#408080;font-style:italic">#&gt;  3 &lt;split [1.4K/152]&gt; Fold03</span>
+<span style="color:#408080;font-style:italic">#&gt;  4 &lt;split [1.4K/152]&gt; Fold04</span>
+<span style="color:#408080;font-style:italic">#&gt;  5 &lt;split [1.4K/152]&gt; Fold05</span>
+<span style="color:#408080;font-style:italic">#&gt;  6 &lt;split [1.4K/151]&gt; Fold06</span>
+<span style="color:#408080;font-style:italic">#&gt;  7 &lt;split [1.4K/151]&gt; Fold07</span>
+<span style="color:#408080;font-style:italic">#&gt;  8 &lt;split [1.4K/151]&gt; Fold08</span>
+<span style="color:#408080;font-style:italic">#&gt;  9 &lt;split [1.4K/151]&gt; Fold09</span>
+<span style="color:#408080;font-style:italic">#&gt; 10 &lt;split [1.4K/151]&gt; Fold10</span>
+</code></pre></div><p>The list column for <code>splits</code> contains the information on which rows belong in the analysis and assessment sets. There are functions that can be used to extract the individual resampled data called <code>analysis()</code> and <code>assessment()</code>.</p>
+<p>However, the tune package contains high-level functions that can do the required computations to resample a model for the purpose of measuring performance. You have several options for building an object for resampling:</p>
+<ul>
+<li>
+<p>Resample a model specification preprocessed with a formula or 
+<a href="/start/recipes/">recipe</a>, or</p>
+</li>
+<li>
+<p>Resample a 
+<a href="https://tidymodels.github.io/workflows/" target="_blank" rel="noopener"><code>workflow()</code></a> that bundles together a model specification and formula/recipe.</p>
+</li>
+</ul>
+<p>For this example, let&rsquo;s use a <code>workflow()</code> that bundles together the random forest model and a formula, since we are not using a recipe. Whichever of these options you use, the syntax to <code>fit_resamples()</code> is very similar to <code>fit()</code>:</p>
+<div class="highlight"><pre style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">rf_wf <span style="color:#666">&lt;-</span> 
+  <span style="color:#00f">workflow</span>() <span style="color:#666">%&gt;%</span>
+  <span style="color:#00f">add_model</span>(rf_mod) <span style="color:#666">%&gt;%</span>
+  <span style="color:#00f">add_formula</span>(class <span style="color:#666">~</span> .)
+
+<span style="color:#00f">set.seed</span>(<span style="color:#666">456</span>)
+rf_fit_rs <span style="color:#666">&lt;-</span> 
+  rf_wf <span style="color:#666">%&gt;%</span> 
+  <span style="color:#00f">fit_resamples</span>(folds)
+</code></pre></div><div class="highlight"><pre style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">rf_fit_rs
+<span style="color:#408080;font-style:italic">#&gt; #  10-fold cross-validation </span>
+<span style="color:#408080;font-style:italic">#&gt; # A tibble: 10 x 4</span>
+<span style="color:#408080;font-style:italic">#&gt;    splits             id     .metrics         .notes          </span>
+<span style="color:#408080;font-style:italic">#&gt;  * &lt;list&gt;             &lt;chr&gt;  &lt;list&gt;           &lt;list&gt;          </span>
+<span style="color:#408080;font-style:italic">#&gt;  1 &lt;split [1.4K/152]&gt; Fold01 &lt;tibble [2 × 3]&gt; &lt;tibble [0 × 1]&gt;</span>
+<span style="color:#408080;font-style:italic">#&gt;  2 &lt;split [1.4K/152]&gt; Fold02 &lt;tibble [2 × 3]&gt; &lt;tibble [0 × 1]&gt;</span>
+<span style="color:#408080;font-style:italic">#&gt;  3 &lt;split [1.4K/152]&gt; Fold03 &lt;tibble [2 × 3]&gt; &lt;tibble [0 × 1]&gt;</span>
+<span style="color:#408080;font-style:italic">#&gt;  4 &lt;split [1.4K/152]&gt; Fold04 &lt;tibble [2 × 3]&gt; &lt;tibble [0 × 1]&gt;</span>
+<span style="color:#408080;font-style:italic">#&gt;  5 &lt;split [1.4K/152]&gt; Fold05 &lt;tibble [2 × 3]&gt; &lt;tibble [0 × 1]&gt;</span>
+<span style="color:#408080;font-style:italic">#&gt;  6 &lt;split [1.4K/151]&gt; Fold06 &lt;tibble [2 × 3]&gt; &lt;tibble [0 × 1]&gt;</span>
+<span style="color:#408080;font-style:italic">#&gt;  7 &lt;split [1.4K/151]&gt; Fold07 &lt;tibble [2 × 3]&gt; &lt;tibble [0 × 1]&gt;</span>
+<span style="color:#408080;font-style:italic">#&gt;  8 &lt;split [1.4K/151]&gt; Fold08 &lt;tibble [2 × 3]&gt; &lt;tibble [0 × 1]&gt;</span>
+<span style="color:#408080;font-style:italic">#&gt;  9 &lt;split [1.4K/151]&gt; Fold09 &lt;tibble [2 × 3]&gt; &lt;tibble [0 × 1]&gt;</span>
+<span style="color:#408080;font-style:italic">#&gt; 10 &lt;split [1.4K/151]&gt; Fold10 &lt;tibble [2 × 3]&gt; &lt;tibble [0 × 1]&gt;</span>
+</code></pre></div><p>The results are similar to the <code>folds</code> results with some extra columns. The column <code>.metrics</code> contains the performance statistics created from the 10 assessment sets. These can be manually unnested but the tune package contains a number of simple functions that can extract these data:</p>
+<div class="highlight"><pre style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#00f">collect_metrics</span>(rf_fit_rs)
+<span style="color:#408080;font-style:italic">#&gt; # A tibble: 2 x 5</span>
+<span style="color:#408080;font-style:italic">#&gt;   .metric  .estimator  mean     n std_err</span>
+<span style="color:#408080;font-style:italic">#&gt;   &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt;</span>
+<span style="color:#408080;font-style:italic">#&gt; 1 accuracy binary     0.833    10 0.0111 </span>
+<span style="color:#408080;font-style:italic">#&gt; 2 roc_auc  binary     0.903    10 0.00842</span>
+</code></pre></div><p>Think about these values we now have for accuracy and AUC. These performance metrics are now more realistic (i.e. lower) than our ill-advised first attempt at computing performance metrics in the section above. If we wanted to try different model types for this data set, we could more confidently compare performance metrics computed using resampling to choose between models. Also, remember that at the end of our project, we return to our test set to estimate final model performance. We have looked at this once already before we started using resampling, but let&rsquo;s remind ourselves of the results:</p>
+<div class="highlight"><pre style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">rf_testing_pred <span style="color:#666">%&gt;%</span>                   <span style="color:#408080;font-style:italic"># test set predictions</span>
+  <span style="color:#00f">roc_auc</span>(truth <span style="color:#666">=</span> class, .pred_PS)
+<span style="color:#408080;font-style:italic">#&gt; # A tibble: 1 x 3</span>
+<span style="color:#408080;font-style:italic">#&gt;   .metric .estimator .estimate</span>
+<span style="color:#408080;font-style:italic">#&gt;   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;</span>
+<span style="color:#408080;font-style:italic">#&gt; 1 roc_auc binary         0.909</span>
+rf_testing_pred <span style="color:#666">%&gt;%</span>                   <span style="color:#408080;font-style:italic"># test set predictions</span>
+  <span style="color:#00f">accuracy</span>(truth <span style="color:#666">=</span> class, .pred_class)
+<span style="color:#408080;font-style:italic">#&gt; # A tibble: 1 x 3</span>
+<span style="color:#408080;font-style:italic">#&gt;   .metric  .estimator .estimate</span>
+<span style="color:#408080;font-style:italic">#&gt;   &lt;chr&gt;    &lt;chr&gt;          &lt;dbl&gt;</span>
+<span style="color:#408080;font-style:italic">#&gt; 1 accuracy binary         0.837</span>
+</code></pre></div><p>The performance metrics from the test set are much closer to the performance metrics computed using resampling than our first (&ldquo;bad idea&rdquo;) attempt. Resampling allows us to simulate how well our model will perform on new data, and the test set acts as the final, unbiased check for our model&rsquo;s performance.</p>
+
+
+
+
+<h2 id="session-information">Session information
+  <a href="#session-information">
+    <svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 0h24v24H0z" fill="currentColor"></path>
+      <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
+    </svg>
+  </a>
+</h2><pre><code>#&gt; ─ Session info ───────────────────────────────────────────────────────────────
+#&gt;  setting  value                       
+#&gt;  version  R version 3.6.2 (2019-12-12)
+#&gt;  os       macOS Mojave 10.14.6        
+#&gt;  system   x86_64, darwin15.6.0        
+#&gt;  ui       X11                         
+#&gt;  language (EN)                        
+#&gt;  collate  en_US.UTF-8                 
+#&gt;  ctype    en_US.UTF-8                 
+#&gt;  tz       America/Denver              
+#&gt;  date     2020-04-21                  
+#&gt; 
+#&gt; ─ Packages ───────────────────────────────────────────────────────────────────
+#&gt;  package    * version date       lib source        
+#&gt;  broom      * 0.5.5   2020-02-29 [1] CRAN (R 3.6.0)
+#&gt;  dials      * 0.0.6   2020-04-03 [1] CRAN (R 3.6.2)
+#&gt;  dplyr      * 0.8.5   2020-03-07 [1] CRAN (R 3.6.0)
+#&gt;  ggplot2    * 3.3.0   2020-03-05 [1] CRAN (R 3.6.0)
+#&gt;  infer      * 0.5.1   2019-11-19 [1] CRAN (R 3.6.0)
+#&gt;  modeldata  * 0.0.1   2019-12-06 [1] CRAN (R 3.6.0)
+#&gt;  parsnip    * 0.1.0   2020-04-09 [1] CRAN (R 3.6.2)
+#&gt;  purrr      * 0.3.4   2020-04-17 [1] CRAN (R 3.6.2)
+#&gt;  ranger     * 0.12.1  2020-01-10 [1] CRAN (R 3.6.0)
+#&gt;  recipes    * 0.1.10  2020-03-18 [1] CRAN (R 3.6.0)
+#&gt;  rlang        0.4.5   2020-03-01 [1] CRAN (R 3.6.0)
+#&gt;  rsample    * 0.0.6   2020-03-31 [1] CRAN (R 3.6.2)
+#&gt;  tibble     * 2.1.3   2019-06-06 [1] CRAN (R 3.6.2)
+#&gt;  tidymodels * 0.1.0   2020-02-16 [1] CRAN (R 3.6.0)
+#&gt;  tune       * 0.1.0   2020-04-02 [1] CRAN (R 3.6.2)
+#&gt;  workflows  * 0.1.1   2020-03-17 [1] CRAN (R 3.6.0)
+#&gt;  yardstick  * 0.0.6   2020-03-17 [1] CRAN (R 3.6.0)
+#&gt; 
+#&gt; [1] /Library/Frameworks/R.framework/Versions/3.6/Resources/library
+</code></pre>
+      </div>
+
+    <div class="article-footer">
+      
+      <div style="float:left">
+      
+        <div class='itemTitle' align="left" style='font-size:.8em; line-height:2em'>Previous</div>
+        <a href="/start/recipes/">Preprocess your data with recipes</a>
+      
+      </div>
+      
+      
+      <div style="float:right">
+      
+      
+        <a href="https://tinystats.github.io/teacups-giraffes-and-statistics/" target="_blank">
+        <div class="giraffe"></div>
+        </a>
+      
+      </div>
+     </div> 
+      
+
+      </div>
+
+    </div>
+  </div>  
+</div> 
+
+
+        <div id="rStudioFooter" class="band">
+          <div class="bandContent">
+            <div id="copyright">
+              
+              © <a href="https://katilingban.io/">Katilingban</a>, 2020<br>
+              
+              
+            </div>
+            <div id="logos">
+              <a href="https://github.com/nutriverse" class="footerLogo gitHub" aria-label="Tidyverse GitHub organization"></a>
+              <a href="https://twitter.com/katilingban" class="footerLogo twitter" aria-label="rstats hashtag on twitter.com"></a>
+            </div>
+          </div>
+        </div>
+
+      </div>  
+    </div>  
+
+    
+
+    
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'G-Z9SDQC2LZH', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+  </body>
+</html>
+
+</body>
+</html>

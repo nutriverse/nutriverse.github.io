@@ -1,0 +1,766 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>pre-processing | nutriverse</title>
+    <link>https://nutriverse.io/categories/pre-processing/</link>
+      <atom:link href="https://nutriverse.io/categories/pre-processing/index.xml" rel="self" type="application/rss+xml" />
+    <description>pre-processing</description>
+    <generator>Hugo -- gohugo.io</generator><language>en-gb</language>
+    <item>
+      <title>Preprocess your data with recipes</title>
+      <link>https://nutriverse.io/start/recipes/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://nutriverse.io/start/recipes/</guid>
+      <description>
+
+
+
+&lt;h2 id=&#34;intro&#34;&gt;Introduction
+  &lt;a href=&#34;#intro&#34;&gt;
+    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+    &lt;/svg&gt;
+  &lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;In our 
+&lt;a href=&#34;https://nutriverse.io/start/models/&#34;&gt;&lt;em&gt;Build a Model&lt;/em&gt;&lt;/a&gt; article, we learned how to specify and train models with different engines using the 
+&lt;a href=&#34;https://tidymodels.github.io/parsnip/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;parsnip package&lt;/a&gt;. In this article, we&amp;rsquo;ll explore another tidymodels package, 
+&lt;a href=&#34;https://tidymodels.github.io/recipes/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;recipes&lt;/a&gt;, which is designed to help you preprocess your data &lt;em&gt;before&lt;/em&gt; training your model. Recipes are built as a series of preprocessing steps, such as:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;converting qualitative predictors to indicator variables (also known as dummy variables),&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;transforming data to be on a different scale (e.g., taking the logarithm of a variable),&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;transforming whole groups of predictors together,&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;extracting key features from raw variables (e.g., getting the day of the week out of a date variable),&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;and so on. If you are familiar with R&amp;rsquo;s formula interface, a lot of this might sound familiar and like what a formula already does. Recipes can be used to do many of the same things, but they have a much wider range of possibilities. This article shows how to use recipes for modeling.&lt;/p&gt;
+&lt;p&gt;To use code in this article,  you will need to install the following packages: nycflights13, skimr, and tidymodels.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#00f&#34;&gt;library&lt;/span&gt;(tidymodels)      &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# for the recipes package, along with the rest of tidymodels&lt;/span&gt;
+
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# Helper packages&lt;/span&gt;
+&lt;span style=&#34;color:#00f&#34;&gt;library&lt;/span&gt;(nycflights13)    &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# for flight data&lt;/span&gt;
+&lt;span style=&#34;color:#00f&#34;&gt;library&lt;/span&gt;(skimr)           &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# for variable summaries&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+&lt;h2 id=&#34;data&#34;&gt;The New York City flight data
+  &lt;a href=&#34;#data&#34;&gt;
+    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+    &lt;/svg&gt;
+  &lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;Let&amp;rsquo;s use the 
+&lt;a href=&#34;https://github.com/hadley/nycflights13&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;nycflights13 data&lt;/a&gt; to predict whether a plane arrives more than 30 minutes late. This data set contains information on 325,819 flights departing near New York City in 2013. Let&amp;rsquo;s start by loading the data and making a few changes to the variables:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#00f&#34;&gt;set.seed&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;123&lt;/span&gt;)
+
+flight_data &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; 
+  flights &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;mutate&lt;/span&gt;(
+    &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# Convert the arrival delay to a factor&lt;/span&gt;
+    arr_delay &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;ifelse&lt;/span&gt;(arr_delay &lt;span style=&#34;color:#666&#34;&gt;&amp;gt;=&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;30&lt;/span&gt;, &lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;late&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;on_time&amp;#34;&lt;/span&gt;),
+    arr_delay &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;factor&lt;/span&gt;(arr_delay),
+    &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# We will use the date (not date-time) in the recipe below&lt;/span&gt;
+    date &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;as.Date&lt;/span&gt;(time_hour)
+  ) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# Include the weather data&lt;/span&gt;
+  &lt;span style=&#34;color:#00f&#34;&gt;inner_join&lt;/span&gt;(weather, by &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;origin&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;time_hour&amp;#34;&lt;/span&gt;)) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# Only retain the specific columns we will use&lt;/span&gt;
+  &lt;span style=&#34;color:#00f&#34;&gt;select&lt;/span&gt;(dep_time, flight, origin, dest, air_time, distance, 
+         carrier, date, arr_delay, time_hour) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# Exclude missing data&lt;/span&gt;
+  &lt;span style=&#34;color:#00f&#34;&gt;na.omit&lt;/span&gt;() &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# For creating models, it is better to have qualitative columns&lt;/span&gt;
+  &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# encoded as factors (instead of character strings)&lt;/span&gt;
+  &lt;span style=&#34;color:#00f&#34;&gt;mutate_if&lt;/span&gt;(is.character, as.factor)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We can see that about 16% of the flights in this data set arrived more than 30 minutes late.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;flight_data &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;count&lt;/span&gt;(arr_delay) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;mutate&lt;/span&gt;(prop &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; n&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#00f&#34;&gt;sum&lt;/span&gt;(n))
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # A tibble: 2 x 3&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   arr_delay      n  prop&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   &amp;lt;fct&amp;gt;      &amp;lt;int&amp;gt; &amp;lt;dbl&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 1 late       52540 0.161&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 2 on_time   273279 0.839&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Before we start building up our recipe, let&amp;rsquo;s take a quick look at a few specific variables that will be important for both preprocessing and modeling.&lt;/p&gt;
+&lt;p&gt;First, notice that the variable we created called &lt;code&gt;arr_delay&lt;/code&gt; is a factor variable; it is important that our outcome variable for training a logistic regression model is a factor.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#00f&#34;&gt;glimpse&lt;/span&gt;(flight_data)
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; Observations: 325,819&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; Variables: 10&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; $ dep_time  &amp;lt;int&amp;gt; 517, 533, 542, 544, 554, 554, 555, 557, 557, 558, 558, 558,…&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; $ flight    &amp;lt;int&amp;gt; 1545, 1714, 1141, 725, 461, 1696, 507, 5708, 79, 301, 49, 7…&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; $ origin    &amp;lt;fct&amp;gt; EWR, LGA, JFK, JFK, LGA, EWR, EWR, LGA, JFK, LGA, JFK, JFK,…&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; $ dest      &amp;lt;fct&amp;gt; IAH, IAH, MIA, BQN, ATL, ORD, FLL, IAD, MCO, ORD, PBI, TPA,…&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; $ air_time  &amp;lt;dbl&amp;gt; 227, 227, 160, 183, 116, 150, 158, 53, 140, 138, 149, 158, …&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; $ distance  &amp;lt;dbl&amp;gt; 1400, 1416, 1089, 1576, 762, 719, 1065, 229, 944, 733, 1028…&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; $ carrier   &amp;lt;fct&amp;gt; UA, UA, AA, B6, DL, UA, B6, EV, B6, AA, B6, B6, UA, UA, AA,…&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; $ date      &amp;lt;date&amp;gt; 2013-01-01, 2013-01-01, 2013-01-01, 2013-01-01, 2013-01-01…&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; $ arr_delay &amp;lt;fct&amp;gt; on_time, on_time, late, on_time, on_time, on_time, on_time,…&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; $ time_hour &amp;lt;dttm&amp;gt; 2013-01-01 05:00:00, 2013-01-01 05:00:00, 2013-01-01 05:00…&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Second, there are two variables that we don&amp;rsquo;t want to use as predictors in our model, but that we would like to retain as identification variables that can be used to troubleshoot poorly predicted data points. These are &lt;code&gt;flight&lt;/code&gt;, a numeric value, and &lt;code&gt;time_hour&lt;/code&gt;, a date-time value.&lt;/p&gt;
+&lt;p&gt;Third, there are 104 flight destinations contained in &lt;code&gt;dest&lt;/code&gt; and 16 distinct &lt;code&gt;carrier&lt;/code&gt;s.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;flight_data &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  skimr&lt;span style=&#34;color:#666&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#00f&#34;&gt;skim&lt;/span&gt;(dest, carrier) 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;table style=&#39;width: auto;&#39;
+        class=&#39;table table-condensed&#39;&gt;
+&lt;caption&gt;Table 1: Data summary&lt;/caption&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style=&#34;text-align:left;&#34;&gt;   &lt;/th&gt;
+   &lt;th style=&#34;text-align:left;&#34;&gt;   &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; Name &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; Piped data &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; Number of rows &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; 325819 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; Number of columns &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; 10 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; _______________________ &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; Column type frequency: &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; factor &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; 2 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; ________________________ &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; Group variables &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; None &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;Variable type: factor&lt;/strong&gt;&lt;/p&gt;
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style=&#34;text-align:left;&#34;&gt; skim_variable &lt;/th&gt;
+   &lt;th style=&#34;text-align:right;&#34;&gt; n_missing &lt;/th&gt;
+   &lt;th style=&#34;text-align:right;&#34;&gt; complete_rate &lt;/th&gt;
+   &lt;th style=&#34;text-align:left;&#34;&gt; ordered &lt;/th&gt;
+   &lt;th style=&#34;text-align:right;&#34;&gt; n_unique &lt;/th&gt;
+   &lt;th style=&#34;text-align:left;&#34;&gt; top_counts &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; dest &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 0 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 1 &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; FALSE &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 104 &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; ATL: 16771, ORD: 16507, LAX: 15942, BOS: 14948 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; carrier &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 0 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 1 &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; FALSE &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 16 &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; UA: 57489, B6: 53715, EV: 50868, DL: 47465 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Because we&amp;rsquo;ll be using a simple logistic regression model, the variables &lt;code&gt;dest&lt;/code&gt; and &lt;code&gt;carrier&lt;/code&gt; will be converted to 
+&lt;a href=&#34;https://bookdown.org/max/FES/creating-dummy-variables-for-unordered-categories.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;dummy variables&lt;/a&gt;. However, some of these values do not occur very frequently and this could complicate our analysis. We&amp;rsquo;ll discuss specific steps later in this article that we can add to our recipe to address this issue before modeling.&lt;/p&gt;
+
+
+
+
+&lt;h2 id=&#34;data-split&#34;&gt;Data splitting
+  &lt;a href=&#34;#data-split&#34;&gt;
+    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+    &lt;/svg&gt;
+  &lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;To get started, let&amp;rsquo;s split this single dataset into two: a &lt;em&gt;training&lt;/em&gt; set and a &lt;em&gt;testing&lt;/em&gt; set. We&amp;rsquo;ll keep most of the rows in the original dataset (subset chosen randomly) in the &lt;em&gt;training&lt;/em&gt; set. The training data will be used to &lt;em&gt;fit&lt;/em&gt; the model, and the &lt;em&gt;testing&lt;/em&gt; set will be used to measure model performance.&lt;/p&gt;
+&lt;p&gt;To do this, we can use the 
+&lt;a href=&#34;https://tidymodels.github.io/rsample/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;rsample&lt;/a&gt; package to create an object that contains the information on &lt;em&gt;how&lt;/em&gt; to split the data, and then two more rsample functions to create data frames for the training and testing sets:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# Fix the random numbers by setting the seed &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# This enables the analysis to be reproducible when random numbers are used &lt;/span&gt;
+&lt;span style=&#34;color:#00f&#34;&gt;set.seed&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;555&lt;/span&gt;)
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# Put 3/4 of the data into the training set &lt;/span&gt;
+data_split &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;initial_split&lt;/span&gt;(flight_data, prop &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;3&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;4&lt;/span&gt;)
+
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# Create data frames for the two sets:&lt;/span&gt;
+train_data &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;training&lt;/span&gt;(data_split)
+test_data  &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;testing&lt;/span&gt;(data_split)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+&lt;h2 id=&#34;recipe&#34;&gt;Create recipe and roles
+  &lt;a href=&#34;#recipe&#34;&gt;
+    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+    &lt;/svg&gt;
+  &lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;To get started, let&amp;rsquo;s create a recipe for a simple logistic regression model. Before training the model, we can use a recipe to create a few new predictors and conduct some preprocessing required by the model.&lt;/p&gt;
+&lt;p&gt;Let&amp;rsquo;s initiate a new recipe:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;flights_rec &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;recipe&lt;/span&gt;(arr_delay &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt; ., data &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; train_data) 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The 
+&lt;a href=&#34;https://tidymodels.github.io/recipes/reference/recipe.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;recipe()&lt;/code&gt; function&lt;/a&gt; as we used it here has two arguments:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;A &lt;strong&gt;formula&lt;/strong&gt;. Any variable on the left-hand side of the tilde (&lt;code&gt;~&lt;/code&gt;) is considered the model outcome (here, &lt;code&gt;arr_delay&lt;/code&gt;). On the right-hand side of the tilde are the predictors. Variables may be listed by name, or you can use the dot (&lt;code&gt;.&lt;/code&gt;) to indicate all other variables as predictors.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The &lt;strong&gt;data&lt;/strong&gt;. A recipe is associated with the data set used to create the model. This will typically be the &lt;em&gt;training&lt;/em&gt; set, so &lt;code&gt;data = train_data&lt;/code&gt; here. Naming a data set doesn&amp;rsquo;t actually change the data itself; it is only used to catalog the names of the variables and their types, like factors, integers, dates, etc.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Now we can add 
+&lt;a href=&#34;https://tidymodels.github.io/recipes/reference/roles.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;roles&lt;/a&gt; to this recipe. We can use the 
+&lt;a href=&#34;https://tidymodels.github.io/recipes/reference/roles.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;update_role()&lt;/code&gt; function&lt;/a&gt; to let recipes know that &lt;code&gt;flight&lt;/code&gt; and &lt;code&gt;time_hour&lt;/code&gt; are variables with a custom role that we called &lt;code&gt;&amp;quot;ID&amp;quot;&lt;/code&gt; (a role can have any character value). Whereas our formula included all variables in the training set other than &lt;code&gt;arr_delay&lt;/code&gt; as predictors, this tells the recipe to keep these two variables but not use them as either outcomes or predictors.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;flights_rec &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;recipe&lt;/span&gt;(arr_delay &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt; ., data &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; train_data) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;update_role&lt;/span&gt;(flight, time_hour, new_role &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;ID&amp;#34;&lt;/span&gt;) 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This step of adding roles to a recipe is optional; the purpose of using it here is that those two variables can be retained in the data but not included in the model. This can be convenient when, after the model is fit, we want to investigate some poorly predicted value. These ID columns will be available and can be used to try to understand what went wrong.&lt;/p&gt;
+&lt;p&gt;To get the current set of variables and roles, use the &lt;code&gt;summary()&lt;/code&gt; function:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#00f&#34;&gt;summary&lt;/span&gt;(flights_rec)
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # A tibble: 10 x 4&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;    variable  type    role      source  &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;    &amp;lt;chr&amp;gt;     &amp;lt;chr&amp;gt;   &amp;lt;chr&amp;gt;     &amp;lt;chr&amp;gt;   &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  1 dep_time  numeric predictor original&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  2 flight    numeric ID        original&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  3 origin    nominal predictor original&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  4 dest      nominal predictor original&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  5 air_time  numeric predictor original&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  6 distance  numeric predictor original&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  7 carrier   nominal predictor original&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  8 date      date    predictor original&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  9 time_hour date    ID        original&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 10 arr_delay nominal outcome   original&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+&lt;h2 id=&#34;features&#34;&gt;Create features
+  &lt;a href=&#34;#features&#34;&gt;
+    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+    &lt;/svg&gt;
+  &lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;Now we can start adding steps onto our recipe using the pipe operator. Perhaps it is reasonable for the date of the flight to have an effect on the likelihood of a late arrival. A little bit of &lt;strong&gt;feature engineering&lt;/strong&gt; might go a long way to improving our model. How should the date be encoded into the model? The &lt;code&gt;date&lt;/code&gt; column has an R &lt;code&gt;date&lt;/code&gt; object so including that column &amp;ldquo;as is&amp;rdquo; will mean that the model will convert it to a numeric format equal to the number of days after a reference date:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;flight_data &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;distinct&lt;/span&gt;(date) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;mutate&lt;/span&gt;(numeric_date &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;as.numeric&lt;/span&gt;(date)) 
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # A tibble: 364 x 2&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   date       numeric_date&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   &amp;lt;date&amp;gt;            &amp;lt;dbl&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 1 2013-01-01        15706&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 2 2013-01-02        15707&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 3 2013-01-03        15708&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 4 2013-01-04        15709&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 5 2013-01-05        15710&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # … with 359 more rows&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;It&amp;rsquo;s possible that the numeric date variable is a good option for modeling; perhaps the model would benefit from a linear trend between the log-odds of a late arrival and the numeric date variable. However, it might be better to add model terms &lt;em&gt;derived&lt;/em&gt; from the date that have a better potential to be important to the model. For example, we could derive the following meaningful features from the single &lt;code&gt;date&lt;/code&gt; variable:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;the day of the week,&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;the month, and&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;whether or not the date corresponds to a holiday.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Let&amp;rsquo;s do all three of these by adding steps to our recipe:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;flights_rec &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;recipe&lt;/span&gt;(arr_delay &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt; ., data &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; train_data) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;update_role&lt;/span&gt;(flight, time_hour, new_role &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;ID&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;step_date&lt;/span&gt;(date, features &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;dow&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;month&amp;#34;&lt;/span&gt;)) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;               
+  &lt;span style=&#34;color:#00f&#34;&gt;step_holiday&lt;/span&gt;(date, holidays &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; timeDate&lt;span style=&#34;color:#666&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#00f&#34;&gt;listHolidays&lt;/span&gt;(&lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;US&amp;#34;&lt;/span&gt;)) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;step_rm&lt;/span&gt;(date)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;What do each of these steps do?&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;With 
+&lt;a href=&#34;https://tidymodels.github.io/recipes/reference/step_date.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;step_date()&lt;/code&gt;&lt;/a&gt;, we created two new factor columns with the appropriate day of the week and the month.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;With 
+&lt;a href=&#34;https://tidymodels.github.io/recipes/reference/step_holiday.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;step_holiday()&lt;/code&gt;&lt;/a&gt;, we created a binary variable indicating whether the current date is a holiday or not. The argument value of &lt;code&gt;timeDate::listHolidays(&amp;quot;US&amp;quot;)&lt;/code&gt; uses the 
+&lt;a href=&#34;https://cran.r-project.org/web/packages/timeDate/index.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;timeDate package&lt;/a&gt; to list the 17 standard US holidays.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;With 
+&lt;a href=&#34;https://tidymodels.github.io/recipes/reference/step_rm.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;step_rm()&lt;/code&gt;&lt;/a&gt;, we remove the original &lt;code&gt;date&lt;/code&gt; variable since we no longer want it in the model.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Next, we&amp;rsquo;ll turn our attention to the variable types of our predictors. Because we plan to train a logistic regression model, we know that predictors will ultimately need to be numeric, as opposed to factor variables. In other words, there may be a difference in how we store our data (in factors inside a data frame), and how the underlying equations require them (a purely numeric matrix).&lt;/p&gt;
+&lt;p&gt;For factors like &lt;code&gt;dest&lt;/code&gt; and &lt;code&gt;origin&lt;/code&gt;, 
+&lt;a href=&#34;https://bookdown.org/max/FES/creating-dummy-variables-for-unordered-categories.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;standard practice&lt;/a&gt; is to convert them into &lt;em&gt;dummy&lt;/em&gt; or &lt;em&gt;indicator&lt;/em&gt; variables to make them numeric. These are binary values for each level of the factor. For example, our &lt;code&gt;origin&lt;/code&gt; variable has values of &lt;code&gt;&amp;quot;EWR&amp;quot;&lt;/code&gt;, &lt;code&gt;&amp;quot;JFK&amp;quot;&lt;/code&gt;, and &lt;code&gt;&amp;quot;LGA&amp;quot;&lt;/code&gt;. The standard dummy variable encoding, shown below, will create &lt;em&gt;two&lt;/em&gt; numeric columns of the data that are 1 when the originating airport is &lt;code&gt;&amp;quot;JFK&amp;quot;&lt;/code&gt; or &lt;code&gt;&amp;quot;LGA&amp;quot;&lt;/code&gt; and zero otherwise, respectively.&lt;/p&gt;
+&lt;table class=&#34;table&#34; style=&#34;width: auto !important; margin-left: auto; margin-right: auto;&#34;&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style=&#34;text-align:left;&#34;&gt; origin &lt;/th&gt;
+   &lt;th style=&#34;text-align:right;&#34;&gt; origin_JFK &lt;/th&gt;
+   &lt;th style=&#34;text-align:right;&#34;&gt; origin_LGA &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; EWR &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 0 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; JFK &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 1 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; LGA &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 0 &lt;/td&gt;
+   &lt;td style=&#34;text-align:right;&#34;&gt; 1 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;But, unlike the standard model formula methods in R, a recipe &lt;strong&gt;does not&lt;/strong&gt; automatically create these dummy variables for you; you&amp;rsquo;ll need to tell your recipe to add this step. This is for two reasons. First, many models do not require 
+&lt;a href=&#34;https://bookdown.org/max/FES/categorical-trees.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;numeric predictors&lt;/a&gt;, so dummy variables may not always be preferred. Second, recipes can also be used for purposes outside of modeling, where non-dummy versions of the variables may work better. For example, you may want to make a table or a plot with a variable as a single factor. For those reasons, you need to explicitly tell recipes to create dummy variables using &lt;code&gt;step_dummy()&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;flights_rec &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;recipe&lt;/span&gt;(arr_delay &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt; ., data &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; train_data) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;update_role&lt;/span&gt;(flight, time_hour, new_role &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;ID&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;step_date&lt;/span&gt;(date, features &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;dow&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;month&amp;#34;&lt;/span&gt;)) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;step_holiday&lt;/span&gt;(date, holidays &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; timeDate&lt;span style=&#34;color:#666&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#00f&#34;&gt;listHolidays&lt;/span&gt;(&lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;US&amp;#34;&lt;/span&gt;)) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;step_rm&lt;/span&gt;(date) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;step_dummy&lt;/span&gt;(&lt;span style=&#34;color:#00f&#34;&gt;all_nominal&lt;/span&gt;(), &lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#00f&#34;&gt;all_outcomes&lt;/span&gt;())
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Here, we did something different than before: instead of applying a step to an individual variable, we used 
+&lt;a href=&#34;https://tidymodels.github.io/recipes/reference/selections.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;selectors&lt;/a&gt; to apply this recipe step to several variables at once.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;The first selector, &lt;code&gt;all_nominal()&lt;/code&gt;, selects all variables that are either factors or characters.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;The second selector, &lt;code&gt;-all_outcomes()&lt;/code&gt; removes any outcome variables from this recipe step.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;With these two selectors together, our recipe step above translates to:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Create dummy variables for all of the factor or character columns &lt;em&gt;unless&lt;/em&gt; they are outcomes.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;At this stage in the recipe, this step selects the &lt;code&gt;origin&lt;/code&gt;, &lt;code&gt;dest&lt;/code&gt;, and &lt;code&gt;carrier&lt;/code&gt; variables. It also includes two new variables, &lt;code&gt;date_dow&lt;/code&gt; and &lt;code&gt;date_month&lt;/code&gt;, that were created by the earlier &lt;code&gt;step_date()&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;More generally, the recipe selectors mean that you don&amp;rsquo;t always have to apply steps to individual variables one at a time. Since a recipe knows the &lt;em&gt;variable type&lt;/em&gt; and &lt;em&gt;role&lt;/em&gt; of each column, they can also be selected (or dropped) using this information.&lt;/p&gt;
+&lt;p&gt;We need one final step to add to our recipe. Since &lt;code&gt;carrier&lt;/code&gt; and &lt;code&gt;dest&lt;/code&gt; have some infrequently occurring values, it is possible that dummy variables might be created for values that don&amp;rsquo;t exist in the training set. For example, there is one destination that is only in the test set:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;test_data &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;distinct&lt;/span&gt;(dest) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;anti_join&lt;/span&gt;(train_data)
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; Joining, by = &amp;#34;dest&amp;#34;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # A tibble: 1 x 1&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   dest &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   &amp;lt;fct&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 1 LEX&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;When the recipe is applied to the training set, a column is made for LEX but it will contain all zeros. This is a &amp;ldquo;zero-variance predictor&amp;rdquo; that has no information within the column. While some R functions will not produce an error for such predictors, it usually causes warnings and other issues. &lt;code&gt;step_zv()&lt;/code&gt; will remove columns from the data when the training set data have a single value, so it is added to the recipe &lt;em&gt;after&lt;/em&gt; &lt;code&gt;step_dummy()&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;flights_rec &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;recipe&lt;/span&gt;(arr_delay &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt; ., data &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; train_data) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;update_role&lt;/span&gt;(flight, time_hour, new_role &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;ID&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;step_date&lt;/span&gt;(date, features &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;dow&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;month&amp;#34;&lt;/span&gt;)) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;step_holiday&lt;/span&gt;(date, holidays &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; timeDate&lt;span style=&#34;color:#666&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#00f&#34;&gt;listHolidays&lt;/span&gt;(&lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;US&amp;#34;&lt;/span&gt;)) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;step_rm&lt;/span&gt;(date) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;step_dummy&lt;/span&gt;(&lt;span style=&#34;color:#00f&#34;&gt;all_nominal&lt;/span&gt;(), &lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#00f&#34;&gt;all_outcomes&lt;/span&gt;()) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;step_zv&lt;/span&gt;(&lt;span style=&#34;color:#00f&#34;&gt;all_predictors&lt;/span&gt;())
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now we&amp;rsquo;ve created a &lt;em&gt;specification&lt;/em&gt; of what should be done with the data. How do we use the recipe we made?&lt;/p&gt;
+
+
+
+
+&lt;h2 id=&#34;fit-workflow&#34;&gt;Fit a model with a recipe
+  &lt;a href=&#34;#fit-workflow&#34;&gt;
+    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+    &lt;/svg&gt;
+  &lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;Let&amp;rsquo;s use logistic regression to model the flight data. As we saw in 
+&lt;a href=&#34;https://nutriverse.io/start/models/&#34;&gt;&lt;em&gt;Build a Model&lt;/em&gt;&lt;/a&gt;, we start by 
+&lt;a href=&#34;https://nutriverse.io/start/models/#build-model&#34;&gt;building a model specification&lt;/a&gt; using the parsnip package:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;lr_mod &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;logistic_reg&lt;/span&gt;() &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;set_engine&lt;/span&gt;(&lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;glm&amp;#34;&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We will want to use our recipe across several steps as we train and test our model. We will:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Process the recipe using the training set&lt;/strong&gt;: This involves any estimation or calculations based on the training set. For our recipe, the training set will be used to determine which predictors should be converted to dummy variables and which predictors will have zero-variance in the training set, and should be slated for removal.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Apply the recipe to the training set&lt;/strong&gt;: We create the final predictor set on the training set.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Apply the recipe to the test set&lt;/strong&gt;: We create the final predictor set on the test set. Nothing is recomputed and no information from the test set is used here; the dummy variable and zero-variance results from the training set are applied to the test set.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;To simplify this process, we can use a &lt;em&gt;model workflow&lt;/em&gt;, which pairs a model and recipe together. This is a straightforward approach because different recipes are often needed for different models, so when a model and recipe are bundled, it becomes easier to train and test &lt;em&gt;workflows&lt;/em&gt;. We&amp;rsquo;ll use the 
+&lt;a href=&#34;https://tidymodels.github.io/workflows/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;workflows package&lt;/a&gt; from tidymodels to bundle our parsnip model (&lt;code&gt;lr_mod&lt;/code&gt;) with our recipe (&lt;code&gt;flights_rec&lt;/code&gt;).&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;flights_wflow &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;workflow&lt;/span&gt;() &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;add_model&lt;/span&gt;(lr_mod) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;add_recipe&lt;/span&gt;(flights_rec)
+flights_wflow
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ══ Workflow ═════════════════════════════════════════════════════════════&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; Preprocessor: Recipe&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; Model: logistic_reg()&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ── Preprocessor ─────────────────────────────────────────────────────────&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 5 Recipe Steps&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ● step_date()&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ● step_holiday()&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ● step_rm()&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ● step_dummy()&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ● step_zv()&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ── Model ────────────────────────────────────────────────────────────────&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; Logistic Regression Model Specification (classification)&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; Computational engine: glm&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now, there is a single function that can be used to prepare the recipe and train the model from the resulting predictors:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;flights_fit &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; 
+  flights_wflow &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;fit&lt;/span&gt;(data &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; train_data)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This object has the finalized recipe and fitted model objects inside. You may want to extract the model or recipe objects from the workflow. To do this, you can use the helper functions &lt;code&gt;pull_workflow_fit()&lt;/code&gt; and &lt;code&gt;pull_workflow_prepped_recipe()&lt;/code&gt;. For example, here we pull the fitted model object then use the &lt;code&gt;broom::tidy()&lt;/code&gt; function to get a tidy tibble of model coefficients:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;flights_fit &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;pull_workflow_fit&lt;/span&gt;() &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;tidy&lt;/span&gt;()
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # A tibble: 157 x 5&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   term                estimate std.error statistic  p.value&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   &amp;lt;chr&amp;gt;                  &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt;    &amp;lt;dbl&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 1 (Intercept)          3.91    2.73           1.43 1.51e- 1&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 2 dep_time            -0.00167 0.0000141   -118.   0.      &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 3 air_time            -0.0439  0.000561     -78.4  0.      &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 4 distance             0.00686 0.00150        4.57 4.84e- 6&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 5 date_USChristmasDay  1.12    0.173          6.49 8.45e-11&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # … with 152 more rows&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+&lt;h2 id=&#34;predict-workflow&#34;&gt;Use a trained workflow to predict
+  &lt;a href=&#34;#predict-workflow&#34;&gt;
+    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+    &lt;/svg&gt;
+  &lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;Our goal was to predict whether a plane arrives more than 30 minutes late. We have just:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Built the model (&lt;code&gt;lr_mod&lt;/code&gt;),&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Created a preprocessing recipe (&lt;code&gt;flights_rec&lt;/code&gt;),&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Bundled the model and recipe (&lt;code&gt;flights_wflow&lt;/code&gt;), and&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Trained our workflow using a single call to &lt;code&gt;fit()&lt;/code&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;The next step is to use the trained workflow (&lt;code&gt;flights_fit&lt;/code&gt;) to predict with the unseen test data, which we will do with a single call to &lt;code&gt;predict()&lt;/code&gt;. The &lt;code&gt;predict()&lt;/code&gt; method applies the recipe to the new data, then passes them to the fitted model.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#00f&#34;&gt;predict&lt;/span&gt;(flights_fit, test_data)
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # A tibble: 81,454 x 1&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   .pred_class&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   &amp;lt;fct&amp;gt;      &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 1 on_time    &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 2 on_time    &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 3 on_time    &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 4 on_time    &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 5 on_time    &lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # … with 8.145e+04 more rows&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Because our outcome variable here is a factor, the output from &lt;code&gt;predict()&lt;/code&gt; returns the predicted class: &lt;code&gt;late&lt;/code&gt; versus &lt;code&gt;on_time&lt;/code&gt;. But, let&amp;rsquo;s say we want the predicted class probabilities for each flight instead. To return those, we can specify &lt;code&gt;type = &amp;quot;prob&amp;quot;&lt;/code&gt; when we use &lt;code&gt;predict()&lt;/code&gt;. We&amp;rsquo;ll also bind the output with some variables from the test data and save them together:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;flights_pred &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;predict&lt;/span&gt;(flights_fit, test_data, type &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;prob&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;bind_cols&lt;/span&gt;(test_data &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;select&lt;/span&gt;(arr_delay, time_hour, flight)) 
+
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# The data look like: &lt;/span&gt;
+flights_pred
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # A tibble: 81,454 x 5&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   .pred_late .pred_on_time arr_delay time_hour           flight&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;        &amp;lt;dbl&amp;gt;         &amp;lt;dbl&amp;gt; &amp;lt;fct&amp;gt;     &amp;lt;dttm&amp;gt;               &amp;lt;int&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 1     0.0565         0.944 on_time   2013-01-01 05:00:00   1714&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 2     0.0264         0.974 on_time   2013-01-01 06:00:00     79&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 3     0.0481         0.952 on_time   2013-01-01 06:00:00    301&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 4     0.0325         0.967 on_time   2013-01-01 06:00:00     49&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 5     0.0711         0.929 on_time   2013-01-01 06:00:00   1187&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # … with 8.145e+04 more rows&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now that we have a tibble with our predicted class probabilities, how will we evaluate the performance of our workflow? We can see from these first few rows that our model predicted these 5 on time flights correctly because the values of &lt;code&gt;.pred_on_time&lt;/code&gt; are &lt;em&gt;p&lt;/em&gt; &amp;gt; .50. But we also know that we have 81,454 rows total to predict. We would like to calculate a metric that tells how well our model predicted late arrivals, compared to the true status of our outcome variable, &lt;code&gt;arr_delay&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Let&amp;rsquo;s use the area under the 
+&lt;a href=&#34;https://bookdown.org/max/FES/measuring-performance.html#class-metrics&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;ROC curve&lt;/a&gt; as our metric, computed using &lt;code&gt;roc_curve()&lt;/code&gt; and &lt;code&gt;roc_auc()&lt;/code&gt; from the 
+&lt;a href=&#34;https://tidymodels.github.io/yardstick/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;yardstick package&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;To generate a ROC curve, we need the predicted class probabilities for &lt;code&gt;late&lt;/code&gt; and &lt;code&gt;on_time&lt;/code&gt;, which we just calculated in the code chunk above. We can create the ROC curve with these values, using &lt;code&gt;roc_curve()&lt;/code&gt; and then piping to the &lt;code&gt;autoplot()&lt;/code&gt; method:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;flights_pred &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;roc_curve&lt;/span&gt;(truth &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; arr_delay, .pred_late) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;autoplot&lt;/span&gt;()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;figs/roc-plot-1.svg&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Similarly, &lt;code&gt;roc_auc()&lt;/code&gt; estimates the area under the curve:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;flights_pred &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;roc_auc&lt;/span&gt;(truth &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; arr_delay, .pred_late)
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # A tibble: 1 x 3&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   .metric .estimator .estimate&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   &amp;lt;chr&amp;gt;   &amp;lt;chr&amp;gt;          &amp;lt;dbl&amp;gt;&lt;/span&gt;
+&lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 1 roc_auc binary         0.765&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Not too bad! We leave it to the reader to test out this workflow 
+&lt;a href=&#34;https://tidymodels.github.io/workflows/reference/add_formula.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;em&gt;without&lt;/em&gt;&lt;/a&gt; this recipe. You can use &lt;code&gt;workflows::add_formula(arr_delay ~ .)&lt;/code&gt; instead of &lt;code&gt;add_recipe()&lt;/code&gt; (remember to remove the identification variables first!), and see whether our recipe improved our model&amp;rsquo;s ability to predict late arrivals.&lt;/p&gt;
+
+
+
+
+&lt;h2 id=&#34;session-info&#34;&gt;Session information
+  &lt;a href=&#34;#session-info&#34;&gt;
+    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+    &lt;/svg&gt;
+  &lt;/a&gt;
+&lt;/h2&gt;&lt;pre&gt;&lt;code&gt;#&amp;gt; ─ Session info ───────────────────────────────────────────────────────────────
+#&amp;gt;  setting  value                       
+#&amp;gt;  version  R version 3.6.2 (2019-12-12)
+#&amp;gt;  os       macOS Mojave 10.14.6        
+#&amp;gt;  system   x86_64, darwin15.6.0        
+#&amp;gt;  ui       X11                         
+#&amp;gt;  language (EN)                        
+#&amp;gt;  collate  en_US.UTF-8                 
+#&amp;gt;  ctype    en_US.UTF-8                 
+#&amp;gt;  tz       America/Denver              
+#&amp;gt;  date     2020-04-20                  
+#&amp;gt; 
+#&amp;gt; ─ Packages ───────────────────────────────────────────────────────────────────
+#&amp;gt;  package      * version date       lib source        
+#&amp;gt;  broom        * 0.5.5   2020-02-29 [1] CRAN (R 3.6.0)
+#&amp;gt;  dials        * 0.0.6   2020-04-03 [1] CRAN (R 3.6.2)
+#&amp;gt;  dplyr        * 0.8.5   2020-03-07 [1] CRAN (R 3.6.0)
+#&amp;gt;  ggplot2      * 3.3.0   2020-03-05 [1] CRAN (R 3.6.0)
+#&amp;gt;  infer        * 0.5.1   2019-11-19 [1] CRAN (R 3.6.0)
+#&amp;gt;  nycflights13 * 1.0.1   2019-09-16 [1] CRAN (R 3.6.0)
+#&amp;gt;  parsnip      * 0.1.0   2020-04-09 [1] CRAN (R 3.6.2)
+#&amp;gt;  purrr        * 0.3.4   2020-04-17 [1] CRAN (R 3.6.2)
+#&amp;gt;  recipes      * 0.1.10  2020-03-18 [1] CRAN (R 3.6.0)
+#&amp;gt;  rlang          0.4.5   2020-03-01 [1] CRAN (R 3.6.0)
+#&amp;gt;  rsample      * 0.0.6   2020-03-31 [1] CRAN (R 3.6.2)
+#&amp;gt;  skimr        * 2.1.1   2020-04-16 [1] CRAN (R 3.6.2)
+#&amp;gt;  tibble       * 2.1.3   2019-06-06 [1] CRAN (R 3.6.2)
+#&amp;gt;  tidymodels   * 0.1.0   2020-02-16 [1] CRAN (R 3.6.0)
+#&amp;gt;  tune         * 0.1.0   2020-04-02 [1] CRAN (R 3.6.2)
+#&amp;gt;  workflows    * 0.1.1   2020-03-17 [1] CRAN (R 3.6.0)
+#&amp;gt;  yardstick    * 0.0.6   2020-03-17 [1] CRAN (R 3.6.0)
+#&amp;gt; 
+#&amp;gt; [1] /Library/Frameworks/R.framework/Versions/3.6/Resources/library
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+    <item>
+      <title>Multivariate analysis using partial least squares</title>
+      <link>https://nutriverse.io/learn/models/pls/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://nutriverse.io/learn/models/pls/</guid>
+      <description>
+
+
+
+&lt;h2 id=&#34;introduction&#34;&gt;Introduction
+  &lt;a href=&#34;#introduction&#34;&gt;
+    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+    &lt;/svg&gt;
+  &lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;To use the code in this article, you will need to install the following packages: modeldata, pls, tidymodels, and tidyr.&lt;/p&gt;
+&lt;p&gt;&amp;ldquo;Multivariate analysis&amp;rdquo; usually refers to multiple &lt;em&gt;outcomes&lt;/em&gt; being modeled, analyzed, and/or predicted. There are multivariate versions of many common statistical tools. For example, suppose there was a data set with columns &lt;code&gt;y1&lt;/code&gt; and &lt;code&gt;y2&lt;/code&gt; representing two outcomes to be predicted. The &lt;code&gt;lm()&lt;/code&gt; function would look something like:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#00f&#34;&gt;lm&lt;/span&gt;(&lt;span style=&#34;color:#00f&#34;&gt;cbind&lt;/span&gt;(y1, y2) &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt; ., data &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; dat)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This &lt;code&gt;cbind()&lt;/code&gt; call is pretty awkward and is a consequence of how the traditional formula infrastructure works. The recipes package is a lot easier to work with! This article demonstrates how to model multiple outcomes.&lt;/p&gt;
+&lt;p&gt;The data that we&amp;rsquo;ll use has three outcomes. From &lt;code&gt;?modeldata::meats&lt;/code&gt;:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&amp;ldquo;These data are recorded on a Tecator Infratec Food and Feed Analyzer working in the wavelength range 850 - 1050 nm by the Near Infrared Transmission (NIT) principle. Each sample contains finely chopped pure meat with different moisture, fat and protein contents.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&amp;ldquo;For each meat sample the data consists of a 100 channel spectrum of absorbances and the contents of moisture (water), fat and protein. The absorbance is &lt;code&gt;-log10&lt;/code&gt; of the transmittance measured by the spectrometer. The three contents, measured in percent, are determined by analytic chemistry.&amp;rdquo;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;The goal is to predict the proportion of the three substances using the chemistry test. There can often be a high degree of between-variable correlations in predictors, and that is certainly the case here.&lt;/p&gt;
+&lt;p&gt;To start, let&amp;rsquo;s take the two data matrices (called &lt;code&gt;endpoints&lt;/code&gt; and &lt;code&gt;absorp&lt;/code&gt;) and bind them together in a data frame:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#00f&#34;&gt;library&lt;/span&gt;(modeldata)
+&lt;span style=&#34;color:#00f&#34;&gt;data&lt;/span&gt;(meats)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The three &lt;em&gt;outcomes&lt;/em&gt; have fairly high correlations also.&lt;/p&gt;
+
+
+
+
+&lt;h2 id=&#34;preprocessing-the-data&#34;&gt;Preprocessing the data
+  &lt;a href=&#34;#preprocessing-the-data&#34;&gt;
+    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+    &lt;/svg&gt;
+  &lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;If the outcomes can be predicted using a linear model, partial least squares (PLS) is an ideal method. PLS models the data as a function of a set of unobserved &lt;em&gt;latent&lt;/em&gt; variables that are derived in a manner similar to principal component analysis (PCA).&lt;/p&gt;
+&lt;p&gt;PLS, unlike PCA, also incorporates the outcome data when creating the PLS components. Like PCA, it tries to maximize the variance of the predictors that are explained by the components but it also tries to simultaneously maximize the correlation between those components and the outcomes. In this way, PLS &lt;em&gt;chases&lt;/em&gt; variation of the predictors and outcomes.&lt;/p&gt;
+&lt;p&gt;Since we are working with variances and covariances, we need to standardize the data. The recipe will center and scale all of the variables.&lt;/p&gt;
+&lt;p&gt;Many base R functions that deal with multivariate outcomes using a formula require the use of &lt;code&gt;cbind()&lt;/code&gt; on the left-hand side of the formula to work with the traditional formula methods. In tidymodels, recipes do not; the outcomes can be symbolically &amp;ldquo;added&amp;rdquo; together on the left-hand side:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;norm_rec &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;recipe&lt;/span&gt;(water &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt; fat &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt; protein &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt; ., data &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; meats) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#00f&#34;&gt;step_normalize&lt;/span&gt;(&lt;span style=&#34;color:#00f&#34;&gt;everything&lt;/span&gt;()) 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Before we can finalize the PLS model, the number of PLS components to retain must be determined. This can be done using performance metrics such as the root mean squared error. However, we can also calculate the proportion of variance explained by the components for the &lt;em&gt;predictors and each of the outcomes&lt;/em&gt;. This allows an informed choice to be made based on the level of evidence that the situation requires.&lt;/p&gt;
+&lt;p&gt;Since the data set isn&amp;rsquo;t large, let&amp;rsquo;s use resampling to measure these proportions. With ten repeats of 10-fold cross-validation, we build the PLS model on 90% of the data and evaluate on the heldout 10%. For each of the 100 models, we extract and save the proportions.&lt;/p&gt;
+&lt;p&gt;The folds can be created using the 
+&lt;a href=&#34;https://tidymodels.github.io/rsample/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;rsample&lt;/a&gt; package and the recipe can be estimated for each resample using the 
+&lt;a href=&#34;https://tidymodels.github.io/rsample/reference/prepper.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;&lt;code&gt;prepper()&lt;/code&gt;&lt;/a&gt; function:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#00f&#34;&gt;set.seed&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;57343&lt;/span&gt;)
+folds &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;vfold_cv&lt;/span&gt;(meats, repeats &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;10&lt;/span&gt;)
+
+folds &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; 
+  folds &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#00f&#34;&gt;mutate&lt;/span&gt;(recipes &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;map&lt;/span&gt;(splits, prepper, recipe &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; norm_rec))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+
+&lt;h2 id=&#34;partial-least-squares&#34;&gt;Partial least squares
+  &lt;a href=&#34;#partial-least-squares&#34;&gt;
+    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+    &lt;/svg&gt;
+  &lt;/a&gt;
+&lt;/h2&gt;&lt;p&gt;The complicated parts for moving forward are:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Formatting the predictors and outcomes into the format that the pls package requires, and&lt;/li&gt;
+&lt;li&gt;Estimating the proportions.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;For the first part, the standardized outcomes and predictors need to be formatted into two separate matrices. Since we used &lt;code&gt;retain = TRUE&lt;/code&gt; when prepping the recipes, we can use the &lt;code&gt;juice()&lt;/code&gt; function. To save the data as a matrix, the option &lt;code&gt;composition = &amp;quot;matrix&amp;quot;&lt;/code&gt; will avoid saving the data as tibbles and use the required format.&lt;/p&gt;
+&lt;p&gt;The pls package expects a simple formula to specify the model, but each side of the formula should &lt;em&gt;represent a matrix&lt;/em&gt;. In other words, we need a data set with two columns where each column is a matrix. The secret to doing this is to &amp;ldquo;protect&amp;rdquo; the two matrices using &lt;code&gt;I()&lt;/code&gt; when adding them to the data frame.&lt;/p&gt;
+&lt;p&gt;The calculation for the proportion of variance explained is straightforward for the predictors; the function &lt;code&gt;pls::explvar()&lt;/code&gt; will compute that. For the outcomes, the process is more complicated. A ready-made function to compute these is not obvious but there is some code inside of the summary function to do the computation (see below).&lt;/p&gt;
+&lt;p&gt;The function &lt;code&gt;get_var_explained()&lt;/code&gt; shown here will do all these computations and return a data frame with columns &lt;code&gt;components&lt;/code&gt;, &lt;code&gt;source&lt;/code&gt; (for the predictors, water, etc), and the &lt;code&gt;proportion&lt;/code&gt; of variance that is explained by the components.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#00f&#34;&gt;library&lt;/span&gt;(pls)
+&lt;span style=&#34;color:#00f&#34;&gt;library&lt;/span&gt;(tidyr)
+
+get_var_explained &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;function&lt;/span&gt;(recipe, &lt;span style=&#34;color:#008000;font-weight:bold&#34;&gt;...&lt;/span&gt;) {
+  
+  &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# Extract the predictors and outcomes into their own matrices&lt;/span&gt;
+  y_mat &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;juice&lt;/span&gt;(recipe, composition &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;matrix&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#00f&#34;&gt;all_outcomes&lt;/span&gt;())
+  x_mat &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;juice&lt;/span&gt;(recipe, composition &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;matrix&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#00f&#34;&gt;all_predictors&lt;/span&gt;())
+  
+  &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# The pls package prefers the data in a data frame where the outcome&lt;/span&gt;
+  &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# and predictors are in _matrices_. To make sure this is formatted&lt;/span&gt;
+  &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# properly, use the `I()` function to inhibit `data.frame()` from making&lt;/span&gt;
+  &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# all the individual columns. `pls_format` should have two columns.&lt;/span&gt;
+  pls_format &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;data.frame&lt;/span&gt;(
+    endpoints &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;I&lt;/span&gt;(y_mat),
+    measurements &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;I&lt;/span&gt;(x_mat)
+  )
+  &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# Fit the model&lt;/span&gt;
+  mod &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;plsr&lt;/span&gt;(endpoints &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt; measurements, data &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; pls_format)
+  
+  &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# Get the proportion of the predictor variance that is explained&lt;/span&gt;
+  &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# by the model for different number of components. &lt;/span&gt;
+  xve &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;explvar&lt;/span&gt;(mod)&lt;span style=&#34;color:#666&#34;&gt;/&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;100&lt;/span&gt; 
+
+  &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# To do the same for the outcome, it is more complex. This code &lt;/span&gt;
+  &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# was extracted from pls:::summary.mvr. &lt;/span&gt;
+  explained &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; 
+    &lt;span style=&#34;color:#00f&#34;&gt;drop&lt;/span&gt;(pls&lt;span style=&#34;color:#666&#34;&gt;::&lt;/span&gt;&lt;span style=&#34;color:#00f&#34;&gt;R2&lt;/span&gt;(mod, estimate &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;train&amp;#34;&lt;/span&gt;, intercept &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#008000;font-weight:bold&#34;&gt;FALSE&lt;/span&gt;)&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;val) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+    &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# transpose so that components are in rows&lt;/span&gt;
+    &lt;span style=&#34;color:#00f&#34;&gt;t&lt;/span&gt;() &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
+    &lt;span style=&#34;color:#00f&#34;&gt;as_tibble&lt;/span&gt;() &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+    &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# Add the predictor proportions&lt;/span&gt;
+    &lt;span style=&#34;color:#00f&#34;&gt;mutate&lt;/span&gt;(predictors &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;cumsum&lt;/span&gt;(xve) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;as.vector&lt;/span&gt;(),
+           components &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;seq_along&lt;/span&gt;(xve)) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+    &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# Put into a tidy format that is tall&lt;/span&gt;
+    &lt;span style=&#34;color:#00f&#34;&gt;pivot_longer&lt;/span&gt;(
+      cols &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt;components),
+      names_to &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;source&amp;#34;&lt;/span&gt;,
+      values_to &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;proportion&amp;#34;&lt;/span&gt;
+    )
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We compute this data frame for each resample and save the results in the different columns.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;folds &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; 
+  folds &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#00f&#34;&gt;mutate&lt;/span&gt;(var &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;map&lt;/span&gt;(recipes, get_var_explained),
+         var &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;unname&lt;/span&gt;(var))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;To extract and aggregate these data, simple row binding can be used to stack the data vertically. Most of the action happens in the first 15 components so let&amp;rsquo;s filter the data and compute the &lt;em&gt;average&lt;/em&gt; proportion.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;variance_data &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;bind_rows&lt;/span&gt;(folds[[&lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;var&amp;#34;&lt;/span&gt;]]) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#00f&#34;&gt;filter&lt;/span&gt;(components &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;=&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;15&lt;/span&gt;) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#00f&#34;&gt;group_by&lt;/span&gt;(components, source) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span style=&#34;color:#00f&#34;&gt;summarize&lt;/span&gt;(proportion &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;mean&lt;/span&gt;(proportion))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The plot below shows that, if the protein measurement is important, you might require 10 or so components to achieve a good representation of that outcome. Note that the predictor variance is captured extremely well using a single component. This is due to the high degree of correlation in those data.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#00f&#34;&gt;ggplot&lt;/span&gt;(variance_data, &lt;span style=&#34;color:#00f&#34;&gt;aes&lt;/span&gt;(x &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; components, y &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; proportion, col &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; source)) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;geom_line&lt;/span&gt;() &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt; 
+  &lt;span style=&#34;color:#00f&#34;&gt;geom_point&lt;/span&gt;() 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;figs/plot-1.svg&#34; width=&#34;100%&#34; /&gt;&lt;/p&gt;
+
+
+
+
+&lt;h2 id=&#34;session-information&#34;&gt;Session information
+  &lt;a href=&#34;#session-information&#34;&gt;
+    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
+      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
+      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
+    &lt;/svg&gt;
+  &lt;/a&gt;
+&lt;/h2&gt;&lt;pre&gt;&lt;code&gt;#&amp;gt; ─ Session info ───────────────────────────────────────────────────────────────
+#&amp;gt;  setting  value                       
+#&amp;gt;  version  R version 3.6.2 (2019-12-12)
+#&amp;gt;  os       macOS Mojave 10.14.6        
+#&amp;gt;  system   x86_64, darwin15.6.0        
+#&amp;gt;  ui       X11                         
+#&amp;gt;  language (EN)                        
+#&amp;gt;  collate  en_US.UTF-8                 
+#&amp;gt;  ctype    en_US.UTF-8                 
+#&amp;gt;  tz       America/Denver              
+#&amp;gt;  date     2020-04-17                  
+#&amp;gt; 
+#&amp;gt; ─ Packages ───────────────────────────────────────────────────────────────────
+#&amp;gt;  package    * version date       lib source        
+#&amp;gt;  broom      * 0.5.5   2020-02-29 [1] CRAN (R 3.6.0)
+#&amp;gt;  dials      * 0.0.6   2020-04-03 [1] CRAN (R 3.6.2)
+#&amp;gt;  dplyr      * 0.8.5   2020-03-07 [1] CRAN (R 3.6.0)
+#&amp;gt;  ggplot2    * 3.3.0   2020-03-05 [1] CRAN (R 3.6.0)
+#&amp;gt;  infer      * 0.5.1   2019-11-19 [1] CRAN (R 3.6.0)
+#&amp;gt;  modeldata  * 0.0.1   2019-12-06 [1] CRAN (R 3.6.0)
+#&amp;gt;  parsnip    * 0.1.0   2020-04-09 [1] CRAN (R 3.6.2)
+#&amp;gt;  pls        * 2.7-2   2019-10-01 [1] CRAN (R 3.6.0)
+#&amp;gt;  purrr      * 0.3.3   2019-10-18 [1] CRAN (R 3.6.0)
+#&amp;gt;  recipes    * 0.1.10  2020-03-18 [1] CRAN (R 3.6.0)
+#&amp;gt;  rlang        0.4.5   2020-03-01 [1] CRAN (R 3.6.0)
+#&amp;gt;  rsample    * 0.0.6   2020-03-31 [1] CRAN (R 3.6.2)
+#&amp;gt;  tibble     * 2.1.3   2019-06-06 [1] CRAN (R 3.6.2)
+#&amp;gt;  tidymodels * 0.1.0   2020-02-16 [1] CRAN (R 3.6.0)
+#&amp;gt;  tidyr      * 1.0.2   2020-01-24 [1] CRAN (R 3.6.0)
+#&amp;gt;  tune       * 0.1.0   2020-04-02 [1] CRAN (R 3.6.2)
+#&amp;gt;  workflows  * 0.1.1   2020-03-17 [1] CRAN (R 3.6.0)
+#&amp;gt;  yardstick  * 0.0.6   2020-03-17 [1] CRAN (R 3.6.0)
+#&amp;gt; 
+#&amp;gt; [1] /Library/Frameworks/R.framework/Versions/3.6/Resources/library
+&lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

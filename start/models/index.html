@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!DOCTYPE html>
+<html lang="en-gb">
+
+
+
+<link rel="stylesheet" href="/css/fonts.css">
+<link rel="stylesheet" href="/css/main-site.css">
+<link rel="stylesheet" href="/css/fa5-all.css">
+<style type="text/css">
+    /* Google Fonts */
+ @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap'); 
+
+body {
+	background-color: white;
+	color: #404040;
+}
+
+/* Links */
+
+a {
+  color: #4254A7;
+}
+
+a:hover {
+  color: #4254A7;
+}
+
+a:focus {
+  outline-color: #4254A7;
+}
+
+.column25-left .sectionTitle a:hover:not(.current),
+.column16-left .sectionTitle a:hover:not(.current) { /* Tutorial left sidebar */
+  color: #404040;
+}
+
+.icon-attribution, 
+.icon-attribution a {
+  color: #404040;
+  opacity: 75%;
+}
+
+
+/* Landing page content bands */
+
+#homeContent .band.first {
+  background-color: #fcfcfc;
+}
+
+#homeContent .band.second {
+  background-color: #EEF4ED;
+}
+
+#homeContent .band.third {
+  background-color: #fcfcfc;
+}
+
+/* Top navigation bar menu */
+
+#rStudioHeader {
+  background-color: white;
+  color: black;
+}
+
+#rStudioHeader .productName {
+  color: #4254A7;
+}
+
+#rStudioHeader .productName:hover,
+#rStudioHeader .productName:focus {
+  color: 00000075;
+}
+
+#rStudioHeader #menu .menuItem.a {
+  background-color: #75aadb;
+  color: black;
+}
+
+#rStudioHeader #menu .menuItem:hover {
+  background-color: white;
+  color: #4254A7;
+}
+
+#rStudioHeader #menu .menuItem.current {
+  background-color: #fcfcfc;
+  color: #4254A7;
+  text-decoration: none;
+}
+
+/* Footer */
+
+#rStudioFooter.band {
+  background-color: #4254a730;
+}
+
+#rStudioFooter .bandContent #copyright {
+  color: #134074;
+}
+
+/* Tables */
+
+table tbody tr:nth-child(even){
+  background-color: #fcfcfc;
+}
+
+table tbody tr:nth-child(odd){
+  background-color: #1a162d10;
+}
+
+.latest {
+  border-top: .5em solid #dae8f6;
+}
+
+
+/* ------Accent Font------- */
+
+
+
+  h1, h2, 
+  .article-title:not(a), /* Title on single pages, but not the Learn list article links*/
+  div.tagline, /* homepage bands */
+  #TableOfContents a, /* Sidebar on regular pages*/
+  .articleCategory a, /* Sidebar on Blog & Learn list pages */
+  .column75 .sectionTitle:not(.back-to), /* e.g. Blog list title, NOT "back to learn" */
+  .column25-left .section:nth-child(n+2) .sectionTitle, /* Tutorial sidebar, all but 1st child */
+  .column16-left .section:nth-child(n+2) .sectionTitle,
+  a.learn-top-nav-item,  /* Bulleted toc items on Learn list page */
+  .itemTitle, /* Blog list page titles & Learn List page subsection Titles */
+  .tags-list a    /* taxonomy tags on Tutorial page, e.g. packages */                
+                            { 
+    font-family: 'Libre Baskerville' ;
+  }
+
+
+
+
+
+/* ----Accent color for headers, toc, etc.----- */
+
+
+
+  h1,
+  div.sectionTitle {
+    color: #4254A7;
+  }
+  
+  /* Sidebar links */
+  
+  a.learn-top-nav-item, /* Learn list page bulleted toc */
+  #TableOfContents a,
+  .articleCategory a,
+  .column25-left .section:nth-child(n+2) a.sectionTitle,
+  .column16-left .section:nth-child(n+2) a.sectionTitle { 
+    color: #4254A7;
+    opacity: .8;
+  }
+  
+  .column25-left .section:nth-child(n+2) a.sectionTitle.current,
+  .column16-left .section:nth-child(n+2) a.sectionTitle.current { 
+    color: #4254A7;
+  }
+  
+  a.learn-top-nav-item:hover,
+  #TableOfContents a:hover,
+  .articleCategory a:hover,
+  .column25-left .section:nth-child(n+2) a.sectionTitle:hover,
+  .column16-left .section:nth-child(n+2) a.sectionTitle:hover {
+    color: #333850eb; 
+    opacity: 95%;
+    text-decoration: none;
+  }
+  
+  .column25-left .sectionTitle.start:first-of-type a,
+  .column16-left .sectionTitle.start:first-of-type a {
+    color: #4254A7;
+  }
+  
+  .column25-left .sectionTitle.current,
+  .column16-left .sectionTitle.current {
+    color: #4254A7;
+  }
+  
+  /* headers and accent colors */
+  
+  .article-title,             /* Most page titles */
+  .column75 div.sectionTitle {  /* Learn page section title */
+    color: #4254A7;
+  }
+  
+  h2 {
+    color: #333850eb;
+  }
+  
+  .itemTitle a { /* For Learn Page headers */
+    color: #333850eb;
+  }
+  
+  .itemTitle a:hover { /* For Learn List Page headers */
+    color: #333850eb;
+    opacity: 80%;
+    text-decoration: none;
+  }
+  
+  h3 {
+    color: #333850eb;
+    opacity: 95%;
+  }
+  
+  h3 a {
+    color: #4254A7;
+    /*text-transform: none;
+    font-size: 1.5em;
+    letter-spacing: normal; */ /* was in tm, but check if i need here? */
+  }
+  
+  h4 {
+    color: #333850eb;
+    opacity: 90%;
+  }
+  
+  /* taxonomy tags, e.g. tutorial package links*/
+  
+  .tags-list .learning-objective {
+    color: #333850eb;
+    opacity: 85%;
+  }
+  
+  .tags-list a {
+    color: #333850eb;
+    opacity: 56%;
+  }
+  
+  .tags-list a:hover {
+    opacity: 95%;
+  }
+
+
+
+/* Custom colored bullets */
+
+
+
+  /*.article-content ul{
+    list-style: none;
+  } */
+
+  .article-content ul li::before {
+  	content: "\2022";
+  	color: #f6b73c ;
+  	display: inline-block;
+  	width: 1.5em;
+  	margin-left: -1.7em;
+  }
+  	
+  .article-content ul > li > p {
+    display: inline;
+  }
+
+  .article-content ul > li { /*to add back in space between bullet items that I took away by making p display inline */
+    margin-top: 1em;
+    margin-bottom: 1em;
+  }
+  
+  .learn-top-nav ul li::before, /* For learn list page */
+  .tutorial #TableOfContents ul li::before { /* For tutorials toc bullets */
+  	content: "\2022";
+  	color: #f6b73c ;
+  	display: inline-block;
+  	width: 1.5em;
+  	margin-left: -1.8em; 
+  }
+
+.article-content ul, /* Regular lists */
+.learn-top-nav ul,
+.tutorial #TableOfContents ul {
+  	list-style: none;
+  	line-height: 1.6em;
+  	padding-left: 2.5em;
+  	/* margin-bottom: 0; */
+  }
+  
+/* But also give div tip outline the same color as bullets*/
+
+div.note, 
+div.rstudio-tip, 
+div.warning {
+  border-color: #f6b73c ;
+}
+    
+
+
+
+/* ------Capitalization of Headers------- */
+
+
+  
+  div.tagline {
+    font-size: 1.2rem !important;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 2pt;
+  }
+  
+  #menu {
+    text-transform: uppercase;
+    letter-spacing: 2pt;
+    font-size: 0.9rem !important;
+  }
+  
+  .column25 .sectionTitle,
+  .column25 .sectionTitle a,
+  .column16 .sectionTitle,
+  .column16 .sectionTitle a {
+    text-transform: uppercase;
+    letter-spacing: 2pt;
+    font-size: 0.8rem;
+    font-weight: bold;
+  }
+  
+  .icon-attribution, 
+  .icon-attribution a {
+    text-transform: uppercase;
+  }
+  
+  /* Getting Started / Tutorial sidebar title */
+  .column25-left .sectionTitle.start:first-of-type a,
+  .column16-left .sectionTitle.start:first-of-type a {
+    text-transform: uppercase;
+    letter-spacing: 2pt;
+    font-weight: bold;
+    font-size: 0.8rem;
+  }
+  
+  /*.e.g "Back to Learn" link */
+  .column75 .section .sectionTitle a {
+    text-transform: uppercase;
+    letter-spacing: 2pt;
+    font-weight: bold;
+    font-size: 0.8rem;
+  }
+  
+  /*  */
+  
+
+  
+
+/* -----Hexes------*/
+
+
+  #homeContent .band.first .bandContent {
+    background-image: url(../css/images/tidy-back-01-thin.svg);
+  }
+  
+  #homeContent .band.second .bandContent {
+    background-image: url(../css/images/tidy-back-02-thin.svg);
+  }
+  
+  #homeContent .band.third .bandContent {
+    background-image: url(../css/images/tidy-back-03-thin.svg);
+  }
+  
+  .package-section .packages .package {
+    background-image: url(../css/images/tidy-packages-back-01-thin.svg); 
+  }
+
+  .package-section .packages .package:first-of-type {
+      background-image: url(../css/images/tidy-packages-back-02-thin.svg); 
+  }
+
+  .package-section .packages .package:last-of-type {
+      background-image: url(../css/images/tidy-packages-back-03-thin.svg); 
+  } 
+
+
+
+/*----- Borders------ */
+
+
+
+/*--- Event Stickies ---*/
+
+
+  .event {
+    -moz-box-shadow: 0 0px 0px 0px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0 0px 0px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0px 0px 0px rgba(0, 0, 0, 0.1);
+  }
+
+
+
+
+  .event:nth-child(2) {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg); 
+  }
+  .event:nth-child(3) {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg); 
+  }
+
+
+
+
+  .section .event {
+    background-color: #eab0c41a;
+  }
+
+
+
+
+  .section .event {
+    border-top: 7pt solid #a19ea936;
+  }
+
+
+
+
+  .section .event a{
+      color: #1a162d;
+  }
+
+
+
+
+  .section .event {
+      color: #404040;
+  }
+
+
+/* ------Test Drive Button-------*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+</style>
+
+  <link rel="stylesheet" href="/css/">
+
+
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Hugo 0.72.0" />
+<title>nutriverse</title>
+<meta property="og:title" content="Build a model" />
+<meta property="og:description" content="Get started by learning how to specify and train a model using tidymodels.
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nutriverse.io/start/models/" />
+
+
+
+<meta property="twitter:card" content="summary_large_image">
+
+
+
+<meta property="og:title" content="Build a model" />
+<meta property="og:description" content="Get started by learning how to specify and train a model using tidymodels.
+" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nutriverse.io/start/models/" />
+
+
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Build a model"/>
+<meta name="twitter:description" content="Get started by learning how to specify and train a model using tidymodels.
+"/>
+
+
+
+<link rel="apple-touch-icon" sizes="180x180" href="/images/favicons/apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicons/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/images/favicons/favicon-16x16.png" />
+<link rel="manifest" href="/images/favicons/site.webmanifest" />
+<link rel="mask-icon" href="/images/favicons/safari-pinned-tab.svg" />
+<link rel="shortcut icon" href="/images/favicons/favicon.ico" />
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="msapplication-config" href="/images/favicons/browserconfig.xml" >
+
+
+
+<script type="text/javascript" src="/js/jquery-3.5.1.min.js"></script>
+<script type="text/javascript" src="/js/site.js"></script>
+
+
+
+<link rel="icon" href="/images/favicon.ico" />
+
+
+  
+<script type="text/javascript" src="/js/clipboard.js"></script>
+
+
+
+
+
+
+  
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
+
+  
+
+
+
+
+
+
+
+  <body>
+    <div id="appTidyverseSite" class="shrinkHeader alwaysShrinkHeader">
+      <div id="main">
+        
+        <div id="rStudioHeader">
+          <div class="band">
+            <div class="innards bandContent">
+              <div>
+                
+                    <a href="/" class="nav-logo">
+                      <img src="/images/nutriverse_banner_bi.png" width="127" height="40" alt="nutriverse">
+                    </a>
+              </div>
+              <div id="menu">
+  <div id="menuToggler"></div>
+  <div id="menuItems" class="">
+    
+    
+      
+      
+      
+    <a class="menuItem " href="/packages/">Packages</a>
+    
+      
+      
+      
+    <a class="menuItem " href="/blog/">Blog</a>
+    
+  </div>
+</div>
+
+            </div>
+          </div>
+        </div>
+</head>
+<body>
+
+
+ 
+
+
+
+
+<div class="band padForHeader pushFooter">
+  <div class="bandContent">
+    <div class="full splitColumns withMobileMargins">
+
+      
+<div class="column25-left hideOnMobile">
+  <div class="section">
+    <div class="section">
+      <div class="start sectionTitle">
+          
+          <a class = "sectionTitle " href="/start/">
+          Get Started
+          
+          </a>
+      </div>
+    </div>
+  
+    <div class="section">
+        <div class="sectionTitle">1&nbsp&nbsp<a class = "sectionTitle current" href="/start/models/">Build a model</a>
+        </div>
+    </div>
+    
+    <div class="section">
+        <div class="sectionTitle">2&nbsp&nbsp<a class = "sectionTitle " href="/start/recipes/">Preprocess your data with recipes</a>
+        </div>
+    </div>
+    
+    <div class="section">
+        <div class="sectionTitle">3&nbsp&nbsp<a class = "sectionTitle " href="/start/resampling/">Evaluate your model with resampling</a>
+        </div>
+    </div>
+    
+  </div>
+</div>
+
+      
+      <div class="column75">
+
+      <h1 class="article-title">1&nbsp;&nbsp;&nbsp;Build a model</h1>
+      
+      <div class="tags-list">
+      <i class="fas fa-box-open" style="color:#1a162dde;"></i>&nbsp;
+      <h1 class="learning-objective">Tidymodels packages: </h1>
+      
+        <a href="https://nutriverse.io/tags/broom/">broom</a>, 
+        <a href="https://nutriverse.io/tags/parsnip/">parsnip</a></div>
+        
+      <div class="section">
+        <div class="listItem learn-top-nav">
+          <div class="tutorial"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#intro">Introduction</a></li>
+    <li><a href="#data">The Sea Urchins Data</a></li>
+    <li><a href="#build-model">Build and fit a model</a></li>
+    <li><a href="#predict-model">Use a model to predict</a></li>
+    <li><a href="#new-engine">Model with a different engine</a></li>
+    <li><a href="#why">Why does it work that way?</a></li>
+    <li><a href="#session-info">Session information</a></li>
+  </ul>
+</nav></div>
+        </div>
+      </div>
+      
+      <div class="article-content">
+      
+
+
+
+<h2 id="intro">Introduction
+  <a href="#intro">
+    <svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 0h24v24H0z" fill="currentColor"></path>
+      <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
+    </svg>
+  </a>
+</h2><p>How do you create a statistical model using tidymodels? In this article, we will walk you through the steps. We start with data for modeling, learn how to specify and train models with different engines using the 
+<a href="https://tidymodels.github.io/parsnip/" target="_blank" rel="noopener">parsnip package</a>, and understand why these functions are designed this way.</p>
+<p>To use code in this article,  you will need to install the following packages: readr, rstanarm, and tidymodels.</p>
+<div class="highlight"><pre style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#00f">library</span>(tidymodels)  <span style="color:#408080;font-style:italic"># for the parsnip package, along with the rest of tidymodels</span>
+
+<span style="color:#408080;font-style:italic"># Helper packages</span>
+<span style="color:#00f">library</span>(readr)       <span style="color:#408080;font-style:italic"># for importing data</span>
+</code></pre></div>
+
+
+
+<h2 id="data">The Sea Urchins Data
+  <a href="#data">
+    <svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 0h24v24H0z" fill="currentColor"></path>
+      <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
+    </svg>
+  </a>
+</h2><p>Let&rsquo;s use the data from 
+<a href="https://link.springer.com/article/10.1007/BF00349318" target="_blank" rel="noopener">Constable (1993)</a> to explore how three different feeding regimes affect the size of sea urchins over time. The initial size of the sea urchins at the beginning of the experiment probably affects how big they grow as they are fed.</p>
+<p>To start, let&rsquo;s read our urchins data into R, which we&rsquo;ll do by providing 
+<a href="https://readr.tidyverse.org/reference/read_delim.html" target="_blank" rel="noopener"><code>readr::read_csv()</code></a> with a url where our CSV data is located (&ldquo;<a href="https://tidymodels.org/start/models/urchins.csv">https://tidymodels.org/start/models/urchins.csv</a>&rdquo;):</p>
+<div class="highlight"><pre style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">urchins <span style="color:#666">&lt;-</span>
+  <span style="color:#408080;font-style:italic"># Data were assembled for a tutorial </span>
+  <span style="color:#408080;font-style:italic"># at https://www.flutterbys.com.au/stats/tut/tut7.5a.html</span>
+  <span style="color:#00f">read_csv</span>(<span style="color:#ba2121">&#34;https://tidymodels.org/start/models/urchins.csv&#34;</span>) <span style="color:#666">%&gt;%</span> 
+  <span style="color:#408080;font-style:italic"># Change the names to be a little more verbose</span>
+  <span style="color:#00f">setNames</span>(<span style="color:#00f">c</span>(<span style="color:#ba2121">&#34;food_regime&#34;</span>, <span style="color:#ba2121">&#34;initial_volume&#34;</span>, <span style="color:#ba2121">&#34;width&#34;</span>)) <span style="color:#666">%&gt;%</span> 
+  <span style="color:#408080;font-style:italic"># Factors are very helpful for modeling, so we convert one column</span>
+  <span style="color:#00f">mutate</span>(food_regime <span style="color:#666">=</span> <span style="color:#00f">factor</span>(food_regime, levels <span style="color:#666">=</span> <span style="color:#00f">c</span>(<span style="color:#ba2121">&#34;Initial&#34;</span>, <span style="color:#ba2121">&#34;Low&#34;</span>, <span style="color:#ba2121">&#34;High&#34;</span>)))
+<span style="color:#408080;font-style:italic">#&gt; Parsed with column specification:</span>
+<span style="color:#408080;font-style:italic">#&gt; cols(</span>
+<span style="color:#408080;font-style:italic">#&gt;   TREAT = col_character(),</span>
+<span style="color:#408080;font-style:italic">#&gt;   IV = col_double(),</span>
+<span style="color:#408080;font-style:italic">#&gt;   SUTW = col_double()</span>
+<span style="color:#408080;font-style:italic">#&gt; )</span>
+</code></pre></div><p>Let&rsquo;s take a quick look at the data:</p>
+<div class="highlight"><pre style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">urchins
+<span style="color:#408080;font-style:italic">#&gt; # A tibble: 72 x 3</span>
+<span style="color:#408080;font-style:italic">#&gt;    food_regime initial_volume width</span>
+<span style="color:#408080;font-style:italic">#&gt;    &lt;fct&gt;                &lt;dbl&gt; &lt;dbl&gt;</span>
+<span style="color:#408080;font-style:italic">#&gt;  1 Initial                3.5 0.01 </span>
+<span style="color:#408080;font-style:italic">#&gt;  2 Initial                5   0.02 </span>
+<span style="color:#408080;font-style:italic">#&gt;  3 Initial                8   0.061</span>
+<span style="color:#408080;font-style:italic">#&gt;  4 Initial               10   0.051</span>
+<span style="color:#408080;font-style:italic">#&gt;  5 Initial               13   0.041</span>
+<span style="color:#408080;font-style:italic">#&gt;  6 Initial               13   0.061</span>
+<span style="color:#408080;font-style:italic">#&gt;  7 Initial               15   0.041</span>
+<span style="color:#408080;font-style:italic">#&gt;  8 Initial               15   0.071</span>
+<span style="color:#408080;font-style:italic">#&gt;  9 Initial               16   0.092</span>
+<span style="color:#408080;font-style:italic">#&gt; 10 Initial               17   0.051</span>
+<span style="color:#408080;font-style:italic">#&gt; # … with 62 more rows</span>
+</code></pre></div><p>The urchins data is a 
+<a href="https://tibble.tidyverse.org/index.html" target="_blank" rel="noopener">tibble</a>. If you are new to tibbles, the best place to start is the 
+<a href="https://r4ds.had.co.nz/tibbles.html" target="_blank" rel="noopener">tibbles chapter</a> in <em>R for Data Science</em>. For each of the 72 urchins, we know their:</p>
+<ul>
+<li>experimental feeding regime group (<code>food_regime</code>: either <code>Initial</code>, <code>Low</code>, or <code>High</code>),</li>
+<li>size in milliliters at the start of the experiment (<code>initial_volume</code>), and</li>
+<li>suture width at the end of the experiment (<code>width</code>).</li>
+</ul>
+<p>As a first step in modeling, it&rsquo;s always a good idea to plot the data:</p>
+<div class="highlight"><pre style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#00f">ggplot</span>(urchins,
+       <span style="color:#00f">aes</span>(x <span style="color:#666">=</span> initial_volume, 
+           y <span style="color:#666">=</span> width, 
+           group <span style="color:#666">=</span> food_regime, 
+           col <span style="color:#666">=</span> food_regime)) <span style="color:#666">+</span> 
+  <span style="color:#00f">geom_point</span>() <span style="color:#666">+</span> 
+  <span style="color:#00f">geom_smooth</span>(method <span style="color:#666">=</span> lm, se <span style="color:#666">=</span> <span style="color:#008000;font-weight:bold">FALSE</span>) <span style="color:#666">+</span>
+  <span style="color:#00f">scale_color_viridis_d</span>(option <span style="color:#666">=</span> <span style="color:#ba2121">&#34;plasma&#34;</span>, end <span style="color:#666">=</span> <span style="color:#666">.7</span>)
+<span style="color:#408080;font-style:italic">#&gt; `geom_smooth()` using formula &#39;y ~ x&#39;</span>
+</code></pre></div><p><img src="figs/urchin-plot-1.svg" width="672" /></p>
+<p>We can see that urchins that were larger in volume at the start of the experiment tended to have wider sutures at the end, but the slopes of the lines look different so this effect may depend on the feeding regime condition.</p>
+
+
+
+
+<h2 id="build-model">Build and fit a model
+  <a href="#build-model">
+    <svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 0h24v24H0z" fill="currentColor"></path>
+      <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
+    </svg>
+  </a>
+</h2><p>A standard two-way analysis of variance (
+<a href="https://www.itl.nist.gov/div898/handbook/prc/section4/prc43.htm" target="_blank" rel="noopener">ANOVA</a>) model makes sense for this dataset because we have both a continuous predictor and a categorical predictor. Since the slopes appear to be different for at least two of the feeding regimes, let&rsquo;s build a model that allows for two-way interactions. Specifying an R formula with our variables in this way:</p>
+<div class="highlight"><pre style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">width <span style="color:#666">~</span> initial_volume <span style="color:#666">*</span> food_regime
+</code></pre></div><p>allows our regression model depending on initial volume to have separate slopes and intercepts for each food regime.</p>
+<p>For this kind of model, ordinary least squares is a good initial approach. With tidymodels, we start by specifying the <em>functional form</em> of the model that we want using the 
+<a href="https://tidymodels.github.io/parsnip/" target="_blank" rel="noopener">parsnip package</a>. Since there is a numeric outcome and the model should be linear with slopes and intercepts, the model type is 
+<a href="https://tidymodels.github.io/parsnip/reference/linear_reg.html" target="_blank" rel="noopener">&ldquo;linear regression&rdquo;</a>. We can declare this with:</p>
+<div class="highlight"><pre style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#00f">linear_reg</span>()
+<span style="color:#408080;font-style:italic">#&gt; Linear Regression Model Specification (regression)</span>
+</code></pre></div><p>That is pretty underwhelming since, on its own, it doesn&rsquo;t really do much. However, now that the type of model has been specified, a method for <em>fitting</em> or training the model can be stated using the <strong>engine</strong>. The engine value is often a mash-up of the software that can be used to fit or train the model as well as the estimation method. For example, to use ordinary least squares, we can set the engine to be <code>lm</code>:</p>
+<div class="highlight"><pre style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#00f">linear_reg</span>() <span style="color:#666">%&gt;%</span> 
+  <span style="color:#00f">set_engine</span>(<span style="color:#ba2121">&#34;lm&#34;</span>)
+<span style="color:#408080;font-style:italic">#&gt; Linear Regression Model Specification (regression)</span>
+<span style="color:#408080;font-style:italic">#&gt; </span>
+<span style="color:#408080;font-style:italic">#&gt; Computational engine: lm</span>
+</code></pre></div><p>The 
+<a href="https://tidymodels.github.io/parsnip/reference/linear_reg.html" target="_blank" rel="noopener">documentation page for <code>linear_reg()</code></a> lists the possible engines. We&rsquo;ll save this model object as <code>lm_mod</code>.</p>
+<div class="highlight"><pre style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">lm_mod <span style="color:#666">&lt;-</span> 
+  <span style="color:#00f">linear_reg</span>() <span style="color:#666">%&gt;%</span> 
+  <span style="color:#00f">set_engine</span>(<span style="color:#ba2121">&#34;lm&#34;</span>)
+</code></pre></div><p>From here, the model can be estimated or trained using the 
+<a href="https://tidymodels.github.io/parsnip/reference/fit.html" target="_blank" rel="noopener"><code>fit()</code></a> function:</p>
+<div class="highlight"><pre style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">lm_fit <span style="color:#666">&lt;-</span> 
+  lm_mod <span style="color:#666">%&gt;%</span> 
+  <span style="color:#00f">fit</span>(width <span style="color:#666">~</span> initial_volume <span style="color:#666">*</span> food_regime, data <span style="color:#666">=</span> urchins)
+lm_fit
+<span style="color:#408080;font-style:italic">#&gt; parsnip model object</span>
+<span style="color:#408080;font-style:italic">#&gt; </span>
+<span style="color:#408080;font-style:italic">#&gt; Fit time:  3ms </span>
+<span style="color:#408080;font-style:italic">#&gt; </span>
+<span style="color:#408080;font-style:italic">#&gt; Call:</span>
+<span style="color:#408080;font-style:italic">#&gt; stats::lm(formula = formula, data = data)</span>
+<span style="color:#408080;font-style:italic">#&gt; </span>
+<span style="color:#408080;font-style:italic">#&gt; Coefficients:</span>
+<span style="color:#408080;font-style:italic">#&gt;                    (Intercept)                  initial_volume  </span>
+<span style="color:#408080;font-style:italic">#&gt;                      0.0331216                       0.0015546  </span>
+<span style="color:#408080;font-style:italic">#&gt;                 food_regimeLow                 food_regimeHigh  </span>
+<span style="color:#408080;font-style:italic">#&gt;                      0.0197824                       0.0214111  </span>
+<span style="color:#408080;font-style:italic">#&gt;  initial_volume:food_regimeLow  initial_volume:food_regimeHigh  </span>
+<span style="color:#408080;font-style:italic">#&gt;                     -0.0012594                       0.0005254</span>
+</code></pre></div><p>Perhaps our analysis requires a description of the model parameter estimates and their statistical properties. Although the <code>summary()</code> function for <code>lm</code> objects can provide that, it gives the results back in an unwieldy format. Many models have a <code>tidy()</code> method that provides the summary results in a more predictable and useful format (e.g. a data frame with standard column names):</p>
+<div class="highlight"><pre style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#00f">tidy</span>(lm_fit)
+<span style="color:#408080;font-style:italic">#&gt; # A tibble: 6 x 5</span>
+<span style="color:#408080;font-style:italic">#&gt;   term                            estimate std.error statistic  p.value</span>
+<span style="color:#408080;font-style:italic">#&gt;   &lt;chr&gt;                              &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;</span>
+<span style="color:#408080;font-style:italic">#&gt; 1 (Intercept)                     0.0331    0.00962      3.44  0.00100 </span>
+<span style="color:#408080;font-style:italic">#&gt; 2 initial_volume                  0.00155   0.000398     3.91  0.000222</span>
+<span style="color:#408080;font-style:italic">#&gt; 3 food_regimeLow                  0.0198    0.0130       1.52  0.133   </span>
+<span style="color:#408080;font-style:italic">#&gt; 4 food_regimeHigh                 0.0214    0.0145       1.47  0.145   </span>
+<span style="color:#408080;font-style:italic">#&gt; 5 initial_volume:food_regimeLow  -0.00126   0.000510    -2.47  0.0162  </span>
+<span style="color:#408080;font-style:italic">#&gt; 6 initial_volume:food_regimeHigh  0.000525  0.000702     0.748 0.457</span>
+</code></pre></div>
+
+
+
+<h2 id="predict-model">Use a model to predict
+  <a href="#predict-model">
+    <svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 0h24v24H0z" fill="currentColor"></path>
+      <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
+    </svg>
+  </a>
+</h2><p>This fitted object <code>lm_fit</code> has the <code>lm</code> model output built-in, which you can access with <code>lm_fit$fit</code>, but there are some benefits to using the fitted parsnip model object when it comes to predicting.</p>
+<p>Suppose that, for a publication, it would be particularly interesting to make a plot of the mean body size for urchins that started the experiment with an initial volume of 20ml. To create such a graph, we start with some new example data that we will make predictions for, to show in our graph:</p>
+<div class="highlight"><pre style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">new_points <span style="color:#666">&lt;-</span> <span style="color:#00f">expand.grid</span>(initial_volume <span style="color:#666">=</span> <span style="color:#666">20</span>, 
+                          food_regime <span style="color:#666">=</span> <span style="color:#00f">c</span>(<span style="color:#ba2121">&#34;Initial&#34;</span>, <span style="color:#ba2121">&#34;Low&#34;</span>, <span style="color:#ba2121">&#34;High&#34;</span>))
+new_points
+<span style="color:#408080;font-style:italic">#&gt;   initial_volume food_regime</span>
+<span style="color:#408080;font-style:italic">#&gt; 1             20     Initial</span>
+<span style="color:#408080;font-style:italic">#&gt; 2             20         Low</span>
+<span style="color:#408080;font-style:italic">#&gt; 3             20        High</span>
+</code></pre></div><p>To get our predicted results, we can use the <code>predict()</code> function to find the mean values at 20ml.</p>
+<p>It is also important to communicate the variability, so we also need to find the predicted confidence intervals. If we had used <code>lm()</code> to fit the model directly, a few minutes of reading the 
+<a href="https://stat.ethz.ch/R-manual/R-devel/library/stats/html/predict.lm.html" target="_blank" rel="noopener">documentation page</a> for <code>predict.lm()</code> would explain how to do this. However, if we decide to use a different model to estimate urchin size (<em>spoiler:</em> we will!), it is likely that a completely different syntax would be required.</p>
+<p>Instead, with tidymodels, the types of predicted values are standardized so that we can use the same syntax to get these values.</p>
+<p>First, let&rsquo;s generate the mean body width values:</p>
+<div class="highlight"><pre style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">mean_pred <span style="color:#666">&lt;-</span> <span style="color:#00f">predict</span>(lm_fit, new_data <span style="color:#666">=</span> new_points)
+mean_pred
+<span style="color:#408080;font-style:italic">#&gt; # A tibble: 3 x 1</span>
+<span style="color:#408080;font-style:italic">#&gt;    .pred</span>
+<span style="color:#408080;font-style:italic">#&gt;    &lt;dbl&gt;</span>
+<span style="color:#408080;font-style:italic">#&gt; 1 0.0642</span>
+<span style="color:#408080;font-style:italic">#&gt; 2 0.0588</span>
+<span style="color:#408080;font-style:italic">#&gt; 3 0.0961</span>
+</code></pre></div><p>When making predictions, the tidymodels convention is to always produce a tibble of results with standardized column names. This makes it easy to combine the original data and the predictions in a usable format:</p>
+<div class="highlight"><pre style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">conf_int_pred <span style="color:#666">&lt;-</span> <span style="color:#00f">predict</span>(lm_fit, 
+                         new_data <span style="color:#666">=</span> new_points, 
+                         type <span style="color:#666">=</span> <span style="color:#ba2121">&#34;conf_int&#34;</span>)
+conf_int_pred
+<span style="color:#408080;font-style:italic">#&gt; # A tibble: 3 x 2</span>
+<span style="color:#408080;font-style:italic">#&gt;   .pred_lower .pred_upper</span>
+<span style="color:#408080;font-style:italic">#&gt;         &lt;dbl&gt;       &lt;dbl&gt;</span>
+<span style="color:#408080;font-style:italic">#&gt; 1      0.0555      0.0729</span>
+<span style="color:#408080;font-style:italic">#&gt; 2      0.0499      0.0678</span>
+<span style="color:#408080;font-style:italic">#&gt; 3      0.0870      0.105</span>
+
+<span style="color:#408080;font-style:italic"># Now combine: </span>
+plot_data <span style="color:#666">&lt;-</span> 
+  new_points <span style="color:#666">%&gt;%</span> 
+  <span style="color:#00f">bind_cols</span>(mean_pred) <span style="color:#666">%&gt;%</span> 
+  <span style="color:#00f">bind_cols</span>(conf_int_pred)
+
+<span style="color:#408080;font-style:italic"># and plot:</span>
+<span style="color:#00f">ggplot</span>(plot_data, <span style="color:#00f">aes</span>(x <span style="color:#666">=</span> food_regime)) <span style="color:#666">+</span> 
+  <span style="color:#00f">geom_point</span>(<span style="color:#00f">aes</span>(y <span style="color:#666">=</span> .pred)) <span style="color:#666">+</span> 
+  <span style="color:#00f">geom_errorbar</span>(<span style="color:#00f">aes</span>(ymin <span style="color:#666">=</span> .pred_lower, 
+                    ymax <span style="color:#666">=</span> .pred_upper),
+                width <span style="color:#666">=</span> <span style="color:#666">.2</span>) <span style="color:#666">+</span> 
+  <span style="color:#00f">labs</span>(y <span style="color:#666">=</span> <span style="color:#ba2121">&#34;urchin size&#34;</span>)
+</code></pre></div><p><img src="figs/lm-all-pred-1.svg" width="672" /></p>
+
+
+
+
+<h2 id="new-engine">Model with a different engine
+  <a href="#new-engine">
+    <svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 0h24v24H0z" fill="currentColor"></path>
+      <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
+    </svg>
+  </a>
+</h2><p>Every one on your team is happy with that plot <em>except</em> that one person who just read their first book on 
+<a href="https://bayesian.org/what-is-bayesian-analysis/" target="_blank" rel="noopener">Bayesian analysis</a>. They are interested in knowing if the results would be different if the model were estimated using a Bayesian approach. In such an analysis, a 
+<a href="https://towardsdatascience.com/introduction-to-bayesian-linear-regression-e66e60791ea7" target="_blank" rel="noopener"><em>prior distribution</em></a> needs to be declared for each model parameter that represents the possible values of the parameters (before being exposed to the observed data). After some discussion, the group agrees that the priors should be bell-shaped but, since no one has any idea what the range of values should be, to take a conservative approach and make the priors <em>wide</em> using a Cauchy distribution (which is the same as a t-distribution with a single degree of freedom).</p>
+<p>The 
+<a href="https://mc-stan.org/rstanarm/articles/priors.html" target="_blank" rel="noopener">documentation</a> on the rstanarm package shows us that the <code>stan_glm()</code> function can be used to estimate this model, and that the function arguments that need to be specified are called <code>prior</code> and <code>prior_intercept</code>. It turns out that <code>linear_reg()</code> has a 
+<a href="https://tidymodels.github.io/parsnip/reference/linear_reg.html#details" target="_blank" rel="noopener"><code>stan</code> engine</a>. Since these prior distribution arguments are specific to the Stan software, they are passed as arguments to 
+<a href="https://tidymodels.github.io/parsnip/reference/set_engine.html" target="_blank" rel="noopener"><code>parsnip::set_engine()</code></a>. After that, the same exact <code>fit()</code> call is used:</p>
+<div class="highlight"><pre style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#408080;font-style:italic"># set the prior distribution</span>
+prior_dist <span style="color:#666">&lt;-</span> rstanarm<span style="color:#666">::</span><span style="color:#00f">student_t</span>(df <span style="color:#666">=</span> <span style="color:#666">1</span>)
+
+<span style="color:#00f">set.seed</span>(<span style="color:#666">123</span>)
+
+<span style="color:#408080;font-style:italic"># make the parsnip model</span>
+bayes_mod <span style="color:#666">&lt;-</span>   
+  <span style="color:#00f">linear_reg</span>() <span style="color:#666">%&gt;%</span> 
+  <span style="color:#00f">set_engine</span>(<span style="color:#ba2121">&#34;stan&#34;</span>, 
+             prior_intercept <span style="color:#666">=</span> prior_dist, 
+             prior <span style="color:#666">=</span> prior_dist) 
+
+<span style="color:#408080;font-style:italic"># train the model</span>
+bayes_fit <span style="color:#666">&lt;-</span> 
+  bayes_mod <span style="color:#666">%&gt;%</span> 
+  <span style="color:#00f">fit</span>(width <span style="color:#666">~</span> initial_volume <span style="color:#666">*</span> food_regime, data <span style="color:#666">=</span> urchins)
+
+<span style="color:#00f">print</span>(bayes_fit, digits <span style="color:#666">=</span> <span style="color:#666">5</span>)
+<span style="color:#408080;font-style:italic">#&gt; parsnip model object</span>
+<span style="color:#408080;font-style:italic">#&gt; </span>
+<span style="color:#408080;font-style:italic">#&gt; Fit time:  1.5s </span>
+<span style="color:#408080;font-style:italic">#&gt; stan_glm</span>
+<span style="color:#408080;font-style:italic">#&gt;  family:       gaussian [identity]</span>
+<span style="color:#408080;font-style:italic">#&gt;  formula:      width ~ initial_volume * food_regime</span>
+<span style="color:#408080;font-style:italic">#&gt;  observations: 72</span>
+<span style="color:#408080;font-style:italic">#&gt;  predictors:   6</span>
+<span style="color:#408080;font-style:italic">#&gt; ------</span>
+<span style="color:#408080;font-style:italic">#&gt;                                Median   MAD_SD  </span>
+<span style="color:#408080;font-style:italic">#&gt; (Intercept)                     0.03452  0.00883</span>
+<span style="color:#408080;font-style:italic">#&gt; initial_volume                  0.00150  0.00037</span>
+<span style="color:#408080;font-style:italic">#&gt; food_regimeLow                  0.01805  0.01221</span>
+<span style="color:#408080;font-style:italic">#&gt; food_regimeHigh                 0.01934  0.01367</span>
+<span style="color:#408080;font-style:italic">#&gt; initial_volume:food_regimeLow  -0.00119  0.00047</span>
+<span style="color:#408080;font-style:italic">#&gt; initial_volume:food_regimeHigh  0.00061  0.00065</span>
+<span style="color:#408080;font-style:italic">#&gt; </span>
+<span style="color:#408080;font-style:italic">#&gt; Auxiliary parameter(s):</span>
+<span style="color:#408080;font-style:italic">#&gt;       Median  MAD_SD </span>
+<span style="color:#408080;font-style:italic">#&gt; sigma 0.02121 0.00186</span>
+<span style="color:#408080;font-style:italic">#&gt; </span>
+<span style="color:#408080;font-style:italic">#&gt; ------</span>
+<span style="color:#408080;font-style:italic">#&gt; * For help interpreting the printed output see ?print.stanreg</span>
+<span style="color:#408080;font-style:italic">#&gt; * For info on the priors used see ?prior_summary.stanreg</span>
+</code></pre></div><p>This kind of Bayesian analysis (like many models) involves randomly generated numbers in its fitting procedure. We can use <code>set.seed()</code> to ensure that the same (pseudo-)random numbers are generated each time we run this code. The number <code>123</code> isn&rsquo;t special or related to our data; it is just a &ldquo;seed&rdquo; used to choose random numbers.</p>
+<p>To update the parameter table, the <code>tidy()</code> method is once again used:</p>
+<div class="highlight"><pre style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#00f">tidy</span>(bayes_fit, intervals <span style="color:#666">=</span> <span style="color:#008000;font-weight:bold">TRUE</span>)
+<span style="color:#408080;font-style:italic">#&gt; # A tibble: 6 x 5</span>
+<span style="color:#408080;font-style:italic">#&gt;   term                            estimate std.error     lower     upper</span>
+<span style="color:#408080;font-style:italic">#&gt;   &lt;chr&gt;                              &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span>
+<span style="color:#408080;font-style:italic">#&gt; 1 (Intercept)                     0.0345    0.00883   0.0200    0.0490  </span>
+<span style="color:#408080;font-style:italic">#&gt; 2 initial_volume                  0.00150   0.000369  0.000895  0.00212 </span>
+<span style="color:#408080;font-style:italic">#&gt; 3 food_regimeLow                  0.0181    0.0122   -0.00181   0.0380  </span>
+<span style="color:#408080;font-style:italic">#&gt; 4 food_regimeHigh                 0.0193    0.0137   -0.00317   0.0420  </span>
+<span style="color:#408080;font-style:italic">#&gt; 5 initial_volume:food_regimeLow  -0.00119   0.000472 -0.00199  -0.000413</span>
+<span style="color:#408080;font-style:italic">#&gt; 6 initial_volume:food_regimeHigh  0.000610  0.000651 -0.000490  0.00170</span>
+</code></pre></div><p>A goal of the tidymodels packages is that the <strong>interfaces to common tasks are standardized</strong> (as seen in the <code>tidy()</code> results above). The same is true for getting predictions; we can use the same code even though the underlying packages use very different syntax:</p>
+<div class="highlight"><pre style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">bayes_plot_data <span style="color:#666">&lt;-</span> 
+  new_points <span style="color:#666">%&gt;%</span> 
+  <span style="color:#00f">bind_cols</span>(<span style="color:#00f">predict</span>(bayes_fit, new_data <span style="color:#666">=</span> new_points)) <span style="color:#666">%&gt;%</span> 
+  <span style="color:#00f">bind_cols</span>(<span style="color:#00f">predict</span>(bayes_fit, new_data <span style="color:#666">=</span> new_points, type <span style="color:#666">=</span> <span style="color:#ba2121">&#34;conf_int&#34;</span>))
+
+<span style="color:#00f">ggplot</span>(bayes_plot_data, <span style="color:#00f">aes</span>(x <span style="color:#666">=</span> food_regime)) <span style="color:#666">+</span> 
+  <span style="color:#00f">geom_point</span>(<span style="color:#00f">aes</span>(y <span style="color:#666">=</span> .pred)) <span style="color:#666">+</span> 
+  <span style="color:#00f">geom_errorbar</span>(<span style="color:#00f">aes</span>(ymin <span style="color:#666">=</span> .pred_lower, ymax <span style="color:#666">=</span> .pred_upper), width <span style="color:#666">=</span> <span style="color:#666">.2</span>) <span style="color:#666">+</span> 
+  <span style="color:#00f">labs</span>(y <span style="color:#666">=</span> <span style="color:#ba2121">&#34;urchin size&#34;</span>) <span style="color:#666">+</span> 
+  <span style="color:#00f">ggtitle</span>(<span style="color:#ba2121">&#34;Bayesian model with t(1) prior distribution&#34;</span>)
+</code></pre></div><p><img src="figs/stan-pred-1.svg" width="672" /></p>
+<p>This isn&rsquo;t very different from the non-Bayesian results (except in interpretation).</p>
+<div class="note">The <a href="https://parsnip.tidymodels.org/">parsnip</a> package can work with many model types, engines, and arguments. Check out <a href="/find/parsnip/">tidymodels.org/find/parsnip</a> to see what is available.</div>
+
+
+
+
+<h2 id="why">Why does it work that way?
+  <a href="#why">
+    <svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 0h24v24H0z" fill="currentColor"></path>
+      <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
+    </svg>
+  </a>
+</h2><p>The extra step of defining the model using a function like <code>linear_reg()</code> might seem superfluous since a call to <code>lm()</code> is much more succinct. However, the problem with standard modeling functions is that they don&rsquo;t separate what you want to do from the execution. For example, the process of executing a formula has to happen repeatedly across model calls even when the formula does not change; we can&rsquo;t recycle those computations.</p>
+<p>Also, using the tidymodels framework, we can do some interesting things by incrementally creating a model (instead of using single function call). 
+<a href="/start/tuning/">Model tuning</a> with tidymodels uses the specification of the model to declare what parts of the model should be tuned. That would be very difficult to do if <code>linear_reg()</code> immediately fit the model.</p>
+<p>If you are familiar with the tidyverse, you may have noticed that our modeling code uses the magrittr pipe (<code>%&gt;%</code>). With dplyr and other tidyverse packages, the pipe works well because all of the functions take the <em>data</em> as the first argument. For example:</p>
+<div class="highlight"><pre style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">urchins <span style="color:#666">%&gt;%</span> 
+  <span style="color:#00f">group_by</span>(food_regime) <span style="color:#666">%&gt;%</span> 
+  <span style="color:#00f">summarize</span>(med_vol <span style="color:#666">=</span> <span style="color:#00f">median</span>(initial_volume))
+<span style="color:#408080;font-style:italic">#&gt; # A tibble: 3 x 2</span>
+<span style="color:#408080;font-style:italic">#&gt;   food_regime med_vol</span>
+<span style="color:#408080;font-style:italic">#&gt;   &lt;fct&gt;         &lt;dbl&gt;</span>
+<span style="color:#408080;font-style:italic">#&gt; 1 Initial        20.5</span>
+<span style="color:#408080;font-style:italic">#&gt; 2 Low            19.2</span>
+<span style="color:#408080;font-style:italic">#&gt; 3 High           15</span>
+</code></pre></div><p>whereas the modeling code uses the pipe to pass around the <em>model object</em>:</p>
+<div class="highlight"><pre style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">bayes_mod <span style="color:#666">%&gt;%</span> 
+  <span style="color:#00f">fit</span>(width <span style="color:#666">~</span> initial_volume <span style="color:#666">*</span> food_regime, data <span style="color:#666">=</span> urchins)
+</code></pre></div><p>This may seem jarring if you have used dplyr a lot, but it is extremely similar to how ggplot2 operates:</p>
+<div class="highlight"><pre style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#00f">ggplot</span>(urchins,
+       <span style="color:#00f">aes</span>(initial_volume, width)) <span style="color:#666">+</span>      <span style="color:#408080;font-style:italic"># returns a ggplot object </span>
+  <span style="color:#00f">geom_jitter</span>() <span style="color:#666">+</span>                         <span style="color:#408080;font-style:italic"># same</span>
+  <span style="color:#00f">geom_smooth</span>(method <span style="color:#666">=</span> lm, se <span style="color:#666">=</span> <span style="color:#008000;font-weight:bold">FALSE</span>) <span style="color:#666">+</span>  <span style="color:#408080;font-style:italic"># same                    </span>
+  <span style="color:#00f">labs</span>(x <span style="color:#666">=</span> <span style="color:#ba2121">&#34;Volume&#34;</span>, y <span style="color:#666">=</span> <span style="color:#ba2121">&#34;Width&#34;</span>)         <span style="color:#408080;font-style:italic"># etc</span>
+</code></pre></div>
+
+
+
+<h2 id="session-info">Session information
+  <a href="#session-info">
+    <svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 0h24v24H0z" fill="currentColor"></path>
+      <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
+    </svg>
+  </a>
+</h2><pre><code>#&gt; ─ Session info ───────────────────────────────────────────────────────────────
+#&gt;  setting  value                       
+#&gt;  version  R version 4.0.0 (2020-04-24)
+#&gt;  os       macOS Mojave 10.14.6        
+#&gt;  system   x86_64, darwin17.0          
+#&gt;  ui       X11                         
+#&gt;  language (EN)                        
+#&gt;  collate  en_US.UTF-8                 
+#&gt;  ctype    en_US.UTF-8                 
+#&gt;  tz       America/New_York            
+#&gt;  date     2020-05-19                  
+#&gt; 
+#&gt; ─ Packages ───────────────────────────────────────────────────────────────────
+#&gt;  package    * version date       lib source        
+#&gt;  broom      * 0.5.6   2020-04-20 [1] CRAN (R 4.0.0)
+#&gt;  dials      * 0.0.6   2020-04-03 [1] CRAN (R 4.0.0)
+#&gt;  dplyr      * 0.8.5   2020-03-07 [1] CRAN (R 4.0.0)
+#&gt;  ggplot2    * 3.3.0   2020-03-05 [1] CRAN (R 4.0.0)
+#&gt;  infer      * 0.5.1   2019-11-19 [1] CRAN (R 4.0.0)
+#&gt;  parsnip    * 0.1.1   2020-05-06 [1] CRAN (R 4.0.0)
+#&gt;  purrr      * 0.3.4   2020-04-17 [1] CRAN (R 4.0.0)
+#&gt;  readr      * 1.3.1   2018-12-21 [1] CRAN (R 4.0.0)
+#&gt;  recipes    * 0.1.12  2020-05-01 [1] CRAN (R 4.0.0)
+#&gt;  rlang        0.4.6   2020-05-02 [1] CRAN (R 4.0.0)
+#&gt;  rsample    * 0.0.6   2020-03-31 [1] CRAN (R 4.0.0)
+#&gt;  rstanarm   * 2.19.3  2020-02-11 [1] CRAN (R 4.0.0)
+#&gt;  tibble     * 3.0.1   2020-04-20 [1] CRAN (R 4.0.0)
+#&gt;  tidymodels * 0.1.0   2020-02-16 [1] CRAN (R 4.0.0)
+#&gt;  tune       * 0.1.0   2020-04-02 [1] CRAN (R 4.0.0)
+#&gt;  workflows  * 0.1.1   2020-03-17 [1] CRAN (R 4.0.0)
+#&gt;  yardstick  * 0.0.6   2020-03-17 [1] CRAN (R 4.0.0)
+#&gt; 
+#&gt; [1] /Library/Frameworks/R.framework/Versions/4.0/Resources/library
+</code></pre>
+      </div>
+
+    <div class="article-footer">
+      
+      <div style="float:left">
+      
+      </div>
+      
+      
+      <div style="float:right">
+      
+      <div class='itemTitle' align="right" style='font-size:.8em; line-height:2em;'>Next</div>
+        <a href="/start/recipes/">Preprocess your data with recipes</a>
+      
+      
+      </div>
+     </div> 
+      
+
+      </div>
+
+    </div>
+  </div>  
+</div> 
+
+
+        <div id="rStudioFooter" class="band">
+          <div class="bandContent">
+            <div id="copyright">
+              
+              © <a href="https://katilingban.io/">Katilingban</a>, 2020<br>
+              
+              
+            </div>
+            <div id="logos">
+              <a href="https://github.com/nutriverse" class="footerLogo gitHub" aria-label="Tidyverse GitHub organization"></a>
+              <a href="https://twitter.com/katilingban" class="footerLogo twitter" aria-label="rstats hashtag on twitter.com"></a>
+            </div>
+          </div>
+        </div>
+
+      </div>  
+    </div>  
+
+    
+
+    
+<script src="/js/math-code.js"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    processEscapes: true
+  }
+});
+</script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+    
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'G-Z9SDQC2LZH', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+  </body>
+</html>
+
+</body>
+</html>
