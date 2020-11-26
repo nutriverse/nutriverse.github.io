@@ -11,34 +11,14 @@
       <link>https://nutriverse.io/learn/models/parsnip-ranger-glmnet/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://nutriverse.io/learn/models/parsnip-ranger-glmnet/</guid>
-      <description>
-
-
-
-&lt;h2 id=&#34;introduction&#34;&gt;Introduction
-  &lt;a href=&#34;#introduction&#34;&gt;
-    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
-      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
-      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
-    &lt;/svg&gt;
-  &lt;/a&gt;
-&lt;/h2&gt;&lt;p&gt;To use the code in this article, you will need to install the following packages: AmesHousing, glmnet, randomForest, ranger, and tidymodels.&lt;/p&gt;
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;To use the code in this article, you will need to install the following packages: AmesHousing, glmnet, randomForest, ranger, and tidymodels.&lt;/p&gt;
 &lt;p&gt;We can create regression models with the tidymodels package 
 &lt;a href=&#34;https://tidymodels.github.io/parsnip/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;parsnip&lt;/a&gt; to predict continuous or numeric quantities. Here, let&amp;rsquo;s first fit a random forest model, which does &lt;em&gt;not&lt;/em&gt; require all numeric input (see discussion 
 &lt;a href=&#34;https://bookdown.org/max/FES/categorical-trees.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;here&lt;/a&gt;) and discuss how to use &lt;code&gt;fit()&lt;/code&gt; and &lt;code&gt;fit_xy()&lt;/code&gt;, as well as &lt;em&gt;data descriptors&lt;/em&gt;.&lt;/p&gt;
 &lt;p&gt;Second, let&amp;rsquo;s fit a regularized linear regression model to demonstrate how to move between different types of models using parsnip.&lt;/p&gt;
-
-
-
-
-&lt;h2 id=&#34;the-ames-housing-data&#34;&gt;The Ames housing data
-  &lt;a href=&#34;#the-ames-housing-data&#34;&gt;
-    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
-      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
-      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
-    &lt;/svg&gt;
-  &lt;/a&gt;
-&lt;/h2&gt;&lt;p&gt;We&amp;rsquo;ll use the Ames housing data set to demonstrate how to create regression models using parsnip. First, set up the data set and create a simple training/test set split:&lt;/p&gt;
+&lt;h2 id=&#34;the-ames-housing-data&#34;&gt;The Ames housing data&lt;/h2&gt;
+&lt;p&gt;We&amp;rsquo;ll use the Ames housing data set to demonstrate how to create regression models using parsnip. First, set up the data set and create a simple training/test set split:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#00f&#34;&gt;library&lt;/span&gt;(AmesHousing)
 ames &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;make_ames&lt;/span&gt;()
 
@@ -50,18 +30,8 @@ data_split &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;spa
 ames_train &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;training&lt;/span&gt;(data_split)
 ames_test  &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;testing&lt;/span&gt;(data_split)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The use of the test set here is &lt;em&gt;only for illustration&lt;/em&gt;; normally in a data analysis these data would be saved to the very end after many models have been evaluated.&lt;/p&gt;
-
-
-
-
-&lt;h2 id=&#34;random-forest&#34;&gt;Random forest
-  &lt;a href=&#34;#random-forest&#34;&gt;
-    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
-      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
-      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
-    &lt;/svg&gt;
-  &lt;/a&gt;
-&lt;/h2&gt;&lt;p&gt;We&amp;rsquo;ll start by fitting a random forest model to a small set of parameters. Let&amp;rsquo;s create a model with the predictors &lt;code&gt;Longitude&lt;/code&gt;, &lt;code&gt;Latitude&lt;/code&gt;, &lt;code&gt;Lot_Area&lt;/code&gt;, &lt;code&gt;Neighborhood&lt;/code&gt;, and &lt;code&gt;Year_Sold&lt;/code&gt;. A simple random forest model can be specified via:&lt;/p&gt;
+&lt;h2 id=&#34;random-forest&#34;&gt;Random forest&lt;/h2&gt;
+&lt;p&gt;We&amp;rsquo;ll start by fitting a random forest model to a small set of parameters. Let&amp;rsquo;s create a model with the predictors &lt;code&gt;Longitude&lt;/code&gt;, &lt;code&gt;Latitude&lt;/code&gt;, &lt;code&gt;Lot_Area&lt;/code&gt;, &lt;code&gt;Neighborhood&lt;/code&gt;, and &lt;code&gt;Year_Sold&lt;/code&gt;. A simple random forest model can be specified via:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;rf_defaults &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;rand_forest&lt;/span&gt;(mode &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;regression&amp;#34;&lt;/span&gt;)
 rf_defaults
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; Random Forest Model Specification (regression)&lt;/span&gt;
@@ -212,18 +182,8 @@ test_results &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; &lt;
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; Splitrule:                        variance &lt;/span&gt;
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; OOB prediction error (MSE):       0.00869 &lt;/span&gt;
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; R squared (OOB):                  0.728&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-
-
-&lt;h2 id=&#34;regularized-regression&#34;&gt;Regularized regression
-  &lt;a href=&#34;#regularized-regression&#34;&gt;
-    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
-      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
-      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
-    &lt;/svg&gt;
-  &lt;/a&gt;
-&lt;/h2&gt;&lt;p&gt;A linear model might work for this data set as well. We can use the &lt;code&gt;linear_reg()&lt;/code&gt; parsnip model. There are two engines that can perform regularization/penalization, the glmnet and sparklyr packages. Let&amp;rsquo;s use the former here. The glmnet package only implements a non-formula method, but parsnip will allow either one to be used.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;regularized-regression&#34;&gt;Regularized regression&lt;/h2&gt;
+&lt;p&gt;A linear model might work for this data set as well. We can use the &lt;code&gt;linear_reg()&lt;/code&gt; parsnip model. There are two engines that can perform regularization/penalization, the glmnet and sparklyr packages. Let&amp;rsquo;s use the former here. The glmnet package only implements a non-formula method, but parsnip will allow either one to be used.&lt;/p&gt;
 &lt;p&gt;When regularization is used, the predictors should first be centered and scaled before being passed to the model. The formula method won&amp;rsquo;t do that automatically so we will need to do this ourselves. We&amp;rsquo;ll use the 
 &lt;a href=&#34;https://tidymodels.github.io/recipes/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;recipes&lt;/a&gt; package for these steps.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;norm_recipe &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; 
@@ -363,18 +323,8 @@ test_results &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
   &lt;span style=&#34;color:#00f&#34;&gt;coord_fixed&lt;/span&gt;()
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;figs/glmn-pred-1.svg&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;This final plot compares the performance of the random forest and regularized regression models.&lt;/p&gt;
-
-
-
-
-&lt;h2 id=&#34;session-information&#34;&gt;Session information
-  &lt;a href=&#34;#session-information&#34;&gt;
-    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
-      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
-      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
-    &lt;/svg&gt;
-  &lt;/a&gt;
-&lt;/h2&gt;&lt;pre&gt;&lt;code&gt;#&amp;gt; ─ Session info ───────────────────────────────────────────────────────────────
+&lt;h2 id=&#34;session-information&#34;&gt;Session information&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;#&amp;gt; ─ Session info ───────────────────────────────────────────────────────────────
 #&amp;gt;  setting  value                       
 #&amp;gt;  version  R version 3.6.2 (2019-12-12)
 #&amp;gt;  os       macOS Mojave 10.14.6        
@@ -417,33 +367,13 @@ test_results &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
       <link>https://nutriverse.io/learn/models/parsnip-nnet/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://nutriverse.io/learn/models/parsnip-nnet/</guid>
-      <description>
-
-
-
-&lt;h2 id=&#34;introduction&#34;&gt;Introduction
-  &lt;a href=&#34;#introduction&#34;&gt;
-    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
-      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
-      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
-    &lt;/svg&gt;
-  &lt;/a&gt;
-&lt;/h2&gt;&lt;p&gt;To use the code in this article, you will need to install the following packages: keras and tidymodels. You will also need the python keras library installed (see &lt;code&gt;?keras::install_keras()&lt;/code&gt;).&lt;/p&gt;
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;To use the code in this article, you will need to install the following packages: keras and tidymodels. You will also need the python keras library installed (see &lt;code&gt;?keras::install_keras()&lt;/code&gt;).&lt;/p&gt;
 &lt;p&gt;We can create classification models with the tidymodels package 
 &lt;a href=&#34;https://tidymodels.github.io/parsnip/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;parsnip&lt;/a&gt; to predict categorical quantities or class labels. Here, let&amp;rsquo;s fit a single classification model using a neural network and evaluate using a validation set. While the 
 &lt;a href=&#34;https://tidymodels.github.io/tune/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;tune&lt;/a&gt; package has functionality to also do this, the parsnip package is the center of attention in this article so that we can better understand its usage.&lt;/p&gt;
-
-
-
-
-&lt;h2 id=&#34;fitting-a-neural-network&#34;&gt;Fitting a neural network
-  &lt;a href=&#34;#fitting-a-neural-network&#34;&gt;
-    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
-      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
-      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
-    &lt;/svg&gt;
-  &lt;/a&gt;
-&lt;/h2&gt;&lt;p&gt;Let&amp;rsquo;s fit a model to a small, two predictor classification data set. The data are in the modeldata package (part of tidymodels) and have been split into training, validation, and test data sets. In this analysis, the test set is left untouched; this article tries to emulate a good data usage methodology where the test set would only be evaluated once at the end after a variety of models have been considered.&lt;/p&gt;
+&lt;h2 id=&#34;fitting-a-neural-network&#34;&gt;Fitting a neural network&lt;/h2&gt;
+&lt;p&gt;Let&amp;rsquo;s fit a model to a small, two predictor classification data set. The data are in the modeldata package (part of tidymodels) and have been split into training, validation, and test data sets. In this analysis, the test set is left untouched; this article tries to emulate a good data usage methodology where the test set would only be evaluated once at the end after a variety of models have been considered.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#00f&#34;&gt;data&lt;/span&gt;(bivariate)
 &lt;span style=&#34;color:#00f&#34;&gt;nrow&lt;/span&gt;(bivariate_train)
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; [1] 1009&lt;/span&gt;
@@ -497,18 +427,8 @@ nnet_fit
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; Trainable params: 57&lt;/span&gt;
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; Non-trainable params: 0&lt;/span&gt;
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ________________________________________________________________________________&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-
-
-&lt;h2 id=&#34;model-performance&#34;&gt;Model performance
-  &lt;a href=&#34;#model-performance&#34;&gt;
-    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
-      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
-      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
-    &lt;/svg&gt;
-  &lt;/a&gt;
-&lt;/h2&gt;&lt;p&gt;In parsnip, the &lt;code&gt;predict()&lt;/code&gt; function can be used to characterize performance on the validation set. Since parsnip always produces tibble outputs, these can just be column bound to the original data:&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;model-performance&#34;&gt;Model performance&lt;/h2&gt;
+&lt;p&gt;In parsnip, the &lt;code&gt;predict()&lt;/code&gt; function can be used to characterize performance on the validation set. Since parsnip always produces tibble outputs, these can just be column bound to the original data:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;val_results &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; 
   bivariate_val &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
   &lt;span style=&#34;color:#00f&#34;&gt;bind_cols&lt;/span&gt;(
@@ -560,18 +480,8 @@ x_grid &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt;
   &lt;span style=&#34;color:#00f&#34;&gt;geom_contour&lt;/span&gt;(&lt;span style=&#34;color:#00f&#34;&gt;aes&lt;/span&gt;(z &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; .pred_One), breaks &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;.5&lt;/span&gt;, col &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;black&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt; 
   &lt;span style=&#34;color:#00f&#34;&gt;geom_point&lt;/span&gt;(data &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; bivariate_val, &lt;span style=&#34;color:#00f&#34;&gt;aes&lt;/span&gt;(col &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; Class), alpha &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;0.3&lt;/span&gt;)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;figs/biv-boundary-1.svg&#34; width=&#34;576&#34; /&gt;&lt;/p&gt;
-
-
-
-
-&lt;h2 id=&#34;session-information&#34;&gt;Session information
-  &lt;a href=&#34;#session-information&#34;&gt;
-    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
-      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
-      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
-    &lt;/svg&gt;
-  &lt;/a&gt;
-&lt;/h2&gt;&lt;pre&gt;&lt;code&gt;#&amp;gt; ─ Session info ───────────────────────────────────────────────────────────────
+&lt;h2 id=&#34;session-information&#34;&gt;Session information&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;#&amp;gt; ─ Session info ───────────────────────────────────────────────────────────────
 #&amp;gt;  setting  value                       
 #&amp;gt;  version  R version 3.6.2 (2019-12-12)
 #&amp;gt;  os       macOS Mojave 10.14.6        
@@ -611,18 +521,8 @@ x_grid &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt;
       <link>https://nutriverse.io/learn/models/pls/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://nutriverse.io/learn/models/pls/</guid>
-      <description>
-
-
-
-&lt;h2 id=&#34;introduction&#34;&gt;Introduction
-  &lt;a href=&#34;#introduction&#34;&gt;
-    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
-      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
-      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
-    &lt;/svg&gt;
-  &lt;/a&gt;
-&lt;/h2&gt;&lt;p&gt;To use the code in this article, you will need to install the following packages: modeldata, pls, tidymodels, and tidyr.&lt;/p&gt;
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;To use the code in this article, you will need to install the following packages: modeldata, pls, tidymodels, and tidyr.&lt;/p&gt;
 &lt;p&gt;&amp;ldquo;Multivariate analysis&amp;rdquo; usually refers to multiple &lt;em&gt;outcomes&lt;/em&gt; being modeled, analyzed, and/or predicted. There are multivariate versions of many common statistical tools. For example, suppose there was a data set with columns &lt;code&gt;y1&lt;/code&gt; and &lt;code&gt;y2&lt;/code&gt; representing two outcomes to be predicted. The &lt;code&gt;lm()&lt;/code&gt; function would look something like:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#00f&#34;&gt;lm&lt;/span&gt;(&lt;span style=&#34;color:#00f&#34;&gt;cbind&lt;/span&gt;(y1, y2) &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt; ., data &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; dat)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This &lt;code&gt;cbind()&lt;/code&gt; call is pretty awkward and is a consequence of how the traditional formula infrastructure works. The recipes package is a lot easier to work with! This article demonstrates how to model multiple outcomes.&lt;/p&gt;
@@ -638,18 +538,8 @@ x_grid &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#00f&#34;&gt;library&lt;/span&gt;(modeldata)
 &lt;span style=&#34;color:#00f&#34;&gt;data&lt;/span&gt;(meats)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The three &lt;em&gt;outcomes&lt;/em&gt; have fairly high correlations also.&lt;/p&gt;
-
-
-
-
-&lt;h2 id=&#34;preprocessing-the-data&#34;&gt;Preprocessing the data
-  &lt;a href=&#34;#preprocessing-the-data&#34;&gt;
-    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
-      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
-      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
-    &lt;/svg&gt;
-  &lt;/a&gt;
-&lt;/h2&gt;&lt;p&gt;If the outcomes can be predicted using a linear model, partial least squares (PLS) is an ideal method. PLS models the data as a function of a set of unobserved &lt;em&gt;latent&lt;/em&gt; variables that are derived in a manner similar to principal component analysis (PCA).&lt;/p&gt;
+&lt;h2 id=&#34;preprocessing-the-data&#34;&gt;Preprocessing the data&lt;/h2&gt;
+&lt;p&gt;If the outcomes can be predicted using a linear model, partial least squares (PLS) is an ideal method. PLS models the data as a function of a set of unobserved &lt;em&gt;latent&lt;/em&gt; variables that are derived in a manner similar to principal component analysis (PCA).&lt;/p&gt;
 &lt;p&gt;PLS, unlike PCA, also incorporates the outcome data when creating the PLS components. Like PCA, it tries to maximize the variance of the predictors that are explained by the components but it also tries to simultaneously maximize the correlation between those components and the outcomes. In this way, PLS &lt;em&gt;chases&lt;/em&gt; variation of the predictors and outcomes.&lt;/p&gt;
 &lt;p&gt;Since we are working with variances and covariances, we need to standardize the data. The recipe will center and scale all of the variables.&lt;/p&gt;
 &lt;p&gt;Many base R functions that deal with multivariate outcomes using a formula require the use of &lt;code&gt;cbind()&lt;/code&gt; on the left-hand side of the formula to work with the traditional formula methods. In tidymodels, recipes do not; the outcomes can be symbolically &amp;ldquo;added&amp;rdquo; together on the left-hand side:&lt;/p&gt;
@@ -667,18 +557,8 @@ folds &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span sty
 folds &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; 
   folds &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
   &lt;span style=&#34;color:#00f&#34;&gt;mutate&lt;/span&gt;(recipes &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;map&lt;/span&gt;(splits, prepper, recipe &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; norm_rec))
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-
-
-&lt;h2 id=&#34;partial-least-squares&#34;&gt;Partial least squares
-  &lt;a href=&#34;#partial-least-squares&#34;&gt;
-    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
-      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
-      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
-    &lt;/svg&gt;
-  &lt;/a&gt;
-&lt;/h2&gt;&lt;p&gt;The complicated parts for moving forward are:&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;partial-least-squares&#34;&gt;Partial least squares&lt;/h2&gt;
+&lt;p&gt;The complicated parts for moving forward are:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Formatting the predictors and outcomes into the format that the pls package requires, and&lt;/li&gt;
 &lt;li&gt;Estimating the proportions.&lt;/li&gt;
@@ -744,18 +624,8 @@ get_var_explained &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; 
   &lt;span style=&#34;color:#00f&#34;&gt;geom_line&lt;/span&gt;() &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt; 
   &lt;span style=&#34;color:#00f&#34;&gt;geom_point&lt;/span&gt;() 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;figs/plot-1.svg&#34; width=&#34;100%&#34; /&gt;&lt;/p&gt;
-
-
-
-
-&lt;h2 id=&#34;session-information&#34;&gt;Session information
-  &lt;a href=&#34;#session-information&#34;&gt;
-    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
-      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
-      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
-    &lt;/svg&gt;
-  &lt;/a&gt;
-&lt;/h2&gt;&lt;pre&gt;&lt;code&gt;#&amp;gt; ─ Session info ───────────────────────────────────────────────────────────────
+&lt;h2 id=&#34;session-information&#34;&gt;Session information&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;#&amp;gt; ─ Session info ───────────────────────────────────────────────────────────────
 #&amp;gt;  setting  value                       
 #&amp;gt;  version  R version 3.6.2 (2019-12-12)
 #&amp;gt;  os       macOS Mojave 10.14.6        

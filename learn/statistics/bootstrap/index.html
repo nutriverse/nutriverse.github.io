@@ -457,7 +457,7 @@ div.warning {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.72.0" />
+<meta name="generator" content="Hugo 0.68.3" />
 <title>nutriverse</title>
 <meta property="og:title" content="Bootstrap resampling and tidy regression models" />
 <meta property="og:description" content="Apply bootstrap resampling to estimate uncertainty in model parameters.
@@ -538,7 +538,7 @@ div.warning {
               <div>
                 
                     <a href="/" class="nav-logo">
-                      <img src="/images/nutriverse_banner_bi.png" width="127" height="40" alt="nutriverse">
+                      <img src="/images/nutriverse_banner_bi.png" width="200" height="" alt="nutriverse">
                     </a>
               </div>
               <div id="menu">
@@ -591,18 +591,8 @@ div.warning {
         </p>
 
       <div class="article-content">
-      
-
-
-
-<h2 id="introduction">Introduction
-  <a href="#introduction">
-    <svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0 0h24v24H0z" fill="currentColor"></path>
-      <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
-    </svg>
-  </a>
-</h2><p>To use the code in this article, you will need to install the following packages: tidymodels and tidyr.</p>
+      <h2 id="introduction">Introduction</h2>
+<p>To use the code in this article, you will need to install the following packages: tidymodels and tidyr.</p>
 <p>Combining fitted models in a tidy way is useful for performing bootstrapping or permutation tests. These approaches have been explored before, for instance by 
 <a href="https://rstudio-pubs-static.s3.amazonaws.com/19698_a4c472606e3c43e4b94720506e49bb7b.html" target="_blank" rel="noopener">Andrew MacDonald here</a>, and 
 <a href="https://github.com/hadley/dplyr/issues/269" target="_blank" rel="noopener">Hadley has explored efficient support for bootstrapping</a> as a potential enhancement to dplyr. The tidymodels package 
@@ -638,18 +628,8 @@ div.warning {
     <span style="color:#00f">geom_line</span>(<span style="color:#00f">aes</span>(y <span style="color:#666">=</span> <span style="color:#00f">predict</span>(nlsfit)))
 </code></pre></div><p><img src="figs/unnamed-chunk-2-1.svg" width="672" /></p>
 <p>While this does provide a p-value and confidence intervals for the parameters, these are based on model assumptions that may not hold in real data. Bootstrapping is a popular method for providing confidence intervals and predictions that are more robust to the nature of the data.</p>
-
-
-
-
-<h2 id="bootstrapping-models">Bootstrapping models
-  <a href="#bootstrapping-models">
-    <svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0 0h24v24H0z" fill="currentColor"></path>
-      <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
-    </svg>
-  </a>
-</h2><p>We can use the <code>bootstraps()</code> function in the rsample package to sample bootstrap replications. First, we construct 2000 bootstrap replicates of the data, each of which has been randomly sampled with replacement. The resulting object is an <code>rset</code>, which is a data frame with a column of <code>rsplit</code> objects.</p>
+<h2 id="bootstrapping-models">Bootstrapping models</h2>
+<p>We can use the <code>bootstraps()</code> function in the rsample package to sample bootstrap replications. First, we construct 2000 bootstrap replicates of the data, each of which has been randomly sampled with replacement. The resulting object is an <code>rset</code>, which is a data frame with a column of <code>rsplit</code> objects.</p>
 <p>An <code>rsplit</code> object has two main components: an analysis data set and an assessment data set, accessible via <code>analysis(rsplit)</code> and <code>assessment(rsplit)</code> respectively. For bootstrap samples, the analysis data set is the bootstrap sample itself, and the assessment data set consists of all the out-of-bag samples.</p>
 <div class="highlight"><pre style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#00f">set.seed</span>(<span style="color:#666">27</span>)
 boots <span style="color:#666">&lt;-</span> <span style="color:#00f">bootstraps</span>(mtcars, times <span style="color:#666">=</span> <span style="color:#666">2000</span>, apparent <span style="color:#666">=</span> <span style="color:#008000;font-weight:bold">TRUE</span>)
@@ -699,18 +679,8 @@ boot_coefs <span style="color:#666">&lt;-</span>
 <span style="color:#408080;font-style:italic">#&gt;  9 &lt;split [32/9]&gt; Bootstrap00… &lt;nls&gt; k        43.6       4.63      9.41 1.85e-10</span>
 <span style="color:#408080;font-style:italic">#&gt; 10 &lt;split [32/9]&gt; Bootstrap00… &lt;nls&gt; b         5.89      1.68      3.51 1.44e- 3</span>
 <span style="color:#408080;font-style:italic">#&gt; # … with 3,992 more rows</span>
-</code></pre></div>
-
-
-
-<h2 id="confidence-intervals">Confidence intervals
-  <a href="#confidence-intervals">
-    <svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0 0h24v24H0z" fill="currentColor"></path>
-      <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
-    </svg>
-  </a>
-</h2><p>We can then calculate confidence intervals (using what is called the 
+</code></pre></div><h2 id="confidence-intervals">Confidence intervals</h2>
+<p>We can then calculate confidence intervals (using what is called the 
 <a href="https://www.uvm.edu/~dhowell/StatPages/Randomization%20Tests/ResamplingWithR/BootstMeans/bootstrapping_means.html" target="_blank" rel="noopener">percentile method</a>):</p>
 <div class="highlight"><pre style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">percentile_intervals <span style="color:#666">&lt;-</span> <span style="color:#00f">int_pctl</span>(boot_models, coef_info)
 percentile_intervals
@@ -728,18 +698,8 @@ percentile_intervals
 </code></pre></div><p><img src="figs/unnamed-chunk-6-1.svg" width="672" /></p>
 <p>The rsample package also has functions for 
 <a href="https://tidymodels.github.io/rsample/reference/int_pctl.html" target="_blank" rel="noopener">other types of confidence intervals</a>.</p>
-
-
-
-
-<h2 id="possible-model-fits">Possible model fits
-  <a href="#possible-model-fits">
-    <svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0 0h24v24H0z" fill="currentColor"></path>
-      <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
-    </svg>
-  </a>
-</h2><p>We can use <code>augment()</code> to visualize the uncertainty in the fitted curve. Since there are so many bootstrap samples, we&rsquo;ll only show a sample of the model fits in our visualization:</p>
+<h2 id="possible-model-fits">Possible model fits</h2>
+<p>We can use <code>augment()</code> to visualize the uncertainty in the fitted curve. Since there are so many bootstrap samples, we&rsquo;ll only show a sample of the model fits in our visualization:</p>
 <div class="highlight"><pre style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">boot_aug <span style="color:#666">&lt;-</span> 
   boot_models <span style="color:#666">%&gt;%</span> 
   <span style="color:#00f">sample_n</span>(<span style="color:#666">200</span>) <span style="color:#666">%&gt;%</span> 
@@ -785,18 +745,8 @@ splines_aug <span style="color:#666">&lt;-</span>
   <span style="color:#00f">geom_line</span>(<span style="color:#00f">aes</span>(y <span style="color:#666">=</span> .fitted, group <span style="color:#666">=</span> id), alpha <span style="color:#666">=</span> <span style="color:#666">0.2</span>, col <span style="color:#666">=</span> <span style="color:#ba2121">&#34;blue&#34;</span>) <span style="color:#666">+</span>
   <span style="color:#00f">geom_point</span>()
 </code></pre></div><p><img src="figs/unnamed-chunk-9-1.svg" width="672" /></p>
-
-
-
-
-<h2 id="session-information">Session information
-  <a href="#session-information">
-    <svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0 0h24v24H0z" fill="currentColor"></path>
-      <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
-    </svg>
-  </a>
-</h2><pre><code>#&gt; ─ Session info ───────────────────────────────────────────────────────────────
+<h2 id="session-information">Session information</h2>
+<pre><code>#&gt; ─ Session info ───────────────────────────────────────────────────────────────
 #&gt;  setting  value                       
 #&gt;  version  R version 3.6.2 (2019-12-12)
 #&gt;  os       macOS Mojave 10.14.6        

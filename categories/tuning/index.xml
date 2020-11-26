@@ -11,32 +11,12 @@
       <link>https://nutriverse.io/learn/work/nested-resampling/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://nutriverse.io/learn/work/nested-resampling/</guid>
-      <description>
-
-
-
-&lt;h2 id=&#34;introduction&#34;&gt;Introduction
-  &lt;a href=&#34;#introduction&#34;&gt;
-    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
-      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
-      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
-    &lt;/svg&gt;
-  &lt;/a&gt;
-&lt;/h2&gt;&lt;p&gt;To use the code in this article, you will need to install the following packages: furrr, kernlab, mlbench, scales, and tidymodels.&lt;/p&gt;
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;To use the code in this article, you will need to install the following packages: furrr, kernlab, mlbench, scales, and tidymodels.&lt;/p&gt;
 &lt;p&gt;In this article, we discuss an alternative method for evaluating and tuning models, called 
 &lt;a href=&#34;https://scholar.google.com/scholar?hl=en&amp;amp;as_sdt=0%2C7&amp;amp;q=%22nested&amp;#43;resampling%22&amp;#43;inner&amp;#43;outer&amp;amp;btnG=&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;nested resampling&lt;/a&gt;. While it is more computationally taxing and challenging to implement than other resampling methods, it has the potential to produce better estimates of model performance.&lt;/p&gt;
-
-
-
-
-&lt;h2 id=&#34;resampling-models&#34;&gt;Resampling models
-  &lt;a href=&#34;#resampling-models&#34;&gt;
-    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
-      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
-      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
-    &lt;/svg&gt;
-  &lt;/a&gt;
-&lt;/h2&gt;&lt;p&gt;A typical scheme for splitting the data when developing a predictive model is to create an initial split of the data into a training and test set. If resampling is used, it is executed on the training set. A series of binary splits is created. In rsample, we use the term &lt;em&gt;analysis set&lt;/em&gt; for the data that are used to fit the model and the term &lt;em&gt;assessment set&lt;/em&gt; for the set used to compute performance:&lt;/p&gt;
+&lt;h2 id=&#34;resampling-models&#34;&gt;Resampling models&lt;/h2&gt;
+&lt;p&gt;A typical scheme for splitting the data when developing a predictive model is to create an initial split of the data into a training and test set. If resampling is used, it is executed on the training set. A series of binary splits is created. In rsample, we use the term &lt;em&gt;analysis set&lt;/em&gt; for the data that are used to fit the model and the term &lt;em&gt;assessment set&lt;/em&gt; for the set used to compute performance:&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;figs/resampling.svg&#34; width=&#34;70%&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;A common method for tuning models is 
 &lt;a href=&#34;https://nutriverse.io/learn/work/tune-svm/&#34;&gt;grid search&lt;/a&gt; where a candidate set of tuning parameters is created. The full set of models for every combination of the tuning parameter grid and the resamples is fitted. Each time, the assessment data are used to measure performance and the average value is determined for each tuning parameter.&lt;/p&gt;
@@ -57,18 +37,8 @@ sim_data &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span 
 &lt;span style=&#34;color:#00f&#34;&gt;set.seed&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;9815&lt;/span&gt;)
 train_dat &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;sim_data&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;100&lt;/span&gt;)
 large_dat &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;sim_data&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;10&lt;/span&gt;^5)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-
-
-&lt;h2 id=&#34;nested-resampling&#34;&gt;Nested resampling
-  &lt;a href=&#34;#nested-resampling&#34;&gt;
-    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
-      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
-      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
-    &lt;/svg&gt;
-  &lt;/a&gt;
-&lt;/h2&gt;&lt;p&gt;To get started, the types of resampling methods need to be specified. This isn&amp;rsquo;t a large data set, so 5 repeats of 10-fold cross validation will be used as the &lt;em&gt;outer&lt;/em&gt; resampling method for generating the estimate of overall performance. To tune the model, it would be good to have precise estimates for each of the values of the tuning parameter so let&amp;rsquo;s use 25 iterations of the bootstrap. This means that there will eventually be &lt;code&gt;5 * 10 * 25 = 1250&lt;/code&gt; models that are fit to the data &lt;em&gt;per tuning parameter&lt;/em&gt;. These models will be discarded once the performance of the model has been quantified.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;nested-resampling&#34;&gt;Nested resampling&lt;/h2&gt;
+&lt;p&gt;To get started, the types of resampling methods need to be specified. This isn&amp;rsquo;t a large data set, so 5 repeats of 10-fold cross validation will be used as the &lt;em&gt;outer&lt;/em&gt; resampling method for generating the estimate of overall performance. To tune the model, it would be good to have precise estimates for each of the values of the tuning parameter so let&amp;rsquo;s use 25 iterations of the bootstrap. This means that there will eventually be &lt;code&gt;5 * 10 * 25 = 1250&lt;/code&gt; models that are fit to the data &lt;em&gt;per tuning parameter&lt;/em&gt;. These models will be discarded once the performance of the model has been quantified.&lt;/p&gt;
 &lt;p&gt;To create the tibble with the resampling specifications:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#00f&#34;&gt;library&lt;/span&gt;(tidymodels)
 results &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;nested_cv&lt;/span&gt;(train_dat, 
@@ -252,18 +222,8 @@ large_pred &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;spa
 &lt;span style=&#34;color:#00f&#34;&gt;sqrt&lt;/span&gt;(&lt;span style=&#34;color:#00f&#34;&gt;mean&lt;/span&gt;((large_dat&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;y &lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt; large_pred) ^ &lt;span style=&#34;color:#666&#34;&gt;2&lt;/span&gt;, na.rm &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#008000;font-weight:bold&#34;&gt;TRUE&lt;/span&gt;))
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; [1] 2.71&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The nested procedure produces a closer estimate to the approximate truth but the non-nested estimate is very similar.&lt;/p&gt;
-
-
-
-
-&lt;h2 id=&#34;session-information&#34;&gt;Session information
-  &lt;a href=&#34;#session-information&#34;&gt;
-    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
-      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
-      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
-    &lt;/svg&gt;
-  &lt;/a&gt;
-&lt;/h2&gt;&lt;pre&gt;&lt;code&gt;#&amp;gt; ─ Session info ───────────────────────────────────────────────────────────────
+&lt;h2 id=&#34;session-information&#34;&gt;Session information&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;#&amp;gt; ─ Session info ───────────────────────────────────────────────────────────────
 #&amp;gt;  setting  value                       
 #&amp;gt;  version  R version 3.6.2 (2019-12-12)
 #&amp;gt;  os       macOS Mojave 10.14.6        

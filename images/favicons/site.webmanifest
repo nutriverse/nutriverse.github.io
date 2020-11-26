@@ -3,12 +3,20 @@
     "short_name": "",
     "icons": [
         {
-            "src": "https://www.tidyverse.org/images/favicons/android-chrome-192x192.png",
+<<<<<<< HEAD
+            "src": "/GitHub/nutriverse.website/static/images/favicons/android-chrome-192x192.png",
+=======
+            "src": "/android-chrome-192x192.png",
+>>>>>>> f1b572110b17c0fe50d005b1a14e268bdbb16f25
             "sizes": "192x192",
             "type": "image/png"
         },
         {
-            "src": "https://www.tidyverse.org/images/favicons/android-chrome-512x512.png",
+<<<<<<< HEAD
+            "src": "/GitHub/nutriverse.website/static/images/favicons/android-chrome-512x512.png",
+=======
+            "src": "/android-chrome-512x512.png",
+>>>>>>> f1b572110b17c0fe50d005b1a14e268bdbb16f25
             "sizes": "512x512",
             "type": "image/png"
         }

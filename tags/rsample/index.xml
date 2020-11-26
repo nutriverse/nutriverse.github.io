@@ -11,34 +11,14 @@
       <link>https://nutriverse.io/learn/models/parsnip-ranger-glmnet/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://nutriverse.io/learn/models/parsnip-ranger-glmnet/</guid>
-      <description>
-
-
-
-&lt;h2 id=&#34;introduction&#34;&gt;Introduction
-  &lt;a href=&#34;#introduction&#34;&gt;
-    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
-      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
-      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
-    &lt;/svg&gt;
-  &lt;/a&gt;
-&lt;/h2&gt;&lt;p&gt;To use the code in this article, you will need to install the following packages: AmesHousing, glmnet, randomForest, ranger, and tidymodels.&lt;/p&gt;
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;To use the code in this article, you will need to install the following packages: AmesHousing, glmnet, randomForest, ranger, and tidymodels.&lt;/p&gt;
 &lt;p&gt;We can create regression models with the tidymodels package 
 &lt;a href=&#34;https://tidymodels.github.io/parsnip/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;parsnip&lt;/a&gt; to predict continuous or numeric quantities. Here, let&amp;rsquo;s first fit a random forest model, which does &lt;em&gt;not&lt;/em&gt; require all numeric input (see discussion 
 &lt;a href=&#34;https://bookdown.org/max/FES/categorical-trees.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;here&lt;/a&gt;) and discuss how to use &lt;code&gt;fit()&lt;/code&gt; and &lt;code&gt;fit_xy()&lt;/code&gt;, as well as &lt;em&gt;data descriptors&lt;/em&gt;.&lt;/p&gt;
 &lt;p&gt;Second, let&amp;rsquo;s fit a regularized linear regression model to demonstrate how to move between different types of models using parsnip.&lt;/p&gt;
-
-
-
-
-&lt;h2 id=&#34;the-ames-housing-data&#34;&gt;The Ames housing data
-  &lt;a href=&#34;#the-ames-housing-data&#34;&gt;
-    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
-      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
-      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
-    &lt;/svg&gt;
-  &lt;/a&gt;
-&lt;/h2&gt;&lt;p&gt;We&amp;rsquo;ll use the Ames housing data set to demonstrate how to create regression models using parsnip. First, set up the data set and create a simple training/test set split:&lt;/p&gt;
+&lt;h2 id=&#34;the-ames-housing-data&#34;&gt;The Ames housing data&lt;/h2&gt;
+&lt;p&gt;We&amp;rsquo;ll use the Ames housing data set to demonstrate how to create regression models using parsnip. First, set up the data set and create a simple training/test set split:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#00f&#34;&gt;library&lt;/span&gt;(AmesHousing)
 ames &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;make_ames&lt;/span&gt;()
 
@@ -50,18 +30,8 @@ data_split &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;spa
 ames_train &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;training&lt;/span&gt;(data_split)
 ames_test  &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;testing&lt;/span&gt;(data_split)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The use of the test set here is &lt;em&gt;only for illustration&lt;/em&gt;; normally in a data analysis these data would be saved to the very end after many models have been evaluated.&lt;/p&gt;
-
-
-
-
-&lt;h2 id=&#34;random-forest&#34;&gt;Random forest
-  &lt;a href=&#34;#random-forest&#34;&gt;
-    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
-      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
-      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
-    &lt;/svg&gt;
-  &lt;/a&gt;
-&lt;/h2&gt;&lt;p&gt;We&amp;rsquo;ll start by fitting a random forest model to a small set of parameters. Let&amp;rsquo;s create a model with the predictors &lt;code&gt;Longitude&lt;/code&gt;, &lt;code&gt;Latitude&lt;/code&gt;, &lt;code&gt;Lot_Area&lt;/code&gt;, &lt;code&gt;Neighborhood&lt;/code&gt;, and &lt;code&gt;Year_Sold&lt;/code&gt;. A simple random forest model can be specified via:&lt;/p&gt;
+&lt;h2 id=&#34;random-forest&#34;&gt;Random forest&lt;/h2&gt;
+&lt;p&gt;We&amp;rsquo;ll start by fitting a random forest model to a small set of parameters. Let&amp;rsquo;s create a model with the predictors &lt;code&gt;Longitude&lt;/code&gt;, &lt;code&gt;Latitude&lt;/code&gt;, &lt;code&gt;Lot_Area&lt;/code&gt;, &lt;code&gt;Neighborhood&lt;/code&gt;, and &lt;code&gt;Year_Sold&lt;/code&gt;. A simple random forest model can be specified via:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;rf_defaults &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;rand_forest&lt;/span&gt;(mode &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;regression&amp;#34;&lt;/span&gt;)
 rf_defaults
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; Random Forest Model Specification (regression)&lt;/span&gt;
@@ -212,18 +182,8 @@ test_results &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; &lt;
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; Splitrule:                        variance &lt;/span&gt;
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; OOB prediction error (MSE):       0.00869 &lt;/span&gt;
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; R squared (OOB):                  0.728&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-
-
-&lt;h2 id=&#34;regularized-regression&#34;&gt;Regularized regression
-  &lt;a href=&#34;#regularized-regression&#34;&gt;
-    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
-      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
-      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
-    &lt;/svg&gt;
-  &lt;/a&gt;
-&lt;/h2&gt;&lt;p&gt;A linear model might work for this data set as well. We can use the &lt;code&gt;linear_reg()&lt;/code&gt; parsnip model. There are two engines that can perform regularization/penalization, the glmnet and sparklyr packages. Let&amp;rsquo;s use the former here. The glmnet package only implements a non-formula method, but parsnip will allow either one to be used.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;regularized-regression&#34;&gt;Regularized regression&lt;/h2&gt;
+&lt;p&gt;A linear model might work for this data set as well. We can use the &lt;code&gt;linear_reg()&lt;/code&gt; parsnip model. There are two engines that can perform regularization/penalization, the glmnet and sparklyr packages. Let&amp;rsquo;s use the former here. The glmnet package only implements a non-formula method, but parsnip will allow either one to be used.&lt;/p&gt;
 &lt;p&gt;When regularization is used, the predictors should first be centered and scaled before being passed to the model. The formula method won&amp;rsquo;t do that automatically so we will need to do this ourselves. We&amp;rsquo;ll use the 
 &lt;a href=&#34;https://tidymodels.github.io/recipes/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;recipes&lt;/a&gt; package for these steps.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;norm_recipe &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; 
@@ -363,18 +323,8 @@ test_results &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
   &lt;span style=&#34;color:#00f&#34;&gt;coord_fixed&lt;/span&gt;()
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;figs/glmn-pred-1.svg&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;This final plot compares the performance of the random forest and regularized regression models.&lt;/p&gt;
-
-
-
-
-&lt;h2 id=&#34;session-information&#34;&gt;Session information
-  &lt;a href=&#34;#session-information&#34;&gt;
-    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
-      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
-      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
-    &lt;/svg&gt;
-  &lt;/a&gt;
-&lt;/h2&gt;&lt;pre&gt;&lt;code&gt;#&amp;gt; ─ Session info ───────────────────────────────────────────────────────────────
+&lt;h2 id=&#34;session-information&#34;&gt;Session information&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;#&amp;gt; ─ Session info ───────────────────────────────────────────────────────────────
 #&amp;gt;  setting  value                       
 #&amp;gt;  version  R version 3.6.2 (2019-12-12)
 #&amp;gt;  os       macOS Mojave 10.14.6        
@@ -417,33 +367,13 @@ test_results &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
       <link>https://nutriverse.io/learn/models/parsnip-nnet/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://nutriverse.io/learn/models/parsnip-nnet/</guid>
-      <description>
-
-
-
-&lt;h2 id=&#34;introduction&#34;&gt;Introduction
-  &lt;a href=&#34;#introduction&#34;&gt;
-    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
-      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
-      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
-    &lt;/svg&gt;
-  &lt;/a&gt;
-&lt;/h2&gt;&lt;p&gt;To use the code in this article, you will need to install the following packages: keras and tidymodels. You will also need the python keras library installed (see &lt;code&gt;?keras::install_keras()&lt;/code&gt;).&lt;/p&gt;
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;To use the code in this article, you will need to install the following packages: keras and tidymodels. You will also need the python keras library installed (see &lt;code&gt;?keras::install_keras()&lt;/code&gt;).&lt;/p&gt;
 &lt;p&gt;We can create classification models with the tidymodels package 
 &lt;a href=&#34;https://tidymodels.github.io/parsnip/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;parsnip&lt;/a&gt; to predict categorical quantities or class labels. Here, let&amp;rsquo;s fit a single classification model using a neural network and evaluate using a validation set. While the 
 &lt;a href=&#34;https://tidymodels.github.io/tune/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;tune&lt;/a&gt; package has functionality to also do this, the parsnip package is the center of attention in this article so that we can better understand its usage.&lt;/p&gt;
-
-
-
-
-&lt;h2 id=&#34;fitting-a-neural-network&#34;&gt;Fitting a neural network
-  &lt;a href=&#34;#fitting-a-neural-network&#34;&gt;
-    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
-      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
-      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
-    &lt;/svg&gt;
-  &lt;/a&gt;
-&lt;/h2&gt;&lt;p&gt;Let&amp;rsquo;s fit a model to a small, two predictor classification data set. The data are in the modeldata package (part of tidymodels) and have been split into training, validation, and test data sets. In this analysis, the test set is left untouched; this article tries to emulate a good data usage methodology where the test set would only be evaluated once at the end after a variety of models have been considered.&lt;/p&gt;
+&lt;h2 id=&#34;fitting-a-neural-network&#34;&gt;Fitting a neural network&lt;/h2&gt;
+&lt;p&gt;Let&amp;rsquo;s fit a model to a small, two predictor classification data set. The data are in the modeldata package (part of tidymodels) and have been split into training, validation, and test data sets. In this analysis, the test set is left untouched; this article tries to emulate a good data usage methodology where the test set would only be evaluated once at the end after a variety of models have been considered.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#00f&#34;&gt;data&lt;/span&gt;(bivariate)
 &lt;span style=&#34;color:#00f&#34;&gt;nrow&lt;/span&gt;(bivariate_train)
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; [1] 1009&lt;/span&gt;
@@ -497,18 +427,8 @@ nnet_fit
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; Trainable params: 57&lt;/span&gt;
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; Non-trainable params: 0&lt;/span&gt;
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; ________________________________________________________________________________&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-
-
-&lt;h2 id=&#34;model-performance&#34;&gt;Model performance
-  &lt;a href=&#34;#model-performance&#34;&gt;
-    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
-      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
-      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
-    &lt;/svg&gt;
-  &lt;/a&gt;
-&lt;/h2&gt;&lt;p&gt;In parsnip, the &lt;code&gt;predict()&lt;/code&gt; function can be used to characterize performance on the validation set. Since parsnip always produces tibble outputs, these can just be column bound to the original data:&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;model-performance&#34;&gt;Model performance&lt;/h2&gt;
+&lt;p&gt;In parsnip, the &lt;code&gt;predict()&lt;/code&gt; function can be used to characterize performance on the validation set. Since parsnip always produces tibble outputs, these can just be column bound to the original data:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;val_results &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; 
   bivariate_val &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
   &lt;span style=&#34;color:#00f&#34;&gt;bind_cols&lt;/span&gt;(
@@ -560,18 +480,8 @@ x_grid &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt;
   &lt;span style=&#34;color:#00f&#34;&gt;geom_contour&lt;/span&gt;(&lt;span style=&#34;color:#00f&#34;&gt;aes&lt;/span&gt;(z &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; .pred_One), breaks &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;.5&lt;/span&gt;, col &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;black&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt; 
   &lt;span style=&#34;color:#00f&#34;&gt;geom_point&lt;/span&gt;(data &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; bivariate_val, &lt;span style=&#34;color:#00f&#34;&gt;aes&lt;/span&gt;(col &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; Class), alpha &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;0.3&lt;/span&gt;)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;figs/biv-boundary-1.svg&#34; width=&#34;576&#34; /&gt;&lt;/p&gt;
-
-
-
-
-&lt;h2 id=&#34;session-information&#34;&gt;Session information
-  &lt;a href=&#34;#session-information&#34;&gt;
-    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
-      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
-      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
-    &lt;/svg&gt;
-  &lt;/a&gt;
-&lt;/h2&gt;&lt;pre&gt;&lt;code&gt;#&amp;gt; ─ Session info ───────────────────────────────────────────────────────────────
+&lt;h2 id=&#34;session-information&#34;&gt;Session information&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;#&amp;gt; ─ Session info ───────────────────────────────────────────────────────────────
 #&amp;gt;  setting  value                       
 #&amp;gt;  version  R version 3.6.2 (2019-12-12)
 #&amp;gt;  os       macOS Mojave 10.14.6        
@@ -611,32 +521,12 @@ x_grid &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt;
       <link>https://nutriverse.io/learn/work/nested-resampling/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://nutriverse.io/learn/work/nested-resampling/</guid>
-      <description>
-
-
-
-&lt;h2 id=&#34;introduction&#34;&gt;Introduction
-  &lt;a href=&#34;#introduction&#34;&gt;
-    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
-      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
-      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
-    &lt;/svg&gt;
-  &lt;/a&gt;
-&lt;/h2&gt;&lt;p&gt;To use the code in this article, you will need to install the following packages: furrr, kernlab, mlbench, scales, and tidymodels.&lt;/p&gt;
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;To use the code in this article, you will need to install the following packages: furrr, kernlab, mlbench, scales, and tidymodels.&lt;/p&gt;
 &lt;p&gt;In this article, we discuss an alternative method for evaluating and tuning models, called 
 &lt;a href=&#34;https://scholar.google.com/scholar?hl=en&amp;amp;as_sdt=0%2C7&amp;amp;q=%22nested&amp;#43;resampling%22&amp;#43;inner&amp;#43;outer&amp;amp;btnG=&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;nested resampling&lt;/a&gt;. While it is more computationally taxing and challenging to implement than other resampling methods, it has the potential to produce better estimates of model performance.&lt;/p&gt;
-
-
-
-
-&lt;h2 id=&#34;resampling-models&#34;&gt;Resampling models
-  &lt;a href=&#34;#resampling-models&#34;&gt;
-    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
-      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
-      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
-    &lt;/svg&gt;
-  &lt;/a&gt;
-&lt;/h2&gt;&lt;p&gt;A typical scheme for splitting the data when developing a predictive model is to create an initial split of the data into a training and test set. If resampling is used, it is executed on the training set. A series of binary splits is created. In rsample, we use the term &lt;em&gt;analysis set&lt;/em&gt; for the data that are used to fit the model and the term &lt;em&gt;assessment set&lt;/em&gt; for the set used to compute performance:&lt;/p&gt;
+&lt;h2 id=&#34;resampling-models&#34;&gt;Resampling models&lt;/h2&gt;
+&lt;p&gt;A typical scheme for splitting the data when developing a predictive model is to create an initial split of the data into a training and test set. If resampling is used, it is executed on the training set. A series of binary splits is created. In rsample, we use the term &lt;em&gt;analysis set&lt;/em&gt; for the data that are used to fit the model and the term &lt;em&gt;assessment set&lt;/em&gt; for the set used to compute performance:&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;figs/resampling.svg&#34; width=&#34;70%&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;A common method for tuning models is 
 &lt;a href=&#34;https://nutriverse.io/learn/work/tune-svm/&#34;&gt;grid search&lt;/a&gt; where a candidate set of tuning parameters is created. The full set of models for every combination of the tuning parameter grid and the resamples is fitted. Each time, the assessment data are used to measure performance and the average value is determined for each tuning parameter.&lt;/p&gt;
@@ -657,18 +547,8 @@ sim_data &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span 
 &lt;span style=&#34;color:#00f&#34;&gt;set.seed&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;9815&lt;/span&gt;)
 train_dat &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;sim_data&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;100&lt;/span&gt;)
 large_dat &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;sim_data&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;10&lt;/span&gt;^5)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-
-
-&lt;h2 id=&#34;nested-resampling&#34;&gt;Nested resampling
-  &lt;a href=&#34;#nested-resampling&#34;&gt;
-    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
-      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
-      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
-    &lt;/svg&gt;
-  &lt;/a&gt;
-&lt;/h2&gt;&lt;p&gt;To get started, the types of resampling methods need to be specified. This isn&amp;rsquo;t a large data set, so 5 repeats of 10-fold cross validation will be used as the &lt;em&gt;outer&lt;/em&gt; resampling method for generating the estimate of overall performance. To tune the model, it would be good to have precise estimates for each of the values of the tuning parameter so let&amp;rsquo;s use 25 iterations of the bootstrap. This means that there will eventually be &lt;code&gt;5 * 10 * 25 = 1250&lt;/code&gt; models that are fit to the data &lt;em&gt;per tuning parameter&lt;/em&gt;. These models will be discarded once the performance of the model has been quantified.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;nested-resampling&#34;&gt;Nested resampling&lt;/h2&gt;
+&lt;p&gt;To get started, the types of resampling methods need to be specified. This isn&amp;rsquo;t a large data set, so 5 repeats of 10-fold cross validation will be used as the &lt;em&gt;outer&lt;/em&gt; resampling method for generating the estimate of overall performance. To tune the model, it would be good to have precise estimates for each of the values of the tuning parameter so let&amp;rsquo;s use 25 iterations of the bootstrap. This means that there will eventually be &lt;code&gt;5 * 10 * 25 = 1250&lt;/code&gt; models that are fit to the data &lt;em&gt;per tuning parameter&lt;/em&gt;. These models will be discarded once the performance of the model has been quantified.&lt;/p&gt;
 &lt;p&gt;To create the tibble with the resampling specifications:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#00f&#34;&gt;library&lt;/span&gt;(tidymodels)
 results &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;nested_cv&lt;/span&gt;(train_dat, 
@@ -852,18 +732,8 @@ large_pred &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;spa
 &lt;span style=&#34;color:#00f&#34;&gt;sqrt&lt;/span&gt;(&lt;span style=&#34;color:#00f&#34;&gt;mean&lt;/span&gt;((large_dat&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;y &lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt; large_pred) ^ &lt;span style=&#34;color:#666&#34;&gt;2&lt;/span&gt;, na.rm &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#008000;font-weight:bold&#34;&gt;TRUE&lt;/span&gt;))
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; [1] 2.71&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The nested procedure produces a closer estimate to the approximate truth but the non-nested estimate is very similar.&lt;/p&gt;
-
-
-
-
-&lt;h2 id=&#34;session-information&#34;&gt;Session information
-  &lt;a href=&#34;#session-information&#34;&gt;
-    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
-      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
-      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
-    &lt;/svg&gt;
-  &lt;/a&gt;
-&lt;/h2&gt;&lt;pre&gt;&lt;code&gt;#&amp;gt; ─ Session info ───────────────────────────────────────────────────────────────
+&lt;h2 id=&#34;session-information&#34;&gt;Session information&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;#&amp;gt; ─ Session info ───────────────────────────────────────────────────────────────
 #&amp;gt;  setting  value                       
 #&amp;gt;  version  R version 3.6.2 (2019-12-12)
 #&amp;gt;  os       macOS Mojave 10.14.6        
@@ -906,18 +776,8 @@ large_pred &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;spa
       <link>https://nutriverse.io/learn/statistics/bootstrap/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://nutriverse.io/learn/statistics/bootstrap/</guid>
-      <description>
-
-
-
-&lt;h2 id=&#34;introduction&#34;&gt;Introduction
-  &lt;a href=&#34;#introduction&#34;&gt;
-    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
-      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
-      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
-    &lt;/svg&gt;
-  &lt;/a&gt;
-&lt;/h2&gt;&lt;p&gt;To use the code in this article, you will need to install the following packages: tidymodels and tidyr.&lt;/p&gt;
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;To use the code in this article, you will need to install the following packages: tidymodels and tidyr.&lt;/p&gt;
 &lt;p&gt;Combining fitted models in a tidy way is useful for performing bootstrapping or permutation tests. These approaches have been explored before, for instance by 
 &lt;a href=&#34;https://rstudio-pubs-static.s3.amazonaws.com/19698_a4c472606e3c43e4b94720506e49bb7b.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Andrew MacDonald here&lt;/a&gt;, and 
 &lt;a href=&#34;https://github.com/hadley/dplyr/issues/269&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Hadley has explored efficient support for bootstrapping&lt;/a&gt; as a potential enhancement to dplyr. The tidymodels package 
@@ -953,18 +813,8 @@ large_pred &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;spa
     &lt;span style=&#34;color:#00f&#34;&gt;geom_line&lt;/span&gt;(&lt;span style=&#34;color:#00f&#34;&gt;aes&lt;/span&gt;(y &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;predict&lt;/span&gt;(nlsfit)))
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;figs/unnamed-chunk-2-1.svg&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;While this does provide a p-value and confidence intervals for the parameters, these are based on model assumptions that may not hold in real data. Bootstrapping is a popular method for providing confidence intervals and predictions that are more robust to the nature of the data.&lt;/p&gt;
-
-
-
-
-&lt;h2 id=&#34;bootstrapping-models&#34;&gt;Bootstrapping models
-  &lt;a href=&#34;#bootstrapping-models&#34;&gt;
-    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
-      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
-      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
-    &lt;/svg&gt;
-  &lt;/a&gt;
-&lt;/h2&gt;&lt;p&gt;We can use the &lt;code&gt;bootstraps()&lt;/code&gt; function in the rsample package to sample bootstrap replications. First, we construct 2000 bootstrap replicates of the data, each of which has been randomly sampled with replacement. The resulting object is an &lt;code&gt;rset&lt;/code&gt;, which is a data frame with a column of &lt;code&gt;rsplit&lt;/code&gt; objects.&lt;/p&gt;
+&lt;h2 id=&#34;bootstrapping-models&#34;&gt;Bootstrapping models&lt;/h2&gt;
+&lt;p&gt;We can use the &lt;code&gt;bootstraps()&lt;/code&gt; function in the rsample package to sample bootstrap replications. First, we construct 2000 bootstrap replicates of the data, each of which has been randomly sampled with replacement. The resulting object is an &lt;code&gt;rset&lt;/code&gt;, which is a data frame with a column of &lt;code&gt;rsplit&lt;/code&gt; objects.&lt;/p&gt;
 &lt;p&gt;An &lt;code&gt;rsplit&lt;/code&gt; object has two main components: an analysis data set and an assessment data set, accessible via &lt;code&gt;analysis(rsplit)&lt;/code&gt; and &lt;code&gt;assessment(rsplit)&lt;/code&gt; respectively. For bootstrap samples, the analysis data set is the bootstrap sample itself, and the assessment data set consists of all the out-of-bag samples.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#00f&#34;&gt;set.seed&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;27&lt;/span&gt;)
 boots &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;bootstraps&lt;/span&gt;(mtcars, times &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;2000&lt;/span&gt;, apparent &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#008000;font-weight:bold&#34;&gt;TRUE&lt;/span&gt;)
@@ -1014,18 +864,8 @@ boot_coefs &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt;
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;  9 &amp;lt;split [32/9]&amp;gt; Bootstrap00… &amp;lt;nls&amp;gt; k        43.6       4.63      9.41 1.85e-10&lt;/span&gt;
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 10 &amp;lt;split [32/9]&amp;gt; Bootstrap00… &amp;lt;nls&amp;gt; b         5.89      1.68      3.51 1.44e- 3&lt;/span&gt;
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # … with 3,992 more rows&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-
-
-&lt;h2 id=&#34;confidence-intervals&#34;&gt;Confidence intervals
-  &lt;a href=&#34;#confidence-intervals&#34;&gt;
-    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
-      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
-      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
-    &lt;/svg&gt;
-  &lt;/a&gt;
-&lt;/h2&gt;&lt;p&gt;We can then calculate confidence intervals (using what is called the 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;confidence-intervals&#34;&gt;Confidence intervals&lt;/h2&gt;
+&lt;p&gt;We can then calculate confidence intervals (using what is called the 
 &lt;a href=&#34;https://www.uvm.edu/~dhowell/StatPages/Randomization%20Tests/ResamplingWithR/BootstMeans/bootstrapping_means.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;percentile method&lt;/a&gt;):&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;percentile_intervals &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;int_pctl&lt;/span&gt;(boot_models, coef_info)
 percentile_intervals
@@ -1043,18 +883,8 @@ percentile_intervals
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;figs/unnamed-chunk-6-1.svg&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;The rsample package also has functions for 
 &lt;a href=&#34;https://tidymodels.github.io/rsample/reference/int_pctl.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;other types of confidence intervals&lt;/a&gt;.&lt;/p&gt;
-
-
-
-
-&lt;h2 id=&#34;possible-model-fits&#34;&gt;Possible model fits
-  &lt;a href=&#34;#possible-model-fits&#34;&gt;
-    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
-      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
-      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
-    &lt;/svg&gt;
-  &lt;/a&gt;
-&lt;/h2&gt;&lt;p&gt;We can use &lt;code&gt;augment()&lt;/code&gt; to visualize the uncertainty in the fitted curve. Since there are so many bootstrap samples, we&amp;rsquo;ll only show a sample of the model fits in our visualization:&lt;/p&gt;
+&lt;h2 id=&#34;possible-model-fits&#34;&gt;Possible model fits&lt;/h2&gt;
+&lt;p&gt;We can use &lt;code&gt;augment()&lt;/code&gt; to visualize the uncertainty in the fitted curve. Since there are so many bootstrap samples, we&amp;rsquo;ll only show a sample of the model fits in our visualization:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;boot_aug &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; 
   boot_models &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
   &lt;span style=&#34;color:#00f&#34;&gt;sample_n&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;200&lt;/span&gt;) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
@@ -1100,18 +930,8 @@ splines_aug &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt;
   &lt;span style=&#34;color:#00f&#34;&gt;geom_line&lt;/span&gt;(&lt;span style=&#34;color:#00f&#34;&gt;aes&lt;/span&gt;(y &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; .fitted, group &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; id), alpha &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;0.2&lt;/span&gt;, col &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;blue&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
   &lt;span style=&#34;color:#00f&#34;&gt;geom_point&lt;/span&gt;()
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;figs/unnamed-chunk-9-1.svg&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-
-
-
-
-&lt;h2 id=&#34;session-information&#34;&gt;Session information
-  &lt;a href=&#34;#session-information&#34;&gt;
-    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
-      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
-      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
-    &lt;/svg&gt;
-  &lt;/a&gt;
-&lt;/h2&gt;&lt;pre&gt;&lt;code&gt;#&amp;gt; ─ Session info ───────────────────────────────────────────────────────────────
+&lt;h2 id=&#34;session-information&#34;&gt;Session information&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;#&amp;gt; ─ Session info ───────────────────────────────────────────────────────────────
 #&amp;gt;  setting  value                       
 #&amp;gt;  version  R version 3.6.2 (2019-12-12)
 #&amp;gt;  os       macOS Mojave 10.14.6        
@@ -1151,18 +971,8 @@ splines_aug &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt;
       <link>https://nutriverse.io/start/resampling/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://nutriverse.io/start/resampling/</guid>
-      <description>
-
-
-
-&lt;h2 id=&#34;intro&#34;&gt;Introduction
-  &lt;a href=&#34;#intro&#34;&gt;
-    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
-      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
-      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
-    &lt;/svg&gt;
-  &lt;/a&gt;
-&lt;/h2&gt;&lt;p&gt;So far, we have 
+      <description>&lt;h2 id=&#34;intro&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;So far, we have 
 &lt;a href=&#34;https://nutriverse.io/start/models/&#34;&gt;built a model&lt;/a&gt; and 
 &lt;a href=&#34;https://nutriverse.io/start/recipes/&#34;&gt;preprocessed data with a recipe&lt;/a&gt;. We also introduced 
 &lt;a href=&#34;https://nutriverse.io/start/recipes/#fit-workflow&#34;&gt;workflows&lt;/a&gt; as a way to bundle a 
@@ -1173,18 +983,8 @@ splines_aug &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt;
 
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# Helper packages&lt;/span&gt;
 &lt;span style=&#34;color:#00f&#34;&gt;library&lt;/span&gt;(modeldata)  &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;# for the cells data&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-
-
-&lt;h2 id=&#34;data&#34;&gt;The cell image data
-  &lt;a href=&#34;#data&#34;&gt;
-    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
-      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
-      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
-    &lt;/svg&gt;
-  &lt;/a&gt;
-&lt;/h2&gt;&lt;p&gt;Let&amp;rsquo;s use data from 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;data&#34;&gt;The cell image data&lt;/h2&gt;
+&lt;p&gt;Let&amp;rsquo;s use data from 
 &lt;a href=&#34;http://www.biomedcentral.com/1471-2105/8/340&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Hill, LaPan, Li, and Haney (2007)&lt;/a&gt;, available in the 
 &lt;a href=&#34;https://cran.r-project.org/web/packages/modeldata/index.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;modeldata package&lt;/a&gt;, to predict cell image segmentation quality with resampling. To start, we load this data into R:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#00f&#34;&gt;data&lt;/span&gt;(cells, package &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;modeldata&amp;#34;&lt;/span&gt;)
@@ -1201,35 +1001,15 @@ cells
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; #   convex_hull_area_ratio_ch_1 &amp;lt;dbl&amp;gt;, convex_hull_perim_ratio_ch_1 &amp;lt;dbl&amp;gt;,&lt;/span&gt;
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; #   diff_inten_density_ch_1 &amp;lt;dbl&amp;gt;, diff_inten_density_ch_3 &amp;lt;dbl&amp;gt;, …&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We have data for 2019 cells, with 58 variables. The main outcome variable of interest for us here is called &lt;code&gt;class&lt;/code&gt;, which you can see is a factor. But before we jump into predicting the &lt;code&gt;class&lt;/code&gt; variable, we need to understand it better. Below is a brief primer on cell image segmentation.&lt;/p&gt;
-
-
-
-
-&lt;h3 id=&#34;predicting-image-segmentation-quality&#34;&gt;Predicting image segmentation quality
-  &lt;a href=&#34;#predicting-image-segmentation-quality&#34;&gt;
-    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
-      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
-      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
-    &lt;/svg&gt;
-  &lt;/a&gt;
-&lt;/h3&gt;&lt;p&gt;Some biologists conduct experiments on cells. In drug discovery, a particular type of cell can be treated with either a drug or control and then observed to see what the effect is (if any). A common approach for this kind of measurement is cell imaging. Different parts of the cells can be colored so that the locations of a cell can be determined.&lt;/p&gt;
+&lt;h3 id=&#34;predicting-image-segmentation-quality&#34;&gt;Predicting image segmentation quality&lt;/h3&gt;
+&lt;p&gt;Some biologists conduct experiments on cells. In drug discovery, a particular type of cell can be treated with either a drug or control and then observed to see what the effect is (if any). A common approach for this kind of measurement is cell imaging. Different parts of the cells can be colored so that the locations of a cell can be determined.&lt;/p&gt;
 &lt;p&gt;For example, in top panel of this image of five cells, the green color is meant to define the boundary of the cell (coloring something called the cytoskeleton) while the blue color defines the nucleus of the cell.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;img/cells.png&#34; width=&#34;70%&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Using these colors, the cells in an image can be &lt;em&gt;segmented&lt;/em&gt; so that we know which pixels belong to which cell. If this is done well, the cell can be measured in different ways that are important to the biology. Sometimes the shape of the cell matters and different mathematical tools are used to summarize characteristics like the size or &amp;ldquo;oblongness&amp;rdquo; of the cell.&lt;/p&gt;
 &lt;p&gt;The bottom panel shows some segmentation results. Cells 1 and 5 are fairly well segmented. However, cells 2 to 4 are bunched up together because the segmentation was not very good. The consequence of bad segmentation is data contamination; when the biologist analyzes the shape or size of these cells, the data are inaccurate and could lead to the wrong conclusion.&lt;/p&gt;
 &lt;p&gt;A cell-based experiment might involve millions of cells so it is unfeasible to visually assess them all. Instead, a subsample can be created and these cells can be manually labeled by experts as either poorly segmented (&lt;code&gt;PS&lt;/code&gt;) or well-segmented (&lt;code&gt;WS&lt;/code&gt;). If we can predict these labels accurately, the larger data set can be improved by filtering out the cells most likely to be poorly segmented.&lt;/p&gt;
-
-
-
-
-&lt;h3 id=&#34;back-to-the-cells-data&#34;&gt;Back to the cells data
-  &lt;a href=&#34;#back-to-the-cells-data&#34;&gt;
-    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
-      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
-      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
-    &lt;/svg&gt;
-  &lt;/a&gt;
-&lt;/h3&gt;&lt;p&gt;The &lt;code&gt;cells&lt;/code&gt; data has &lt;code&gt;class&lt;/code&gt; labels for 2019 cells — each cell is labeled as either poorly segmented (&lt;code&gt;PS&lt;/code&gt;) or well-segmented (&lt;code&gt;WS&lt;/code&gt;). Each also has a total of 56 predictors based on automated image analysis measurements. For example, &lt;code&gt;avg_inten_ch_1&lt;/code&gt; is the mean intensity of the data contained in the nucleus, &lt;code&gt;area_ch_1&lt;/code&gt; is the total size of the cell, and so on (some predictors are fairly arcane in nature).&lt;/p&gt;
+&lt;h3 id=&#34;back-to-the-cells-data&#34;&gt;Back to the cells data&lt;/h3&gt;
+&lt;p&gt;The &lt;code&gt;cells&lt;/code&gt; data has &lt;code&gt;class&lt;/code&gt; labels for 2019 cells — each cell is labeled as either poorly segmented (&lt;code&gt;PS&lt;/code&gt;) or well-segmented (&lt;code&gt;WS&lt;/code&gt;). Each also has a total of 56 predictors based on automated image analysis measurements. For example, &lt;code&gt;avg_inten_ch_1&lt;/code&gt; is the mean intensity of the data contained in the nucleus, &lt;code&gt;area_ch_1&lt;/code&gt; is the total size of the cell, and so on (some predictors are fairly arcane in nature).&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;cells
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; # A tibble: 2,019 x 58&lt;/span&gt;
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   case  class angle_ch_1 area_ch_1 avg_inten_ch_1 avg_inten_ch_2 avg_inten_ch_3&lt;/span&gt;
@@ -1251,18 +1031,8 @@ cells
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   &amp;lt;fct&amp;gt; &amp;lt;int&amp;gt; &amp;lt;dbl&amp;gt;&lt;/span&gt;
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 1 PS     1300 0.644&lt;/span&gt;
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 2 WS      719 0.356&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-
-
-&lt;h2 id=&#34;data-split&#34;&gt;Data splitting
-  &lt;a href=&#34;#data-split&#34;&gt;
-    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
-      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
-      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
-    &lt;/svg&gt;
-  &lt;/a&gt;
-&lt;/h2&gt;&lt;p&gt;In our previous 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;data-split&#34;&gt;Data splitting&lt;/h2&gt;
+&lt;p&gt;In our previous 
 &lt;a href=&#34;https://nutriverse.io/start/recipes/#data-split&#34;&gt;&lt;em&gt;Preprocess your data with recipes&lt;/em&gt;&lt;/a&gt; article, we started by splitting our data. It is common when beginning a modeling project to 
 &lt;a href=&#34;https://bookdown.org/max/FES/data-splitting.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;separate the data set&lt;/a&gt; into two partitions:&lt;/p&gt;
 &lt;ul&gt;
@@ -1310,18 +1080,8 @@ cell_test &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 1 PS      325 0.645&lt;/span&gt;
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 2 WS      179 0.355&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The majority of the modeling work is then conducted on the training set data.&lt;/p&gt;
-
-
-
-
-&lt;h2 id=&#34;modeling&#34;&gt;Modeling
-  &lt;a href=&#34;#modeling&#34;&gt;
-    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
-      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
-      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
-    &lt;/svg&gt;
-  &lt;/a&gt;
-&lt;/h2&gt;&lt;p&gt;
+&lt;h2 id=&#34;modeling&#34;&gt;Modeling&lt;/h2&gt;
+&lt;p&gt;
 &lt;a href=&#34;https://en.wikipedia.org/wiki/Random_forest&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Random forest models&lt;/a&gt; are 
 &lt;a href=&#34;https://en.wikipedia.org/wiki/Ensemble_learning&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;ensembles&lt;/a&gt; of 
 &lt;a href=&#34;https://en.wikipedia.org/wiki/Decision_tree&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;decision trees&lt;/a&gt;. A large number of decision tree models are created for the ensemble based on slightly different versions of the training set. When creating the individual decision trees, the fitting process encourages them to be as diverse as possible. The collection of trees are combined into the random forest model and, when a new sample is predicted, the votes from each tree are used to calculate the final predicted value for the new sample. For categorical outcome variables like &lt;code&gt;class&lt;/code&gt; in our &lt;code&gt;cells&lt;/code&gt; data example, the majority vote across all the trees in the random forest determines the predicted class for the new sample.&lt;/p&gt;
@@ -1358,18 +1118,8 @@ rf_fit
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; Splitrule:                        gini &lt;/span&gt;
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; OOB prediction error (Brier s.):  0.1218873&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This new &lt;code&gt;rf_fit&lt;/code&gt; object is our fitted model, trained on our training data set.&lt;/p&gt;
-
-
-
-
-&lt;h2 id=&#34;performance&#34;&gt;Estimating performance
-  &lt;a href=&#34;#performance&#34;&gt;
-    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
-      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
-      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
-    &lt;/svg&gt;
-  &lt;/a&gt;
-&lt;/h2&gt;&lt;p&gt;During a modeling project, we might create a variety of different models. To choose between them, we need to consider how well these models do, as measured by some performance statistics. In our example in this article, some options we could use are:&lt;/p&gt;
+&lt;h2 id=&#34;performance&#34;&gt;Estimating performance&lt;/h2&gt;
+&lt;p&gt;During a modeling project, we might create a variety of different models. To choose between them, we need to consider how well these models do, as measured by some performance statistics. In our example in this article, some options we could use are:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;the area under the Receiver Operating Characteristic (ROC) curve, and&lt;/p&gt;
@@ -1418,18 +1168,8 @@ rf_testing_pred &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;  
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   .metric  .estimator .estimate&lt;/span&gt;
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   &amp;lt;chr&amp;gt;    &amp;lt;chr&amp;gt;          &amp;lt;dbl&amp;gt;&lt;/span&gt;
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 1 accuracy binary         0.837&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-
-
-&lt;h3 id=&#34;what-happened-here&#34;&gt;What happened here?
-  &lt;a href=&#34;#what-happened-here&#34;&gt;
-    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
-      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
-      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
-    &lt;/svg&gt;
-  &lt;/a&gt;
-&lt;/h3&gt;&lt;p&gt;There are several reasons why training set statistics like the ones shown in this section can be unrealistically optimistic:&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;what-happened-here&#34;&gt;What happened here?&lt;/h3&gt;
+&lt;p&gt;There are several reasons why training set statistics like the ones shown in this section can be unrealistically optimistic:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;Models like random forests, neural networks, and other black-box methods can essentially memorize the training set. Re-predicting that same set should always result in nearly perfect results.&lt;/p&gt;
@@ -1439,18 +1179,8 @@ rf_testing_pred &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;  
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;To understand that second point better, think about an analogy from teaching. Suppose you give a class a test, then give them the answers, then provide the same test. The student scores on the &lt;em&gt;second&lt;/em&gt; test do not accurately reflect what they know about the subject; these scores would probably be higher than their results on the first test.&lt;/p&gt;
-
-
-
-
-&lt;h2 id=&#34;resampling&#34;&gt;Resampling to the rescue
-  &lt;a href=&#34;#resampling&#34;&gt;
-    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
-      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
-      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
-    &lt;/svg&gt;
-  &lt;/a&gt;
-&lt;/h2&gt;&lt;p&gt;Resampling methods, such as cross-validation and the bootstrap, are empirical simulation systems. They create a series of data sets similar to the training/testing split discussed previously; a subset of the data are used for creating the model and a different subset is used to measure performance. Resampling is always used with the &lt;em&gt;training set&lt;/em&gt;. This schematic from 
+&lt;h2 id=&#34;resampling&#34;&gt;Resampling to the rescue&lt;/h2&gt;
+&lt;p&gt;Resampling methods, such as cross-validation and the bootstrap, are empirical simulation systems. They create a series of data sets similar to the training/testing split discussed previously; a subset of the data are used for creating the model and a different subset is used to measure performance. Resampling is always used with the &lt;em&gt;training set&lt;/em&gt;. This schematic from 
 &lt;a href=&#34;https://bookdown.org/max/FES/resampling.html&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Kuhn and Johnson (2019)&lt;/a&gt; illustrates data usage for resampling methods:&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;img/resampling.svg&#34; width=&#34;85%&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;In the first level of this diagram, you see what happens when you use &lt;code&gt;rsample::initial_split()&lt;/code&gt;, which splits the original data into training and test sets. Then, the training set is chosen for resampling, and the test set is held out.&lt;/p&gt;
@@ -1532,18 +1262,8 @@ rf_testing_pred &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;  
 &lt;/table&gt;
 &lt;p&gt;From these resampling statistics, the final estimate of performance for this random forest model would be 0.903 for the area under the ROC curve and 0.833 for accuracy.&lt;/p&gt;
 &lt;p&gt;These resampling statistics are an effective method for measuring model performance &lt;em&gt;without&lt;/em&gt; predicting the training set directly as a whole.&lt;/p&gt;
-
-
-
-
-&lt;h2 id=&#34;fit-resamples&#34;&gt;Fit a model with resampling
-  &lt;a href=&#34;#fit-resamples&#34;&gt;
-    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
-      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
-      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
-    &lt;/svg&gt;
-  &lt;/a&gt;
-&lt;/h2&gt;&lt;p&gt;To generate these results, the first step is to create a resampling object using rsample. There are 
+&lt;h2 id=&#34;fit-resamples&#34;&gt;Fit a model with resampling&lt;/h2&gt;
+&lt;p&gt;To generate these results, the first step is to create a resampling object using rsample. There are 
 &lt;a href=&#34;https://tidymodels.github.io/rsample/reference/index.html#section-resampling-methods&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;several resampling methods&lt;/a&gt; implemented in rsample; cross-validation folds can be created using &lt;code&gt;vfold_cv()&lt;/code&gt;:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#00f&#34;&gt;set.seed&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;345&lt;/span&gt;)
 folds &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;vfold_cv&lt;/span&gt;(cell_train, v &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;10&lt;/span&gt;)
@@ -1620,18 +1340,8 @@ rf_testing_pred &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;  
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt;   &amp;lt;chr&amp;gt;    &amp;lt;chr&amp;gt;          &amp;lt;dbl&amp;gt;&lt;/span&gt;
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; 1 accuracy binary         0.837&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The performance metrics from the test set are much closer to the performance metrics computed using resampling than our first (&amp;ldquo;bad idea&amp;rdquo;) attempt. Resampling allows us to simulate how well our model will perform on new data, and the test set acts as the final, unbiased check for our model&amp;rsquo;s performance.&lt;/p&gt;
-
-
-
-
-&lt;h2 id=&#34;session-information&#34;&gt;Session information
-  &lt;a href=&#34;#session-information&#34;&gt;
-    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
-      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
-      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
-    &lt;/svg&gt;
-  &lt;/a&gt;
-&lt;/h2&gt;&lt;pre&gt;&lt;code&gt;#&amp;gt; ─ Session info ───────────────────────────────────────────────────────────────
+&lt;h2 id=&#34;session-information&#34;&gt;Session information&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;#&amp;gt; ─ Session info ───────────────────────────────────────────────────────────────
 #&amp;gt;  setting  value                       
 #&amp;gt;  version  R version 3.6.2 (2019-12-12)
 #&amp;gt;  os       macOS Mojave 10.14.6        
@@ -1672,18 +1382,8 @@ rf_testing_pred &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;  
       <link>https://nutriverse.io/learn/models/pls/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://nutriverse.io/learn/models/pls/</guid>
-      <description>
-
-
-
-&lt;h2 id=&#34;introduction&#34;&gt;Introduction
-  &lt;a href=&#34;#introduction&#34;&gt;
-    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
-      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
-      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
-    &lt;/svg&gt;
-  &lt;/a&gt;
-&lt;/h2&gt;&lt;p&gt;To use the code in this article, you will need to install the following packages: modeldata, pls, tidymodels, and tidyr.&lt;/p&gt;
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;To use the code in this article, you will need to install the following packages: modeldata, pls, tidymodels, and tidyr.&lt;/p&gt;
 &lt;p&gt;&amp;ldquo;Multivariate analysis&amp;rdquo; usually refers to multiple &lt;em&gt;outcomes&lt;/em&gt; being modeled, analyzed, and/or predicted. There are multivariate versions of many common statistical tools. For example, suppose there was a data set with columns &lt;code&gt;y1&lt;/code&gt; and &lt;code&gt;y2&lt;/code&gt; representing two outcomes to be predicted. The &lt;code&gt;lm()&lt;/code&gt; function would look something like:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#00f&#34;&gt;lm&lt;/span&gt;(&lt;span style=&#34;color:#00f&#34;&gt;cbind&lt;/span&gt;(y1, y2) &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt; ., data &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; dat)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This &lt;code&gt;cbind()&lt;/code&gt; call is pretty awkward and is a consequence of how the traditional formula infrastructure works. The recipes package is a lot easier to work with! This article demonstrates how to model multiple outcomes.&lt;/p&gt;
@@ -1699,18 +1399,8 @@ rf_testing_pred &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;  
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#00f&#34;&gt;library&lt;/span&gt;(modeldata)
 &lt;span style=&#34;color:#00f&#34;&gt;data&lt;/span&gt;(meats)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The three &lt;em&gt;outcomes&lt;/em&gt; have fairly high correlations also.&lt;/p&gt;
-
-
-
-
-&lt;h2 id=&#34;preprocessing-the-data&#34;&gt;Preprocessing the data
-  &lt;a href=&#34;#preprocessing-the-data&#34;&gt;
-    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
-      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
-      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
-    &lt;/svg&gt;
-  &lt;/a&gt;
-&lt;/h2&gt;&lt;p&gt;If the outcomes can be predicted using a linear model, partial least squares (PLS) is an ideal method. PLS models the data as a function of a set of unobserved &lt;em&gt;latent&lt;/em&gt; variables that are derived in a manner similar to principal component analysis (PCA).&lt;/p&gt;
+&lt;h2 id=&#34;preprocessing-the-data&#34;&gt;Preprocessing the data&lt;/h2&gt;
+&lt;p&gt;If the outcomes can be predicted using a linear model, partial least squares (PLS) is an ideal method. PLS models the data as a function of a set of unobserved &lt;em&gt;latent&lt;/em&gt; variables that are derived in a manner similar to principal component analysis (PCA).&lt;/p&gt;
 &lt;p&gt;PLS, unlike PCA, also incorporates the outcome data when creating the PLS components. Like PCA, it tries to maximize the variance of the predictors that are explained by the components but it also tries to simultaneously maximize the correlation between those components and the outcomes. In this way, PLS &lt;em&gt;chases&lt;/em&gt; variation of the predictors and outcomes.&lt;/p&gt;
 &lt;p&gt;Since we are working with variances and covariances, we need to standardize the data. The recipe will center and scale all of the variables.&lt;/p&gt;
 &lt;p&gt;Many base R functions that deal with multivariate outcomes using a formula require the use of &lt;code&gt;cbind()&lt;/code&gt; on the left-hand side of the formula to work with the traditional formula methods. In tidymodels, recipes do not; the outcomes can be symbolically &amp;ldquo;added&amp;rdquo; together on the left-hand side:&lt;/p&gt;
@@ -1728,18 +1418,8 @@ folds &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span sty
 folds &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; 
   folds &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
   &lt;span style=&#34;color:#00f&#34;&gt;mutate&lt;/span&gt;(recipes &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;map&lt;/span&gt;(splits, prepper, recipe &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; norm_rec))
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-
-
-&lt;h2 id=&#34;partial-least-squares&#34;&gt;Partial least squares
-  &lt;a href=&#34;#partial-least-squares&#34;&gt;
-    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
-      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
-      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
-    &lt;/svg&gt;
-  &lt;/a&gt;
-&lt;/h2&gt;&lt;p&gt;The complicated parts for moving forward are:&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;partial-least-squares&#34;&gt;Partial least squares&lt;/h2&gt;
+&lt;p&gt;The complicated parts for moving forward are:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;Formatting the predictors and outcomes into the format that the pls package requires, and&lt;/li&gt;
 &lt;li&gt;Estimating the proportions.&lt;/li&gt;
@@ -1805,18 +1485,8 @@ get_var_explained &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; 
   &lt;span style=&#34;color:#00f&#34;&gt;geom_line&lt;/span&gt;() &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt; 
   &lt;span style=&#34;color:#00f&#34;&gt;geom_point&lt;/span&gt;() 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;figs/plot-1.svg&#34; width=&#34;100%&#34; /&gt;&lt;/p&gt;
-
-
-
-
-&lt;h2 id=&#34;session-information&#34;&gt;Session information
-  &lt;a href=&#34;#session-information&#34;&gt;
-    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
-      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
-      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
-    &lt;/svg&gt;
-  &lt;/a&gt;
-&lt;/h2&gt;&lt;pre&gt;&lt;code&gt;#&amp;gt; ─ Session info ───────────────────────────────────────────────────────────────
+&lt;h2 id=&#34;session-information&#34;&gt;Session information&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;#&amp;gt; ─ Session info ───────────────────────────────────────────────────────────────
 #&amp;gt;  setting  value                       
 #&amp;gt;  version  R version 3.6.2 (2019-12-12)
 #&amp;gt;  os       macOS Mojave 10.14.6        

@@ -11,32 +11,12 @@
       <link>https://nutriverse.io/learn/work/nested-resampling/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://nutriverse.io/learn/work/nested-resampling/</guid>
-      <description>
-
-
-
-&lt;h2 id=&#34;introduction&#34;&gt;Introduction
-  &lt;a href=&#34;#introduction&#34;&gt;
-    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
-      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
-      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
-    &lt;/svg&gt;
-  &lt;/a&gt;
-&lt;/h2&gt;&lt;p&gt;To use the code in this article, you will need to install the following packages: furrr, kernlab, mlbench, scales, and tidymodels.&lt;/p&gt;
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;To use the code in this article, you will need to install the following packages: furrr, kernlab, mlbench, scales, and tidymodels.&lt;/p&gt;
 &lt;p&gt;In this article, we discuss an alternative method for evaluating and tuning models, called 
 &lt;a href=&#34;https://scholar.google.com/scholar?hl=en&amp;amp;as_sdt=0%2C7&amp;amp;q=%22nested&amp;#43;resampling%22&amp;#43;inner&amp;#43;outer&amp;amp;btnG=&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;nested resampling&lt;/a&gt;. While it is more computationally taxing and challenging to implement than other resampling methods, it has the potential to produce better estimates of model performance.&lt;/p&gt;
-
-
-
-
-&lt;h2 id=&#34;resampling-models&#34;&gt;Resampling models
-  &lt;a href=&#34;#resampling-models&#34;&gt;
-    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
-      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
-      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
-    &lt;/svg&gt;
-  &lt;/a&gt;
-&lt;/h2&gt;&lt;p&gt;A typical scheme for splitting the data when developing a predictive model is to create an initial split of the data into a training and test set. If resampling is used, it is executed on the training set. A series of binary splits is created. In rsample, we use the term &lt;em&gt;analysis set&lt;/em&gt; for the data that are used to fit the model and the term &lt;em&gt;assessment set&lt;/em&gt; for the set used to compute performance:&lt;/p&gt;
+&lt;h2 id=&#34;resampling-models&#34;&gt;Resampling models&lt;/h2&gt;
+&lt;p&gt;A typical scheme for splitting the data when developing a predictive model is to create an initial split of the data into a training and test set. If resampling is used, it is executed on the training set. A series of binary splits is created. In rsample, we use the term &lt;em&gt;analysis set&lt;/em&gt; for the data that are used to fit the model and the term &lt;em&gt;assessment set&lt;/em&gt; for the set used to compute performance:&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;figs/resampling.svg&#34; width=&#34;70%&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;A common method for tuning models is 
 &lt;a href=&#34;https://nutriverse.io/learn/work/tune-svm/&#34;&gt;grid search&lt;/a&gt; where a candidate set of tuning parameters is created. The full set of models for every combination of the tuning parameter grid and the resamples is fitted. Each time, the assessment data are used to measure performance and the average value is determined for each tuning parameter.&lt;/p&gt;
@@ -57,18 +37,8 @@ sim_data &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span 
 &lt;span style=&#34;color:#00f&#34;&gt;set.seed&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;9815&lt;/span&gt;)
 train_dat &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;sim_data&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;100&lt;/span&gt;)
 large_dat &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;sim_data&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;10&lt;/span&gt;^5)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-
-
-&lt;h2 id=&#34;nested-resampling&#34;&gt;Nested resampling
-  &lt;a href=&#34;#nested-resampling&#34;&gt;
-    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
-      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
-      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
-    &lt;/svg&gt;
-  &lt;/a&gt;
-&lt;/h2&gt;&lt;p&gt;To get started, the types of resampling methods need to be specified. This isn&amp;rsquo;t a large data set, so 5 repeats of 10-fold cross validation will be used as the &lt;em&gt;outer&lt;/em&gt; resampling method for generating the estimate of overall performance. To tune the model, it would be good to have precise estimates for each of the values of the tuning parameter so let&amp;rsquo;s use 25 iterations of the bootstrap. This means that there will eventually be &lt;code&gt;5 * 10 * 25 = 1250&lt;/code&gt; models that are fit to the data &lt;em&gt;per tuning parameter&lt;/em&gt;. These models will be discarded once the performance of the model has been quantified.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;nested-resampling&#34;&gt;Nested resampling&lt;/h2&gt;
+&lt;p&gt;To get started, the types of resampling methods need to be specified. This isn&amp;rsquo;t a large data set, so 5 repeats of 10-fold cross validation will be used as the &lt;em&gt;outer&lt;/em&gt; resampling method for generating the estimate of overall performance. To tune the model, it would be good to have precise estimates for each of the values of the tuning parameter so let&amp;rsquo;s use 25 iterations of the bootstrap. This means that there will eventually be &lt;code&gt;5 * 10 * 25 = 1250&lt;/code&gt; models that are fit to the data &lt;em&gt;per tuning parameter&lt;/em&gt;. These models will be discarded once the performance of the model has been quantified.&lt;/p&gt;
 &lt;p&gt;To create the tibble with the resampling specifications:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#00f&#34;&gt;library&lt;/span&gt;(tidymodels)
 results &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;nested_cv&lt;/span&gt;(train_dat, 
@@ -252,18 +222,8 @@ large_pred &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;spa
 &lt;span style=&#34;color:#00f&#34;&gt;sqrt&lt;/span&gt;(&lt;span style=&#34;color:#00f&#34;&gt;mean&lt;/span&gt;((large_dat&lt;span style=&#34;color:#666&#34;&gt;$&lt;/span&gt;y &lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt; large_pred) ^ &lt;span style=&#34;color:#666&#34;&gt;2&lt;/span&gt;, na.rm &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#008000;font-weight:bold&#34;&gt;TRUE&lt;/span&gt;))
 &lt;span style=&#34;color:#408080;font-style:italic&#34;&gt;#&amp;gt; [1] 2.71&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The nested procedure produces a closer estimate to the approximate truth but the non-nested estimate is very similar.&lt;/p&gt;
-
-
-
-
-&lt;h2 id=&#34;session-information&#34;&gt;Session information
-  &lt;a href=&#34;#session-information&#34;&gt;
-    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
-      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
-      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
-    &lt;/svg&gt;
-  &lt;/a&gt;
-&lt;/h2&gt;&lt;pre&gt;&lt;code&gt;#&amp;gt; ─ Session info ───────────────────────────────────────────────────────────────
+&lt;h2 id=&#34;session-information&#34;&gt;Session information&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;#&amp;gt; ─ Session info ───────────────────────────────────────────────────────────────
 #&amp;gt;  setting  value                       
 #&amp;gt;  version  R version 3.6.2 (2019-12-12)
 #&amp;gt;  os       macOS Mojave 10.14.6        
@@ -306,18 +266,8 @@ large_pred &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;spa
       <link>https://nutriverse.io/learn/work/bayes-opt/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://nutriverse.io/learn/work/bayes-opt/</guid>
-      <description>
-
-
-
-&lt;h2 id=&#34;introduction&#34;&gt;Introduction
-  &lt;a href=&#34;#introduction&#34;&gt;
-    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
-      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
-      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
-    &lt;/svg&gt;
-  &lt;/a&gt;
-&lt;/h2&gt;&lt;p&gt;To use the code in this article, you will need to install the following packages: kernlab, modeldata, tidymodels, and tidyr.&lt;/p&gt;
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;To use the code in this article, you will need to install the following packages: kernlab, modeldata, tidymodels, and tidyr.&lt;/p&gt;
 &lt;p&gt;Many of the examples for model tuning focus on 
 &lt;a href=&#34;https://nutriverse.io/learn/work/tune-svm/&#34;&gt;grid search&lt;/a&gt;. For that method, all the candidate tuning parameter combinations are defined prior to evaluation. Alternatively, &lt;em&gt;iterative search&lt;/em&gt; can be used to analyze the existing tuning parameter results and then &lt;em&gt;predict&lt;/em&gt; which tuning parameters to try next.&lt;/p&gt;
 &lt;p&gt;There are a variety of methods for iterative search and the focus in this article is on &lt;em&gt;Bayesian optimization&lt;/em&gt;. For more information on this method, these resources might be helpful:&lt;/p&gt;
@@ -339,18 +289,8 @@ large_pred &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;spa
 &lt;a href=&#34;https://scholar.google.com/scholar?hl=en&amp;amp;as_sdt=0%2C7&amp;amp;q=%22Bayesian&amp;#43;Optimization%22&amp;amp;btnG=&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Other articles!&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-
-
-
-
-&lt;h2 id=&#34;cell-segmenting-revisited&#34;&gt;Cell segmenting revisited
-  &lt;a href=&#34;#cell-segmenting-revisited&#34;&gt;
-    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
-      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
-      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
-    &lt;/svg&gt;
-  &lt;/a&gt;
-&lt;/h2&gt;&lt;p&gt;To demonstrate this approach to tuning models, let&amp;rsquo;s return to the cell segmentation data from the 
+&lt;h2 id=&#34;cell-segmenting-revisited&#34;&gt;Cell segmenting revisited&lt;/h2&gt;
+&lt;p&gt;To demonstrate this approach to tuning models, let&amp;rsquo;s return to the cell segmentation data from the 
 &lt;a href=&#34;https://nutriverse.io/start/resampling/&#34;&gt;Getting Started&lt;/a&gt; article on resampling:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;&lt;span style=&#34;color:#00f&#34;&gt;library&lt;/span&gt;(tidymodels)
 &lt;span style=&#34;color:#00f&#34;&gt;library&lt;/span&gt;(modeldata)
@@ -365,18 +305,8 @@ cell_test  &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;spa
 
 &lt;span style=&#34;color:#00f&#34;&gt;set.seed&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;1697&lt;/span&gt;)
 folds &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;vfold_cv&lt;/span&gt;(cell_train, v &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;10&lt;/span&gt;)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-
-
-&lt;h2 id=&#34;the-tuning-scheme&#34;&gt;The tuning scheme
-  &lt;a href=&#34;#the-tuning-scheme&#34;&gt;
-    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
-      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
-      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
-    &lt;/svg&gt;
-  &lt;/a&gt;
-&lt;/h2&gt;&lt;p&gt;Since the predictors are highly correlated, we can used a recipe to convert the original predictors to principal component scores. There is also slight class imbalance in these data; about 64% of the data are poorly segmented. To mitigate this, the data will be down-sampled at the end of the pre-processing so that the number of poorly and well segmented cells occur with equal frequency. We can use a recipe for all this pre-processing, but the number of principal components will need to be &lt;em&gt;tuned&lt;/em&gt; so that we have enough (but not too many) representations of the data.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;the-tuning-scheme&#34;&gt;The tuning scheme&lt;/h2&gt;
+&lt;p&gt;Since the predictors are highly correlated, we can used a recipe to convert the original predictors to principal component scores. There is also slight class imbalance in these data; about 64% of the data are poorly segmented. To mitigate this, the data will be down-sampled at the end of the pre-processing so that the number of poorly and well segmented cells occur with equal frequency. We can use a recipe for all this pre-processing, but the number of principal components will need to be &lt;em&gt;tuned&lt;/em&gt; so that we have enough (but not too many) representations of the data.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;cell_pre_proc &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt;
   &lt;span style=&#34;color:#00f&#34;&gt;recipe&lt;/span&gt;(class &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt; ., data &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; cell_train) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
   &lt;span style=&#34;color:#00f&#34;&gt;step_YeoJohnson&lt;/span&gt;(&lt;span style=&#34;color:#00f&#34;&gt;all_predictors&lt;/span&gt;()) &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt;
@@ -406,18 +336,8 @@ svm_set
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-r&#34; data-lang=&#34;r&#34;&gt;svm_set &lt;span style=&#34;color:#666&#34;&gt;&amp;lt;-&lt;/span&gt; 
   svm_set &lt;span style=&#34;color:#666&#34;&gt;%&amp;gt;%&lt;/span&gt; 
   &lt;span style=&#34;color:#00f&#34;&gt;update&lt;/span&gt;(num_comp &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#00f&#34;&gt;num_comp&lt;/span&gt;(&lt;span style=&#34;color:#00f&#34;&gt;c&lt;/span&gt;(&lt;span style=&#34;color:#666&#34;&gt;0L&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;20L&lt;/span&gt;)))
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-
-
-&lt;h2 id=&#34;sequential-tuning&#34;&gt;Sequential tuning
-  &lt;a href=&#34;#sequential-tuning&#34;&gt;
-    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
-      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
-      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
-    &lt;/svg&gt;
-  &lt;/a&gt;
-&lt;/h2&gt;&lt;p&gt;Bayesian optimization is a sequential method that uses a model to predict new candidate parameters for assessment. When scoring potential parameter value, the mean and variance of performance are predicted. The strategy used to define how these two statistical quantities are used is defined by an &lt;em&gt;acquisition function&lt;/em&gt;.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;sequential-tuning&#34;&gt;Sequential tuning&lt;/h2&gt;
+&lt;p&gt;Bayesian optimization is a sequential method that uses a model to predict new candidate parameters for assessment. When scoring potential parameter value, the mean and variance of performance are predicted. The strategy used to define how these two statistical quantities are used is defined by an &lt;em&gt;acquisition function&lt;/em&gt;.&lt;/p&gt;
 &lt;p&gt;For example, one approach for scoring new candidates is to use a confidence bound. Suppose accuracy is being optimized. For a metric that we want to maximize, a lower confidence bound can be used. The multiplier on the standard error (denoted as &lt;code&gt;\(\kappa\)&lt;/code&gt;) is a value that can be used to make trade-offs between &lt;strong&gt;exploration&lt;/strong&gt; and &lt;strong&gt;exploitation&lt;/strong&gt;.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -1114,18 +1034,8 @@ estimates
   &lt;span style=&#34;color:#00f&#34;&gt;geom_point&lt;/span&gt;() &lt;span style=&#34;color:#666&#34;&gt;+&lt;/span&gt;
   &lt;span style=&#34;color:#00f&#34;&gt;facet_wrap&lt;/span&gt;( &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt; parameter, scales &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ba2121&#34;&gt;&amp;#34;free_y&amp;#34;&lt;/span&gt;)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img src=&#34;figs/bo-param-plot-1.svg&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-
-
-
-
-&lt;h2 id=&#34;session-information&#34;&gt;Session information
-  &lt;a href=&#34;#session-information&#34;&gt;
-    &lt;svg class=&#34;anchor-symbol&#34; aria-hidden=&#34;true&#34; height=&#34;26&#34; width=&#34;26&#34; viewBox=&#34;0 0 22 22&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;
-      &lt;path d=&#34;M0 0h24v24H0z&#34; fill=&#34;currentColor&#34;&gt;&lt;/path&gt;
-      &lt;path d=&#34;M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z&#34;&gt;&lt;/path&gt;
-    &lt;/svg&gt;
-  &lt;/a&gt;
-&lt;/h2&gt;&lt;pre&gt;&lt;code&gt;#&amp;gt; ─ Session info ───────────────────────────────────────────────────────────────
+&lt;h2 id=&#34;session-information&#34;&gt;Session information&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;#&amp;gt; ─ Session info ───────────────────────────────────────────────────────────────
 #&amp;gt;  setting  value                       
 #&amp;gt;  version  R version 3.6.2 (2019-12-12)
 #&amp;gt;  os       macOS Mojave 10.14.6        

@@ -457,7 +457,7 @@ div.warning {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.72.0" />
+<meta name="generator" content="Hugo 0.68.3" />
 <title>nutriverse</title>
 <meta property="og:title" content="Hypothesis testing using resampling and tidy data" />
 <meta property="og:description" content="Perform common hypothesis tests for statistical inference using flexible functions.
@@ -538,7 +538,7 @@ div.warning {
               <div>
                 
                     <a href="/" class="nav-logo">
-                      <img src="/images/nutriverse_banner_bi.png" width="127" height="40" alt="nutriverse">
+                      <img src="/images/nutriverse_banner_bi.png" width="200" height="" alt="nutriverse">
                     </a>
               </div>
               <div id="menu">
@@ -591,18 +591,8 @@ div.warning {
         </p>
 
       <div class="article-content">
-      
-
-
-
-<h2 id="introduction">Introduction
-  <a href="#introduction">
-    <svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0 0h24v24H0z" fill="currentColor"></path>
-      <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
-    </svg>
-  </a>
-</h2><p>This article only requires the tidymodels package.</p>
+      <h2 id="introduction">Introduction</h2>
+<p>This article only requires the tidymodels package.</p>
 <p>The tidymodels package 
 <a href="https://tidymodels.github.io/infer/" target="_blank" rel="noopener">infer</a> implements an expressive grammar to perform statistical inference that coheres with the <code>tidyverse</code> design framework. Rather than providing methods for specific statistical tests, this package consolidates the principles that are shared among common hypothesis tests into a set of 4 main verbs (functions), supplemented with many utilities to visualize and extract information from their outputs.</p>
 <p>Regardless of which hypothesis test we&rsquo;re using, we&rsquo;re still asking the same kind of question:</p>
@@ -646,18 +636,8 @@ dplyr<span style="color:#666">::</span><span style="color:#00f">glimpse</span>(g
 <span style="color:#408080;font-style:italic">#&gt; $ finrela &lt;fct&gt; below average, below average, far above average, far below av…</span>
 <span style="color:#408080;font-style:italic">#&gt; $ weight  &lt;dbl&gt; 0.875, 0.430, 1.554, 1.010, 0.859, 1.007, 0.988, 0.550, 3.496…</span>
 </code></pre></div><p>Each row is an individual survey response, containing some basic demographic information on the respondent as well as some additional variables. See <code>?gss</code> for more information on the variables included and their source. Note that this data (and our examples on it) are for demonstration purposes only, and will not necessarily provide accurate estimates unless weighted properly. For these examples, let&rsquo;s suppose that this data set is a representative sample of a population we want to learn about: American adults.</p>
-
-
-
-
-<h2 id="specify-variables">Specify variables
-  <a href="#specify-variables">
-    <svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0 0h24v24H0z" fill="currentColor"></path>
-      <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
-    </svg>
-  </a>
-</h2><p>The <code>specify()</code> function can be used to specify which of the variables in the data set you&rsquo;re interested in. If you&rsquo;re only interested in, say, the <code>age</code> of the respondents, you might write:</p>
+<h2 id="specify-variables">Specify variables</h2>
+<p>The <code>specify()</code> function can be used to specify which of the variables in the data set you&rsquo;re interested in. If you&rsquo;re only interested in, say, the <code>age</code> of the respondents, you might write:</p>
 <div class="highlight"><pre style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">gss <span style="color:#666">%&gt;%</span>
   <span style="color:#00f">specify</span>(response <span style="color:#666">=</span> age)
 <span style="color:#408080;font-style:italic">#&gt; Response: age (numeric)</span>
@@ -740,18 +720,8 @@ gss <span style="color:#666">%&gt;%</span>
 <span style="color:#408080;font-style:italic">#&gt;  9 no degree</span>
 <span style="color:#408080;font-style:italic">#&gt; 10 no degree</span>
 <span style="color:#408080;font-style:italic">#&gt; # … with 2,980 more rows</span>
-</code></pre></div>
-
-
-
-<h2 id="declare-the-hypothesis">Declare the hypothesis
-  <a href="#declare-the-hypothesis">
-    <svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0 0h24v24H0z" fill="currentColor"></path>
-      <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
-    </svg>
-  </a>
-</h2><p>The next step in the infer pipeline is often to declare a null hypothesis using <code>hypothesize()</code>. The first step is to supply one of &ldquo;independence&rdquo; or &ldquo;point&rdquo; to the <code>null</code> argument. If your null hypothesis assumes independence between two variables, then this is all you need to supply to <code>hypothesize()</code>:</p>
+</code></pre></div><h2 id="declare-the-hypothesis">Declare the hypothesis</h2>
+<p>The next step in the infer pipeline is often to declare a null hypothesis using <code>hypothesize()</code>. The first step is to supply one of &ldquo;independence&rdquo; or &ldquo;point&rdquo; to the <code>null</code> argument. If your null hypothesis assumes independence between two variables, then this is all you need to supply to <code>hypothesize()</code>:</p>
 <div class="highlight"><pre style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">gss <span style="color:#666">%&gt;%</span>
   <span style="color:#00f">specify</span>(college <span style="color:#666">~</span> partyid, success <span style="color:#666">=</span> <span style="color:#ba2121">&#34;degree&#34;</span>) <span style="color:#666">%&gt;%</span>
   <span style="color:#00f">hypothesize</span>(null <span style="color:#666">=</span> <span style="color:#ba2121">&#34;independence&#34;</span>)
@@ -793,18 +763,8 @@ gss <span style="color:#666">%&gt;%</span>
 <span style="color:#408080;font-style:italic">#&gt; 10    40</span>
 <span style="color:#408080;font-style:italic">#&gt; # … with 1,746 more rows</span>
 </code></pre></div><p>Again, from the front-end, the dataframe outputted from <code>hypothesize()</code> looks almost exactly the same as it did when it came out of <code>specify()</code>, but infer now &ldquo;knows&rdquo; your null hypothesis.</p>
-
-
-
-
-<h2 id="generate-the-distribution">Generate the distribution
-  <a href="#generate-the-distribution">
-    <svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0 0h24v24H0z" fill="currentColor"></path>
-      <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
-    </svg>
-  </a>
-</h2><p>Once we&rsquo;ve asserted our null hypothesis using <code>hypothesize()</code>, we can construct a null distribution based on this hypothesis. We can do this using one of several methods, supplied in the <code>type</code> argument:</p>
+<h2 id="generate-the-distribution">Generate the distribution</h2>
+<p>Once we&rsquo;ve asserted our null hypothesis using <code>hypothesize()</code>, we can construct a null distribution based on this hypothesis. We can do this using one of several methods, supplied in the <code>type</code> argument:</p>
 <ul>
 <li><code>bootstrap</code>: A bootstrap sample will be drawn for each replicate, where a sample of size equal to the input sample size is drawn (with replacement) from the input sample data.</li>
 <li><code>permute</code>: For each replicate, each input value will be randomly reassigned (without replacement) to a new output value in the sample.</li>
@@ -856,18 +816,8 @@ gss <span style="color:#666">%&gt;%</span>
 <span style="color:#408080;font-style:italic">#&gt;  9 dem        55         1</span>
 <span style="color:#408080;font-style:italic">#&gt; 10 rep        47         1</span>
 <span style="color:#408080;font-style:italic">#&gt; # … with 14,814,990 more rows</span>
-</code></pre></div>
-
-
-
-<h2 id="calculate-statistics">Calculate statistics
-  <a href="#calculate-statistics">
-    <svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0 0h24v24H0z" fill="currentColor"></path>
-      <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
-    </svg>
-  </a>
-</h2><p>Depending on whether you&rsquo;re carrying out computation-based inference or theory-based inference, you will either supply <code>calculate()</code> with the output of <code>generate()</code> or <code>hypothesize()</code>, respectively. The function, for one, takes in a <code>stat</code> argument, which is currently one of <code>&quot;mean&quot;</code>, <code>&quot;median&quot;</code>, <code>&quot;sum&quot;</code>, <code>&quot;sd&quot;</code>, <code>&quot;prop&quot;</code>, <code>&quot;count&quot;</code>, <code>&quot;diff in means&quot;</code>, <code>&quot;diff in medians&quot;</code>, <code>&quot;diff in props&quot;</code>, <code>&quot;Chisq&quot;</code>, <code>&quot;F&quot;</code>, <code>&quot;t&quot;</code>, <code>&quot;z&quot;</code>, <code>&quot;slope&quot;</code>, or <code>&quot;correlation&quot;</code>. For example, continuing our example above to calculate the null distribution of mean hours worked per week:</p>
+</code></pre></div><h2 id="calculate-statistics">Calculate statistics</h2>
+<p>Depending on whether you&rsquo;re carrying out computation-based inference or theory-based inference, you will either supply <code>calculate()</code> with the output of <code>generate()</code> or <code>hypothesize()</code>, respectively. The function, for one, takes in a <code>stat</code> argument, which is currently one of <code>&quot;mean&quot;</code>, <code>&quot;median&quot;</code>, <code>&quot;sum&quot;</code>, <code>&quot;sd&quot;</code>, <code>&quot;prop&quot;</code>, <code>&quot;count&quot;</code>, <code>&quot;diff in means&quot;</code>, <code>&quot;diff in medians&quot;</code>, <code>&quot;diff in props&quot;</code>, <code>&quot;Chisq&quot;</code>, <code>&quot;F&quot;</code>, <code>&quot;t&quot;</code>, <code>&quot;z&quot;</code>, <code>&quot;slope&quot;</code>, or <code>&quot;correlation&quot;</code>. For example, continuing our example above to calculate the null distribution of mean hours worked per week:</p>
 <div class="highlight"><pre style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">gss <span style="color:#666">%&gt;%</span>
   <span style="color:#00f">specify</span>(response <span style="color:#666">=</span> hours) <span style="color:#666">%&gt;%</span>
   <span style="color:#00f">hypothesize</span>(null <span style="color:#666">=</span> <span style="color:#ba2121">&#34;point&#34;</span>, mu <span style="color:#666">=</span> <span style="color:#666">40</span>) <span style="color:#666">%&gt;%</span>
@@ -907,18 +857,8 @@ gss <span style="color:#666">%&gt;%</span>
 <span style="color:#408080;font-style:italic">#&gt;  9         9  0.247 </span>
 <span style="color:#408080;font-style:italic">#&gt; 10        10 -0.214 </span>
 <span style="color:#408080;font-style:italic">#&gt; # … with 4,990 more rows</span>
-</code></pre></div>
-
-
-
-<h2 id="other-utilities">Other utilities
-  <a href="#other-utilities">
-    <svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0 0h24v24H0z" fill="currentColor"></path>
-      <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
-    </svg>
-  </a>
-</h2><p>The infer package also offers several utilities to extract meaning out of summary statistics and null distributions; the package provides functions to visualize where a statistic is relative to a distribution (with <code>visualize()</code>), calculate p-values (with <code>get_p_value()</code>), and calculate confidence intervals (with <code>get_confidence_interval()</code>).</p>
+</code></pre></div><h2 id="other-utilities">Other utilities</h2>
+<p>The infer package also offers several utilities to extract meaning out of summary statistics and null distributions; the package provides functions to visualize where a statistic is relative to a distribution (with <code>visualize()</code>), calculate p-values (with <code>get_p_value()</code>), and calculate confidence intervals (with <code>get_confidence_interval()</code>).</p>
 <p>To illustrate, we&rsquo;ll go back to the example of determining whether the mean number of hours worked per week is 40 hours.</p>
 <div class="highlight"><pre style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r"><span style="color:#408080;font-style:italic"># find the point estimate</span>
 point_estimate <span style="color:#666">&lt;-</span> gss <span style="color:#666">%&gt;%</span>
@@ -969,18 +909,8 @@ null_dist <span style="color:#666">%&gt;%</span>
 <span style="color:#408080;font-style:italic">#&gt;   &lt;dbl&gt; &lt;dbl&gt;</span>
 <span style="color:#408080;font-style:italic">#&gt; 1  40.1  41.4</span>
 </code></pre></div><p>As you can see, 40 hours per week is not contained in this interval, which aligns with our previous conclusion that this finding is significant at the confidence level <code>\(\alpha = .05\)</code>.</p>
-
-
-
-
-<h2 id="theoretical-methods">Theoretical methods
-  <a href="#theoretical-methods">
-    <svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0 0h24v24H0z" fill="currentColor"></path>
-      <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
-    </svg>
-  </a>
-</h2><p>The infer package also provides functionality to use theoretical methods for <code>&quot;Chisq&quot;</code>, <code>&quot;F&quot;</code> and <code>&quot;t&quot;</code> test statistics.</p>
+<h2 id="theoretical-methods">Theoretical methods</h2>
+<p>The infer package also provides functionality to use theoretical methods for <code>&quot;Chisq&quot;</code>, <code>&quot;F&quot;</code> and <code>&quot;t&quot;</code> test statistics.</p>
 <p>Generally, to find a null distribution using theory-based methods, use the same code that you would use to find the null distribution using randomization-based methods, but skip the <code>generate()</code> step. For example, if we wanted to find a null distribution for the relationship between age (<code>age</code>) and party identification (<code>partyid</code>) using randomization, we could write:</p>
 <div class="highlight"><pre style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-r" data-lang="r">null_f_distn <span style="color:#666">&lt;-</span> gss <span style="color:#666">%&gt;%</span>
    <span style="color:#00f">specify</span>(age <span style="color:#666">~</span> partyid) <span style="color:#666">%&gt;%</span>
@@ -1005,18 +935,8 @@ null_dist <span style="color:#666">%&gt;%</span>
   <span style="color:#00f">shade_p_value</span>(obs_stat <span style="color:#666">=</span> F_hat, direction <span style="color:#666">=</span> <span style="color:#ba2121">&#34;greater&#34;</span>)
 </code></pre></div><p><img src="figs/unnamed-chunk-5-1.svg" width="672" /></p>
 <p>That&rsquo;s it! This vignette covers most all of the key functionality of infer. See <code>help(package = &quot;infer&quot;)</code> for a full list of functions and vignettes.</p>
-
-
-
-
-<h2 id="session-information">Session information
-  <a href="#session-information">
-    <svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0 0h24v24H0z" fill="currentColor"></path>
-      <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
-    </svg>
-  </a>
-</h2><pre><code>#&gt; ─ Session info ───────────────────────────────────────────────────────────────
+<h2 id="session-information">Session information</h2>
+<pre><code>#&gt; ─ Session info ───────────────────────────────────────────────────────────────
 #&gt;  setting  value                       
 #&gt;  version  R version 3.6.2 (2019-12-12)
 #&gt;  os       macOS Mojave 10.14.6        
