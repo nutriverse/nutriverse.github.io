@@ -3,14 +3,10 @@
     <msapplication>
         <tile>
 <<<<<<< HEAD
-<<<<<<< HEAD
             <square150x150logo src="/GitHub/nutriverse.website/static/images/favicons/mstile-150x150.png"/>
 =======
             <square150x150logo src="/mstile-150x150.png"/>
 >>>>>>> f1b572110b17c0fe50d005b1a14e268bdbb16f25
-=======
-            <square150x150logo src="/mstile-150x150.png"/>
->>>>>>> 886524dc44d2ab7630e41057d4bfceec8f7f63a8
             <TileColor>#da532c</TileColor>
         </tile>
     </msapplication>
