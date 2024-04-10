@@ -457,12 +457,12 @@ div.warning {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="generator" content="Hugo 0.68.3" />
+<meta name="generator" content="Hugo 0.111.1">
 <title>nutriverse</title>
 <meta property="og:title" content="Get help!" />
 <meta property="og:description" content="In space, no one can hear you scream.
 &ndash; Alien (1979)
- Luckily the tidyverse is a friendlier place. Ease of adoption and ease of use are fundamental design principles for the packages in the tidyverse. If you are banging your head in frustration, here&rsquo;s how you can help us help you.
+Luckily the tidyverse is a friendlier place. Ease of adoption and ease of use are fundamental design principles for the packages in the tidyverse. If you are banging your head in frustration, here&rsquo;s how you can help us help you.
 Make a reprex If you need help getting unstuck, the first step is to create a reprex, or reproducible example." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://nutriverse.io/help/" />
@@ -476,17 +476,18 @@ Make a reprex If you need help getting unstuck, the first step is to create a re
 <meta property="og:title" content="Get help!" />
 <meta property="og:description" content="In space, no one can hear you scream.
 &ndash; Alien (1979)
- Luckily the tidyverse is a friendlier place. Ease of adoption and ease of use are fundamental design principles for the packages in the tidyverse. If you are banging your head in frustration, here&rsquo;s how you can help us help you.
+Luckily the tidyverse is a friendlier place. Ease of adoption and ease of use are fundamental design principles for the packages in the tidyverse. If you are banging your head in frustration, here&rsquo;s how you can help us help you.
 Make a reprex If you need help getting unstuck, the first step is to create a reprex, or reproducible example." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://nutriverse.io/help/" />
+<meta property="og:url" content="https://nutriverse.io/help/" /><meta property="article:section" content="" />
+
 
 
   <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Get help!"/>
 <meta name="twitter:description" content="In space, no one can hear you scream.
 &ndash; Alien (1979)
- Luckily the tidyverse is a friendlier place. Ease of adoption and ease of use are fundamental design principles for the packages in the tidyverse. If you are banging your head in frustration, here&rsquo;s how you can help us help you.
+Luckily the tidyverse is a friendlier place. Ease of adoption and ease of use are fundamental design principles for the packages in the tidyverse. If you are banging your head in frustration, here&rsquo;s how you can help us help you.
 Make a reprex If you need help getting unstuck, the first step is to create a reprex, or reproducible example."/>
 
 
@@ -602,8 +603,18 @@ Make a reprex If you need help getting unstuck, the first step is to create a re
 <p>&ndash; <cite>Alien (1979)</cite></p>
 </blockquote>
 <p>Luckily the tidyverse is a friendlier place. Ease of adoption and ease of use are fundamental design principles for the packages in the tidyverse. If you are banging your head in frustration, here&rsquo;s how you can help us help you.</p>
-<h2 id="reprex">Make a reprex</h2>
-<p>If you need help getting unstuck, the first step is to create a <strong>reprex</strong>, or reproducible example. The goal of a reprex is to package your problematic code in such a way that other people can run it and feel your pain. Then, hopefully, they can provide a solution and put you out of your misery.</p>
+
+
+
+
+<h2 id="reprex">Make a reprex
+  <a href="#reprex">
+    <svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 0h24v24H0z" fill="currentColor"></path>
+      <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
+    </svg>
+  </a>
+</h2><p>If you need help getting unstuck, the first step is to create a <strong>reprex</strong>, or reproducible example. The goal of a reprex is to package your problematic code in such a way that other people can run it and feel your pain. Then, hopefully, they can provide a solution and put you out of your misery.</p>
 <p>There are two parts to creating a reprex:</p>
 <ul>
 <li>
@@ -626,31 +637,51 @@ a way that is easy for others to play with. This substantially improves
 your chances of getting help!</p>
 </li>
 </ul>
-<h2 id="reprex-pkg">The reprex package</h2>
-<p>When creating a reprex by hand, it&rsquo;s easy to accidentally miss something that means your code can&rsquo;t be run on someone else&rsquo;s computer. Avoid this problem by using the 
-<a href="http://reprex.tidyverse.org" target="_blank" rel="noopener">reprex package</a>. It&rsquo;s installed as part of the tidyverse <em>(will be true soon)</em> or you can install it by itself. Go ahead and load it.</p>
-<div class="highlight"><pre style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R"><span style="color:#408080;font-style:italic">## pick one:</span>
-<span style="color:#408080;font-style:italic">##   install.packages(&#34;tidyverse&#34;) &lt;-- will work soon</span>
-<span style="color:#408080;font-style:italic">##   install.packages(&#34;reprex&#34;)    &lt;-- works today</span>
 
-<span style="color:#00f">library</span>(reprex)
-</code></pre></div><p>Write a bit of code and copy it to the clipboard:</p>
-<div class="highlight"><pre style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">(y <span style="color:#666">&lt;-</span> <span style="color:#666">1</span><span style="color:#666">:</span><span style="color:#666">4</span>)
-<span style="color:#00f">mean</span>(y)
-</code></pre></div><p>Enter <code>reprex()</code> in the R Console. In RStudio, you&rsquo;ll see a preview of your rendered reprex.</p>
-<div class="highlight"><pre style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-R" data-lang="R">(y <span style="color:#666">&lt;-</span> <span style="color:#666">1</span><span style="color:#666">:</span><span style="color:#666">4</span>)
-<span style="color:#408080;font-style:italic">#&gt; [1] 1 2 3 4</span>
-<span style="color:#00f">mean</span>(y)
-<span style="color:#408080;font-style:italic">#&gt; [1] 2.5</span>
-</code></pre></div><p>It is now ready and waiting on your clipboard, so you can paste it into, say, a GitHub issue. In RStudio, you can access reprex from the 
+
+
+
+<h2 id="reprex-pkg">The reprex package
+  <a href="#reprex-pkg">
+    <svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 0h24v24H0z" fill="currentColor"></path>
+      <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
+    </svg>
+  </a>
+</h2><p>When creating a reprex by hand, it&rsquo;s easy to accidentally miss something that means your code can&rsquo;t be run on someone else&rsquo;s computer. Avoid this problem by using the 
+<a href="http://reprex.tidyverse.org" target="_blank" rel="noopener">reprex package</a>. It&rsquo;s installed as part of the tidyverse <em>(will be true soon)</em> or you can install it by itself. Go ahead and load it.</p>
+<div class="highlight"><pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span><span style="color:#408080;font-style:italic">## pick one:</span>
+</span></span><span style="display:flex;"><span><span style="color:#408080;font-style:italic">##   install.packages(&#34;tidyverse&#34;) &lt;-- will work soon</span>
+</span></span><span style="display:flex;"><span><span style="color:#408080;font-style:italic">##   install.packages(&#34;reprex&#34;)    &lt;-- works today</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#00f">library</span>(reprex)
+</span></span></code></pre></div><p>Write a bit of code and copy it to the clipboard:</p>
+<div class="highlight"><pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span>(y <span style="color:#666">&lt;-</span> <span style="color:#666">1</span><span style="color:#666">:</span><span style="color:#666">4</span>)
+</span></span><span style="display:flex;"><span><span style="color:#00f">mean</span>(y)
+</span></span></code></pre></div><p>Enter <code>reprex()</code> in the R Console. In RStudio, you&rsquo;ll see a preview of your rendered reprex.</p>
+<div class="highlight"><pre tabindex="0" style=";-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-R" data-lang="R"><span style="display:flex;"><span>(y <span style="color:#666">&lt;-</span> <span style="color:#666">1</span><span style="color:#666">:</span><span style="color:#666">4</span>)
+</span></span><span style="display:flex;"><span><span style="color:#408080;font-style:italic">#&gt; [1] 1 2 3 4</span>
+</span></span><span style="display:flex;"><span><span style="color:#00f">mean</span>(y)
+</span></span><span style="display:flex;"><span><span style="color:#408080;font-style:italic">#&gt; [1] 2.5</span>
+</span></span></code></pre></div><p>It is now ready and waiting on your clipboard, so you can paste it into, say, a GitHub issue. In RStudio, you can access reprex from the 
 <a href="https://rstudio.github.io/rstudioaddins/" target="_blank" rel="noopener">addins menu</a>, which makes it even easier to point out your code and select the output format.</p>
 <p><img src="reprex-addins-menu.png" alt="reprex addins menu"></img>
 <img src="reprex-addin.png" alt="reprex addin interface"></img></p>
 <p>In either case, you can eventually 
 <a href="http://reprex.tidyverse.org" target="_blank" rel="noopener">explore other features</a>, such as formatting output for Stack Overflow or as a commented R script. reprex even uploads figures so you can easily ask questions about ggplot2.</p>
 <p>If your code is not self-contained, running <code>reprex()</code> results in an error. It may feel like tough love, but this way you can get your story straight in private. The reprex format also strongly encourages you to find the minimal dataset necessary to show your problem. Creating an effective reprex is a learned skill and the immediate feedback from reprex makes this very concrete.</p>
-<h2 id="where-to-ask">Where to ask</h2>
-<p><img src="help-is-on-the-way.jpg" alt="" width="200" height="200" align="right" style="padding:1em;" /></p>
+
+
+
+
+<h2 id="where-to-ask">Where to ask
+  <a href="#where-to-ask">
+    <svg class="anchor-symbol" aria-hidden="true" height="26" width="26" viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 0h24v24H0z" fill="currentColor"></path>
+      <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76.0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71.0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71.0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76.0 5-2.24 5-5s-2.24-5-5-5z"></path>
+    </svg>
+  </a>
+</h2><img src="help-is-on-the-way.jpg" alt="" width="200" height="200" align="right" style="padding:1em;" />
 <!-- Thanks to Mark Hansen for the image! https://twitter.com/cocteau/status/893811714420088832 -->
 <p>Now that you&rsquo;ve made a reprex that you can easily inflict on others, you need to share it in an appropriate forum. Here are some options:</p>
 <ul>
@@ -724,13 +755,14 @@ and tidyverse so that the right people are more likely to see it.</p>
           <div class="bandContent">
             <div id="copyright">
               
-              © <a href="https://katilingban.io/">Katilingban</a>, 2020<br>
+              © 
+<a href="https://katilingban.io/" target="_blank" rel="noopener">Katilingban</a>, 2024<br>
               
               
             </div>
             <div id="logos">
               <a href="https://github.com/nutriverse" class="footerLogo gitHub" aria-label="Tidyverse GitHub organization"></a>
-              <a href="https://twitter.com/katilingban" class="footerLogo twitter" aria-label="rstats hashtag on twitter.com"></a>
+              <a href="" class="footerLogo twitter" aria-label="rstats hashtag on twitter.com"></a>
             </div>
           </div>
         </div>
@@ -743,16 +775,14 @@ and tidyverse so that the right people are more likely to see it.</p>
     
 
     
-<script type="application/javascript">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Z9SDQC2LZH"></script>
+<script>
 var doNotTrack = false;
 if (!doNotTrack) {
-	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-	ga('create', 'G-Z9SDQC2LZH', 'auto');
-	
-	ga('send', 'pageview');
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-Z9SDQC2LZH', { 'anonymize_ip': false });
 }
 </script>
 
