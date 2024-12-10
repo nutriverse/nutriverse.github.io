@@ -1,3 +1,5 @@
+name: Test website render
+
 on:
   pull_request:
     branches: [main, master]

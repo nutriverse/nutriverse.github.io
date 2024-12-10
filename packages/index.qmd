@@ -1,0 +1,63 @@
+---
+page-layout: custom
+listing:
+  - id: package-row1-links
+    template: ../ejs/custom.ejs
+    contents: packages_row1.yml
+  - id: package-row2-links
+    template: ../ejs/custom.ejs
+    contents: packages_row2.yml
+---
+
+::: {.about-banner}
+::: {.content-block}
+
+# R Packages
+
+::: {style="color:#7F055F;"}
+
+#### R Tools for Nutrition Research and Analysis
+
+:::
+
+Our collection of packages developed and contributed by Oxford iHealth team members and by our collaborators across various projects. Most of these packages have been developed to address specific data processing and/or analysis tasks for an existing or on-going project but have potential application for others doing similar or related research or analysis. Through the development of robust and performant packages for research and analysis on similar topics, we aim to contribute to the standardisation of these analytical processes, the lowering of the workload/threshold between data collection, processing, and data analysis towards insight and discovery, and the increase in transparency and openness of the research process.
+
+:::
+:::
+
+<br/>
+
+::: {.grid}
+
+::: {.g-col-3}
+:::
+
+::: {.g-col-8}
+
+::: {#package-row1-links}
+:::
+
+:::
+
+::: {.g-col-1}
+:::
+
+:::
+
+
+::: {.grid}
+
+::: {.g-col-4}
+:::
+
+::: {.g-col-7}
+
+::: {#package-row2-links}
+:::
+
+:::
+
+::: {.g-col-1}
+:::
+
+:::

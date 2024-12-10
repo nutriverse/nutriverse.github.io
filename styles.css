@@ -31,10 +31,9 @@
 }
 
 .hero-banner h1 {
-  color: #39729E;
+  color: #7F055F;
   font-size: 2.5rem;
 }
-
 
 .hero-banner .hero-image {
   position: absolute;
@@ -146,7 +145,7 @@
 }
 
 .hero-banner #btn-guide {
-  background-color: #959595 !important;
+  background-color: #776885 !important;
   border: none;
 }
 
@@ -159,6 +158,117 @@
   padding-bottom: 0.4rem;
 }
 
+.info-block {
+  padding-top: 20px;
+  padding-bottom: 10px;
+  margin-left: 30px;
+  margin-right: 30px;
+}
+
+@media(min-width: 900px) {
+  .info-block {
+    margin-left: 50px;
+    margin-right: 50px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .info-block {
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.info-block h1 {
+  color: #7F055F;
+  text-align: center;
+}
+
+.info-block h3 {
+  text-align: center;
+}
+
+.info-block-alt {
+  padding-top: 20px;
+  padding-bottom: 10px;
+  margin-left: 30px;
+  margin-right: 30px;
+  background-color: #E4F0EF;
+}
+
+@media(min-width: 900px) {
+  .info-block-alt {
+    margin-left: 50px;
+    margin-right: 50px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .info-block-alt {
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.info-block-alt h1 {
+  color: #7F055F;
+  text-align: center;
+}
+
+.info-block-alt h3 {
+  text-align: center;
+}
+
+.theme-banner {
+  position: relative;
+  background-color: #E4F0EF;
+  display: flex;
+}
+
+.about-banner {
+  position: relative;
+  background-color: #E4F0EF;
+  display: flex;
+}
+
+.about-banner h1 {
+  color: #7F055F;
+  font-size: 2.5rem;
+}
+
+.about-banner h3 {
+  margin-top: 1.3rem;
+  margin-bottom: 1.3rem;
+  font-size: 1.75rem;
+}
+
+.approach-banner h1 {
+  color: #7F055F;
+  font-size: 2.5rem;
+}
+
+.approach-banner h3 {
+  margin-top: 1.3rem;
+  margin-bottom: 1.3rem;
+  font-size: 1.75rem;
+}
+
+.contact-banner {
+  background-color: #E4F0EF;
+}
+
+.contact-banner h1 {
+  color: #7F055F;
+  font-size: 2.5rem;
+}
+
+.contact-banner h3 {
+  margin-top: 1.3rem;
+  margin-bottom: 1.3rem;
+  font-size: 1.75rem;
+}
 
 @media (max-width: 575px) {
   .link-cards .card {
@@ -183,6 +293,13 @@
 .link-cards .card {
   border: none;
   padding: 0;
+}
+
+.link-cards .card-image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 0;  
 }
 
 .link-cards .card-title h4 {

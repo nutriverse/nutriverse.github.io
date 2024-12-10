@@ -1,0 +1,10 @@
+---
+title: "sleacr: Simplified Lot Quality Assurance Sampling Evaluation of Access and Coverage (SLEAC) Tools in R"
+image: ../images/sleacr.png
+---
+
+::: {.column-margin}
+
+[![](../images/sleacr.png)](https://nutriverse.io/sleacr/){target="blank"}
+
+:::

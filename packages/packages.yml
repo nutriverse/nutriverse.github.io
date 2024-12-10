@@ -1,0 +1,18 @@
+- title: Data Access
+  subtitle: Access data from online sources
+  image: ../images/datadrop.png
+  links:
+  - text: africalaws
+    href: https://oxford-ihtm.io/africalaws
+  - text: codeditr
+    href: https://oxford-ihtm.io/codeditr
+  - text: codigo
+    href: https://oxford-ihtm.io/codigo
+  - text: oxcgrt
+    href: https://oxford-ihtm.io/oxcgrt
+  - text: aurora
+    href: https://oxford-ihtm.io/aurora
+  - text: ppitables
+    href: https://katilingban.io/ppitables
+  - text: washdata
+    href: https://katilingban.io/washdata

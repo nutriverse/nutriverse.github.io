@@ -1,0 +1,22 @@
+---
+title: Aziz Goza
+image: ../../images/azizgoza.jpeg
+about:
+  template: solana
+  links:
+    # - icon: globe
+    #   text: Website
+    #   href: https://ernest.guevarra.io
+    - icon: linkedin
+      text: LinkedIn
+      href: https://www.linkedin.com/in/abdoul-aziz-goza-86402090/
+    - icon: github
+      text: Github
+      href: https://github.com/azizGoza
+    # - icon: mastodon
+    #   text: Mastodon
+    #   href: https://fosstodon.org/@ernestguevarra
+---
+
+Aziz has strong expertise in nutrition issues management (planning, implementation, monitoring and evaluation) and a proven experience in data management, database design and mHealth (ODK, Dimagi, Smartphone). Aziz has managed nutrition survey programmes (KAP, LQAS, SQUEAC, SMART) with strong field experience through the whole Sahel area (Senegal, Mauritania, Mali, Burkina-Faso and Niger). He has advanced knowledge in epidemiology and biostatistics and use of statistical software packages such as SPSS, Sphinx, EpiData, and ENA for SMART. Aziz has expertise in adult training and community mobilisation.
+

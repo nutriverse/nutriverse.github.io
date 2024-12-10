@@ -1,0 +1,11 @@
+---
+title: "squeacr: Semi-Quantitative Evaluation of Access and Coverage (SQUEAC) Tools in R"
+image: ../images/squeacr.png
+---
+
+::: {.column-margin}
+
+[![](../images/squeacr.png)](https://nutriverse.io/squeacr/){target="blank"}
+
+:::
+

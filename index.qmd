@@ -6,10 +6,12 @@ toc: false
 listing:
   id: featured-projects
   contents:
-    - "../docs/software/*.qmd"
+    - packages/zscorer.qmd
+    - packages/nipnTK.qmd
+    - packages/mwana.qmd
   type: grid
   image-height: 400px
-  image-placeholder: ../img/nutriverse.png
+  image-placeholder: images/nutriverse.png
   grid-item-border: false
   max-items: 3
 ---

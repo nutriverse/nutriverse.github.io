@@ -1,0 +1,26 @@
+---
+title: "nipnTK: National Information Platforms for Nutrition (NiPN) Data Quality Toolkit"
+image: ../images/nipnTK.png
+---
+
+::: {.column-margin}
+
+[![](../images/nipnTK.png)](https://nutriverse.io/nipnTK/){target="blank"}
+
+:::
+
+<!-- badges: start -->
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
+[![DOI](https://zenodo.org/badge/118171028.svg)](https://zenodo.org/badge/latestdoi/118171028)
+<!-- badges: end -->
+
+[National Information Platforms for Nutrition (NiPN)](https://www.nipn-nutrition-platforms.org){.external target="blank"} is an initiative of the European Commission to provide support to countries to strengthen their information systems for nutrition and to improve the analysis of data so as to better inform the strategic decisions they are faced with to prevent malnutrition and its consequences.
+
+As part of this mandate, [NiPN](https://www.nipn-nutrition-platforms.org){.external target="blank"} has commissioned work on the development of a toolkit to assess the quality of various nutrition-specific and nutrition-related data. This is a companion R package to the toolkit of practical analytical methods that can be applied to variables in datasets to assess their quality.
+
+The focus of the toolkit is on data required to assess anthropometric status such as measurements of weight, height or length, MUAC, sex and age. The focus is on anthropometric status but many of presented methods could be applied to other types of data. [NiPN](https://www.nipn-nutrition-platforms.org){.external target="blank"} may commission additional toolkits to examine other variables or other types of variables.
+
+For more information on the `{nipnTK}` package, you can visit the [project website](https://nutriverse.io/nipnTK/). To learn about the underlying code for this software development project, see the [GitHub code repository](https://github.com/nutriverse/nipnTK).
+
+If you are interested in contributing to this project, please be aware of its [Contributor Code of Conduct](https://nutriverse.io/nipnTK/CODE_OF_CONDUCT.html). By participating in this project you agree to abide by its terms. To see a list of features that we are either actively working on, are considering, or need help on, visit our [GitHub issues](https://github.com/nutriverse/nipnTK/issues) page. If you find something that you can help with, follow these [steps on how to contribute](https://nutriverse.io/nipnTK/CONTRIBUTING.html).
