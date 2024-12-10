@@ -1,0 +1,27 @@
+- title: Anthropometry
+  subtitle: Tools for handling anthropometric data
+  #image: ../images/vitruvian.jpg
+  links:
+  - text: zscorer
+    href: zscorer.qmd
+  - text: nipnTK
+    href: nipnTK.qmd
+  - text: mwana
+    href: mwana.qmd
+
+- title: Diet
+  subtitle: Tools for assessing dietary data
+  #image: ../images/vegetables.jpg
+  links:
+  - text: riycf
+    href: riycf.qmd
+  - text: dietry
+    href: dietry.qmd
+
+- title: Coverage
+  subtitle: Tools for programme coverage assessment
+  links:
+  - text: squeacr
+    href: squeacr.qmd
+  - text: sleacr
+    href: sleacr.qmd

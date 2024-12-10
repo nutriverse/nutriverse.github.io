@@ -1,0 +1,35 @@
+---
+title: "micronutr: Determining Vitamin and Mineral Status of Populations"
+image: ../images/micronutr.png
+---
+
+::: {.column-margin}
+
+[![](../images/micronutr.png)](https://nutriverse.io/micronutr/)
+
+:::
+
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
+[![DOI](https://zenodo.org/badge/584725138.svg)](https://zenodo.org/badge/latestdoi/584725138)
+
+
+Vitamin and mineral deficiencies continue to be a significant public health problem. This is particularly critical in developing countries where deficiencies to vitamin A, iron, iodine, and other micronutrients lead to adverse health consequences. Cross-sectional surveys are helpful in answering questions related to the magnitude and distribution of deficiencies of selected vitamins and minerals.
+
+This package provides tools for determining select vitamin and mineral deficiencies based on World Health Organization (WHO) guidelines found [here](https://www.who.int/teams/nutrition-and-food-safety/databases/vitamin-and-mineral-nutrition-information-system).
+
+## What does `micronutr` do?
+
+The `{micronutr}` package provides tools for determining select vitamin and mineral deficiencies using R. Currently, `{micronutr}` has functions for:
+
+* Detecting **haemoglobinaemia** or anaemia based on an individual's *serum haemoglobin* level;
+
+* Detecting **inflammation** status based on *c-reactive protein (CRP)* and *alpha(1)-acid-glycoprotein (AGP)*;
+
+* Detecting **iron deficiency** status based on an individual's *serum ferritin* level;
+
+* Detecting **iodine deficiency** status based on a population's mean urinary iodine concentration.
+
+For more information on the `{micronutr}` package, you can visit the [project website](https://nutriverse.io/micronutr/). To learn about the underlying code for this software development project, see the [GitHub code repository](https://github.com/nutriverse/micronutr).
+
+If you are interested in contributing to this project, please be aware of its [Contributor Code of Conduct](https://nutriverse.io/micronutr/CODE_OF_CONDUCT.html). By participating in this project you agree to abide by its terms. To see a list of features that we are either actively working on, are considering, or need help on, visit our [GitHub issues](https://github.com/nutriverse/micronutr/issues) page. If you find something that you can help with, follow these [steps on how to contribute](https://nutriverse.io/micronutr/CONTRIBUTING.html).

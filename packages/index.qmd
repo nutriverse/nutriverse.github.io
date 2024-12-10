@@ -1,0 +1,65 @@
+---
+# title: R Packages
+# subtitle: Tools for nutrition research and analysis
+page-layout: custom
+listing:
+  - id: package-row1-links
+    template: ../ejs/custom.ejs
+    contents: packages_row1.yml
+  - id: package-row2-links
+    template: ../ejs/custom.ejs
+    contents: packages_row2.yml
+---
+
+::: {.about-banner}
+::: {.content-block}
+
+# R Packages
+
+::: {style="color: #3F0042"}
+
+#### Tools for Nutrition Research and Analysis
+
+:::
+
+Our collection of packages developed by and contributed to by our community. These package were developed as part of a specific project but had more general use for common nutrition data analysis tasks. These packages are available for use by anyone needing to perform the same type of data analysis.
+
+:::
+:::
+
+<br/>
+
+::: {.grid}
+
+::: {.g-col-3}
+:::
+
+::: {.g-col-8}
+
+::: {#package-row1-links}
+:::
+
+:::
+
+::: {.g-col-1}
+:::
+
+:::
+
+
+::: {.grid}
+
+::: {.g-col-4}
+:::
+
+::: {.g-col-7}
+
+::: {#package-row2-links}
+:::
+
+:::
+
+::: {.g-col-1}
+:::
+
+:::

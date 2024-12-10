@@ -1,0 +1,11 @@
+- title: Micronutrients
+  subtitle: Tools for analysing micronutrient data
+  links:
+  - text: micronutr
+    href: micronutr.qmd
+
+- title: SMART
+  subtitle: Tools for implementing SMART surveys
+  links:
+  - text: smartr
+    href: smartr.qmd

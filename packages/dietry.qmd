@@ -1,0 +1,27 @@
+---
+title: "dietry: Utilities for Dietary Intake Indicators for Food Security Assessments"
+image: ../images/dietry.png
+---
+
+::: {.column-margin}
+
+[![](../images/dietry.png)](https://nutriverse.io/dietry/){target="blank"}
+
+:::
+
+<!-- badges: start -->
+[![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+<!-- badges: end -->
+
+Food security assessments utilise several dietary intake indicators as proxy measures for diet quality, diet sufficiency, and food availability either at individual or household level. Utilities for recoding and calculating these indicators support in establishing consistent and reliable results.
+
+## What does `{dietry}` do?
+
+Currently, the `{dietry}` package has functions for:
+
+* Cleaning, processing, scoring, and classifying the Food Consumption Score.
+
+For more information on the `{dietry}` package, you can visit the [project website](https://nutriverse.io/dietry/). To learn about the underlying code for this software development project, see the [GitHub code repository](https://github.com/nutriverse/dietry).
+
+If you are interested in contributing to this project, please be aware of its [Contributor Code of Conduct](https://nutriverse.io/dietry/CODE_OF_CONDUCT.html). By participating in this project you agree to abide by its terms. To see a list of features that we are either actively working on, are considering, or need help on, visit our [GitHub issues](https://github.com/nutriverse/dietry/issues) page. If you find something that you can help with, follow these [steps on how to contribute](https://nutriverse.io/dietry/CONTRIBUTING.html).

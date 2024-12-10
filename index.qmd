@@ -4,12 +4,14 @@ page-layout: custom
 section-divs: false
 toc: false
 listing:
-  id: featured-projects
+  id: featured-packages
   contents:
-    - "../docs/software/*.qmd"
+    - packages/zscorer.qmd
+    - packages/nipnTK.qmd
+    - packages/mwana.qmd
   type: grid
   image-height: 400px
-  image-placeholder: ../img/nutriverse.png
+  image-placeholder: images/nutriverse.png
   grid-item-border: false
   max-items: 3
 ---
@@ -29,12 +31,12 @@ library(quarto)
 
 # Developing an integrated collection of R packages designed to support and facilitate various nutrition data analytics.
 
-### We are a community-of-practice of data analysts, researchers, and practitioners engaged in various nutrition topics and issues. Members of the community support each other through the development of robust and performant R packages as tools for their analytical tasks, open and accessible technical guidance, and impactful peer-to-peer learning. 
+### We are a community of data analysts, researchers, and practitioners engaged in various nutrition topics and issues. Members of the community support each other through the development of robust and performant R packages as tools for their analytical tasks, open and accessible technical guidance, and impactful peer-to-peer learning. 
 
-<!-- ::: {.hero-buttons}
+::: {.hero-buttons}
 [Our packages](/packages/){#btn-guide .btn-action .btn .btn-info .btn-lg role="button"} 
-[Our guides](/about/){#btn-guide .btn-action .btn .btn-info .btn-lg role="button"}
-::: -->
+<!-- [Our guides](/guides/){#btn-guide .btn-action .btn .btn-info .btn-lg role="button"} -->
+::: 
 
 :::
 
@@ -50,11 +52,16 @@ library(quarto)
 :::
 
 
-::: {.content-block}
 
-# Featured projects
+::: {.theme-banner}
 
-::: {#featured-projects}
+::: {.info-block}
+
+# Featured packages
+
+::: {#featured-packages}
+:::
+
 :::
 
 :::
