@@ -1,0 +1,30 @@
+---
+title: Contact Us
+form:
+  id: contact-form
+  submit: "Send"
+  action: "https://formspree.io/f/mzzbqvyb"
+  method: POST
+  fields:
+    - name: Name
+      type: text
+      id: name_id
+      label: "Your name"
+      required: true
+    - name: Email
+      type: email
+      id: email_id
+      label: "Your e-mail"
+      required: true
+    - text: ""
+    - name: Message
+      type: textarea
+      id: message_id
+      label: "Your message"
+      height: 200
+      required: true
+---
+
+If you would like to contact us for any ideas, comments, suggestions, or questions, please send us your thoughts through the following form.
+
+{{< form >}}

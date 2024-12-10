@@ -1,0 +1,43 @@
+---
+title: Emmanuel Mandalazi
+image: ../../images/emmanuelmandalazi.jpeg
+about:
+  template: solana
+  links:
+    # - icon: globe
+    #   text: Website
+    #   href: https://ernest.guevarra.io
+    - icon: linkedin
+      text: LinkedIn
+      href: https://www.linkedin.com/in/emmanuel-mandalazi-2389b239/
+    - icon: github
+      text: Github
+      href: https://github.com/emandalazi
+    # - icon: mastodon
+    #   text: Mastodon
+    #   href: https://fosstodon.org/@ernestguevarra
+---
+
+An experienced nutrition and public health specialist with over 15 years’ experience working as an emergency nutrition consultant, public health and research specialist. This experience includes several research positions, joint authorship of research papers and all aspects of the Community-based Management of Acute Malnutrition (CMAM) programming including; design, set up, training implementation mentoring and evaluation in both emergency and developmental contexts. I have the experience within the CMAM framework on; early identification and treatment of acute malnutrition, maternal infant and young child nutrition (MIYCN), nutrition assessments using the Simplified LQAS Evaluation of Access and Coverage (SLEAC), Semi-Quantitative Evaluation of Access and Coverage (SQUEAC), Simple Sampling Survey Method (S3M) survey methodologies. Managed to apply these methodologies in assessing the coverage of different micronutrient supplementation interventions including Vitamin A, Supplementation (VAS), deworming, Iron Folic Acid (IFA), and Micronutrient Powder (MNPs) in Liberia and Ethiopia. This has also included assessing the coverage of Growth Monitoring and Vaccination among under-five children. 
+
+Experienced in conducting baseline, mid-line and end-line/final evaluations for different United Nations agencies such as UNICEF, UNHCR, WFP, International NGOs, and Ministries of Health in Malawi, Sub Saharan and Asia regions.
+
+I am also an expert in qualitative study approaches such as the Focused Ethnographic Studies (FES). I have contributed to the design, implementation and evaluation of the community mobilization/outreach component of Community-based Management of Acute Malnutrition (CMAM) programmes using interactive and participatory approaches to social research in both emergency and development interventions. This involves conducting rapid socio-cultural context assessments and analysis of local socio-political structures, health attitudes and health seeking behaviors, and barriers to access to develop context-specific and culturally appropriate community mobilization/Social Behavior Change and Communication (SBCC) strategies.
+
+## Education
+
+**Chancellor College, University of Malawi** | Lilongwe, Malawi    
+BEd Food and Nutrition | 1999 - 2003
+
+**Lunds Universitet** | Lund, Sweden    
+MSc Public Health | 2012 - 2014
+
+## Experience
+
+[**Katilingban**](https://katilingban.io)    
+Founding Member | July 2020 - present
+
+[**Valid International**](https://www.validinternational.org)    
+Coverage Surveys Consultant | September 2008 - May 2021
+Social and Community Development Advisor | September 2006 - November 2015
+Community Therapeutic Care (CTC) Research Officer | February 2004 - August 2006

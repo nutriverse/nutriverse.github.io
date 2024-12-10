@@ -1,0 +1,59 @@
+---
+title: ""
+page-layout: custom
+section-divs: false
+toc: false
+listing:
+  id: featured-projects
+  contents:
+    - "../docs/software/*.qmd"
+  type: grid
+  image-height: 400px
+  image-placeholder: ../img/nutriverse.png
+  grid-item-border: false
+  max-items: 3
+---
+
+```{r}
+#| label: setup
+#| include: false
+
+library(quarto)
+```
+
+::: {.hero-banner}
+
+::: {.content-block}
+
+::: {.hero-text}
+
+# Welcome to nutriverse
+
+**nutriverse** is an integrated collection of R packages designed to support and facilitate nutrition data analysis.
+
+**nutriverse** is also a community of nutrition data analysts who use R language for statistical computing. Members of the community support each other through the development of robust and performant R packages as tools for their analytical tasks, and through open and accessible technical guidance and impactful peer-to-peer learning. 
+
+<!-- ::: {.hero-buttons} -->
+<!-- [Projects](/docs/projects/){.btn-action-primary .btn-action .btn .btn-success .btn-lg role="button"} -->
+<!-- ::: -->
+
+:::
+
+::: {.hero-image-right}
+
+![](images/nutriverse.png){fig-align="right" height="500px"}
+:::
+
+:::
+
+:::
+
+
+::: {.content-block}
+
+# Featured projects
+
+::: {#featured-projects}
+:::
+
+:::
