@@ -21,33 +21,8 @@ website:
         menu:
           - href: about/team.qmd
           - href: about/contact.qmd
-  # sidebar:
-  #   - id: packages
-  #     collapse-level: 1
-  #     contents:
-  #       - section: Packages
-  #         href: packages/index.qmd
-  #         contents:
-  #           - section: Anthropometry
-  #             contents:
-  #               - text: zscorer
-  #                 href: packages/zscorer.qmd
-  #               - text: nipnTK
-  #                 href: packages/nipnTK.qmd
-  #               - text: mwana
-  #                 href: packages/mwana.qmd
-  #           - section: Diet
-  #             contents:
-  #               - text: riycf
-  #                 href: packages/riycf.qmd
-  #           - section: Micronutrients
-  #             contents:
-  #               - text: micronutr
-  #                 href: packages/micronutr.qmd
-  #   - id: team
-  #     logo: ../../images/nutriverse.png
-  #     logo-alt: nutriverse logo
-
+  open-graph:
+    site-name: nutriverse
   page-footer:
     center: "Copyright 2024, Oxford iHealth"
     background: light

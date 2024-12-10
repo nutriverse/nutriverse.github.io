@@ -8,3 +8,15 @@ image: ../images/sleacr.png
 [![](../images/sleacr.png)](https://nutriverse.io/sleacr/){target="blank"}
 
 :::
+
+<!-- badges: start -->
+[![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![DOI](https://zenodo.org/badge/186984529.svg)](https://zenodo.org/badge/latestdoi/186984529)
+<!-- badges: end -->
+
+In the recent past, measurement of coverage has been mainly through two-stage cluster sampled surveys either as part of a nutrition assessment or through a specific coverage survey known as Centric Systematic Area Sampling (CSAS). However, such methods are resource intensive and often only used for final programme evaluation meaning results arrive too late for programme adaptation. SLEAC, which stands for Simplified Lot Quality Assurance Sampling Evaluation of Access and Coverage, is a low resource method designed specifically to address this limitation and is used regularly for monitoring, planning and importantly, timely improvement to programme quality, both for agency and Ministry of Health (MoH) led programmes. This package provides functions for use in conducting a SLEAC assessment.
+
+For more information on the `{sleacr}` package, you can visit the [project website](https://nutriverse.io/sleacr/). To learn about the underlying code for this software development project, see the [GitHub code repository](https://github.com/nutriverse/sleacr).
+
+If you are interested in contributing to this project, please be aware of its [Contributor Code of Conduct](https://nutriverse.io/sleacr/CODE_OF_CONDUCT.html). By participating in this project you agree to abide by its terms. To see a list of features that we are either actively working on, are considering, or need help on, visit our [GitHub issues](https://github.com/nutriverse/sleacr/issues) page. If you find something that you can help with, follow these [steps on how to contribute](https://nutriverse.io/sleacr/CONTRIBUTING.html).

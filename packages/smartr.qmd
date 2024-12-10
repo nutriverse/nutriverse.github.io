@@ -1,0 +1,21 @@
+---
+title: "smartr: Tools for Nutritional Status and Mortality Rate Assessments and Surveys"
+image: ../images/smartr.png
+---
+
+::: {.column-margin}
+
+[![](../images/smartr.png)](https://nutriverse.io/smartr/){target="blank"}
+
+:::
+
+<!-- badges: start -->
+[![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+<!-- badges: end -->
+
+[SMART](https://www.smartmethodology.org){.external target="blank"} is an inter-agency initiative launched in 2002 by a network of organizations and humanitarian practitioners. [SMART](https://www.smartmethodology.org){.external target="blank"} advocates a multi-partner, systematized approach to provide critical, reliable information for decision-making, and to establish shared systems and resources for host government partners and humanitarian organizations. The [SMART Methodology](https://www.smartmethodology.org){.external target="blank"} is an improved survey method that balances simplicity (for rapid assessment of acute emergencies) and technical soundness. This package provides functions to perform the various analysis used in [SMART](https://www.smartmethodology.org){.external target="blank"}.
+
+For more information on the `{smartr}` package, you can visit the [project website](https://nutriverse.io/smartr/). To learn about the underlying code for this software development project, see the [GitHub code repository](https://github.com/nutriverse/smartr).
+
+If you are interested in contributing to this project, please be aware of its [Contributor Code of Conduct](https://nutriverse.io/smartr/CODE_OF_CONDUCT.html). By participating in this project you agree to abide by its terms. To see a list of features that we are either actively working on, are considering, or need help on, visit our [GitHub issues](https://github.com/nutriverse/smartr/issues) page. If you find something that you can help with, follow these [steps on how to contribute](https://nutriverse.io/smartr/CONTRIBUTING.html).
