@@ -27,21 +27,22 @@ library(quarto)
 
 ::: {.hero-text}
 
-# Welcome to nutriverse
+# Developing an integrated collection of R packages designed to support and facilitate various nutrition data analytics.
 
-**nutriverse** is an integrated collection of R packages designed to support and facilitate nutrition data analysis.
+### We are a community-of-practice of data analysts, researchers, and practitioners engaged in various nutrition topics and issues. Members of the community support each other through the development of robust and performant R packages as tools for their analytical tasks, open and accessible technical guidance, and impactful peer-to-peer learning. 
 
-**nutriverse** is also a community of nutrition data analysts who use R language for statistical computing. Members of the community support each other through the development of robust and performant R packages as tools for their analytical tasks, and through open and accessible technical guidance and impactful peer-to-peer learning. 
-
-<!-- ::: {.hero-buttons} -->
-<!-- [Projects](/docs/projects/){.btn-action-primary .btn-action .btn .btn-success .btn-lg role="button"} -->
-<!-- ::: -->
+<!-- ::: {.hero-buttons}
+[Our packages](/packages/){#btn-guide .btn-action .btn .btn-info .btn-lg role="button"} 
+[Our guides](/about/){#btn-guide .btn-action .btn .btn-info .btn-lg role="button"}
+::: -->
 
 :::
 
 ::: {.hero-image-right}
 
-![](images/nutriverse.png){fig-align="right" height="500px"}
+<!-- ![](images/nutriverse.png){fig-align="right" height="400px"} -->
+![](images/nutriverse.png){fig-align="right"}
+
 :::
 
 :::
