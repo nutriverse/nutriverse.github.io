@@ -1,0 +1,27 @@
+- title: R Packages
+  subtitle: Nutrition Data and Research Software
+  links:
+  - text: zscorer
+    href: ../software/zscorer.qmd
+  - text: nipnTK
+    href: ../software/nipnTK.qmd
+  - text: micronutr
+    href: ../software/micronutr.qmd
+  - text: riycf
+    href: ../software/riycf.qmd
+  - text: mwana
+    href: ../software/mwana.qmd
+  
+
+# - title: Workflows
+#   subtitle: Programmatic and Computational Workflows
+#   links:
+#     - text: "paglaom"
+#       href: ../workflow/paglaom.qmd
+
+
+# - title: Technical Guides
+#   subtitle: Nutrition Data and Research Guides
+#   links:
+#   - text: nutrisurvey
+#     href: ../guides/nutrisurvey.qmd

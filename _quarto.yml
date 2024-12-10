@@ -1,0 +1,76 @@
+project:
+  type: website
+
+website:
+  title: nutriverse
+  site-url: https://nutriverse.io
+  navbar:
+    title: nutriverse
+    background: success
+    logo: images/nutriverse.png
+    logo-alt: nutriverse logo
+    tools:
+      - icon: github
+        href: https://github.com/nutriverse
+    left:
+      - href: index.qmd
+        text: Home
+      - text: Projects
+        href: docs/projects/index.qmd
+      - text: About
+        menu:
+          - href: docs/about/team.qmd
+          - href: docs/about/contact.qmd
+  sidebar:
+    - id: projects
+      collapse-level: 1
+      contents:
+        - section: Projects
+          href: docs/projects/index.qmd
+          contents:
+            - section: R Packages
+              contents:
+                - text: zscorer
+                  href: docs/software/zscorer.qmd
+                - text: nipnTK
+                  href: docs/software/nipnTK.qmd
+                - text: micronutr
+                  href: docs/software/micronutr.qmd
+                - text: riycf
+                  href: docs/software/riycf.qmd
+                - text: mwana
+                  href: docs/software/mwana.qmd
+            # - section: Workflows
+            #   contents:
+            #     - text: paglaom
+            #       href: docs/workflow/paglaom.qmd
+    - id: team
+      logo: ../../images/nutriverse.png
+      logo-alt: nutriverse logo
+
+  page-footer:
+    center: "Copyright 2024, Ernest Guevarra"
+    background: light
+    border: false
+  reader-mode: true
+  repo-url: https://github.com/nutriverse/nutriverse.github.io
+  repo-actions: [edit, issue]
+  issue-url: https://github.com/nutriverse/nutriverse.github.io/issues
+  cookie-consent:
+    type: express
+    style: simple
+    palette: light
+  google-analytics:
+    tracking-id: ""
+    anonymize-ip: true
+
+format:
+  html:
+    theme: pulse
+    css: styles.css
+    grid:
+      sidebar-width: 250px
+      body-width: 900px
+      margin-width: 250px
+      gutter-width: 1.5rem
+    toc: false

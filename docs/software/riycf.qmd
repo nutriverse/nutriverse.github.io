@@ -1,0 +1,31 @@
+---
+title: "riycf: Utilities for Calculating Infant and Young Child Feeding Indicators"
+image: ../../images/riycf.png
+---
+
+::: {.column-margin}
+
+[![](../../images/riycf.png)](https://nutriverse.io/riycf/){target="blank"}
+
+:::
+
+<!-- badges: start -->
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+<!-- badges: end -->
+
+## What are the IYCF Indicators? 
+
+The first 1,000 days of life (from pregnancy to a child’s 2nd birthday) are critical for addressing childhood malnutrition, especially stunting. Infant and young child feeding practices (IYCF) largely overlap with this period as they cover breastfeeding and complementary feeding practices for the first two years of a child’s life. They also have a significant impact on childhood health, nutrition outcomes, and child survival. It is, therefore, critical for countries to measure IYCF practices as part of their efforts to monitor their progress toward Sustainable Development Goal 2. It is also important for development agencies to be able to monitor and evaluate their programs aimed at improving infant and young child feeding practices towards improved overall childhood nutrition.
+
+WHO and UNICEF released the first IYCF indicators definition and measurement guidelines in 2008. In 2021, these guidelines were updated along with a revised standard questionnaire to capture the information required to calculate the updated IYCF indicators since the first initial publication. In general, the IYCF indicators can be categorized into three main categories: (1) breastfeeding indicators, (2) complementary indicators, and (3) other indicators, which are focused on bottle-feeding practices and the generation of data visualization plots for the breastfeeding status by age.
+
+## Why riycf package? 
+
+Although the initial measurement guidelines were published in 2008 with many humanitarian organizations and country health ministries implementing these indicators, no comprehensive statistical programming package to calculate these indicators is yet available. Therefore, every time the researchers (or humanitarian organizations) are required to collect and analyze, they need a considerable amount of time to re-code all the syntax (depending on which statistical program they are using). That is time-consuming work. 
+
+This riycf package aims to address that technical gap by providing an easy-to-use package of automated functions` to calculate all IYCF indicators provided in the WHO guideline ([the Indicators for assessing infant and young child feeding practices: definitions and measurement methods](https://www.who.int/publications/i/item/9789240018389){.external target="blank"}). This include comprehensive guidelines for step-by-step usage of each automated function to analyze individual IYCF indicators in R software to make it easier for those less familiar with R software.
+
+For more information on the `{riycf}` package, you can visit the [project website](https://nutriverse.io/riycf/). To learn about the underlying code for this software development project, see the [GitHub code repository](https://github.com/nutriverse/riycf).
+
+If you are interested in contributing to this project, please be aware of its [Contributor Code of Conduct](https://nutriverse.io/riycf/CODE_OF_CONDUCT.html). By participating in this project you agree to abide by its terms. To see a list of features that we are either actively working on, are considering, or need help on, visit our [GitHub issues](https://github.com/nutriverse/riycf/issues) page. If you find something that you can help with, follow these [steps on how to contribute](https://nutriverse.io/riycf/CONTRIBUTING.html).

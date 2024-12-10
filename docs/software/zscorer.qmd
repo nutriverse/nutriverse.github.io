@@ -1,0 +1,45 @@
+---
+title: "zscorer: Anthropometric z-score Calculator"
+image: ../../images/zscorer.png
+---
+
+::: {.column-margin}
+
+[![](../../images/zscorer.png)](https://nutriverse.io/zscorer/){target="blank"}
+
+:::
+
+<!-- badges: start -->
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
+[![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+[![DOI](https://zenodo.org/badge/119683584.svg)](https://zenodo.org/badge/latestdoi/119683584)
+<!-- badges: end -->
+
+
+## What does `{zscorer}` do?
+
+The `{zscorer}` packages facilitates the calculation of a range of anthropometric *z-scores* (i.e. the number of standard deviations from the mean) and adds them to survey data:
+
+* **Weight-for-length (wfl)** z-scores for children with lengths between 45 and 110 cm
+
+* **Weight-for-height (wfh)** z-scores for children with heights between 65 and 120 cm
+
+* **Length-for-age (lfa)** z-scores for children aged less than 24 months
+
+* **Height-for-age (hfa)** z-scores for children aged between 24 and 228 months
+
+* **Weight-for-age (wfa)** z-scores for children aged between zero and 120 months
+
+* **Body mass index-for-age (bfa)** z-scores for children aged between zero and 228 months
+
+* **MUAC-for-age (mfa)** z-scores for children aged between 3 and 228 months
+
+* **Triceps skinfold-for-age (tsa)** z-scores for children aged between 3 and 60 months
+
+* **Sub-scapular skinfold-for-age (ssa)** z-scores for children aged between 3 and 60 months
+
+* **Head circumference-for-age (hca)** z-scores for children aged between zero and 60 months
+
+For more information on the `{zscorer}` package, you can visit the [project website](https://nutriverse.io/zscorer/). To learn about the underlying code for this software development project, see the [GitHub code repository](https://github.com/nutriverse/zscorer).
+
+If you are interested in contributing to this project, please be aware of its [Contributor Code of Conduct](https://nutriverse.io/zscorer/CODE_OF_CONDUCT.html). By participating in this project you agree to abide by its terms. To see a list of features that we are either actively working on, are considering, or need help on, visit our [GitHub issues](https://github.com/nutriverse/zscorer/issues) page. If you find something that you can help with, follow these [steps on how to contribute](https://nutriverse.io/zscorer/CONTRIBUTING.html).

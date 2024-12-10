@@ -1,0 +1,52 @@
+---
+title: Ernest Guevarra
+image: ../../images/ernestguevarra.jpg
+about:
+  template: solana
+  links:
+    - icon: globe
+      text: Website
+      href: https://ernest.guevarra.io
+    - icon: linkedin
+      text: LinkedIn
+      href: https://www.linkedin.com/in/ernestguevarra/
+    - icon: github
+      text: Github
+      href: https://github.com/ernestguevarra
+    - icon: mastodon
+      text: Mastodon
+      href: https://fosstodon.org/@ernestguevarra
+---
+
+I am an independent public health consultant with more than 20 years of professional experience in community and public health in humanitarian crises and developing country-settings, including as a community health worker, medical doctor, and most recently as the Head of Valid Measures, the specialised metrics, analytics and technology unit of [Valid International](https://www.validinternational.org). I have expertise in spatial epidemiology, geo-statistics, cartography and statistical programming. In my role as head of Valid Measures, I led the design, development and implementation of innovative surveys and assessments on health and nutrition and bespoke analytical approaches that leverage the advantages of Bayesian statistics and resampling techniques. I am a founding member of [Katilingban](https://katilingban.io/), a collective of public health and nutrition experts and practitioners. I am currently a [consulting research data scientist](https://www.ecohealthalliance.org/personnel/dr-ernest-guevarra) for [EcoHealth Alliance](https://www.ecohealthalliance.org/) to support its computational analytics work in support of pandemic preparedness and One Health research and a Senior Research and Teaching Associate at the [Centre for Tropical Medicine and Global Health](https://www.tropicalmedicine.ox.ac.uk/), [Nuffield Department of Medicine](https://www.ndm.ox.ac.uk/), [University of Oxford](https://www.ox.ac.uk/).
+
+## Education
+
+**Harvard School of Public Health, Harvard University** | Boston, MA    
+Master of Public Health International Health Concentration | Sept 2004 - June 2005
+
+**Harvard School of Public Health, Harvard University** | Boston, MA    
+Certificate in Humanitarian Studies | Sept 2004 - June 2005
+
+**University of the Philippines College of Medicine** | Manila, Philippines    
+Doctor of Medicine | June 1994 - June 2001
+
+**University of the Philippines College of Medicine** | Manila, Philippines    
+Bachelor of Science in Basic Medical Sciences | June 1994 - June 1998
+
+## Experience
+
+[**Centre for Tropical Medicine and Global Health**](https://www.tropicalmedicine.ox.ac.uk/), [**Nuffield Department of Medicine**](https://www.ndm.ox.ac.uk/), [**University of Oxford**](https://www.ox.ac.uk/)    
+Senior Research and Teaching Associate | October 2023 - present    
+Teaching Fellow | July 2020 - October 2023
+
+[**EcoHealth Alliance**](https://www.ecohealthalliance.org)    
+Consulting Research Data Scientist | December 2020 - present
+
+[**Katilingban**](https://katilingban.io)    
+Founding Member | July 2020 - present
+
+[**Valid International**](https://www.validinternational.org)    
+Head of Measures | January 2017 - March 2020    
+Survey and Assessments Specialist | January 2015 - December 2016    
+Technical Advisor | September 2009 - December 2014
