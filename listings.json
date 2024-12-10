@@ -1,0 +1,25 @@
+[
+  {
+    "listing": "/index.html",
+    "items": [
+      "/docs/software/micronutr.html",
+      "/docs/software/mwana.html",
+      "/docs/software/nipnTK.html",
+      "/docs/software/riycf.html",
+      "/docs/software/zscorer.html"
+    ]
+  },
+  {
+    "listing": "/docs/projects/index.html",
+    "items": []
+  },
+  {
+    "listing": "/docs/about/team.html",
+    "items": [
+      "/docs/team/aziz-goza.html",
+      "/docs/team/emmanuel-mandalazi.html",
+      "/docs/team/ernest-guevarra.html",
+      "/docs/team/tomas-zaba.html"
+    ]
+  }
+]
