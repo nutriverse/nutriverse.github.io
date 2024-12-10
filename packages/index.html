@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Projects – nutriverse</title>
+<title>index – nutriverse</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,25 +23,26 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../">
-<script src="../../site_libs/quarto-listing/list.min.js"></script>
-<script src="../../site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="../../site_libs/cookie-consent/cookie-consent.js"></script>
-<link href="../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
-<script src="../../site_libs/quarto-html/quarto.js"></script>
-<script src="../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-de152e6b784f097b70fddec32d91cb7c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-listing/list.min.js"></script>
+<script src="../site_libs/quarto-listing/quarto-listing.js"></script>
+<script src="../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-52adffa0a3f7e87db87110ad7992a591.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -72,7 +73,7 @@ ul.task-list li input[type="checkbox"] {
 <script>
 
   window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-project-links .list');
+    const listingTargetEl = window.document.querySelector('#listing-package-row1-links .list');
     if (!listingTargetEl) {
       // No listing discovered, do not attach.
       return; 
@@ -85,7 +86,35 @@ ul.task-list li input[type="checkbox"] {
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-project-links'] = new List('listing-project-links', options);
+    window['quarto-listings']['listing-package-row1-links'] = new List('listing-package-row1-links', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  
+
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-package-row2-links .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-title','listing-subtitle','listing-links',{ data: ['index'] },{ data: ['categories'] }],
+      
+      searchColumns: ["listing-title","listing-subtitle","listing-links"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-package-row2-links'] = new List('listing-package-row2-links', options);
 
     if (window['quarto-listing-loaded']) {
       window['quarto-listing-loaded']();
@@ -156,20 +185,22 @@ window.Quarto = {
 };
 </script>
 
-<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../styles.css">
+<meta property="og:title" content="nutriverse">
+<meta property="og:site_name" content="nutriverse">
 </head>
 
-<body class="nav-sidebar floating nav-fixed fullcontent">
+<body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../../images/nutriverse.png" alt="nutriverse logo" class="navbar-logo">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../images/nutriverse_neg.png" alt="nutriverse logo" class="navbar-logo">
     </a>
-    <a class="navbar-brand" href="../../index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">nutriverse</span>
     </a>
   </div>
@@ -180,12 +211,12 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../index.html"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../../docs/projects/index.html" aria-current="page"> 
-<span class="menu-text">Projects</span></a>
+    <a class="nav-link active" href="../packages/index.html" aria-current="page"> 
+<span class="menu-text">Packages</span></a>
   </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-about" role="link" data-bs-toggle="dropdown" aria-expanded="false">
@@ -193,11 +224,11 @@ window.Quarto = {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-about">    
         <li>
-    <a class="dropdown-item" href="../../docs/about/team.html">
+    <a class="dropdown-item" href="../about/team.html">
  <span class="dropdown-text">Meet the Team</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../docs/about/contact.html">
+    <a class="dropdown-item" href="../about/contact.html">
  <span class="dropdown-text">Contact Us</span></a>
   </li>  
     </ul>
@@ -214,119 +245,82 @@ window.Quarto = {
 </div>
       </div> <!-- /container-fluid -->
     </nav>
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-        <i class="bi bi-layout-text-sidebar-reverse"></i>
-      </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../docs/projects/index.html">Projects</a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-        </a>
-    </div>
-  </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<div id="quarto-content" class="quarto-container page-layout-custom page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="sidebar-menu-container"> 
-    <ul class="list-unstyled mt-1">
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a href="../../docs/projects/index.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Projects</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
- <span class="menu-text">R Packages</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../docs/software/zscorer.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">zscorer</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../docs/software/nipnTK.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">nipnTK</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../docs/software/micronutr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">micronutr</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../docs/software/riycf.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">riycf</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../docs/software/mwana.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">mwana</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-      </ul>
-  </li>
-    </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    
 <!-- main -->
-<main class="content page-columns page-full" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Projects</h1>
+
+
+
+<div class="about-banner">
+<section id="r-packages" class="level1 content-block">
+<h1>R Packages</h1>
+<section id="tools-for-nutrition-research-and-analysis" class="level4" style="color: #3F0042">
+<h4 data-anchor-id="tools-for-nutrition-research-and-analysis">Tools for Nutrition Research and Analysis</h4>
+</section>
+<p>Our collection of packages developed by and contributed to by our community. These package were developed as part of a specific project but had more general use for common nutrition data analysis tasks. These packages are available for use by anyone needing to perform the same type of data analysis.</p>
+</section>
 </div>
+<p><br></p>
+<div class="grid">
+<div class="g-col-3">
 
-
-
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-
-</header>
-
-
-<div id="listing-project-links" class="column-screen-inset-right quarto-listing quarto-listing-container-custom" style="max-width: 900px;">
+</div>
+<div class="g-col-8">
+<div id="listing-package-row1-links" class="quarto-listing quarto-listing-container-custom">
 <div class="link-cards">
 <div class="card">
+<!-- ::: {.card-image}
+![](){width="200px"}
+::: -->
 <div class="card-body">
-<section id="r-packages" class="level4 card-title">
-<h4 data-anchor-id="r-packages">R Packages</h4>
-<section id="nutrition-data-and-research-software" class="level6 card-subtitle text-muted">
-<h6 data-anchor-id="nutrition-data-and-research-software">Nutrition Data and Research Software</h6>
+<section id="anthropometry" class="level4 card-title">
+<h4 data-anchor-id="anthropometry">Anthropometry</h4>
+<section id="tools-for-handling-anthropometric-data" class="level6 card-subtitle text-muted">
+<h6 data-anchor-id="tools-for-handling-anthropometric-data">Tools for handling anthropometric data</h6>
 </section>
 </section>
 <ul>
-<li><a href="../../docs/software/zscorer.html">zscorer</a></li>
-<li><a href="../../docs/software/nipnTK.html">nipnTK</a></li>
-<li><a href="../../docs/software/micronutr.html">micronutr</a></li>
-<li><a href="../../docs/software/riycf.html">riycf</a></li>
-<li><a href="../../docs/software/mwana.html">mwana</a></li>
+<li><a href="../packages/zscorer.html">zscorer</a></li>
+<li><a href="../packages/nipnTK.html">nipnTK</a></li>
+<li><a href="../packages/mwana.html">mwana</a></li>
+</ul>
+</div>
+</div>
+<div class="card">
+<!-- ::: {.card-image}
+![](){width="200px"}
+::: -->
+<div class="card-body">
+<section id="diet" class="level4 card-title">
+<h4 data-anchor-id="diet">Diet</h4>
+<section id="tools-for-assessing-dietary-data" class="level6 card-subtitle text-muted">
+<h6 data-anchor-id="tools-for-assessing-dietary-data">Tools for assessing dietary data</h6>
+</section>
+</section>
+<ul>
+<li><a href="../packages/riycf.html">riycf</a></li>
+<li><a href="../packages/dietry.html">dietry</a></li>
+</ul>
+</div>
+</div>
+<div class="card">
+<!-- ::: {.card-image}
+![](){width="200px"}
+::: -->
+<div class="card-body">
+<section id="coverage" class="level4 card-title">
+<h4 data-anchor-id="coverage">Coverage</h4>
+<section id="tools-for-programme-coverage-assessment" class="level6 card-subtitle text-muted">
+<h6 data-anchor-id="tools-for-programme-coverage-assessment">Tools for programme coverage assessment</h6>
+</section>
+</section>
+<ul>
+<li><a href="../packages/squeacr.html">squeacr</a></li>
+<li><a href="../packages/sleacr.html">sleacr</a></li>
 </ul>
 </div>
 </div>
@@ -335,11 +329,65 @@ window.Quarto = {
 No matching items
 </div>
 </div>
+</div>
+<div class="g-col-1">
+
+</div>
+</div>
+<div class="grid">
+<div class="g-col-4">
+
+</div>
+<div class="g-col-7">
+<div id="listing-package-row2-links" class="quarto-listing quarto-listing-container-custom">
+<div class="link-cards">
+<div class="card">
+<!-- ::: {.card-image}
+![](){width="200px"}
+::: -->
+<div class="card-body">
+<section id="micronutrients" class="level4 card-title">
+<h4 data-anchor-id="micronutrients">Micronutrients</h4>
+<section id="tools-for-analysing-micronutrient-data" class="level6 card-subtitle text-muted">
+<h6 data-anchor-id="tools-for-analysing-micronutrient-data">Tools for analysing micronutrient data</h6>
+</section>
+</section>
+<ul>
+<li><a href="../packages/micronutr.html">micronutr</a></li>
+</ul>
+</div>
+</div>
+<div class="card">
+<!-- ::: {.card-image}
+![](){width="200px"}
+::: -->
+<div class="card-body">
+<section id="smart" class="level4 card-title">
+<h4 data-anchor-id="smart">SMART</h4>
+<section id="tools-for-implementing-smart-surveys" class="level6 card-subtitle text-muted">
+<h6 data-anchor-id="tools-for-implementing-smart-surveys">Tools for implementing SMART surveys</h6>
+</section>
+</section>
+<ul>
+<li><a href="../packages/smartr.html">smartr</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="listing-no-matching d-none">
+No matching items
+</div>
+</div>
+</div>
+<div class="g-col-1">
+
+</div>
+</div>
 
 
 
 
-</main> <!-- /main -->
+
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -360,6 +408,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
   const isCodeAnnotation = (el) => {
     for (const clz of el.classList) {
       if (clz.startsWith('code-annotation-')) {                     
@@ -757,8 +812,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       &nbsp;
     </div>   
     <div class="nav-footer-center">
-<p>Copyright 2024, Ernest Guevarra</p>
-<div class="toc-actions"><ul><li><a href="https://github.com/nutriverse/nutriverse.github.io/edit/main/docs/projects/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/nutriverse/nutriverse.github.io/issues" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div><div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+<p>Copyright 2024, Oxford iHealth</p>
+<div class="toc-actions"><ul><li><a href="https://github.com/nutriverse/nutriverse.github.io/edit/main/packages/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/nutriverse/nutriverse.github.io/issues" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div><div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

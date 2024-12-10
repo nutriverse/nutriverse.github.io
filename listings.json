@@ -2,24 +2,22 @@
   {
     "listing": "/index.html",
     "items": [
-      "/docs/software/micronutr.html",
-      "/docs/software/mwana.html",
-      "/docs/software/nipnTK.html",
-      "/docs/software/riycf.html",
-      "/docs/software/zscorer.html"
+      "/packages/mwana.html",
+      "/packages/nipnTK.html",
+      "/packages/zscorer.html"
     ]
   },
   {
-    "listing": "/docs/projects/index.html",
-    "items": []
-  },
-  {
-    "listing": "/docs/about/team.html",
+    "listing": "/about/team.html",
     "items": [
-      "/docs/team/aziz-goza.html",
-      "/docs/team/emmanuel-mandalazi.html",
-      "/docs/team/ernest-guevarra.html",
-      "/docs/team/tomas-zaba.html"
+      "/team/aziz-goza.html",
+      "/team/emmanuel-mandalazi.html",
+      "/team/ernest-guevarra.html",
+      "/team/tomas-zaba.html"
     ]
+  },
+  {
+    "listing": "/packages/index.html",
+    "items": []
   }
 ]

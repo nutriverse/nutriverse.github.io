@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>riycf: Utilities for Calculating Infant and Young Child Feeding Indicators – nutriverse</title>
+<title>mwana: An efficient workflow for plausibility checks and prevalence analysis of wasting in R – nutriverse</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,24 +23,24 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../">
-<script src="../../site_libs/cookie-consent/cookie-consent.js"></script>
-<link href="../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
-<script src="../../site_libs/quarto-html/quarto.js"></script>
-<script src="../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-de152e6b784f097b70fddec32d91cb7c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-52adffa0a3f7e87db87110ad7992a591.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -97,20 +97,26 @@ cookieconsent.run({
   
 
 
-<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="../styles.css">
+<meta property="og:title" content="mwana: An efficient workflow for plausibility checks and prevalence analysis of wasting in R – nutriverse">
+<meta property="og:description" content="">
+<meta property="og:image" content="https://nutriverse.io/images/mwana.png">
+<meta property="og:site_name" content="nutriverse">
+<meta property="og:image:height" content="1576">
+<meta property="og:image:width" content="1365">
 </head>
 
-<body class="nav-sidebar floating nav-fixed slimcontent">
+<body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../../images/nutriverse.png" alt="nutriverse logo" class="navbar-logo">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../images/nutriverse_neg.png" alt="nutriverse logo" class="navbar-logo">
     </a>
-    <a class="navbar-brand" href="../../index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">nutriverse</span>
     </a>
   </div>
@@ -121,12 +127,12 @@ cookieconsent.run({
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../index.html"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../../docs/projects/index.html" aria-current="page"> 
-<span class="menu-text">Projects</span></a>
+    <a class="nav-link" href="../packages/index.html"> 
+<span class="menu-text">Packages</span></a>
   </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-about" role="link" data-bs-toggle="dropdown" aria-expanded="false">
@@ -134,11 +140,11 @@ cookieconsent.run({
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-about">    
         <li>
-    <a class="dropdown-item" href="../../docs/about/team.html">
+    <a class="dropdown-item" href="../about/team.html">
  <span class="dropdown-text">Meet the Team</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../docs/about/contact.html">
+    <a class="dropdown-item" href="../about/contact.html">
  <span class="dropdown-text">Contact Us</span></a>
   </li>  
     </ul>
@@ -155,93 +161,24 @@ cookieconsent.run({
 </div>
       </div> <!-- /container-fluid -->
     </nav>
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-        <i class="bi bi-layout-text-sidebar-reverse"></i>
-      </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../docs/projects/index.html">Projects</a></li><li class="breadcrumb-item"><a href="../../docs/software/zscorer.html">R Packages</a></li><li class="breadcrumb-item"><a href="../../docs/software/riycf.html">riycf</a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-        </a>
-    </div>
-  </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="sidebar-menu-container"> 
-    <ul class="list-unstyled mt-1">
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a href="../../docs/projects/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Projects</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">R Packages</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../docs/software/zscorer.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">zscorer</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../docs/software/nipnTK.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">nipnTK</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../docs/software/micronutr.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">micronutr</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../docs/software/riycf.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">riycf</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../docs/software/mwana.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">mwana</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-      </ul>
-  </li>
-    </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
 <!-- main -->
-<main class="content page-columns page-full" id="quarto-document-content">
+<main class="content page-columns page-full column-page-left" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../docs/projects/index.html">Projects</a></li><li class="breadcrumb-item"><a href="../../docs/software/zscorer.html">R Packages</a></li><li class="breadcrumb-item"><a href="../../docs/software/riycf.html">riycf</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">riycf: Utilities for Calculating Infant and Young Child Feeding Indicators</h1>
+<h1 class="title">mwana: An efficient workflow for plausibility checks and prevalence analysis of wasting in R</h1>
 </div>
 
 
 
-<div class="quarto-title-meta">
+<div class="quarto-title-meta column-page-left">
 
     
   
@@ -256,19 +193,17 @@ cookieconsent.run({
 
 <!-- badges: start -->
 <div class="no-row-height column-margin column-container"><div class="">
-<p><a href="https://nutriverse.io/riycf/" target="blank"><img src="../../images/riycf.png" class="img-fluid"></a></p>
-</div></div><p><a href="http://www.repostatus.org/#active"><img src="http://www.repostatus.org/badges/latest/active.svg" class="img-fluid" alt="Project Status: Active – The project has reached a stable, usable state and is being actively developed."></a> <a href="https://lifecycle.r-lib.org/articles/stages.html#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" class="img-fluid" alt="Lifecycle: experimental"></a> <!-- badges: end --></p>
-<section id="what-are-the-iycf-indicators" class="level2">
-<h2 class="anchored" data-anchor-id="what-are-the-iycf-indicators">What are the IYCF Indicators?</h2>
-<p>The first 1,000 days of life (from pregnancy to a child’s 2nd birthday) are critical for addressing childhood malnutrition, especially stunting. Infant and young child feeding practices (IYCF) largely overlap with this period as they cover breastfeeding and complementary feeding practices for the first two years of a child’s life. They also have a significant impact on childhood health, nutrition outcomes, and child survival. It is, therefore, critical for countries to measure IYCF practices as part of their efforts to monitor their progress toward Sustainable Development Goal 2. It is also important for development agencies to be able to monitor and evaluate their programs aimed at improving infant and young child feeding practices towards improved overall childhood nutrition.</p>
-<p>WHO and UNICEF released the first IYCF indicators definition and measurement guidelines in 2008. In 2021, these guidelines were updated along with a revised standard questionnaire to capture the information required to calculate the updated IYCF indicators since the first initial publication. In general, the IYCF indicators can be categorized into three main categories: (1) breastfeeding indicators, (2) complementary indicators, and (3) other indicators, which are focused on bottle-feeding practices and the generation of data visualization plots for the breastfeeding status by age.</p>
-</section>
-<section id="why-riycf-package" class="level2">
-<h2 class="anchored" data-anchor-id="why-riycf-package">Why riycf package?</h2>
-<p>Although the initial measurement guidelines were published in 2008 with many humanitarian organizations and country health ministries implementing these indicators, no comprehensive statistical programming package to calculate these indicators is yet available. Therefore, every time the researchers (or humanitarian organizations) are required to collect and analyze, they need a considerable amount of time to re-code all the syntax (depending on which statistical program they are using). That is time-consuming work.</p>
-<p>This riycf package aims to address that technical gap by providing an easy-to-use package of automated functions` to calculate all IYCF indicators provided in the WHO guideline (<a href="https://www.who.int/publications/i/item/9789240018389" class="external" target="blank">the Indicators for assessing infant and young child feeding practices: definitions and measurement methods</a>). This include comprehensive guidelines for step-by-step usage of each automated function to analyze individual IYCF indicators in R software to make it easier for those less familiar with R software.</p>
-<p>For more information on the <code>{riycf}</code> package, you can visit the <a href="https://nutriverse.io/riycf/">project website</a>. To learn about the underlying code for this software development project, see the <a href="https://github.com/nutriverse/riycf">GitHub code repository</a>.</p>
-<p>If you are interested in contributing to this project, please be aware of its <a href="https://nutriverse.io/riycf/CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By participating in this project you agree to abide by its terms. To see a list of features that we are either actively working on, are considering, or need help on, visit our <a href="https://github.com/nutriverse/riycf/issues">GitHub issues</a> page. If you find something that you can help with, follow these <a href="https://nutriverse.io/riycf/CONTRIBUTING.html">steps on how to contribute</a>.</p>
+<p><a href="https://nutriverse.io/mwana/" target="blank"><img src="../images/mwana.png" class="img-fluid"></a></p>
+</div></div><p><a href="https://www.repostatus.org/#active"><img src="https://www.repostatus.org/badges/latest/active.svg" class="img-fluid" alt="Project Status: Active – The project has reached a stable, usable state and is being actively developed."></a> <a href="https://lifecycle.r-lib.org/articles/stages.html#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" class="img-fluid" alt="Lifecycle: experimental"></a> <a href="https://zenodo.org/badge/latestdoi/867609177"><img src="https://zenodo.org/badge/867609177.svg" class="img-fluid" alt="DOI"></a> <!-- badges: end --></p>
+<p>Child anthropometric assessments are the cornerstones of child nutrition and food security surveillance around the world. Ensuring the quality of data from these assessments is paramount to obtaining accurate child under nutrition prevalence estimates. The timeliness of reporting is, as well, critical to allowing timely situation analyses and responses to tackle the needs of the affected population.</p>
+<p>The <code>{mwana}</code> package streamlines data quality checks of and acute undernutrition prevalence estimation from anthropometric data of children aged 6 to 59 months old. This is made possible through the many years of leadership and development work in nutrition surveys of the <a href="https://smartmethodology.org">Standardized Monitoring and Assessment of Relief and Transitions (SMART) initiative</a> through its <a href="https://smartmethodology.org/survey-planning-tools/smart-methodology/">nutrition survey guidance</a> which <code>{mwana}</code> builds upon as a development framework. The main functionalities of the <code>{mwana}</code> package on acute undernutrition data quality checks are mainly convenience wrappers to functions in the <a href="https://nutriverse.io/nipnTK"><code>{nipnTK}</code></a> package.</p>
+<p>The term <strong><em>mwana</em></strong> means child in <em>Elómwè</em>, a local language spoken in the central-northern regions of Mozambique where the author hails from. It also has a similar meaning across other Bantu languages, such as <em>Swahili</em>, spoken in many parts of Africa.</p>
+<section id="motivation" class="level2">
+<h2 class="anchored" data-anchor-id="motivation">Motivation</h2>
+<p><code>{mwana}</code> was borne out of the author’s own experience of having to work with multiple child anthropometric data sets to conduct data quality appraisal and prevalence estimation as part of the <strong><em>Quality Assurance Team</em></strong> of the <a href="https://www.ipcinfo.org/" class="external" target="blank">Integrated Phase Classification (IPC)</a> Global Support Unit. The current standard child anthropometric data appraisal workflow is extremely cumbersome, requiring significant time and effort utilizing different software tools - SPSS, Microsoft Excel, <a href="https://smartmethodology.org/survey-planning-tools/smart-emergency-nutrition-assessment/" class="external" target="blank">SMART Emergency Nutrition Assessment (ENA) software</a> - for each step of the process for a single dataset. This process is repeated for every data set needing to be processed and often needing to be implemented in a relatively short period of time. This manual and repetitive process, by its nature, is extremely error-prone.</p>
+<p><code>{mwana}</code> provides functions that can simplify this cumbersome workflow into a process that can be programmatically designed particularly when handling multiple-area datasets. Whilst developed with the analytic and reporting needs of the IPC Global Support Unit in mind, <code>{mwana}</code> can be used generally for anthropometric datasets of children for the purpose of assessing data quality and for estimating prevalence of acute undernutrition in children 6-59 months old.</p>
+<p>For more information on the <code>{mwana}</code> package, you can visit the <a href="https://nutriverse.io/mwana/">project website</a>. To learn about the underlying code for this software development project, see the <a href="https://github.com/nutriverse/mwana">GitHub code repository</a>.</p>
+<p>If you are interested in contributing to this project, please be aware of its <a href="https://nutriverse.io/mwana/CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By participating in this project you agree to abide by its terms. To see a list of features that we are either actively working on, are considering, or need help on, visit our <a href="https://github.com/nutriverse/mwana/issues">GitHub issues</a> page. If you find something that you can help with, follow these <a href="https://nutriverse.io/mwana/CONTRIBUTING.html">steps on how to contribute</a>.</p>
 
 
 </section>
@@ -698,8 +633,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       &nbsp;
     </div>   
     <div class="nav-footer-center">
-<p>Copyright 2024, Ernest Guevarra</p>
-<div class="toc-actions"><ul><li><a href="https://github.com/nutriverse/nutriverse.github.io/edit/main/docs/software/riycf.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/nutriverse/nutriverse.github.io/issues" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div><div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+<p>Copyright 2024, Oxford iHealth</p>
+<div class="toc-actions"><ul><li><a href="https://github.com/nutriverse/nutriverse.github.io/edit/main/packages/mwana.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/nutriverse/nutriverse.github.io/issues" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div><div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
