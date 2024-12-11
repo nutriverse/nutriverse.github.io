@@ -1,11 +1,13 @@
 - title: Micronutrients
   subtitle: Tools for analysing micronutrient data
+  image: ../images/herbs.png
   links:
   - text: micronutr
     href: micronutr.qmd
 
 - title: SMART
   subtitle: Tools for implementing SMART surveys
+  image: ../images/books.png
   links:
   - text: smartr
     href: smartr.qmd
