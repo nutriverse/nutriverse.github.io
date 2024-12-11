@@ -1,6 +1,6 @@
 - title: Anthropometry
   subtitle: Tools for handling anthropometric data
-  #image: ../images/vitruvian.jpg
+  image: ../images/vitruvian.png
   links:
   - text: zscorer
     href: zscorer.qmd
@@ -11,7 +11,7 @@
 
 - title: Diet
   subtitle: Tools for assessing dietary data
-  #image: ../images/vegetables.jpg
+  image: ../images/vegetables.png
   links:
   - text: riycf
     href: riycf.qmd
@@ -20,6 +20,7 @@
 
 - title: Coverage
   subtitle: Tools for programme coverage assessment
+  image: ../images/cat.png
   links:
   - text: squeacr
     href: squeacr.qmd
