@@ -80,9 +80,9 @@ ul.task-list li input[type="checkbox"] {
     }
 
     const options = {
-      valueNames: ['listing-title','listing-subtitle','listing-links',{ data: ['index'] },{ data: ['categories'] }],
+      valueNames: ['listing-title','listing-subtitle','listing-image','listing-links',{ data: ['index'] },{ data: ['categories'] }],
       
-      searchColumns: ["listing-title","listing-subtitle","listing-links"],
+      searchColumns: ["listing-title","listing-subtitle","listing-image","listing-links"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -108,9 +108,9 @@ ul.task-list li input[type="checkbox"] {
     }
 
     const options = {
-      valueNames: ['listing-title','listing-subtitle','listing-links',{ data: ['index'] },{ data: ['categories'] }],
+      valueNames: ['listing-title','listing-subtitle','listing-image','listing-links',{ data: ['index'] },{ data: ['categories'] }],
       
-      searchColumns: ["listing-title","listing-subtitle","listing-links"],
+      searchColumns: ["listing-title","listing-subtitle","listing-image","listing-links"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -273,9 +273,9 @@ window.Quarto = {
 <div id="listing-package-row1-links" class="quarto-listing quarto-listing-container-custom">
 <div class="link-cards">
 <div class="card">
-<!-- ::: {.card-image}
-![](){width="200px"}
-::: -->
+<div class="card-image">
+<p><img src="../images/vitruvian.png" class="img-fluid" width="400"></p>
+</div>
 <div class="card-body">
 <section id="anthropometry" class="level4 card-title">
 <h4 data-anchor-id="anthropometry">Anthropometry</h4>
@@ -291,9 +291,9 @@ window.Quarto = {
 </div>
 </div>
 <div class="card">
-<!-- ::: {.card-image}
-![](){width="200px"}
-::: -->
+<div class="card-image">
+<p><img src="../images/vegetables.png" class="img-fluid" width="400"></p>
+</div>
 <div class="card-body">
 <section id="diet" class="level4 card-title">
 <h4 data-anchor-id="diet">Diet</h4>
@@ -308,9 +308,9 @@ window.Quarto = {
 </div>
 </div>
 <div class="card">
-<!-- ::: {.card-image}
-![](){width="200px"}
-::: -->
+<div class="card-image">
+<p><img src="../images/cat.png" class="img-fluid" width="400"></p>
+</div>
 <div class="card-body">
 <section id="coverage" class="level4 card-title">
 <h4 data-anchor-id="coverage">Coverage</h4>
@@ -342,9 +342,9 @@ No matching items
 <div id="listing-package-row2-links" class="quarto-listing quarto-listing-container-custom">
 <div class="link-cards">
 <div class="card">
-<!-- ::: {.card-image}
-![](){width="200px"}
-::: -->
+<div class="card-image">
+<p><img src="../images/herbs.png" class="img-fluid" width="400"></p>
+</div>
 <div class="card-body">
 <section id="micronutrients" class="level4 card-title">
 <h4 data-anchor-id="micronutrients">Micronutrients</h4>
@@ -358,9 +358,9 @@ No matching items
 </div>
 </div>
 <div class="card">
-<!-- ::: {.card-image}
-![](){width="200px"}
-::: -->
+<div class="card-image">
+<p><img src="../images/books.png" class="img-fluid" width="400"></p>
+</div>
 <div class="card-body">
 <section id="smart" class="level4 card-title">
 <h4 data-anchor-id="smart">SMART</h4>
