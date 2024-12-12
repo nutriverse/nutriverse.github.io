@@ -8,6 +8,10 @@
     ]
   },
   {
+    "listing": "/packages/index.html",
+    "items": []
+  },
+  {
     "listing": "/about/team.html",
     "items": [
       "/team/aziz-goza.html",
@@ -15,9 +19,5 @@
       "/team/ernest-guevarra.html",
       "/team/tomas-zaba.html"
     ]
-  },
-  {
-    "listing": "/packages/index.html",
-    "items": []
   }
 ]
