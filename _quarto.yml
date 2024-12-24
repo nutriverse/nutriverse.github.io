@@ -8,9 +8,14 @@ website:
     title: nutriverse
     #background: success
     logo: images/nutriverse_neg.png
-    logo-alt: nutriverse logo
+    logo-alt: nutriverse
     tools:
+      - icon: mastodon
+        aria-label: Mastodon
+        href: https://mastodon.social/@nutriverse
+        rel: me
       - icon: github
+        aria-label: GitHub
         href: https://github.com/nutriverse
     left:
       - href: index.qmd
