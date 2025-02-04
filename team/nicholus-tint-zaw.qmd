@@ -1,0 +1,49 @@
+---
+title: Nicholus Tint Zaw
+image: ../../images/nicholustintzaw.jpeg
+about:
+  template: solana
+  links:
+    - icon: linkedin
+      text: LinkedIn
+      href: https://www.linkedin.com/in/nicholustintzaw/
+    - icon: github
+      text: Github
+      href: https://github.com/nicholustintzaw
+---
+
+Nicholus Tint Zaw is a highly accomplished professional with a strong background in global health, nutrition, and social protection. He holds a Master of Public Policy degree from the University of Chicago Harris School of Public Policy, where he was awarded the prestigious Lincoln Scholarship. With experience in organizations like The World Bank, International Growth Center, Innovations for Poverty Action, and Save the Children International, Nicholus has conducted research, managed projects, and provided senior-level advisory in various capacities. He is skilled in software and programming languages such as Stata, R, Python, and ODK, and has published in reputable journals. As a recipient of esteemed fellowships and awards, Nicholus brings valuable expertise in data analysis and a commitment to evidence-based policy-making.
+
+## Education
+**Harris School of Public Policy, University of Chicago** | Chicago, USA  
+Master of Public Policy, Public Policy Analysis | 2020 - 2022
+
+**Geneva Graduate Institute** | Geneva, Switzerland  
+Executive Master Development Policy and Practices, Development Policy and Practices | 2017 - 2018
+
+**University of Nursing Yangon** | Yangon, Myanmar  
+Bachelor of Nursing Science | 2004 - 2008
+
+## Experience
+**International Food Policy Reearch Research Institute**  
+Research Analyst | Aug 2023 - present
+
+**World Bank**  
+Consultant | Jul 2023 - Aug 2023
+Robert S. McNamara Fellow | Sept 2022 - Jun 2023
+
+**Research Manager**  
+International Growth Centre | Nov 2020 - May 2021  
+
+**Programming, Survey, and Research Consultant**
+Self-employed | Apr 2019 - Nov 2020
+
+**Senior Research Associate**
+Innovation for Poverity Action | Jan 2016 - Mar 2019
+
+**Consultant**
+HelpAge International and Department of Social Welfare, Myanmar | May 2018
+
+**Senior Programme Advisor**
+Save the Children International | Jun 2008 - Dec 2015
+
