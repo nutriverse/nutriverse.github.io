@@ -1,5 +1,9 @@
 [
   {
+    "listing": "/packages/index.html",
+    "items": []
+  },
+  {
     "listing": "/index.html",
     "items": [
       "/packages/mwana.html",
@@ -8,15 +12,12 @@
     ]
   },
   {
-    "listing": "/packages/index.html",
-    "items": []
-  },
-  {
     "listing": "/about/team.html",
     "items": [
       "/team/aziz-goza.html",
       "/team/emmanuel-mandalazi.html",
       "/team/ernest-guevarra.html",
+      "/team/nicholus-tint-zaw.html",
       "/team/tomas-zaba.html"
     ]
   }

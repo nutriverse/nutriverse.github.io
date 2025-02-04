@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>zscorer: Anthropometric z-score Calculator – nutriverse</title>
+<title>Nicholus Tint Zaw – nutriverse</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -35,7 +35,6 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
@@ -98,15 +97,13 @@ cookieconsent.run({
 
 
 <link rel="stylesheet" href="../styles.css">
-<meta property="og:title" content="zscorer: Anthropometric z-score Calculator – nutriverse">
+<meta property="og:title" content="Nicholus Tint Zaw – nutriverse">
 <meta property="og:description" content="">
-<meta property="og:image" content="https://nutriverse.io/images/zscorer.png">
+<meta property="og:image" content="https://nutriverse.io/../images/nicholustintzaw.jpeg">
 <meta property="og:site_name" content="nutriverse">
-<meta property="og:image:height" content="1513">
-<meta property="og:image:width" content="1322">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -164,60 +161,68 @@ cookieconsent.run({
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-    </div>
+    
 <!-- main -->
-<main class="content page-columns page-full column-page-left" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-about-solana column-body">
+  <div class="about-entity">
+    <div class="entity-contents">
+      <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">zscorer: Anthropometric z-score Calculator</h1>
+<h1 class="title">Nicholus Tint Zaw</h1>
 </div>
-
-
-
-<div class="quarto-title-meta column-page-left">
-
-    
-  
-    
+<div class="quarto-title-meta">
   </div>
-  
-
-
-</header>
-
-
-
-<!-- badges: start -->
-<div class="no-row-height column-margin column-container"><div class="">
-<p><a href="https://nutriverse.io/zscorer/" target="blank"><img src="../images/zscorer.png" class="img-fluid"></a></p>
-</div></div><p><a href="http://www.repostatus.org/#active"><img src="http://www.repostatus.org/badges/latest/active.svg" class="img-fluid" alt="Project Status: Active – The project has reached a stable, usable state and is being actively developed."></a> <a href="https://www.tidyverse.org/lifecycle/#maturing"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg" class="img-fluid" alt="lifecycle"></a> <a href="https://zenodo.org/badge/latestdoi/119683584"><img src="https://zenodo.org/badge/119683584.svg" class="img-fluid" alt="DOI"></a> <!-- badges: end --></p>
-<section id="what-does-zscorer-do" class="level2">
-<h2 class="anchored" data-anchor-id="what-does-zscorer-do">What does <code>{zscorer}</code> do?</h2>
-<p>The <code>{zscorer}</code> packages facilitates the calculation of a range of anthropometric <em>z-scores</em> (i.e.&nbsp;the number of standard deviations from the mean) and adds them to survey data:</p>
-<ul>
-<li><p><strong>Weight-for-length (wfl)</strong> z-scores for children with lengths between 45 and 110 cm</p></li>
-<li><p><strong>Weight-for-height (wfh)</strong> z-scores for children with heights between 65 and 120 cm</p></li>
-<li><p><strong>Length-for-age (lfa)</strong> z-scores for children aged less than 24 months</p></li>
-<li><p><strong>Height-for-age (hfa)</strong> z-scores for children aged between 24 and 228 months</p></li>
-<li><p><strong>Weight-for-age (wfa)</strong> z-scores for children aged between zero and 120 months</p></li>
-<li><p><strong>Body mass index-for-age (bfa)</strong> z-scores for children aged between zero and 228 months</p></li>
-<li><p><strong>MUAC-for-age (mfa)</strong> z-scores for children aged between 3 and 228 months</p></li>
-<li><p><strong>Triceps skinfold-for-age (tsa)</strong> z-scores for children aged between 3 and 60 months</p></li>
-<li><p><strong>Sub-scapular skinfold-for-age (ssa)</strong> z-scores for children aged between 3 and 60 months</p></li>
-<li><p><strong>Head circumference-for-age (hca)</strong> z-scores for children aged between zero and 60 months</p></li>
-</ul>
-<p>For more information on the <code>{zscorer}</code> package, you can visit the <a href="https://nutriverse.io/zscorer/">project website</a>. To learn about the underlying code for this software development project, see the <a href="https://github.com/nutriverse/zscorer">GitHub code repository</a>.</p>
-<p>If you are interested in contributing to this project, please be aware of its <a href="https://nutriverse.io/zscorer/CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By participating in this project you agree to abide by its terms. To see a list of features that we are either actively working on, are considering, or need help on, visit our <a href="https://github.com/nutriverse/zscorer/issues">GitHub issues</a> page. If you find something that you can help with, follow these <a href="https://nutriverse.io/zscorer/CONTRIBUTING.html">steps on how to contribute</a>.</p>
+</header> <div class="about-links">
+  <a href="https://www.linkedin.com/in/nicholustintzaw/" class="about-link" rel="" target="">
+    <i class="bi bi-linkedin"></i>
+     <span class="about-link-text">LinkedIn</span>
+  </a>
+  <a href="https://github.com/nicholustintzaw" class="about-link" rel="" target="">
+    <i class="bi bi-github"></i>
+     <span class="about-link-text">Github</span>
+  </a>
+</div>
+      <div class="about-contents"><main class="content" id="quarto-document-content">
+<p>Nicholus Tint Zaw is a highly accomplished professional with a strong background in global health, nutrition, and social protection. He holds a Master of Public Policy degree from the University of Chicago Harris School of Public Policy, where he was awarded the prestigious Lincoln Scholarship. With experience in organizations like The World Bank, International Growth Center, Innovations for Poverty Action, and Save the Children International, Nicholus has conducted research, managed projects, and provided senior-level advisory in various capacities. He is skilled in software and programming languages such as Stata, R, Python, and ODK, and has published in reputable journals. As a recipient of esteemed fellowships and awards, Nicholus brings valuable expertise in data analysis and a commitment to evidence-based policy-making.</p>
+<section id="education" class="level2">
+<h2 data-anchor-id="education">Education</h2>
+<p><strong>Harris School of Public Policy, University of Chicago</strong> | Chicago, USA<br>
+Master of Public Policy, Public Policy Analysis | 2020 - 2022</p>
+<p><strong>Geneva Graduate Institute</strong> | Geneva, Switzerland<br>
+Executive Master Development Policy and Practices, Development Policy and Practices | 2017 - 2018</p>
+<p><strong>University of Nursing Yangon</strong> | Yangon, Myanmar<br>
+Bachelor of Nursing Science | 2004 - 2008</p>
+</section>
+<section id="experience" class="level2">
+<h2 data-anchor-id="experience">Experience</h2>
+<p><strong>International Food Policy Reearch Research Institute</strong><br>
+Research Analyst | Aug 2023 - present</p>
+<p><strong>World Bank</strong><br>
+Consultant | Jul 2023 - Aug 2023<br>
+Robert S. McNamara Fellow | Sept 2022 - Jun 2023</p>
+<p><strong>Research Manager</strong><br>
+International Growth Centre | Nov 2020 - May 2021</p>
+<p><strong>Programming, Survey, and Research Consultant</strong><br>
+Self-employed | Apr 2019 - Nov 2020</p>
+<p><strong>Senior Research Associate</strong><br>
+Innovation for Poverity Action | Jan 2016 - Mar 2019</p>
+<p><strong>Consultant</strong><br>
+HelpAge International and Department of Social Welfare, Myanmar | May 2018</p>
+<p><strong>Senior Programme Advisor</strong><br>
+Save the Children International | Jun 2008 - Dec 2015</p>
 
 
 </section>
-
-</main> <!-- /main -->
+</main></div>
+    </div>
+    <img src="../../images/nicholustintzaw.jpeg" class="about-image
+  rounded " style="width: 15em;">
+  </div>
+</div>
+ <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -238,13 +243,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   toggleBodyColorPrimary();  
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
   const isCodeAnnotation = (el) => {
     for (const clz of el.classList) {
       if (clz.startsWith('code-annotation-')) {                     
@@ -643,7 +641,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2024, Oxford iHealth</p>
-<div class="toc-actions"><ul><li><a href="https://github.com/nutriverse/nutriverse.github.io/edit/main/packages/zscorer.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/nutriverse/nutriverse.github.io/issues" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div><div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+<div class="toc-actions"><ul><li><a href="https://github.com/nutriverse/nutriverse.github.io/edit/main/team/nicholus-tint-zaw.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/nutriverse/nutriverse.github.io/issues" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div><div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

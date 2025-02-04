@@ -1,79 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://nutriverse.io/index.html</loc>
-    <lastmod>2024-12-24T07:46:21.857Z</lastmod>
-  </url>
-  <url>
-    <loc>https://nutriverse.io/guides/nutrisurvey.html</loc>
-    <lastmod>2024-12-24T07:46:21.821Z</lastmod>
-  </url>
-  <url>
-    <loc>https://nutriverse.io/packages/sleacr.html</loc>
-    <lastmod>2024-12-24T07:46:21.857Z</lastmod>
-  </url>
-  <url>
-    <loc>https://nutriverse.io/packages/index.html</loc>
-    <lastmod>2024-12-24T07:46:21.857Z</lastmod>
-  </url>
-  <url>
-    <loc>https://nutriverse.io/packages/micronutr.html</loc>
-    <lastmod>2024-12-24T07:46:21.857Z</lastmod>
-  </url>
-  <url>
-    <loc>https://nutriverse.io/packages/dietry.html</loc>
-    <lastmod>2024-12-24T07:46:21.857Z</lastmod>
-  </url>
-  <url>
-    <loc>https://nutriverse.io/packages/mwana.html</loc>
-    <lastmod>2024-12-24T07:46:21.857Z</lastmod>
-  </url>
-  <url>
-    <loc>https://nutriverse.io/team/aziz-goza.html</loc>
-    <lastmod>2024-12-24T07:46:21.861Z</lastmod>
+    <loc>https://nutriverse.io/LICENSE.html</loc>
+    <lastmod>2025-02-04T17:30:05.913Z</lastmod>
   </url>
   <url>
     <loc>https://nutriverse.io/team/emmanuel-mandalazi.html</loc>
-    <lastmod>2024-12-24T07:46:21.861Z</lastmod>
+    <lastmod>2025-02-04T17:30:05.945Z</lastmod>
   </url>
   <url>
-    <loc>https://nutriverse.io/about/team.html</loc>
-    <lastmod>2024-12-24T07:46:21.821Z</lastmod>
-  </url>
-  <url>
-    <loc>https://nutriverse.io/about/contact.html</loc>
-    <lastmod>2024-12-24T07:46:21.821Z</lastmod>
-  </url>
-  <url>
-    <loc>https://nutriverse.io/team/tomas-zaba.html</loc>
-    <lastmod>2024-12-24T07:46:21.861Z</lastmod>
-  </url>
-  <url>
-    <loc>https://nutriverse.io/team/ernest-guevarra.html</loc>
-    <lastmod>2024-12-24T07:46:21.861Z</lastmod>
-  </url>
-  <url>
-    <loc>https://nutriverse.io/packages/zscorer.html</loc>
-    <lastmod>2024-12-24T07:46:21.857Z</lastmod>
-  </url>
-  <url>
-    <loc>https://nutriverse.io/packages/squeacr.html</loc>
-    <lastmod>2024-12-24T07:46:21.857Z</lastmod>
+    <loc>https://nutriverse.io/team/nicholus-tint-zaw.html</loc>
+    <lastmod>2025-02-04T17:30:05.945Z</lastmod>
   </url>
   <url>
     <loc>https://nutriverse.io/packages/smartr.html</loc>
-    <lastmod>2024-12-24T07:46:21.857Z</lastmod>
+    <lastmod>2025-02-04T17:30:05.944Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nutriverse.io/packages/index.html</loc>
+    <lastmod>2025-02-04T17:30:05.944Z</lastmod>
   </url>
   <url>
     <loc>https://nutriverse.io/packages/riycf.html</loc>
-    <lastmod>2024-12-24T07:46:21.857Z</lastmod>
+    <lastmod>2025-02-04T17:30:05.944Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nutriverse.io/packages/squeacr.html</loc>
+    <lastmod>2025-02-04T17:30:05.944Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nutriverse.io/packages/zscorer.html</loc>
+    <lastmod>2025-02-04T17:30:05.944Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nutriverse.io/index.html</loc>
+    <lastmod>2025-02-04T17:30:05.943Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nutriverse.io/about/contact.html</loc>
+    <lastmod>2025-02-04T17:30:05.914Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nutriverse.io/about/team.html</loc>
+    <lastmod>2025-02-04T17:30:05.914Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nutriverse.io/guides/nutrisurvey.html</loc>
+    <lastmod>2025-02-04T17:30:05.914Z</lastmod>
   </url>
   <url>
     <loc>https://nutriverse.io/packages/nipnTK.html</loc>
-    <lastmod>2024-12-24T07:46:21.857Z</lastmod>
+    <lastmod>2025-02-04T17:30:05.944Z</lastmod>
   </url>
   <url>
-    <loc>https://nutriverse.io/LICENSE.html</loc>
-    <lastmod>2024-12-24T07:46:21.821Z</lastmod>
+    <loc>https://nutriverse.io/packages/dietry.html</loc>
+    <lastmod>2025-02-04T17:30:05.944Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nutriverse.io/packages/mwana.html</loc>
+    <lastmod>2025-02-04T17:30:05.944Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nutriverse.io/packages/micronutr.html</loc>
+    <lastmod>2025-02-04T17:30:05.944Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nutriverse.io/packages/sleacr.html</loc>
+    <lastmod>2025-02-04T17:30:05.944Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nutriverse.io/team/ernest-guevarra.html</loc>
+    <lastmod>2025-02-04T17:30:05.945Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nutriverse.io/team/aziz-goza.html</loc>
+    <lastmod>2025-02-04T17:30:05.945Z</lastmod>
+  </url>
+  <url>
+    <loc>https://nutriverse.io/team/tomas-zaba.html</loc>
+    <lastmod>2025-02-04T17:30:05.945Z</lastmod>
   </url>
 </urlset>
