@@ -8,7 +8,7 @@ listing:
   contents:
     - packages/zscorer.qmd
     - packages/nipnTK.qmd
-    - packages/mwana.qmd
+    - packages/micronutr.qmd
   type: grid
   image-height: 400px
   image-placeholder: images/nutriverse.png
