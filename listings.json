@@ -1,17 +1,5 @@
 [
   {
-    "listing": "/packages/index.html",
-    "items": []
-  },
-  {
-    "listing": "/index.html",
-    "items": [
-      "/packages/mwana.html",
-      "/packages/nipnTK.html",
-      "/packages/zscorer.html"
-    ]
-  },
-  {
     "listing": "/about/team.html",
     "items": [
       "/team/aziz-goza.html",
@@ -20,5 +8,17 @@
       "/team/nicholus-tint-zaw.html",
       "/team/tomas-zaba.html"
     ]
+  },
+  {
+    "listing": "/index.html",
+    "items": [
+      "/packages/micronutr.html",
+      "/packages/nipnTK.html",
+      "/packages/zscorer.html"
+    ]
+  },
+  {
+    "listing": "/packages/index.html",
+    "items": []
   }
 ]
