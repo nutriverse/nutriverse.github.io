@@ -9,11 +9,11 @@ jobs:
   mirror:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
       - uses: yesolutions/mirror-action@master
         with:
-          REMOTE: https://codeberg.org/nutriverse/nutriversehub.io
+          REMOTE: https://codeberg.org/nutriverse/nutriverse.github.io
           GIT_USERNAME: ${{ secrets.CODEBERG_USERNAME }}
           GIT_PASSWORD: ${{ secrets.CODEBERG_TOKEN }}
