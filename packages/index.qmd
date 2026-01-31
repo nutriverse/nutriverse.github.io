@@ -2,13 +2,33 @@
 # title: R Packages
 # subtitle: Tools for nutrition research and analysis
 page-layout: custom
+#listing:
+#  - id: package-row1-links
+#    template: ../ejs/custom.ejs
+#    contents: packages_row1.yml
+#  - id: package-row2-links
+#    template: ../ejs/custom.ejs
+#    contents: packages_row2.yml
 listing:
-  - id: package-row1-links
-    template: ../ejs/custom.ejs
-    contents: packages_row1.yml
-  - id: package-row2-links
-    template: ../ejs/custom.ejs
-    contents: packages_row2.yml
+  id: hex-listing
+  template: ../ejs/hexlisting.ejs
+  contents:
+    - text: zscorer
+      path: zscorer.qmd
+    - text: nipnTK
+      path: nipnTK.qmd
+    - text: riycf
+      path: riycf.qmd
+    - text: dietry
+      path: dietry.qmd
+    - text: squeacr
+      path: squeacr.qmd
+    - text: sleacr
+      path: sleacr.qmd
+    - text: micronutr
+      path: micronutr.qmd
+    - text: smartr
+      path: smartr.qmd      
 ---
 
 ::: {.about-banner}
@@ -29,7 +49,7 @@ Our collection of packages developed by and contributed to by our community. The
 
 <br/>
 
-::: {.grid}
+<!-- ::: {.grid}
 
 ::: {.g-col-3}
 :::
@@ -60,6 +80,25 @@ Our collection of packages developed by and contributed to by our community. The
 :::
 
 ::: {.g-col-1}
+:::
+
+::: -->
+
+::: {.grid}
+
+::: {.g-col-4}
+
+:::
+
+::: {.g-col-8}
+
+:::{#hex-listing}
+:::
+
+:::
+
+::: {.g-col-4}
+
 :::
 
 :::
