@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.26">
+<meta name="generator" content="quarto-1.8.27">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -41,7 +41,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-15b7fc7245364b3b7690a71355d5bd66.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -75,48 +75,20 @@ ul.task-list li input[type="checkbox"] {
 <script>
 
   window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-package-row1-links .list');
+    const listingTargetEl = window.document.querySelector('#listing-hex-listing .list');
     if (!listingTargetEl) {
       // No listing discovered, do not attach.
       return; 
     }
 
     const options = {
-      valueNames: ['listing-title','listing-subtitle','listing-image','listing-links',{ data: ['index'] },{ data: ['categories'] }],
+      valueNames: ['listing-project','listing-website','listing-format','listing-language','listing-page-layout','listing-search','listing-toc','listing-date-format','listing-image-placeholder','listing-title','listing-image','listing-path','listing-outputHref','listing-author','listing-description','listing-filename','listing-file-modified','listing-reading-time','listing-word-count','listing-text',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-file-modified-sort'] },{ data: ['listing-reading-time-sort'] },{ data: ['listing-word-count-sort'] }],
       
-      searchColumns: ["listing-title","listing-subtitle","listing-image","listing-links"],
+      searchColumns: ["listing-project","listing-website","listing-format","listing-language","listing-page-layout","listing-search","listing-toc","listing-date-format","listing-image-placeholder","listing-title","listing-image","listing-path","listing-outputHref","listing-author","listing-description","listing-filename","listing-file-modified","listing-reading-time","listing-word-count","listing-text"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-package-row1-links'] = new List('listing-package-row1-links', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-package-row2-links .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-title','listing-subtitle','listing-image','listing-links',{ data: ['index'] },{ data: ['categories'] }],
-      
-      searchColumns: ["listing-title","listing-subtitle","listing-image","listing-links"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-package-row2-links'] = new List('listing-package-row2-links', options);
+    window['quarto-listings']['listing-hex-listing'] = new List('listing-hex-listing', options);
 
     if (window['quarto-listing-loaded']) {
       window['quarto-listing-loaded']();
@@ -240,6 +212,8 @@ window.Quarto = {
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools tools-wide">
     <a href="https://mastodon.social/@nutriverse" rel="me" title="" class="quarto-navigation-tool px-1" aria-label="Mastodon"><i class="bi bi-mastodon"></i></a>
+    <a href="https://bsky.app/profile/nutriverse.io" title="" class="quarto-navigation-tool px-1" aria-label="Bluesky"><i class="bi bi-bluesky"></i></a>
+    <a href="https://www.linkedin.com/company/nutriverse-community" title="" class="quarto-navigation-tool px-1" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
     <a href="https://github.com/nutriverse" title="" class="quarto-navigation-tool px-1" aria-label="GitHub"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
   <div class="quarto-reader-toggle-btn">
@@ -269,525 +243,241 @@ window.Quarto = {
 </section>
 </div>
 <p><br></p>
-<div class="grid">
-<div class="g-col-3">
+<!-- ::: {.grid}
 
-</div>
-<div class="g-col-8">
-<div id="listing-package-row1-links" class="quarto-listing quarto-listing-container-custom">
-<div class="link-cards">
-<div class="card">
-<div class="card-image">
-<p><img src="../images/vitruvian.png" class="img-fluid" width="400"></p>
-</div>
-<div class="card-body">
-<section id="anthropometry" class="level4 card-title">
-<h4 data-anchor-id="anthropometry">Anthropometry</h4>
-<section id="tools-for-handling-anthropometric-data" class="level6 card-subtitle text-muted">
-<h6 data-anchor-id="tools-for-handling-anthropometric-data">Tools for handling anthropometric data</h6>
-</section>
-</section>
-<ul>
-<li><a href="../packages/zscorer.html">zscorer</a></li>
-<li><a href="../packages/nipnTK.html">nipnTK</a></li>
-</ul>
-</div>
-</div>
-<div class="card">
-<div class="card-image">
-<p><img src="../images/vegetables.png" class="img-fluid" width="400"></p>
-</div>
-<div class="card-body">
-<section id="diet" class="level4 card-title">
-<h4 data-anchor-id="diet">Diet</h4>
-<section id="tools-for-assessing-dietary-data" class="level6 card-subtitle text-muted">
-<h6 data-anchor-id="tools-for-assessing-dietary-data">Tools for assessing dietary data</h6>
-</section>
-</section>
-<ul>
-<li><a href="../packages/riycf.html">riycf</a></li>
-<li><a href="../packages/dietry.html">dietry</a></li>
-</ul>
-</div>
-</div>
-<div class="card">
-<div class="card-image">
-<p><img src="../images/cat.png" class="img-fluid" width="400"></p>
-</div>
-<div class="card-body">
-<section id="coverage" class="level4 card-title">
-<h4 data-anchor-id="coverage">Coverage</h4>
-<section id="tools-for-programme-coverage-assessment" class="level6 card-subtitle text-muted">
-<h6 data-anchor-id="tools-for-programme-coverage-assessment">Tools for programme coverage assessment</h6>
-</section>
-</section>
-<ul>
-<li><a href="../packages/squeacr.html">squeacr</a></li>
-<li><a href="../packages/sleacr.html">sleacr</a></li>
-</ul>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">No matching items</div>
-</div>
-</div>
-<div class="g-col-1">
+::: {.g-col-3}
+:::
 
-</div>
-</div>
+::: {.g-col-8}
+
+::: {#package-row1-links}
+:::
+
+:::
+
+::: {.g-col-1}
+:::
+
+:::
+
+
+::: {.grid}
+
+::: {.g-col-4}
+:::
+
+::: {.g-col-7}
+
+::: {#package-row2-links}
+:::
+
+:::
+
+::: {.g-col-1}
+:::
+
+::: -->
 <div class="grid">
 <div class="g-col-4">
 
 </div>
-<div class="g-col-7">
-<div id="listing-package-row2-links" class="quarto-listing quarto-listing-container-custom">
-<div class="link-cards">
-<div class="card">
-<div class="card-image">
-<p><img src="../images/herbs.png" class="img-fluid" width="400"></p>
-</div>
-<div class="card-body">
-<section id="micronutrients" class="level4 card-title">
-<h4 data-anchor-id="micronutrients">Micronutrients</h4>
-<section id="tools-for-analysing-micronutrient-data" class="level6 card-subtitle text-muted">
-<h6 data-anchor-id="tools-for-analysing-micronutrient-data">Tools for analysing micronutrient data</h6>
-</section>
-</section>
-<ul>
-<li><a href="../packages/micronutr.html">micronutr</a></li>
-</ul>
-</div>
-</div>
-<div class="card">
-<div class="card-image">
-<p><img src="../images/books.png" class="img-fluid" width="400"></p>
-</div>
-<div class="card-body">
-<section id="smart" class="level4 card-title">
-<h4 data-anchor-id="smart">SMART</h4>
-<section id="tools-for-implementing-smart-surveys" class="level6 card-subtitle text-muted">
-<h6 data-anchor-id="tools-for-implementing-smart-surveys">Tools for implementing SMART surveys</h6>
-</section>
-</section>
-<ul>
-<li><a href="../packages/smartr.html">smartr</a></li>
-</ul>
-</div>
-</div>
-</div>
+<div class="g-col-8">
+<div id="listing-hex-listing" class="quarto-listing quarto-listing-container-custom">
+<!-- hex badge listing by jamesgoldie.dev, jan 2025 -->
+<style>
+  .hex-listing-container {
+    display: flex;
+    flex-flow: row wrap;
+    --hex-width: 150px;
+    --hex-height: calc(var(--hex-width) * 1.1547);
+    --hex-margin: 4px;
+    --hex-shape: polygon(0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%, 50% 0%);
+    padding-inline-start: calc(var(--hex-width) * 0.5 - var(--hex-margin));
+    padding-block-start: calc(0.25 * var(--hex-height) - 2 * var(--hex-margin));
+  }
+
+  .hex-listing-pair {
+    display: inline-flex;
+    align-items: start;
+    height: calc(2 * var(--hex-height) + 2 * var(--hex-margin) - 0.25 * var(--hex-height));
+    margin-inline-start: calc(var(--hex-width) * -0.5 + var(--hex-margin));
+    margin-block-start: calc(-0.25 * var(--hex-height) + 2 * var(--hex-margin));
+  }
+
+  .hex-listing-item {
+    place-content: center;
+    text-align: center;
+    transition-delay: 0;
+    transition:
+      transform 0.25s ease-in-out,
+      filter 0.25s linear;
+    filter: drop-shadow(0px 0px 8px #00000011);
+  }
+  
+  .hex-listing-item:has(a:hover),
+  .hex-listing-item:has(a:focus-visible) {
+    transition-delay: 0.2s;
+    transform: scale(1.15);
+    filter: drop-shadow(0px 0px 8px #00000044);
+    z-index: 1;
+  }
+  
+  .hex-listing-container a {
+    display: inline-grid;
+    width: var(--hex-width);
+    height: var(--hex-height);
+    clip-path: var(--hex-shape);
+    text-decoration: none;
+  }
+
+  .hex-listing-item a:focus-visible {
+    outline: 3px solid red;
+  }
+
+  .hex-listing-item:nth-child(2) {
+    margin-inline-start: calc(-0.5 * var(--hex-width) + var(--hex-margin));
+    align-self: end;
+  }
+
+  /* hex contents */
+
+  .hex-listing-container a > * {
+    grid-area: 1 / 1;
+  }
+
+  .hex-listing-container a img {
+    width: var(--hex-width);
+    height: var(--hex-height);
+    object-fit: cover;
+  }
+
+  .hex-listing-container a p {
+    color: grey;
+    font-size: 70%;
+    align-self: center;
+    margin: 0;
+    padding-inline: 0.75em;
+  }
+
+  /* fallback appearance when there's no image */
+
+  .hex-listing-container a:not(:has(img)) {
+    background-color: #efefef;
+  }
+
+  /* mobile sizing */
+
+  @media (max-width: 767.98px) {
+    .hex-listing-container {
+      --hex-width: 100px;
+    }
+
+    .hex-listing-container a p {
+      font-size: 50%;
+    }
+
+  }
+
+</style>
+
+<div class="hex-listing-container">
+  
+    <div class="hex-listing-pair">
+      <div class="hex-listing-item">
+        <a href="../packages/dietry.html">
+          <p>dietry: Utilities for Dietary Intake Indicators for Food Security Assessments</p>
+          
+            <img loading="lazy" src="../images/dietry.png" alt="dietry: Utilities for Dietary Intake Indicators for Food Security Assessments">
+          
+        </a>
+      </div>
+      
+        <div class="hex-listing-item">
+          <a href="../packages/micronutr.html">
+            <p>micronutr: Determining Vitamin and Mineral Status of Populations</p>
+            
+              <img loading="lazy" src="../images/micronutr.png" alt="micronutr: Determining Vitamin and Mineral Status of Populations">
+            
+          </a>
+        </div>
+      
+      </div>    
+  
+    <div class="hex-listing-pair">
+      <div class="hex-listing-item">
+        <a href="../packages/nipnTK.html">
+          <p>nipnTK: National Information Platforms for Nutrition (NiPN) Data Quality Toolkit</p>
+          
+            <img loading="lazy" src="../images/nipnTK.png" alt="nipnTK: National Information Platforms for Nutrition (NiPN) Data Quality Toolkit">
+          
+        </a>
+      </div>
+      
+        <div class="hex-listing-item">
+          <a href="../packages/riycf.html">
+            <p>riycf: Utilities for Calculating Infant and Young Child Feeding Indicators</p>
+            
+              <img loading="lazy" src="../images/riycf.png" alt="riycf: Utilities for Calculating Infant and Young Child Feeding Indicators">
+            
+          </a>
+        </div>
+      
+      </div>    
+  
+    <div class="hex-listing-pair">
+      <div class="hex-listing-item">
+        <a href="../packages/sleacr.html">
+          <p>sleacr: Simplified Lot Quality Assurance Sampling Evaluation of Access and Coverage (SLEAC) Tools in R</p>
+          
+            <img loading="lazy" src="../images/sleacr.png" alt="sleacr: Simplified Lot Quality Assurance Sampling Evaluation of Access and Coverage (SLEAC) Tools in R">
+          
+        </a>
+      </div>
+      
+        <div class="hex-listing-item">
+          <a href="../packages/smartr.html">
+            <p>smartr: Tools for Nutritional Status and Mortality Rate Assessments and Surveys</p>
+            
+              <img loading="lazy" src="../images/smartr.png" alt="smartr: Tools for Nutritional Status and Mortality Rate Assessments and Surveys">
+            
+          </a>
+        </div>
+      
+      </div>    
+  
+    <div class="hex-listing-pair">
+      <div class="hex-listing-item">
+        <a href="../packages/squeacr.html">
+          <p>squeacr: Semi-Quantitative Evaluation of Access and Coverage (SQUEAC) Tools in R</p>
+          
+            <img loading="lazy" src="../images/squeacr.png" alt="squeacr: Semi-Quantitative Evaluation of Access and Coverage (SQUEAC) Tools in R">
+          
+        </a>
+      </div>
+      
+        <div class="hex-listing-item">
+          <a href="../packages/zscorer.html">
+            <p>zscorer: Anthropometric z-score Calculator</p>
+            
+              <img loading="lazy" src="../images/zscorer.png" alt="zscorer: Anthropometric z-score Calculator">
+            
+          </a>
+        </div>
+      
+      </div>    
+  
+
+
 <div class="listing-no-matching d-none">No matching items</div>
 </div>
 </div>
-<div class="g-col-1">
+</div>
+<div class="g-col-4">
 
 </div>
 </div>
 
-
-
-
-
-<script id="quarto-html-after-body" type="application/javascript">
-  window.document.addEventListener("DOMContentLoaded", function (event) {
-    const icon = "";
-    const anchorJS = new window.AnchorJS();
-    anchorJS.options = {
-      placement: 'right',
-      icon: icon
-    };
-    anchorJS.add('.anchored');
-    const isCodeAnnotation = (el) => {
-      for (const clz of el.classList) {
-        if (clz.startsWith('code-annotation-')) {                     
-          return true;
-        }
-      }
-      return false;
-    }
-    const onCopySuccess = function(e) {
-      // button target
-      const button = e.trigger;
-      // don't keep focus
-      button.blur();
-      // flash "checked"
-      button.classList.add('code-copy-button-checked');
-      var currentTitle = button.getAttribute("title");
-      button.setAttribute("title", "Copied!");
-      let tooltip;
-      if (window.bootstrap) {
-        button.setAttribute("data-bs-toggle", "tooltip");
-        button.setAttribute("data-bs-placement", "left");
-        button.setAttribute("data-bs-title", "Copied!");
-        tooltip = new bootstrap.Tooltip(button, 
-          { trigger: "manual", 
-            customClass: "code-copy-button-tooltip",
-            offset: [0, -8]});
-        tooltip.show();    
-      }
-      setTimeout(function() {
-        if (tooltip) {
-          tooltip.hide();
-          button.removeAttribute("data-bs-title");
-          button.removeAttribute("data-bs-toggle");
-          button.removeAttribute("data-bs-placement");
-        }
-        button.setAttribute("title", currentTitle);
-        button.classList.remove('code-copy-button-checked');
-      }, 1000);
-      // clear code selection
-      e.clearSelection();
-    }
-    const getTextToCopy = function(trigger) {
-      const outerScaffold = trigger.parentElement.cloneNode(true);
-      const codeEl = outerScaffold.querySelector('code');
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-      text: getTextToCopy
-    });
-    clipboard.on('success', onCopySuccess);
-    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-        text: getTextToCopy,
-        container: window.document.getElementById('quarto-embedded-source-code-modal')
-      });
-      clipboardModal.on('success', onCopySuccess);
-    }
-      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-      var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/nutriverse\.io");
-      var isInternal = (href) => {
-          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-      }
-      // Inspect non-navigation links and adorn them if external
-     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-      for (var i=0; i<links.length; i++) {
-        const link = links[i];
-        if (!isInternal(link.href)) {
-          // undo the damage that might have been done by quarto-nav.js in the case of
-          // links that we want to consider external
-          if (link.dataset.originalHref !== undefined) {
-            link.href = link.dataset.originalHref;
-          }
-        }
-      }
-    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-      const config = {
-        allowHTML: true,
-        maxWidth: 500,
-        delay: 100,
-        arrow: false,
-        appendTo: function(el) {
-            return el.parentElement;
-        },
-        interactive: true,
-        interactiveBorder: 10,
-        theme: 'quarto',
-        placement: 'bottom-start',
-      };
-      if (contentFn) {
-        config.content = contentFn;
-      }
-      if (onTriggerFn) {
-        config.onTrigger = onTriggerFn;
-      }
-      if (onUntriggerFn) {
-        config.onUntrigger = onUntriggerFn;
-      }
-      window.tippy(el, config); 
-    }
-    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-    for (var i=0; i<noterefs.length; i++) {
-      const ref = noterefs[i];
-      tippyHover(ref, function() {
-        // use id or data attribute instead here
-        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-        try { href = new URL(href).hash; } catch {}
-        const id = href.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note) {
-          return note.innerHTML;
-        } else {
-          return "";
-        }
-      });
-    }
-    const xrefs = window.document.querySelectorAll('a.quarto-xref');
-    const processXRef = (id, note) => {
-      // Strip column container classes
-      const stripColumnClz = (el) => {
-        el.classList.remove("page-full", "page-columns");
-        if (el.children) {
-          for (const child of el.children) {
-            stripColumnClz(child);
-          }
-        }
-      }
-      stripColumnClz(note)
-      if (id === null || id.startsWith('sec-')) {
-        // Special case sections, only their first couple elements
-        const container = document.createElement("div");
-        if (note.children && note.children.length > 2) {
-          container.appendChild(note.children[0].cloneNode(true));
-          for (let i = 1; i < note.children.length; i++) {
-            const child = note.children[i];
-            if (child.tagName === "P" && child.innerText === "") {
-              continue;
-            } else {
-              container.appendChild(child.cloneNode(true));
-              break;
-            }
-          }
-          if (window.Quarto?.typesetMath) {
-            window.Quarto.typesetMath(container);
-          }
-          return container.innerHTML
-        } else {
-          if (window.Quarto?.typesetMath) {
-            window.Quarto.typesetMath(note);
-          }
-          return note.innerHTML;
-        }
-      } else {
-        // Remove any anchor links if they are present
-        const anchorLink = note.querySelector('a.anchorjs-link');
-        if (anchorLink) {
-          anchorLink.remove();
-        }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(note);
-        }
-        if (note.classList.contains("callout")) {
-          return note.outerHTML;
-        } else {
-          return note.innerHTML;
-        }
-      }
-    }
-    for (var i=0; i<xrefs.length; i++) {
-      const xref = xrefs[i];
-      tippyHover(xref, undefined, function(instance) {
-        instance.disable();
-        let url = xref.getAttribute('href');
-        let hash = undefined; 
-        if (url.startsWith('#')) {
-          hash = url;
-        } else {
-          try { hash = new URL(url).hash; } catch {}
-        }
-        if (hash) {
-          const id = hash.replace(/^#\/?/, "");
-          const note = window.document.getElementById(id);
-          if (note !== null) {
-            try {
-              const html = processXRef(id, note.cloneNode(true));
-              instance.setContent(html);
-            } finally {
-              instance.enable();
-              instance.show();
-            }
-          } else {
-            // See if we can fetch this
-            fetch(url.split('#')[0])
-            .then(res => res.text())
-            .then(html => {
-              const parser = new DOMParser();
-              const htmlDoc = parser.parseFromString(html, "text/html");
-              const note = htmlDoc.getElementById(id);
-              if (note !== null) {
-                const html = processXRef(id, note);
-                instance.setContent(html);
-              } 
-            }).finally(() => {
-              instance.enable();
-              instance.show();
-            });
-          }
-        } else {
-          // See if we can fetch a full url (with no hash to target)
-          // This is a special case and we should probably do some content thinning / targeting
-          fetch(url)
-          .then(res => res.text())
-          .then(html => {
-            const parser = new DOMParser();
-            const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.querySelector('main.content');
-            if (note !== null) {
-              // This should only happen for chapter cross references
-              // (since there is no id in the URL)
-              // remove the first header
-              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-                note.children[0].remove();
-              }
-              const html = processXRef(null, note);
-              instance.setContent(html);
-            } 
-          }).finally(() => {
-            instance.enable();
-            instance.show();
-          });
-        }
-      }, function(instance) {
-      });
-    }
-        let selectedAnnoteEl;
-        const selectorForAnnotation = ( cell, annotation) => {
-          let cellAttr = 'data-code-cell="' + cell + '"';
-          let lineAttr = 'data-code-annotation="' +  annotation + '"';
-          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-          return selector;
-        }
-        const selectCodeLines = (annoteEl) => {
-          const doc = window.document;
-          const targetCell = annoteEl.getAttribute("data-target-cell");
-          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-          const lineIds = lines.map((line) => {
-            return targetCell + "-" + line;
-          })
-          let top = null;
-          let height = null;
-          let parent = null;
-          if (lineIds.length > 0) {
-              //compute the position of the single el (top and bottom and make a div)
-              const el = window.document.getElementById(lineIds[0]);
-              top = el.offsetTop;
-              height = el.offsetHeight;
-              parent = el.parentElement.parentElement;
-            if (lineIds.length > 1) {
-              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-              height = bottom - top;
-            }
-            if (top !== null && height !== null && parent !== null) {
-              // cook up a div (if necessary) and position it 
-              let div = window.document.getElementById("code-annotation-line-highlight");
-              if (div === null) {
-                div = window.document.createElement("div");
-                div.setAttribute("id", "code-annotation-line-highlight");
-                div.style.position = 'absolute';
-                parent.appendChild(div);
-              }
-              div.style.top = top - 2 + "px";
-              div.style.height = height + 4 + "px";
-              div.style.left = 0;
-              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-              if (gutterDiv === null) {
-                gutterDiv = window.document.createElement("div");
-                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-                gutterDiv.style.position = 'absolute';
-                const codeCell = window.document.getElementById(targetCell);
-                const gutter = codeCell.querySelector('.code-annotation-gutter');
-                gutter.appendChild(gutterDiv);
-              }
-              gutterDiv.style.top = top - 2 + "px";
-              gutterDiv.style.height = height + 4 + "px";
-            }
-            selectedAnnoteEl = annoteEl;
-          }
-        };
-        const unselectCodeLines = () => {
-          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-          elementsIds.forEach((elId) => {
-            const div = window.document.getElementById(elId);
-            if (div) {
-              div.remove();
-            }
-          });
-          selectedAnnoteEl = undefined;
-        };
-          // Handle positioning of the toggle
-      window.addEventListener(
-        "resize",
-        throttle(() => {
-          elRect = undefined;
-          if (selectedAnnoteEl) {
-            selectCodeLines(selectedAnnoteEl);
-          }
-        }, 10)
-      );
-      function throttle(fn, ms) {
-      let throttle = false;
-      let timer;
-        return (...args) => {
-          if(!throttle) { // first call gets through
-              fn.apply(this, args);
-              throttle = true;
-          } else { // all the others get throttled
-              if(timer) clearTimeout(timer); // cancel #2
-              timer = setTimeout(() => {
-                fn.apply(this, args);
-                timer = throttle = false;
-              }, ms);
-          }
-        };
-      }
-        // Attach click handler to the DT
-        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-        for (const annoteDlNode of annoteDls) {
-          annoteDlNode.addEventListener('click', (event) => {
-            const clickedEl = event.target;
-            if (clickedEl !== selectedAnnoteEl) {
-              unselectCodeLines();
-              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-              if (activeEl) {
-                activeEl.classList.remove('code-annotation-active');
-              }
-              selectCodeLines(clickedEl);
-              clickedEl.classList.add('code-annotation-active');
-            } else {
-              // Unselect the line
-              unselectCodeLines();
-              clickedEl.classList.remove('code-annotation-active');
-            }
-          });
-        }
-    const findCites = (el) => {
-      const parentEl = el.parentElement;
-      if (parentEl) {
-        const cites = parentEl.dataset.cites;
-        if (cites) {
-          return {
-            el,
-            cites: cites.split(' ')
-          };
-        } else {
-          return findCites(el.parentElement)
-        }
-      } else {
-        return undefined;
-      }
-    };
-    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-    for (var i=0; i<bibliorefs.length; i++) {
-      const ref = bibliorefs[i];
-      const citeInfo = findCites(ref);
-      if (citeInfo) {
-        tippyHover(citeInfo.el, function() {
-          var popup = window.document.createElement('div');
-          citeInfo.cites.forEach(function(cite) {
-            var citeDiv = window.document.createElement('div');
-            citeDiv.classList.add('hanging-indent');
-            citeDiv.classList.add('csl-entry');
-            var biblioDiv = window.document.getElementById('ref-' + cite);
-            if (biblioDiv) {
-              citeDiv.innerHTML = biblioDiv.innerHTML;
-            }
-            popup.appendChild(citeDiv);
-          });
-          return popup.innerHTML;
-        });
-      }
-    }
-  });
-  </script>
-</div> <!-- /content -->
+ <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
@@ -805,4 +495,4 @@ window.Quarto = {
 
 
 
-</body></html>
+</div></body></html>

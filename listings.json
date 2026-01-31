@@ -1,12 +1,15 @@
 [
   {
-    "listing": "/about/team.html",
+    "listing": "/packages/index.html",
     "items": [
-      "/team/aziz-goza.html",
-      "/team/emmanuel-mandalazi.html",
-      "/team/ernest-guevarra.html",
-      "/team/nicholus-tint-zaw.html",
-      "/team/tomas-zaba.html"
+      "/packages/dietry.html",
+      "/packages/micronutr.html",
+      "/packages/nipnTK.html",
+      "/packages/riycf.html",
+      "/packages/sleacr.html",
+      "/packages/smartr.html",
+      "/packages/squeacr.html",
+      "/packages/zscorer.html"
     ]
   },
   {
@@ -18,7 +21,13 @@
     ]
   },
   {
-    "listing": "/packages/index.html",
-    "items": []
+    "listing": "/about/team.html",
+    "items": [
+      "/team/aziz-goza.html",
+      "/team/emmanuel-mandalazi.html",
+      "/team/ernest-guevarra.html",
+      "/team/nicholus-tint-zaw.html",
+      "/team/tomas-zaba.html"
+    ]
   }
 ]
