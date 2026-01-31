@@ -1,5 +1,8 @@
 project:
   type: website
+  render:
+    - "*.qmd"
+    - "!LICENSE.md"
 
 website:
   title: nutriverse
@@ -14,6 +17,12 @@ website:
         aria-label: Mastodon
         href: https://mastodon.social/@nutriverse
         rel: me
+      - icon: bluesky
+        aria-label: Bluesky
+        href: https://bsky.app/profile/nutriverse.io
+      - icon: linkedin
+        aria-label: LinkedIn
+        href: https://www.linkedin.com/company/nutriverse-community
       - icon: github
         aria-label: GitHub
         href: https://github.com/nutriverse

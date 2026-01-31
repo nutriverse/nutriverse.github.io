@@ -8,11 +8,11 @@ on:
 jobs:
   test-render:
     runs-on: ubuntu-latest
-    container: rocker/tidyverse:4.4.2
+    container: rocker/tidyverse:4.5.2
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       
       - name: Install system dependencies
         run: |
