@@ -1,0 +1,18 @@
+---
+title: Blog
+subtitle: Stories, news, announcements, and everything else
+page-layout: full
+listing:
+  contents: posts
+  sort: "date desc"
+  type: default
+  categories: true
+  date-format: "DD MMMM YYYY"
+  image-placeholder: images/nutriverse.png
+  feed: true
+title-block-banner: "#E4F0EF"
+title-block-banner-color: "#C20055"
+search: false
+image: images/nutriverse.png
+---
+

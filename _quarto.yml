@@ -29,6 +29,8 @@ website:
     left:
       - href: index.qmd
         text: Home
+      - text: Blog
+        href: blog.qmd
       - text: Packages
         href: packages/index.qmd
       - text: About
@@ -38,7 +40,7 @@ website:
   open-graph:
     site-name: nutriverse
   page-footer:
-    center: "Copyright 2024, Oxford iHealth"
+    center: "Copyright 2024-2026, Oxford iHealth"
     background: light
     border: false
   reader-mode: true
