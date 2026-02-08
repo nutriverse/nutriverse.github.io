@@ -52,6 +52,40 @@ library(quarto)
 :::
 
 
+::: {.theme-banner}
+
+::: {.info-block}
+
+# nutriverse is
+
+::: {.grid}
+
+::: {.g-col-4}
+
+![](images/open_source.png){fig-align="center"}
+
+An open source initiative building robust, high-performance R packages for reliable and reproducible nutrition data analysis.
+:::
+
+::: {.g-col-4}
+![](images/collective.png){fig-align="center"}
+
+A grassroots collective using open, transparent nutrition data analysis to support healthier communities.
+:::
+
+::: {.g-col-4}
+![](images/cop.png){fig-align="center"}
+
+A community of practice of analysts, researchers, and practitioners to learn together and strengthen the real-world impact of nutrition data.
+:::
+
+:::
+
+:::
+
+:::
+
+
 
 ::: {.theme-banner}
 
