@@ -1,11 +1,5 @@
 [
   {
-    "listing": "/blog.html",
-    "items": [
-      "/posts/2026-01-27-monthly-roundup/index.html"
-    ]
-  },
-  {
     "listing": "/about/team.html",
     "items": [
       "/team/aziz-goza.html",
@@ -14,6 +8,16 @@
       "/team/nicholus-tint-zaw.html",
       "/team/tomas-zaba.html"
     ]
+  },
+  {
+    "listing": "/blog.html",
+    "items": [
+      "/posts/2026-01-27-monthly-roundup/index.html"
+    ]
+  },
+  {
+    "listing": "/community/index.html",
+    "items": []
   },
   {
     "listing": "/index.html",

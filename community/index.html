@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Our collection of packages developed by and contributed to by our community. These package were developed as part of a specific project but had more general use for common nutrition data analysis tasks. These packages are available for use by anyone needing to perform the same type of data analysis.">
 
-<title>R Packages – nutriverse</title>
+<title>index – nutriverse</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -76,20 +75,20 @@ ul.task-list li input[type="checkbox"] {
 <script>
 
   window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-hex-listing .list');
+    const listingTargetEl = window.document.querySelector('#listing-featured-events .list');
     if (!listingTargetEl) {
       // No listing discovered, do not attach.
       return; 
     }
 
     const options = {
-      valueNames: ['listing-project','listing-website','listing-format','listing-language','listing-page-layout','listing-title-block-banner','listing-title-block-banner-color','listing-search','listing-toc','listing-date-format','listing-image-placeholder','listing-title','listing-image','listing-path','listing-outputHref','listing-author','listing-description','listing-filename','listing-file-modified','listing-reading-time','listing-word-count','listing-text',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-file-modified-sort'] },{ data: ['listing-reading-time-sort'] },{ data: ['listing-word-count-sort'] }],
+      valueNames: [{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
       
-      searchColumns: ["listing-project","listing-website","listing-format","listing-language","listing-page-layout","listing-title-block-banner","listing-title-block-banner-color","listing-search","listing-toc","listing-date-format","listing-image-placeholder","listing-title","listing-image","listing-path","listing-outputHref","listing-author","listing-description","listing-filename","listing-file-modified","listing-reading-time","listing-word-count","listing-text"],
+      searchColumns: [],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-hex-listing'] = new List('listing-hex-listing', options);
+    window['quarto-listings']['listing-featured-events'] = new List('listing-featured-events', options);
 
     if (window['quarto-listing-loaded']) {
       window['quarto-listing-loaded']();
@@ -129,23 +128,6 @@ cookieconsent.run({
 });
 </script> 
   
-<style>
-
-      .quarto-title-block .quarto-title-banner h1,
-      .quarto-title-block .quarto-title-banner h2,
-      .quarto-title-block .quarto-title-banner h3,
-      .quarto-title-block .quarto-title-banner h4,
-      .quarto-title-block .quarto-title-banner h5,
-      .quarto-title-block .quarto-title-banner h6
-      {
-        color: #C20055;
-      }
-
-      .quarto-title-block .quarto-title-banner {
-        color: #C20055;
-background: #F0F5F9;
-      }
-</style>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -178,19 +160,14 @@ window.Quarto = {
 </script>
 
 <link rel="stylesheet" href="../styles.css">
-<meta property="og:title" content="R Packages – nutriverse">
-<meta property="og:description" content="Our collection of packages developed by and contributed to by our community.">
-<meta property="og:image" content="https://nutriverse.io/images/dietry.png">
+<meta property="og:title" content="nutriverse">
 <meta property="og:site_name" content="nutriverse">
-<meta property="og:image:alt" content="dietry: Utilities for Dietary Intake Indicators for Food Security Assessments">
-<meta property="og:image:height" content="1576">
-<meta property="og:image:width" content="1396">
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="nav-fixed fullcontent quarto-light">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+  <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
@@ -217,7 +194,7 @@ window.Quarto = {
 <span class="menu-text">Blog</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../packages/index.html" aria-current="page"> 
+    <a class="nav-link" href="../packages/index.html"> 
 <span class="menu-text">Packages</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -252,290 +229,64 @@ window.Quarto = {
     </nav>
 </header>
 <!-- content -->
-<header id="title-block-header" class="quarto-title-block default page-columns page-full">
-  <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page">
-      <h1 class="title">R Packages</h1>
-            <p class="subtitle lead">Tools for nutrition research and analysis</p>
-                  <div>
-        <div class="description">
-          Our collection of packages developed by and contributed to by our community. These package were developed as part of a specific project but had more general use for common nutrition data analysis tasks. These packages are available for use by anyone needing to perform the same type of data analysis.
-        </div>
-      </div>
-                </div>
-  </div>
-    
-  
-  <div class="quarto-title-meta column-page">
-
-      
-    
-      
-    </div>
-    
-  
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<div id="quarto-content" class="quarto-container page-layout-custom page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
 <!-- main -->
-<main class="content quarto-banner-title-block column-page" id="quarto-document-content">
 
 
 
 
-
-<!-- ::: {.about-banner}
-::: {.content-block}
-
-# R Packages
-
-::: {style="color: #3F0042"}
-
-#### Tools for Nutrition Research and Analysis
-
-:::
-
-Our collection of packages developed by and contributed to by our community. These package were developed as part of a specific project but had more general use for common nutrition data analysis tasks. These packages are available for use by anyone needing to perform the same type of data analysis.
-
-:::
-::: -->
-<p><br></p>
-<!-- ::: {.grid}
-
-::: {.g-col-3}
-:::
-
-::: {.g-col-8}
-
-::: {#package-row1-links}
-:::
-
-:::
-
-::: {.g-col-1}
-:::
-
-:::
-
-
-::: {.grid}
-
-::: {.g-col-4}
-:::
-
-::: {.g-col-7}
-
-::: {#package-row2-links}
-:::
-
-:::
-
-::: {.g-col-1}
-:::
-
-::: -->
-<div class="grid">
-<div class="g-col-2">
+<div class="community-banner">
+<div class="info-block">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../images/community.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
+</figure>
+</div>
+<blockquote class="blockquote">
+<p>Go to the people. Live with them. Learn from them. Love them. Start with what they know. Build with what they have. But with the best leaders, when the work is done, the task accomplished, the people will say <strong>‘We have done it ourselves’</strong>.</p>
+</blockquote>
+</div>
+</div>
+<div class="approach-banner">
+<div class="info-block">
+<div class="img-float">
+<p><img src="../images/community_call.png" class="img-fluid" style="float: left; margin: 10px; width: 250px"></p>
+</div>
+<h1 id="community-calls">Community calls</h1>
+<p>Our planned quarterly community call is when our community gets to come together and connect. We envision a forum by which the community is able to discuss on the relevant topics of the time.</p>
+<p>We plan to hold our first community call sometime in October 2025.</p>
+</div>
+</div>
+<div class="event-banner">
+<section id="featured-events" class="info-block">
+<h1>Featured Events</h1>
+<p>Upcoming events that involve Oxford iHealth and its community members.</p>
+<p>You can subscribe to Oxford iHealth-led events by downloading our <a href="https://calendar.google.com/calendar/ical/c_0db826712181c28f2b7e5c0f11b8c08b11f4e844894ab03b77702ccaf7d9c5df%40group.calendar.google.com/public/basic.ics">our ICS calendar</a> and adding it to your calendar service/application.</p>
+<p>See a full listing and calendar of upcoming events <a href="https://oxford-ihtm.io/events/">here</a>.</p>
+<div id="listing-featured-events" class="quarto-listing quarto-listing-container-grid">
+<div class="list grid quarto-listing-cols-3">
 
 </div>
-<div class="g-col-8">
-<div id="listing-hex-listing" class="quarto-listing quarto-listing-container-custom">
-<!-- hex badge listing by jamesgoldie.dev, jan 2025 -->
-<style>
-  .hex-listing-container {
-    display: flex;
-    flex-flow: row wrap;
-    --hex-width: 150px;
-    --hex-height: calc(var(--hex-width) * 1.1547);
-    --hex-margin: 4px;
-    --hex-shape: polygon(0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%, 50% 0%);
-    padding-inline-start: calc(var(--hex-width) * 0.5 - var(--hex-margin));
-    padding-block-start: calc(0.25 * var(--hex-height) - 2 * var(--hex-margin));
-  }
-
-  .hex-listing-pair {
-    display: inline-flex;
-    align-items: start;
-    height: calc(2 * var(--hex-height) + 2 * var(--hex-margin) - 0.25 * var(--hex-height));
-    margin-inline-start: calc(var(--hex-width) * -0.5 + var(--hex-margin));
-    margin-block-start: calc(-0.25 * var(--hex-height) + 2 * var(--hex-margin));
-  }
-
-  .hex-listing-item {
-    place-content: center;
-    text-align: center;
-    transition-delay: 0;
-    transition:
-      transform 0.25s ease-in-out,
-      filter 0.25s linear;
-    filter: drop-shadow(0px 0px 8px #00000011);
-  }
-  
-  .hex-listing-item:has(a:hover),
-  .hex-listing-item:has(a:focus-visible) {
-    transition-delay: 0.2s;
-    transform: scale(1.15);
-    filter: drop-shadow(0px 0px 8px #00000044);
-    z-index: 1;
-  }
-  
-  .hex-listing-container a {
-    display: inline-grid;
-    width: var(--hex-width);
-    height: var(--hex-height);
-    clip-path: var(--hex-shape);
-    text-decoration: none;
-  }
-
-  .hex-listing-item a:focus-visible {
-    outline: 3px solid red;
-  }
-
-  .hex-listing-item:nth-child(2) {
-    margin-inline-start: calc(-0.5 * var(--hex-width) + var(--hex-margin));
-    align-self: end;
-  }
-
-  /* hex contents */
-
-  .hex-listing-container a > * {
-    grid-area: 1 / 1;
-  }
-
-  .hex-listing-container a img {
-    width: var(--hex-width);
-    height: var(--hex-height);
-    object-fit: cover;
-  }
-
-  .hex-listing-container a p {
-    color: grey;
-    font-size: 70%;
-    align-self: center;
-    margin: 0;
-    padding-inline: 0.75em;
-  }
-
-  /* fallback appearance when there's no image */
-
-  .hex-listing-container a:not(:has(img)) {
-    background-color: #efefef;
-  }
-
-  /* mobile sizing */
-
-  @media (max-width: 767.98px) {
-    .hex-listing-container {
-      --hex-width: 100px;
-    }
-
-    .hex-listing-container a p {
-      font-size: 50%;
-    }
-
-  }
-
-</style>
-
-<div class="hex-listing-container">
-  
-    <div class="hex-listing-pair">
-      <div class="hex-listing-item">
-        <a href="../packages/dietry.html">
-          <p>dietry: Utilities for Dietary Intake Indicators for Food Security Assessments</p>
-          
-            <img loading="lazy" src="../images/dietry.png" alt="dietry: Utilities for Dietary Intake Indicators for Food Security Assessments">
-          
-        </a>
-      </div>
-      
-        <div class="hex-listing-item">
-          <a href="../packages/micronutr.html">
-            <p>micronutr: Determining Vitamin and Mineral Status of Populations</p>
-            
-              <img loading="lazy" src="../images/micronutr.png" alt="micronutr: Determining Vitamin and Mineral Status of Populations">
-            
-          </a>
-        </div>
-      
-      </div>    
-  
-    <div class="hex-listing-pair">
-      <div class="hex-listing-item">
-        <a href="../packages/nipnTK.html">
-          <p>nipnTK: National Information Platforms for Nutrition (NiPN) Data Quality Toolkit</p>
-          
-            <img loading="lazy" src="../images/nipnTK.png" alt="nipnTK: National Information Platforms for Nutrition (NiPN) Data Quality Toolkit">
-          
-        </a>
-      </div>
-      
-        <div class="hex-listing-item">
-          <a href="../packages/riycf.html">
-            <p>riycf: Utilities for Calculating Infant and Young Child Feeding Indicators</p>
-            
-              <img loading="lazy" src="../images/riycf.png" alt="riycf: Utilities for Calculating Infant and Young Child Feeding Indicators">
-            
-          </a>
-        </div>
-      
-      </div>    
-  
-    <div class="hex-listing-pair">
-      <div class="hex-listing-item">
-        <a href="../packages/sleacr.html">
-          <p>sleacr: Simplified Lot Quality Assurance Sampling Evaluation of Access and Coverage (SLEAC) Tools in R</p>
-          
-            <img loading="lazy" src="../images/sleacr.png" alt="sleacr: Simplified Lot Quality Assurance Sampling Evaluation of Access and Coverage (SLEAC) Tools in R">
-          
-        </a>
-      </div>
-      
-        <div class="hex-listing-item">
-          <a href="../packages/smartr.html">
-            <p>smartr: Tools for Nutritional Status and Mortality Rate Assessments and Surveys</p>
-            
-              <img loading="lazy" src="../images/smartr.png" alt="smartr: Tools for Nutritional Status and Mortality Rate Assessments and Surveys">
-            
-          </a>
-        </div>
-      
-      </div>    
-  
-    <div class="hex-listing-pair">
-      <div class="hex-listing-item">
-        <a href="../packages/squeacr.html">
-          <p>squeacr: Semi-Quantitative Evaluation of Access and Coverage (SQUEAC) Tools in R</p>
-          
-            <img loading="lazy" src="../images/squeacr.png" alt="squeacr: Semi-Quantitative Evaluation of Access and Coverage (SQUEAC) Tools in R">
-          
-        </a>
-      </div>
-      
-        <div class="hex-listing-item">
-          <a href="../packages/zscorer.html">
-            <p>zscorer: Anthropometric z-score Calculator</p>
-            
-              <img loading="lazy" src="../images/zscorer.png" alt="zscorer: Anthropometric z-score Calculator">
-            
-          </a>
-        </div>
-      
-      </div>    
-  
-
-
 <div class="listing-no-matching d-none">No matching items</div>
 </div>
+</section>
+</div>
+<div class="approach-banner">
+<div class="info-block">
+<div class="img-float">
+<p><a href="https://zulip.com/"><img src="../images/zulip-icon-512x512.png" class="img-fluid" style="float: right; margin: 10px; width: 250px"></a></p>
+</div>
+<h1 id="community-chat-and-forum">Community chat and forum</h1>
+<p>We offer our global alumni network a community forum for discussing, connecting, and collaborating. We are fortunate to have been gifted with sponsored hosting by <a href="https://zulip.com" class="external" target="_blank">Zulip</a>, an organised team chat app designed for efficient communication. Invitations to join the community chat group on Zulip are usually handed out during or after an alumni event or an Oxford iHealth-led event. If you are an Oxford IHTM alumni and would like to join its community chat group on Zulip but have not had the chance to be invited, please send us a message via our <a href="../contact.qmd">contacts page</a> requesting an invite.</p>
 </div>
 </div>
-<div class="g-col-2">
 
-</div>
-</div>
 
-</main> <!-- /main -->
+
+
+
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
@@ -944,7 +695,7 @@ Our collection of packages developed by and contributed to by our community. The
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2024-2026, Oxford iHealth</p>
-<div class="toc-actions"><ul><li><a href="https://github.com/nutriverse/nutriverse.github.io/edit/main/packages/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/nutriverse/nutriverse.github.io/issues" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div><div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+<div class="toc-actions"><ul><li><a href="https://github.com/nutriverse/nutriverse.github.io/edit/main/community/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/nutriverse/nutriverse.github.io/issues" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div><div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
