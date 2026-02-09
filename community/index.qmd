@@ -1,0 +1,89 @@
+---
+page-layout: custom
+section-divs: false
+toc: false
+listing:
+  - id: featured-events
+    contents:
+      - ../events/+([[:digit:]]){\-}+([[:digit:]]){\-}+([[:digit:]])*{\.qmd}
+    type: grid
+    image-height: 150px
+    image-placeholder: images/nutriverse.png
+    grid-item-border: false
+    max-items: 3
+---
+
+
+::: {.community-banner}
+
+::: {.info-block}
+
+![](../images/community.png){fig-align="center" width="70%"}
+
+> Go to the people. Live with them. Learn from them. Love them.
+> Start with what they know. Build with what they have.
+> But with the best leaders, when the work is done, the task accomplished, the people will say **'We have done it ourselves'**.
+
+:::
+
+:::
+
+
+::: {.approach-banner}
+
+::: {.info-block}
+
+::: {.img-float}
+
+![](../images/community_call.png){style="float: left; margin: 10px; width: 250px"}
+
+:::
+
+# Community calls
+
+Our planned quarterly community call is when our community gets to come together and connect. We envision a forum by which the community is able to discuss on the relevant topics of the time.
+
+We plan to hold our first community call sometime in October 2025.
+
+:::
+
+:::
+
+
+::: {.event-banner}
+
+::: {.info-block}
+
+# Featured Events
+
+Upcoming events that involve Oxford iHealth and its community members.
+
+You can subscribe to Oxford iHealth-led events by downloading our [our ICS calendar](https://calendar.google.com/calendar/ical/c_0db826712181c28f2b7e5c0f11b8c08b11f4e844894ab03b77702ccaf7d9c5df%40group.calendar.google.com/public/basic.ics) and adding it to your calendar service/application.
+
+See a full listing and calendar of upcoming events [here](https://oxford-ihtm.io/events/).
+
+::: {#featured-events}
+:::
+
+:::
+
+:::
+
+
+::: {.approach-banner}
+
+::: {.info-block}
+
+::: {.img-float}
+
+[![](../images/zulip-icon-512x512.png){style="float: right; margin: 10px; width: 250px"}](https://zulip.com/)
+
+:::
+
+# Community chat and forum
+
+We offer our global alumni network a community forum for discussing, connecting, and collaborating. We are fortunate to have been gifted with sponsored hosting by [Zulip](https://zulip.com){.external target="_blank"}, an organised team chat app designed for efficient communication. Invitations to join the community chat group on Zulip are usually handed out during or after an alumni event or an Oxford iHealth-led event. If you are an Oxford IHTM alumni and would like to join its community chat group on Zulip but have not had the chance to be invited, please send us a message via our [contacts page](../contact.qmd) requesting an invite.
+
+:::
+
+:::
