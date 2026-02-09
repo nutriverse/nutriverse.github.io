@@ -27,16 +27,22 @@ website:
         aria-label: GitHub
         href: https://github.com/nutriverse
     left:
-      - href: index.qmd
-        text: Home
-      - text: Blog
-        href: blog.qmd
-      - text: Packages
-        href: packages/index.qmd
+      - text: Home
+        href: index.qmd
       - text: About
         menu:
           - href: about/team.qmd
           - href: about/contact.qmd
+      - text: Blog
+        href: blog.qmd
+      - text: Packages
+        href: packages/index.qmd
+      - text: Community
+        menu:
+          - text: Community
+            href: community/index.qmd
+          - text: Code of Conduct
+            href: code-of-conduct.qmd
   open-graph:
     site-name: nutriverse
   page-footer:

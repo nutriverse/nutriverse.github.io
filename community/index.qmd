@@ -1,20 +1,29 @@
 ---
-page-layout: custom
+page-layout: full
+title: Community
+subtitle: A community of practice connecting nutrition data analysts, researchers, and practitioners to learn together and strengthen the real-world impact of nutrition data.
+description:
+  The nutriverse community of practice brings together nutrition data analysts, researchers, and practitioners who are committed to learning from one another and improving how nutrition data is analysed and applied. It provides a shared space to exchange methods, tools, and real-world experiences across research, policy, and practice.
+  
+  Through peer learning, collaborative problem-solving, and open discussion, the community supports rigorous, reproducible analytics while staying grounded in practical impact. The goal is to strengthen individual practice, build collective capacity, and advance better nutrition decisions through better use of data.
 section-divs: false
 toc: false
-listing:
-  - id: featured-events
-    contents:
-      - ../events/+([[:digit:]]){\-}+([[:digit:]]){\-}+([[:digit:]])*{\.qmd}
-    type: grid
-    image-height: 150px
-    image-placeholder: images/nutriverse.png
-    grid-item-border: false
-    max-items: 3
+title-block-banner: "#F0F5F9"
+title-block-banner-color: "#C20055"
+search: false
+# listing:
+#   - id: featured-events
+#     contents:
+#       - ../events/+([[:digit:]]){\-}+([[:digit:]]){\-}+([[:digit:]])*{\.qmd}
+#     type: grid
+#     image-height: 150px
+#     image-placeholder: images/nutriverse.png
+#     grid-item-border: false
+#     max-items: 3
 ---
 
 
-::: {.community-banner}
+<!-- ::: {.community-banner}
 
 ::: {.info-block}
 
@@ -26,7 +35,7 @@ listing:
 
 :::
 
-:::
+::: -->
 
 
 ::: {.approach-banner}
@@ -35,22 +44,22 @@ listing:
 
 ::: {.img-float}
 
-![](../images/community_call.png){style="float: left; margin: 10px; width: 250px"}
+![](../images/community.png){style="float: left; margin: 10px; width: 250px"}
 
 :::
 
 # Community calls
 
-Our planned quarterly community call is when our community gets to come together and connect. We envision a forum by which the community is able to discuss on the relevant topics of the time.
+Our quarterly community call is when our community gets to come together and connect. We envision a forum by which the community is able to discuss on the relevant topics of the time.
 
-We plan to hold our first community call sometime in October 2025.
-
-:::
+We plan to hold our first community call sometime in March 2026.
 
 :::
 
+:::
 
-::: {.event-banner}
+
+<!-- ::: {.event-banner}
 
 ::: {.info-block}
 
@@ -67,10 +76,10 @@ See a full listing and calendar of upcoming events [here](https://oxford-ihtm.io
 
 :::
 
-:::
+::: -->
 
 
-::: {.approach-banner}
+::: {.aproach-banner}
 
 ::: {.info-block}
 
@@ -82,7 +91,7 @@ See a full listing and calendar of upcoming events [here](https://oxford-ihtm.io
 
 # Community chat and forum
 
-We offer our global alumni network a community forum for discussing, connecting, and collaborating. We are fortunate to have been gifted with sponsored hosting by [Zulip](https://zulip.com){.external target="_blank"}, an organised team chat app designed for efficient communication. Invitations to join the community chat group on Zulip are usually handed out during or after an alumni event or an Oxford iHealth-led event. If you are an Oxford IHTM alumni and would like to join its community chat group on Zulip but have not had the chance to be invited, please send us a message via our [contacts page](../contact.qmd) requesting an invite.
+We offer our community a forum for discussing, connecting, and collaborating. We are fortunate to have been gifted with sponsored hosting by [Zulip](https://zulip.com){.external target="_blank"}, an organised team chat app designed for efficient communication. Invitations to join the community chat group on Zulip are usually handed out during or after a nutriverse-led event. If you would like to join the nutriverse community chat group on Zulip but have not had the chance to be invited, please send us a message via our [contacts page](../about/contact.qmd) requesting an invite.
 
 :::
 
