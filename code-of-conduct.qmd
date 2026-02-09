@@ -11,6 +11,7 @@ format:
 title-block-banner: "#E4F0EF"
 title-block-banner-color: "#7F055F"
 search: false
+toc: true
 date-format: "DD MMM YYYY"
 image-placeholder: images/nutriverse.png
 ---
