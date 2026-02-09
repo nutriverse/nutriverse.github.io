@@ -10,7 +10,7 @@ format:
       gutter-width: 1.5rem
     code-block-border-left: "#C20055"
     #code-line-numbers: true
-title-block-banner: "#E4F0EF"
+title-block-banner: "#F0F5F9"
 title-block-banner-color: "#C20055"
 search: false
 date-format: "DD MMMM YYYY"
