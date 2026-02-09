@@ -74,7 +74,7 @@ A grassroots collective using open, transparent nutrition data analysis to suppo
 :::
 
 ::: {.g-col-4}
-![](images/cop.png){fig-align="center"}
+![](images/practice.png){fig-align="center"}
 
 A community of practice of analysts, researchers, and practitioners learning together to realise nutrition data impact.
 :::
