@@ -10,7 +10,7 @@ listing:
   date-format: "DD MMMM YYYY"
   image-placeholder: images/nutriverse.png
   feed: true
-title-block-banner: "#E4F0EF"
+title-block-banner: "#F0F5F9"
 title-block-banner-color: "#C20055"
 search: false
 image: images/nutriverse.png
