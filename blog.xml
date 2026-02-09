@@ -17,11 +17,696 @@
 <width>144</width>
 </image>
 <generator>quarto-1.8.27</generator>
-<lastBuildDate>Sun, 01 Feb 2026 00:00:00 GMT</lastBuildDate>
+<lastBuildDate>Tue, 03 Feb 2026 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>sleacr now on CRAN</title>
+  <dc:creator>nutriverse Team</dc:creator>
+  <link>https://nutriverse.io/posts/2026-02-03-sleacr-release/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<p>Our software development team is pleased to announce that <a href="https://nutriverse.io/sleacr"><code>{sleacr}</code></a>, an R package for Simplified Lot Quality Assurance Sampling Evaluation of Access and Coverage (SLEAC), has been accepted to the <a href="https://CRAN.R-project.org/package=sleacr">Comprehensive R Archive Network (CRAN)</a> today!</p>
+<section id="what-does-the-package-do" class="level2">
+<h2 class="anchored" data-anchor-id="what-does-the-package-do">What does the package do?</h2>
+<p>The <code>{sleacr}</code> package provides functions that facilitate the design, sampling, data collection, and data analysis of a SLEAC survey. The current version of the <code>{sleacr}</code> package provides the following:</p>
+<ul>
+<li><p>Functions to calculate the sample size needed for a SLEAC survey;</p></li>
+<li><p>Functions to draw a stage 1 sample for a SLEAC survey;</p></li>
+<li><p>Functions to classify coverage;</p></li>
+<li><p>Functions to determine the performance of chosen classifier cut-offs for analysis of SLEAC survey data;</p></li>
+<li><p>Functions to estimate coverage over wide areas; and,</p></li>
+<li><p>Functions to test for coverage homogeneity across multiple surveys over wide areas.</p></li>
+</ul>
+<section id="lot-quality-assurance-sampling-frame" class="level3">
+<h3 class="anchored" data-anchor-id="lot-quality-assurance-sampling-frame">Lot quality assurance sampling frame</h3>
+<p>To setup an LQAS sampling frame, a target sample size is first estimated. For example, if the survey area has an estimated population of about 600 severe acute malnourished (SAM) children and you want to assess whether coverage is reaching at least 50%, the sample size can be calculated as follows:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">get_sample_n</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">N =</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">600</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">dLower =</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.5</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">dUpper =</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.8</span>)</span></code></pre></div></div>
+</div>
+<p>which gives an LQAS sampling plan list with values for the target minimum sample size (<code>n</code>), the decision rule (<code>d</code>), the observed alpha error (<code>alpha</code>), and the observed beta error (<code>beta</code>).</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>$n
+[1] 19
+
+$d
+[1] 12
+
+$alpha
+[1] 0.06446194
+
+$beta
+[1] 0.08014249</code></pre>
+</div>
+</div>
+<p>In this sampling plan, a target minimum sample size of 19 SAM cases should be aimed for with a decision rule of more than 12 SAM cases covered to determine whether programme coverage is at least 50% with alpha and beta errors no more than 10%. The alpha and beta errors requirement is set at no more than 10% by default. This can be made more precise by setting alpha and beta errors less than 10%.</p>
+<p>There are contexts where survey data has already been collected and the sample is less than what was aimed for based on the original sampling frame. The <code>get_sample_d()</code> function is used to determine the error levels of the achieved sample size. For example, if the survey described above only achieved a sample size of 16, the <code>get_sample_d()</code> function can be used as follows:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">get_sample_d</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">N =</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">600</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">n =</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">16</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">dLower =</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.5</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">dUpper =</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.8</span>)</span></code></pre></div></div>
+</div>
+<p>which gives an alternative LQAS sampling plan based on the achieved sample size.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>$n
+[1] 16
+
+$d
+[1] 10
+
+$alpha
+[1] 0.07890285
+
+$beta
+[1] 0.1019738</code></pre>
+</div>
+</div>
+<p>In this updated sampling plan, the decision rule is now more than 10 SAM cases but with higher alpha and beta errors. Note that the beta error is now slightly higher than 10%.</p>
+</section>
+<section id="stage-1-sample" class="level3">
+<h3 class="anchored" data-anchor-id="stage-1-sample">Stage 1 sample</h3>
+<p>The first stage sample of a SLEAC survey is a systematic spatial sample. Two methods can be used and both methods take the sample from all parts of the survey area: the <em>list-based</em> method and the <em>map-based</em> method. The <code>{sleacr}</code> package currently supports the implementation of the <em>list-based</em> method.</p>
+<p>In the list-based method, communities to be sampled are selected systematically from a complete list of communities in the survey area. This list of communities should sorted by one or more non-overlapping spatial factors such as district and subdistricts within districts. The <code>village_list</code> dataset is an example of such a list.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1">village_list</span></code></pre></div></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,001 × 4
+      id chiefdom section village  
+   &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;   &lt;chr&gt;    
+ 1     1 Badjia   Damia   Ngelehun 
+ 2     2 Badjia   Damia   Gondama  
+ 3     3 Badjia   Damia   Penjama  
+ 4     4 Badjia   Damia   Jawe     
+ 5     5 Badjia   Damia   Dambala  
+ 6     6 Badjia   Fallay  Bumpewo  
+ 7     7 Badjia   Fallay  Pelewahun
+ 8     8 Badjia   Fallay  Pendembu 
+ 9     9 Badjia   Kpallay Jokibu   
+10    10 Badjia   Kpallay Kpaku    
+# ℹ 991 more rows</code></pre>
+</div>
+</div>
+<p>The <code>get_sampling_list()</code> function implements the list-based sampling method. For example, if 40 clusters/villages are needed to be sampled to find the 19 SAM cases calculated earlier, a sampling list can be created as follows:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">get_sampling_list</span>(village_list, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">40</span>)</span></code></pre></div></div>
+</div>
+<p>which provides the following sampling list:</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">id</th>
+<th style="text-align: left;">chiefdom</th>
+<th style="text-align: left;">section</th>
+<th style="text-align: left;">village</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">20</td>
+<td style="text-align: left;">Badjia</td>
+<td style="text-align: left;">Njargbahun</td>
+<td style="text-align: left;">Kpetema</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">45</td>
+<td style="text-align: left;">Bagbe</td>
+<td style="text-align: left;">Jongo</td>
+<td style="text-align: left;">Yengema</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">70</td>
+<td style="text-align: left;">Bagbe</td>
+<td style="text-align: left;">Samawa</td>
+<td style="text-align: left;">Baiama</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">95</td>
+<td style="text-align: left;">Bagbo</td>
+<td style="text-align: left;">Jimmi</td>
+<td style="text-align: left;">Kpawama</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">120</td>
+<td style="text-align: left;">Bagbo</td>
+<td style="text-align: left;">Mano</td>
+<td style="text-align: left;">Dandabu</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">145</td>
+<td style="text-align: left;">Baoma</td>
+<td style="text-align: left;">Bambawo</td>
+<td style="text-align: left;">Kenemawo</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">170</td>
+<td style="text-align: left;">Baoma</td>
+<td style="text-align: left;">Fallay</td>
+<td style="text-align: left;">Gbandi</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">195</td>
+<td style="text-align: left;">Baoma</td>
+<td style="text-align: left;">Mawojeh</td>
+<td style="text-align: left;">Ngelahun</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">220</td>
+<td style="text-align: left;">Baoma</td>
+<td style="text-align: left;">Upper Pataloo</td>
+<td style="text-align: left;">Yakaji</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">245</td>
+<td style="text-align: left;">Bumpe Ngao</td>
+<td style="text-align: left;">Bumpe</td>
+<td style="text-align: left;">Waiima</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">270</td>
+<td style="text-align: left;">Bumpe Ngao</td>
+<td style="text-align: left;">Foya</td>
+<td style="text-align: left;">Bobobu</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">295</td>
+<td style="text-align: left;">Bumpe Ngao</td>
+<td style="text-align: left;">Bongo</td>
+<td style="text-align: left;">Belebu</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">320</td>
+<td style="text-align: left;">Bumpe Ngao</td>
+<td style="text-align: left;">Serabu</td>
+<td style="text-align: left;">Nyahagoihun</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">345</td>
+<td style="text-align: left;">Bumpe Ngao</td>
+<td style="text-align: left;">Taninahun</td>
+<td style="text-align: left;">Kpetewoma</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">370</td>
+<td style="text-align: left;">Bumpe Ngao</td>
+<td style="text-align: left;">Taninahun</td>
+<td style="text-align: left;">Mokebi</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">395</td>
+<td style="text-align: left;">Bumpe Ngao</td>
+<td style="text-align: left;">Taninahun</td>
+<td style="text-align: left;">Ngiegboiya</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">420</td>
+<td style="text-align: left;">Gbo</td>
+<td style="text-align: left;">Gbo</td>
+<td style="text-align: left;">Kotumahun Mavi</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">445</td>
+<td style="text-align: left;">Gbo</td>
+<td style="text-align: left;">Nyawa</td>
+<td style="text-align: left;">Foya</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">470</td>
+<td style="text-align: left;">Jaiama Bongor</td>
+<td style="text-align: left;">Lower Niawa</td>
+<td style="text-align: left;">Baraka</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">495</td>
+<td style="text-align: left;">Jaiama Bongor</td>
+<td style="text-align: left;">Tongowa</td>
+<td style="text-align: left;">Talia</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">520</td>
+<td style="text-align: left;">Jaiama Bongor</td>
+<td style="text-align: left;">Upper Niawa</td>
+<td style="text-align: left;">Nyeyama</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">545</td>
+<td style="text-align: left;">Kakua</td>
+<td style="text-align: left;">Kpandobu</td>
+<td style="text-align: left;">Fabaina</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">570</td>
+<td style="text-align: left;">Kakua</td>
+<td style="text-align: left;">Nyallay</td>
+<td style="text-align: left;">Jandama</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">595</td>
+<td style="text-align: left;">Kakua</td>
+<td style="text-align: left;">Sewa</td>
+<td style="text-align: left;">Kenedeyama</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">620</td>
+<td style="text-align: left;">Komboya</td>
+<td style="text-align: left;">Kemoh</td>
+<td style="text-align: left;">Gumahun</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">645</td>
+<td style="text-align: left;">Komboya</td>
+<td style="text-align: left;">Mangaru</td>
+<td style="text-align: left;">Sengbehun</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">670</td>
+<td style="text-align: left;">Lugbu</td>
+<td style="text-align: left;">Kargbevu</td>
+<td style="text-align: left;">Momandu</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">695</td>
+<td style="text-align: left;">Niawa Lenga</td>
+<td style="text-align: left;">Lower Niawa</td>
+<td style="text-align: left;">Luawa</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">720</td>
+<td style="text-align: left;">Niawa Lenga</td>
+<td style="text-align: left;">Yalenga</td>
+<td style="text-align: left;">Dandabu</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">745</td>
+<td style="text-align: left;">Selenga</td>
+<td style="text-align: left;">Mokpendeh</td>
+<td style="text-align: left;">Jolu</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">770</td>
+<td style="text-align: left;">Tikonko</td>
+<td style="text-align: left;">Ngolamajie</td>
+<td style="text-align: left;">Baoma (Geyewoma)</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">795</td>
+<td style="text-align: left;">Tikonko</td>
+<td style="text-align: left;">Seiwa</td>
+<td style="text-align: left;">Gendema</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">820</td>
+<td style="text-align: left;">Tikonko</td>
+<td style="text-align: left;">Seiwa</td>
+<td style="text-align: left;">Towama</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">845</td>
+<td style="text-align: left;">Tikonko</td>
+<td style="text-align: left;">Seiwa</td>
+<td style="text-align: left;">Kpawugbahun</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">870</td>
+<td style="text-align: left;">Valunia</td>
+<td style="text-align: left;">Deilenga</td>
+<td style="text-align: left;">Hendogboma</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">895</td>
+<td style="text-align: left;">Valunia</td>
+<td style="text-align: left;">Lower Kargoi</td>
+<td style="text-align: left;">Gombu</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">920</td>
+<td style="text-align: left;">Valunia</td>
+<td style="text-align: left;">Lunia</td>
+<td style="text-align: left;">Kpetema</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">945</td>
+<td style="text-align: left;">Valunia</td>
+<td style="text-align: left;">Manyeh</td>
+<td style="text-align: left;">Malema</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">970</td>
+<td style="text-align: left;">Valunia</td>
+<td style="text-align: left;">Yarlenga</td>
+<td style="text-align: left;">Dassamu</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">995</td>
+<td style="text-align: left;">Wonde</td>
+<td style="text-align: left;">Manyeh</td>
+<td style="text-align: left;">Kigbema</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="classifying-coverage" class="level3">
+<h3 class="anchored" data-anchor-id="classifying-coverage">Classifying coverage</h3>
+<p>With data collected from a SLEAC survey, the <code>lqas_classify_coverage()</code> function is used to classify coverage. The <code>{sleacr}</code> package comes with the <code>survey_data</code> dataset from a national SLEAC survey conducted in Sierra Leone.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1">survey_data</span></code></pre></div></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 14 × 7
+   country      province     district      cases_in cases_out rec_in cases_total
+   &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;            &lt;int&gt;     &lt;int&gt;  &lt;int&gt;       &lt;int&gt;
+ 1 Sierra Leone Northern     Bombali              4        26      6          30
+ 2 Sierra Leone Northern     Koinadugu            0        32      6          32
+ 3 Sierra Leone Northern     Kambia               0        28      0          28
+ 4 Sierra Leone Northern     Port Loko            2        28      0          30
+ 5 Sierra Leone Northern     Tonkolili            1        27      5          28
+ 6 Sierra Leone Eastern      Kono                 2        14      3          16
+ 7 Sierra Leone Eastern      Kailahun             4        30      3          34
+ 8 Sierra Leone Eastern      Kenema               8        26      4          34
+ 9 Sierra Leone Southern     Pujehun              6        21      1          27
+10 Sierra Leone Southern     Bo                   6        16      8          22
+11 Sierra Leone Southern     Bonthe               7        34      2          41
+12 Sierra Leone Southern     Moyamba              6        34      0          40
+13 Sierra Leone Western Area Western Area…        6        40      5          46
+14 Sierra Leone Western Area Western Area…        2        18      0          20</code></pre>
+</div>
+</div>
+<p>Using this dataset, per district coverage classifications can be calculated as follows:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">with</span>(</span>
+<span id="cb10-2">  survey_data, </span>
+<span id="cb10-3">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">lqas_classify</span>(</span>
+<span id="cb10-4">    <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">cases_in =</span> cases_in, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">cases_out =</span> cases_out, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">rec_in =</span> rec_in</span>
+<span id="cb10-5">  )</span>
+<span id="cb10-6">)</span></code></pre></div></div>
+</div>
+<p>which outputs the following results:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>   cf tc
+1   0  1
+2   0  0
+3   0  0
+4   0  0
+5   0  0
+6   0  1
+7   0  0
+8   1  1
+9   1  1
+10  1  1
+11  0  0
+12  0  0
+13  0  0
+14  0  0</code></pre>
+</div>
+</div>
+<p>The function provides estimates for <em>case-finding effectiveness</em> and for <em>treatment coverage</em> as a <code>data.frame</code> object.</p>
+</section>
+<section id="assessing-classifier-performance" class="level3">
+<h3 class="anchored" data-anchor-id="assessing-classifier-performance">Assessing classifier performance</h3>
+<p>It is useful to be able to assess the performance of the classifier chosen for a SLEAC survey. For example, in the context presented above of an area with a population of 600, a sample size of 40 and a 60% and 90% threshold classifier, the performance of this classifier can be assessed by first simulating a population and then determining the classification probabilities of the chosen classifier on this population.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><span class="do" style="color: #5E5E5E;
+background-color: null;
+font-style: italic;">## Simulate population ----</span></span>
+<span id="cb12-2">lqas_sim_pop <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">lqas_simulate_test</span>(</span>
+<span id="cb12-3">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">pop =</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">600</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">n =</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">40</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">dLower =</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.6</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">dUpper =</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.9</span></span>
+<span id="cb12-4">)</span>
+<span id="cb12-5"></span>
+<span id="cb12-6"><span class="do" style="color: #5E5E5E;
+background-color: null;
+font-style: italic;">## Get classification probabilities ----</span></span>
+<span id="cb12-7"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">lqas_get_class_prob</span>(lqas_sim_pop)</span></code></pre></div></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                    Low : 0.9552
+               Moderate : 0.832
+                   High : 0.8361
+                Overall : 0.9063
+Gross misclassification : 0</code></pre>
+</div>
+</div>
+<p>This diagnostic test can also be plotted.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">plot</span>(lqas_sim_pop)</span></code></pre></div></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="https://nutriverse.io/posts/2026-02-03-sleacr-release/index_files/figure-html/classifier-test-plot-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="estimating-coverage-over-wide-areas" class="level3">
+<h3 class="anchored" data-anchor-id="estimating-coverage-over-wide-areas">Estimating coverage over wide areas</h3>
+<p>When SLEAC is implemented in several service delivery units, it is also possible to estimate an overall coverage across these service delivery units. For example, using the <code>survey_data</code> dataset from a national SLEAC survey conducted in Sierra Leone, an overall coverage estimate can be calculated. For this, additional information on the total population for each service delivery unit surveyed will be needed. For the Sierra Leone example, the <code>pop_data</code> dataset gives the population for each district in Sierra Leone.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1">pop_data</span></code></pre></div></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 14 × 2
+   district               pop
+   &lt;chr&gt;                &lt;dbl&gt;
+ 1 Kailahun            526379
+ 2 Kenema              609891
+ 3 Kono                506100
+ 4 Bombali             606544
+ 5 Kambia              345474
+ 6 Koinadugu           409372
+ 7 Port Loko           615376
+ 8 Tonkolili           531435
+ 9 Bo                  575478
+10 Bonthe              200781
+11 Moyamba             318588
+12 Pujehun             346461
+13 Western Area Rural  444270
+14 Western Area Urban 1055964</code></pre>
+</div>
+</div>
+<p>The overall coverage estimate can be calculated as follows:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1">pop_df <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> pop_data <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span></span>
+<span id="cb17-2">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">setNames</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">nm =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"strata"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"pop"</span>))</span>
+<span id="cb17-3"></span>
+<span id="cb17-4"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">estimate_coverage_overall</span>(</span>
+<span id="cb17-5">  survey_data, pop_data, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">strata =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"district"</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">u5 =</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.177</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">p =</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.01</span></span>
+<span id="cb17-6">)</span></code></pre></div></div>
+</div>
+<p>which gives the following results:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>$cf
+$cf$estimate
+[1] 0.1257481
+
+$cf$ci
+[1] 0.09247579 0.15902045
+
+
+$tc
+$tc$estimate
+[1] 0.1706466
+
+$tc$ci
+[1] 0.1371647 0.2041284</code></pre>
+</div>
+</div>
+</section>
+<section id="testing-coverage-homogeneity" class="level3">
+<h3 class="anchored" data-anchor-id="testing-coverage-homogeneity">Testing coverage homogeneity</h3>
+<p>When estimating coverage across multiple surveys over wide areas, it is good practice to assess whether coverage across each of the service delivery units is homogenous. The function <code>check_coverage_homogeneity()</code> is used for this purpose:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">check_coverage_homogeneity</span>(survey_data)</span></code></pre></div></div>
+</div>
+<p>which results in the following output:</p>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ Case-finding effectiveness across 14 surveys is not patchy.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>! Treatment coverage across 14 surveys is patchy.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$cf
+$cf$statistic
+[1] 20.1292
+
+$cf$df
+[1] 13
+
+$cf$p
+[1] 0.09203514
+
+
+$tc
+$tc$statistic
+[1] 33.10622
+
+$tc$df
+[1] 13
+
+$tc$p
+[1] 0.001642536</code></pre>
+</div>
+</div>
+<p>In this example, case-finding effectiveness is homogeneous while treatment coverage is patchy.</p>
+</section>
+</section>
+<section id="read-more" class="level2">
+<h2 class="anchored" data-anchor-id="read-more">Read more</h2>
+<p>You can read more about the <code>{sleacr}</code> package from its <a href="https://nutriverse.io/sleacr">website</a>.</p>
+</section>
+<section id="citation" class="level2">
+<h2 class="anchored" data-anchor-id="citation">Citation</h2>
+<p>If you use the <code>{sleacr}</code> package in your work, please cite both the <code>{sleacr}</code> package and the authors and developers of the <strong>SQUEAC and SLEAC method</strong>.</p>
+<p>A suggested citation for both is found below:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>To cite sleacr in publications use:
+
+  Ernest Guevarra, Mark Myatt (2026). _sleacr: Simplified Lot Quality
+  Assurance Sampling Evaluation of Access and Coverage (SLEAC) Tools_.
+  doi:10.5281/zenodo.7510931 &lt;https://doi.org/10.5281/zenodo.7510931&gt;,
+  R package version 0.1.3, &lt;https://nutriverse.io/sleacr/&gt;.
+
+To cite the SQUEAC and SLEAC Technical Reference in publications use:
+
+  Mark Myatt, Ernest Guevarra, Lionella Fieschi, Allison Norris, Saul
+  Guerrero, Lilly Schofield, Daniel Jones, Ephrem Emru, Kate Sadler
+  (2012). _Semi-Quantitative Evaluation of Access and Coverage
+  (SQUEAC)/Simplified Lot Quality Assurance Sampling Evaluation of
+  Access and Coverage (SLEAC) Technical Reference_. FHI 360/FANTA,
+  Washington, DC.
+
+To see these entries in BibTeX format, use 'print(&lt;citation&gt;,
+bibtex=TRUE)', 'toBibtex(.)', or set
+'options(citation.bibtex.max=999)'.</code></pre>
+</div>
+</div>
+</section>
+<section id="contributing" class="level2">
+<h2 class="anchored" data-anchor-id="contributing">Contributing</h2>
+<p>We’d love to hear your feedback, bug reports, and feature requests. File issues or seek support <a href="https://github.com/nutriverse/sleacr/issues">here</a>. If you would like to contribute to the package, please see our <a href="https://nutriverse.io/sleacr/CONTRIBUTING.html">contributing guidelines</a>.</p>
+<p>This project is released with a <a href="https://nutriverse.io/sleacr/CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
+
+
+</section>
+
+ ]]></description>
+  <category>news</category>
+  <category>announcement</category>
+  <category>packages</category>
+  <guid>https://nutriverse.io/posts/2026-02-03-sleacr-release/</guid>
+  <pubDate>Tue, 03 Feb 2026 00:00:00 GMT</pubDate>
+  <media:content url="https://nutriverse.io/images/sleacr.png" medium="image" type="image/png" height="165" width="144"/>
+</item>
 <item>
   <title>New version of nipnTK on CRAN, new development versions of micronutr and anthrocheckr</title>
   <dc:creator>nutriverse Team</dc:creator>
-  <link>https://nutriverse.io/posts/2026-02-01-package-updates.qmd/</link>
+  <link>https://nutriverse.io/posts/2026-02-01-package-updates/</link>
   <description><![CDATA[ 
 
 
@@ -36,7 +721,7 @@
  ]]></description>
   <category>news</category>
   <category>packages</category>
-  <guid>https://nutriverse.io/posts/2026-02-01-package-updates.qmd/</guid>
+  <guid>https://nutriverse.io/posts/2026-02-01-package-updates/</guid>
   <pubDate>Sun, 01 Feb 2026 00:00:00 GMT</pubDate>
   <media:content url="https://nutriverse.io/images/nipnTK.png" medium="image" type="image/png" height="167" width="144"/>
 </item>

@@ -1,15 +1,20 @@
 [
   {
-    "listing": "/packages/index.html",
+    "listing": "/about/team.html",
     "items": [
-      "/packages/dietry.html",
-      "/packages/micronutr.html",
-      "/packages/nipnTK.html",
-      "/packages/riycf.html",
-      "/packages/sleacr.html",
-      "/packages/smartr.html",
-      "/packages/squeacr.html",
-      "/packages/zscorer.html"
+      "/team/aziz-goza.html",
+      "/team/emmanuel-mandalazi.html",
+      "/team/ernest-guevarra.html",
+      "/team/nicholus-tint-zaw.html",
+      "/team/tomas-zaba.html"
+    ]
+  },
+  {
+    "listing": "/blog.html",
+    "items": [
+      "/posts/2026-02-03-sleacr-release/index.html",
+      "/posts/2026-02-01-package-updates/index.html",
+      "/posts/2026-01-27-monthly-roundup/index.html"
     ]
   },
   {
@@ -21,20 +26,16 @@
     ]
   },
   {
-    "listing": "/blog.html",
+    "listing": "/packages/index.html",
     "items": [
-      "/posts/2026-02-01-package-updates.qmd/index.html",
-      "/posts/2026-01-27-monthly-roundup/index.html"
-    ]
-  },
-  {
-    "listing": "/about/team.html",
-    "items": [
-      "/team/aziz-goza.html",
-      "/team/emmanuel-mandalazi.html",
-      "/team/ernest-guevarra.html",
-      "/team/nicholus-tint-zaw.html",
-      "/team/tomas-zaba.html"
+      "/packages/dietry.html",
+      "/packages/micronutr.html",
+      "/packages/nipnTK.html",
+      "/packages/riycf.html",
+      "/packages/sleacr.html",
+      "/packages/smartr.html",
+      "/packages/squeacr.html",
+      "/packages/zscorer.html"
     ]
   }
 ]

@@ -1,0 +1,1335 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="nutriverse Team">
+<meta name="dcterms.date" content="2026-02-03">
+<meta name="description" content="Simplified Lot Quality Assurance Sampling Evaluation of Access and Coverage or SLEAC, is a low resource method used regularly for monitoring, planning and importantly, timely improvement to programme quality, both for agency and Ministry of Health (MoH) led programmes. This package provides functions for use in conducting a SLEAC assessment.">
+
+<title>sleacr now on CRAN – nutriverse</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dcd6dad1d9027e0fc018a6aab5a8b21b.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-9036544a345e354bbf2a3cf4f8776924.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-Z9SDQC2LZH"></script>
+
+<script type="text/plain" cookie-consent="tracking">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-Z9SDQC2LZH', { 'anonymize_ip': true});
+</script>
+
+<script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"simple",
+  "consent_type":"express",
+  "palette":"light",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  ,
+"language":"en"
+  });
+});
+</script> 
+  
+<style>
+
+      .quarto-title-block .quarto-title-banner h1,
+      .quarto-title-block .quarto-title-banner h2,
+      .quarto-title-block .quarto-title-banner h3,
+      .quarto-title-block .quarto-title-banner h4,
+      .quarto-title-block .quarto-title-banner h5,
+      .quarto-title-block .quarto-title-banner h6
+      {
+        color: #C20055;
+      }
+
+      .quarto-title-block .quarto-title-banner {
+        color: #C20055;
+background: #F0F5F9;
+      }
+</style>
+
+
+<link rel="stylesheet" href="../../styles.css">
+<meta property="og:title" content="sleacr now on CRAN – nutriverse">
+<meta property="og:description" content="Simplified Lot Quality Assurance Sampling Evaluation of Access and Coverage or SLEAC, is a low resource method used regularly for monitoring, planning and importantly, timely improvement to programme quality, both for agency and Ministry of Health (MoH) led programmes. This package provides functions for use in conducting a SLEAC assessment.">
+<meta property="og:image" content="https://nutriverse.io/images/sleacr.png">
+<meta property="og:site_name" content="nutriverse">
+<meta property="og:image:height" content="1555">
+<meta property="og:image:width" content="1354">
+</head>
+
+<body class="floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../images/nutriverse_neg.png" alt="nutriverse" class="navbar-logo light-content">
+    <img src="../../images/nutriverse_neg.png" alt="nutriverse" class="navbar-logo dark-content">
+    </a>
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">nutriverse</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../blog.html"> 
+<span class="menu-text">Blog</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../packages/index.html"> 
+<span class="menu-text">Packages</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-community" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Community</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-community">    
+        <li>
+    <a class="dropdown-item" href="../../community/index.html">
+ <span class="dropdown-text">Community</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../code-of-conduct.html">
+ <span class="dropdown-text">Code of Conduct</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-about" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">About</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-about">    
+        <li>
+    <a class="dropdown-item" href="../../about/team.html">
+ <span class="dropdown-text">Meet the Team</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../about/contact.html">
+ <span class="dropdown-text">Contact Us</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools tools-wide">
+    <a href="https://mastodon.social/@nutriverse" rel="me" title="" class="quarto-navigation-tool px-1" aria-label="Mastodon"><i class="bi bi-mastodon"></i></a>
+    <a href="https://bsky.app/profile/nutriverse.io" title="" class="quarto-navigation-tool px-1" aria-label="Bluesky"><i class="bi bi-bluesky"></i></a>
+    <a href="https://www.linkedin.com/company/nutriverse-community" title="" class="quarto-navigation-tool px-1" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+    <a href="https://github.com/nutriverse" title="" class="quarto-navigation-tool px-1" aria-label="GitHub"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">sleacr now on CRAN</h1>
+            <p class="subtitle lead">Simplified Lot Quality Assurance Sampling Evaluation of Access and Coverage (SLEAC) Tools</p>
+                  <div>
+        <div class="description">
+          <p>Simplified Lot Quality Assurance Sampling Evaluation of Access and Coverage or SLEAC, is a low resource method used regularly for monitoring, planning and importantly, timely improvement to programme quality, both for agency and Ministry of Health (MoH) led programmes. This package provides functions for use in conducting a SLEAC assessment.</p>
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">news</div>
+                <div class="quarto-category">announcement</div>
+                <div class="quarto-category">packages</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>nutriverse Team </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">03 February 2026</p>
+      </div>
+    </div>
+    
+      <div>
+      <div class="quarto-title-meta-heading">Modified</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date-modified">09 February 2026</p>
+      </div>
+    </div>
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#what-does-the-package-do" id="toc-what-does-the-package-do" class="nav-link active" data-scroll-target="#what-does-the-package-do">What does the package do?</a>
+  <ul class="collapse">
+  <li><a href="#lot-quality-assurance-sampling-frame" id="toc-lot-quality-assurance-sampling-frame" class="nav-link" data-scroll-target="#lot-quality-assurance-sampling-frame">Lot quality assurance sampling frame</a></li>
+  <li><a href="#stage-1-sample" id="toc-stage-1-sample" class="nav-link" data-scroll-target="#stage-1-sample">Stage 1 sample</a></li>
+  <li><a href="#classifying-coverage" id="toc-classifying-coverage" class="nav-link" data-scroll-target="#classifying-coverage">Classifying coverage</a></li>
+  <li><a href="#assessing-classifier-performance" id="toc-assessing-classifier-performance" class="nav-link" data-scroll-target="#assessing-classifier-performance">Assessing classifier performance</a></li>
+  <li><a href="#estimating-coverage-over-wide-areas" id="toc-estimating-coverage-over-wide-areas" class="nav-link" data-scroll-target="#estimating-coverage-over-wide-areas">Estimating coverage over wide areas</a></li>
+  <li><a href="#testing-coverage-homogeneity" id="toc-testing-coverage-homogeneity" class="nav-link" data-scroll-target="#testing-coverage-homogeneity">Testing coverage homogeneity</a></li>
+  </ul></li>
+  <li><a href="#read-more" id="toc-read-more" class="nav-link" data-scroll-target="#read-more">Read more</a></li>
+  <li><a href="#citation" id="toc-citation" class="nav-link" data-scroll-target="#citation">Citation</a></li>
+  <li><a href="#contributing" id="toc-contributing" class="nav-link" data-scroll-target="#contributing">Contributing</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/nutriverse/nutriverse.github.io/edit/main/posts/2026-02-03-sleacr-release/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/nutriverse/nutriverse.github.io/issues" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<p>Our software development team is pleased to announce that <a href="https://nutriverse.io/sleacr"><code>{sleacr}</code></a>, an R package for Simplified Lot Quality Assurance Sampling Evaluation of Access and Coverage (SLEAC), has been accepted to the <a href="https://CRAN.R-project.org/package=sleacr">Comprehensive R Archive Network (CRAN)</a> today!</p>
+<section id="what-does-the-package-do" class="level2">
+<h2 class="anchored" data-anchor-id="what-does-the-package-do">What does the package do?</h2>
+<p>The <code>{sleacr}</code> package provides functions that facilitate the design, sampling, data collection, and data analysis of a SLEAC survey. The current version of the <code>{sleacr}</code> package provides the following:</p>
+<ul>
+<li><p>Functions to calculate the sample size needed for a SLEAC survey;</p></li>
+<li><p>Functions to draw a stage 1 sample for a SLEAC survey;</p></li>
+<li><p>Functions to classify coverage;</p></li>
+<li><p>Functions to determine the performance of chosen classifier cut-offs for analysis of SLEAC survey data;</p></li>
+<li><p>Functions to estimate coverage over wide areas; and,</p></li>
+<li><p>Functions to test for coverage homogeneity across multiple surveys over wide areas.</p></li>
+</ul>
+<section id="lot-quality-assurance-sampling-frame" class="level3">
+<h3 class="anchored" data-anchor-id="lot-quality-assurance-sampling-frame">Lot quality assurance sampling frame</h3>
+<p>To setup an LQAS sampling frame, a target sample size is first estimated. For example, if the survey area has an estimated population of about 600 severe acute malnourished (SAM) children and you want to assess whether coverage is reaching at least 50%, the sample size can be calculated as follows:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_sample_n</span>(<span class="at">N =</span> <span class="dv">600</span>, <span class="at">dLower =</span> <span class="fl">0.5</span>, <span class="at">dUpper =</span> <span class="fl">0.8</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>which gives an LQAS sampling plan list with values for the target minimum sample size (<code>n</code>), the decision rule (<code>d</code>), the observed alpha error (<code>alpha</code>), and the observed beta error (<code>beta</code>).</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>$n
+[1] 19
+
+$d
+[1] 12
+
+$alpha
+[1] 0.06446194
+
+$beta
+[1] 0.08014249</code></pre>
+</div>
+</div>
+<p>In this sampling plan, a target minimum sample size of 19 SAM cases should be aimed for with a decision rule of more than 12 SAM cases covered to determine whether programme coverage is at least 50% with alpha and beta errors no more than 10%. The alpha and beta errors requirement is set at no more than 10% by default. This can be made more precise by setting alpha and beta errors less than 10%.</p>
+<p>There are contexts where survey data has already been collected and the sample is less than what was aimed for based on the original sampling frame. The <code>get_sample_d()</code> function is used to determine the error levels of the achieved sample size. For example, if the survey described above only achieved a sample size of 16, the <code>get_sample_d()</code> function can be used as follows:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_sample_d</span>(<span class="at">N =</span> <span class="dv">600</span>, <span class="at">n =</span> <span class="dv">16</span>, <span class="at">dLower =</span> <span class="fl">0.5</span>, <span class="at">dUpper =</span> <span class="fl">0.8</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>which gives an alternative LQAS sampling plan based on the achieved sample size.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>$n
+[1] 16
+
+$d
+[1] 10
+
+$alpha
+[1] 0.07890285
+
+$beta
+[1] 0.1019738</code></pre>
+</div>
+</div>
+<p>In this updated sampling plan, the decision rule is now more than 10 SAM cases but with higher alpha and beta errors. Note that the beta error is now slightly higher than 10%.</p>
+</section>
+<section id="stage-1-sample" class="level3">
+<h3 class="anchored" data-anchor-id="stage-1-sample">Stage 1 sample</h3>
+<p>The first stage sample of a SLEAC survey is a systematic spatial sample. Two methods can be used and both methods take the sample from all parts of the survey area: the <em>list-based</em> method and the <em>map-based</em> method. The <code>{sleacr}</code> package currently supports the implementation of the <em>list-based</em> method.</p>
+<p>In the list-based method, communities to be sampled are selected systematically from a complete list of communities in the survey area. This list of communities should sorted by one or more non-overlapping spatial factors such as district and subdistricts within districts. The <code>village_list</code> dataset is an example of such a list.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>village_list</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,001 × 4
+      id chiefdom section village  
+   &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;   &lt;chr&gt;    
+ 1     1 Badjia   Damia   Ngelehun 
+ 2     2 Badjia   Damia   Gondama  
+ 3     3 Badjia   Damia   Penjama  
+ 4     4 Badjia   Damia   Jawe     
+ 5     5 Badjia   Damia   Dambala  
+ 6     6 Badjia   Fallay  Bumpewo  
+ 7     7 Badjia   Fallay  Pelewahun
+ 8     8 Badjia   Fallay  Pendembu 
+ 9     9 Badjia   Kpallay Jokibu   
+10    10 Badjia   Kpallay Kpaku    
+# ℹ 991 more rows</code></pre>
+</div>
+</div>
+<p>The <code>get_sampling_list()</code> function implements the list-based sampling method. For example, if 40 clusters/villages are needed to be sampled to find the 19 SAM cases calculated earlier, a sampling list can be created as follows:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">get_sampling_list</span>(village_list, <span class="dv">40</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>which provides the following sampling list:</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">id</th>
+<th style="text-align: left;">chiefdom</th>
+<th style="text-align: left;">section</th>
+<th style="text-align: left;">village</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">20</td>
+<td style="text-align: left;">Badjia</td>
+<td style="text-align: left;">Njargbahun</td>
+<td style="text-align: left;">Kpetema</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">45</td>
+<td style="text-align: left;">Bagbe</td>
+<td style="text-align: left;">Jongo</td>
+<td style="text-align: left;">Yengema</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">70</td>
+<td style="text-align: left;">Bagbe</td>
+<td style="text-align: left;">Samawa</td>
+<td style="text-align: left;">Baiama</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">95</td>
+<td style="text-align: left;">Bagbo</td>
+<td style="text-align: left;">Jimmi</td>
+<td style="text-align: left;">Kpawama</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">120</td>
+<td style="text-align: left;">Bagbo</td>
+<td style="text-align: left;">Mano</td>
+<td style="text-align: left;">Dandabu</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">145</td>
+<td style="text-align: left;">Baoma</td>
+<td style="text-align: left;">Bambawo</td>
+<td style="text-align: left;">Kenemawo</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">170</td>
+<td style="text-align: left;">Baoma</td>
+<td style="text-align: left;">Fallay</td>
+<td style="text-align: left;">Gbandi</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">195</td>
+<td style="text-align: left;">Baoma</td>
+<td style="text-align: left;">Mawojeh</td>
+<td style="text-align: left;">Ngelahun</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">220</td>
+<td style="text-align: left;">Baoma</td>
+<td style="text-align: left;">Upper Pataloo</td>
+<td style="text-align: left;">Yakaji</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">245</td>
+<td style="text-align: left;">Bumpe Ngao</td>
+<td style="text-align: left;">Bumpe</td>
+<td style="text-align: left;">Waiima</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">270</td>
+<td style="text-align: left;">Bumpe Ngao</td>
+<td style="text-align: left;">Foya</td>
+<td style="text-align: left;">Bobobu</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">295</td>
+<td style="text-align: left;">Bumpe Ngao</td>
+<td style="text-align: left;">Bongo</td>
+<td style="text-align: left;">Belebu</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">320</td>
+<td style="text-align: left;">Bumpe Ngao</td>
+<td style="text-align: left;">Serabu</td>
+<td style="text-align: left;">Nyahagoihun</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">345</td>
+<td style="text-align: left;">Bumpe Ngao</td>
+<td style="text-align: left;">Taninahun</td>
+<td style="text-align: left;">Kpetewoma</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">370</td>
+<td style="text-align: left;">Bumpe Ngao</td>
+<td style="text-align: left;">Taninahun</td>
+<td style="text-align: left;">Mokebi</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">395</td>
+<td style="text-align: left;">Bumpe Ngao</td>
+<td style="text-align: left;">Taninahun</td>
+<td style="text-align: left;">Ngiegboiya</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">420</td>
+<td style="text-align: left;">Gbo</td>
+<td style="text-align: left;">Gbo</td>
+<td style="text-align: left;">Kotumahun Mavi</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">445</td>
+<td style="text-align: left;">Gbo</td>
+<td style="text-align: left;">Nyawa</td>
+<td style="text-align: left;">Foya</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">470</td>
+<td style="text-align: left;">Jaiama Bongor</td>
+<td style="text-align: left;">Lower Niawa</td>
+<td style="text-align: left;">Baraka</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">495</td>
+<td style="text-align: left;">Jaiama Bongor</td>
+<td style="text-align: left;">Tongowa</td>
+<td style="text-align: left;">Talia</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">520</td>
+<td style="text-align: left;">Jaiama Bongor</td>
+<td style="text-align: left;">Upper Niawa</td>
+<td style="text-align: left;">Nyeyama</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">545</td>
+<td style="text-align: left;">Kakua</td>
+<td style="text-align: left;">Kpandobu</td>
+<td style="text-align: left;">Fabaina</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">570</td>
+<td style="text-align: left;">Kakua</td>
+<td style="text-align: left;">Nyallay</td>
+<td style="text-align: left;">Jandama</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">595</td>
+<td style="text-align: left;">Kakua</td>
+<td style="text-align: left;">Sewa</td>
+<td style="text-align: left;">Kenedeyama</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">620</td>
+<td style="text-align: left;">Komboya</td>
+<td style="text-align: left;">Kemoh</td>
+<td style="text-align: left;">Gumahun</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">645</td>
+<td style="text-align: left;">Komboya</td>
+<td style="text-align: left;">Mangaru</td>
+<td style="text-align: left;">Sengbehun</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">670</td>
+<td style="text-align: left;">Lugbu</td>
+<td style="text-align: left;">Kargbevu</td>
+<td style="text-align: left;">Momandu</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">695</td>
+<td style="text-align: left;">Niawa Lenga</td>
+<td style="text-align: left;">Lower Niawa</td>
+<td style="text-align: left;">Luawa</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">720</td>
+<td style="text-align: left;">Niawa Lenga</td>
+<td style="text-align: left;">Yalenga</td>
+<td style="text-align: left;">Dandabu</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">745</td>
+<td style="text-align: left;">Selenga</td>
+<td style="text-align: left;">Mokpendeh</td>
+<td style="text-align: left;">Jolu</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">770</td>
+<td style="text-align: left;">Tikonko</td>
+<td style="text-align: left;">Ngolamajie</td>
+<td style="text-align: left;">Baoma (Geyewoma)</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">795</td>
+<td style="text-align: left;">Tikonko</td>
+<td style="text-align: left;">Seiwa</td>
+<td style="text-align: left;">Gendema</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">820</td>
+<td style="text-align: left;">Tikonko</td>
+<td style="text-align: left;">Seiwa</td>
+<td style="text-align: left;">Towama</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">845</td>
+<td style="text-align: left;">Tikonko</td>
+<td style="text-align: left;">Seiwa</td>
+<td style="text-align: left;">Kpawugbahun</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">870</td>
+<td style="text-align: left;">Valunia</td>
+<td style="text-align: left;">Deilenga</td>
+<td style="text-align: left;">Hendogboma</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">895</td>
+<td style="text-align: left;">Valunia</td>
+<td style="text-align: left;">Lower Kargoi</td>
+<td style="text-align: left;">Gombu</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">920</td>
+<td style="text-align: left;">Valunia</td>
+<td style="text-align: left;">Lunia</td>
+<td style="text-align: left;">Kpetema</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">945</td>
+<td style="text-align: left;">Valunia</td>
+<td style="text-align: left;">Manyeh</td>
+<td style="text-align: left;">Malema</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">970</td>
+<td style="text-align: left;">Valunia</td>
+<td style="text-align: left;">Yarlenga</td>
+<td style="text-align: left;">Dassamu</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">995</td>
+<td style="text-align: left;">Wonde</td>
+<td style="text-align: left;">Manyeh</td>
+<td style="text-align: left;">Kigbema</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<section id="classifying-coverage" class="level3">
+<h3 class="anchored" data-anchor-id="classifying-coverage">Classifying coverage</h3>
+<p>With data collected from a SLEAC survey, the <code>lqas_classify_coverage()</code> function is used to classify coverage. The <code>{sleacr}</code> package comes with the <code>survey_data</code> dataset from a national SLEAC survey conducted in Sierra Leone.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>survey_data</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 14 × 7
+   country      province     district      cases_in cases_out rec_in cases_total
+   &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;            &lt;int&gt;     &lt;int&gt;  &lt;int&gt;       &lt;int&gt;
+ 1 Sierra Leone Northern     Bombali              4        26      6          30
+ 2 Sierra Leone Northern     Koinadugu            0        32      6          32
+ 3 Sierra Leone Northern     Kambia               0        28      0          28
+ 4 Sierra Leone Northern     Port Loko            2        28      0          30
+ 5 Sierra Leone Northern     Tonkolili            1        27      5          28
+ 6 Sierra Leone Eastern      Kono                 2        14      3          16
+ 7 Sierra Leone Eastern      Kailahun             4        30      3          34
+ 8 Sierra Leone Eastern      Kenema               8        26      4          34
+ 9 Sierra Leone Southern     Pujehun              6        21      1          27
+10 Sierra Leone Southern     Bo                   6        16      8          22
+11 Sierra Leone Southern     Bonthe               7        34      2          41
+12 Sierra Leone Southern     Moyamba              6        34      0          40
+13 Sierra Leone Western Area Western Area…        6        40      5          46
+14 Sierra Leone Western Area Western Area…        2        18      0          20</code></pre>
+</div>
+</div>
+<p>Using this dataset, per district coverage classifications can be calculated as follows:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  survey_data, </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lqas_classify</span>(</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">cases_in =</span> cases_in, <span class="at">cases_out =</span> cases_out, <span class="at">rec_in =</span> rec_in</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>which outputs the following results:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>   cf tc
+1   0  1
+2   0  0
+3   0  0
+4   0  0
+5   0  0
+6   0  1
+7   0  0
+8   1  1
+9   1  1
+10  1  1
+11  0  0
+12  0  0
+13  0  0
+14  0  0</code></pre>
+</div>
+</div>
+<p>The function provides estimates for <em>case-finding effectiveness</em> and for <em>treatment coverage</em> as a <code>data.frame</code> object.</p>
+</section>
+<section id="assessing-classifier-performance" class="level3">
+<h3 class="anchored" data-anchor-id="assessing-classifier-performance">Assessing classifier performance</h3>
+<p>It is useful to be able to assess the performance of the classifier chosen for a SLEAC survey. For example, in the context presented above of an area with a population of 600, a sample size of 40 and a 60% and 90% threshold classifier, the performance of this classifier can be assessed by first simulating a population and then determining the classification probabilities of the chosen classifier on this population.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Simulate population ----</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>lqas_sim_pop <span class="ot">&lt;-</span> <span class="fu">lqas_simulate_test</span>(</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">pop =</span> <span class="dv">600</span>, <span class="at">n =</span> <span class="dv">40</span>, <span class="at">dLower =</span> <span class="fl">0.6</span>, <span class="at">dUpper =</span> <span class="fl">0.9</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Get classification probabilities ----</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="fu">lqas_get_class_prob</span>(lqas_sim_pop)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                    Low : 0.9552
+               Moderate : 0.832
+                   High : 0.8361
+                Overall : 0.9063
+Gross misclassification : 0</code></pre>
+</div>
+</div>
+<p>This diagnostic test can also be plotted.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lqas_sim_pop)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/classifier-test-plot-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="estimating-coverage-over-wide-areas" class="level3">
+<h3 class="anchored" data-anchor-id="estimating-coverage-over-wide-areas">Estimating coverage over wide areas</h3>
+<p>When SLEAC is implemented in several service delivery units, it is also possible to estimate an overall coverage across these service delivery units. For example, using the <code>survey_data</code> dataset from a national SLEAC survey conducted in Sierra Leone, an overall coverage estimate can be calculated. For this, additional information on the total population for each service delivery unit surveyed will be needed. For the Sierra Leone example, the <code>pop_data</code> dataset gives the population for each district in Sierra Leone.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>pop_data</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 14 × 2
+   district               pop
+   &lt;chr&gt;                &lt;dbl&gt;
+ 1 Kailahun            526379
+ 2 Kenema              609891
+ 3 Kono                506100
+ 4 Bombali             606544
+ 5 Kambia              345474
+ 6 Koinadugu           409372
+ 7 Port Loko           615376
+ 8 Tonkolili           531435
+ 9 Bo                  575478
+10 Bonthe              200781
+11 Moyamba             318588
+12 Pujehun             346461
+13 Western Area Rural  444270
+14 Western Area Urban 1055964</code></pre>
+</div>
+</div>
+<p>The overall coverage estimate can be calculated as follows:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>pop_df <span class="ot">&lt;-</span> pop_data <span class="sc">|&gt;</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setNames</span>(<span class="at">nm =</span> <span class="fu">c</span>(<span class="st">"strata"</span>, <span class="st">"pop"</span>))</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">estimate_coverage_overall</span>(</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  survey_data, pop_data, <span class="at">strata =</span> <span class="st">"district"</span>, <span class="at">u5 =</span> <span class="fl">0.177</span>, <span class="at">p =</span> <span class="fl">0.01</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>which gives the following results:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>$cf
+$cf$estimate
+[1] 0.1257481
+
+$cf$ci
+[1] 0.09247579 0.15902045
+
+
+$tc
+$tc$estimate
+[1] 0.1706466
+
+$tc$ci
+[1] 0.1371647 0.2041284</code></pre>
+</div>
+</div>
+</section>
+<section id="testing-coverage-homogeneity" class="level3">
+<h3 class="anchored" data-anchor-id="testing-coverage-homogeneity">Testing coverage homogeneity</h3>
+<p>When estimating coverage across multiple surveys over wide areas, it is good practice to assess whether coverage across each of the service delivery units is homogenous. The function <code>check_coverage_homogeneity()</code> is used for this purpose:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">check_coverage_homogeneity</span>(survey_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>which results in the following output:</p>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ Case-finding effectiveness across 14 surveys is not patchy.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>! Treatment coverage across 14 surveys is patchy.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$cf
+$cf$statistic
+[1] 20.1292
+
+$cf$df
+[1] 13
+
+$cf$p
+[1] 0.09203514
+
+
+$tc
+$tc$statistic
+[1] 33.10622
+
+$tc$df
+[1] 13
+
+$tc$p
+[1] 0.001642536</code></pre>
+</div>
+</div>
+<p>In this example, case-finding effectiveness is homogeneous while treatment coverage is patchy.</p>
+</section>
+</section>
+<section id="read-more" class="level2">
+<h2 class="anchored" data-anchor-id="read-more">Read more</h2>
+<p>You can read more about the <code>{sleacr}</code> package from its <a href="https://nutriverse.io/sleacr">website</a>.</p>
+</section>
+<section id="citation" class="level2">
+<h2 class="anchored" data-anchor-id="citation">Citation</h2>
+<p>If you use the <code>{sleacr}</code> package in your work, please cite both the <code>{sleacr}</code> package and the authors and developers of the <strong>SQUEAC and SLEAC method</strong>.</p>
+<p>A suggested citation for both is found below:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>To cite sleacr in publications use:
+
+  Ernest Guevarra, Mark Myatt (2026). _sleacr: Simplified Lot Quality
+  Assurance Sampling Evaluation of Access and Coverage (SLEAC) Tools_.
+  doi:10.5281/zenodo.7510931 &lt;https://doi.org/10.5281/zenodo.7510931&gt;,
+  R package version 0.1.3, &lt;https://nutriverse.io/sleacr/&gt;.
+
+To cite the SQUEAC and SLEAC Technical Reference in publications use:
+
+  Mark Myatt, Ernest Guevarra, Lionella Fieschi, Allison Norris, Saul
+  Guerrero, Lilly Schofield, Daniel Jones, Ephrem Emru, Kate Sadler
+  (2012). _Semi-Quantitative Evaluation of Access and Coverage
+  (SQUEAC)/Simplified Lot Quality Assurance Sampling Evaluation of
+  Access and Coverage (SLEAC) Technical Reference_. FHI 360/FANTA,
+  Washington, DC.
+
+To see these entries in BibTeX format, use 'print(&lt;citation&gt;,
+bibtex=TRUE)', 'toBibtex(.)', or set
+'options(citation.bibtex.max=999)'.</code></pre>
+</div>
+</div>
+</section>
+<section id="contributing" class="level2">
+<h2 class="anchored" data-anchor-id="contributing">Contributing</h2>
+<p>We’d love to hear your feedback, bug reports, and feature requests. File issues or seek support <a href="https://github.com/nutriverse/sleacr/issues">here</a>. If you would like to contribute to the package, please see our <a href="https://nutriverse.io/sleacr/CONTRIBUTING.html">contributing guidelines</a>.</p>
+<p>This project is released with a <a href="https://nutriverse.io/sleacr/CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/nutriverse\.io");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<input type="hidden" id="giscus-base-theme" value="light">
+<input type="hidden" id="giscus-alt-theme" value="dark">
+<script>
+  function loadGiscus() {
+    // Function to get the theme based on body class
+    const getTheme = () => {
+      let baseTheme = document.getElementById('giscus-base-theme').value;
+      let altTheme = document.getElementById('giscus-alt-theme').value;
+      return document.body.classList.contains('quarto-dark') ? altTheme : baseTheme;
+    };
+    const script = document.createElement("script");
+    script.src = "https://giscus.app/client.js";
+    script.async = true;
+    script.dataset.repo = "nutriverse/nutriverse-discussions";
+    script.dataset.repoId = "R_kgDOKi7PWA";
+    script.dataset.category = "General";
+    script.dataset.categoryId = "DIC_kwDOKi7PWM4CaTNQ";
+    script.dataset.mapping = "title";
+    script.dataset.reactionsEnabled = "1";
+    script.dataset.emitMetadata = "0";
+    script.dataset.inputPosition = "top";
+    script.dataset.theme = getTheme();
+    script.dataset.lang = "en";
+    script.crossOrigin = "anonymous";
+    // Append the script to the desired div instead of at the end of the body
+    document.getElementById("quarto-content").appendChild(script);
+  }
+  loadGiscus();
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+<p>Copyright 2024-2026, Oxford iHealth</p>
+<div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/nutriverse/nutriverse.github.io/edit/main/posts/2026-02-03-sleacr-release/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/nutriverse/nutriverse.github.io/issues" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div><div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
