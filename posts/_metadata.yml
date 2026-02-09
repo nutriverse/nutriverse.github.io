@@ -9,7 +9,8 @@ format:
       margin-width: 300px
       gutter-width: 1.5rem
     code-block-border-left: "#C20055"
-    #code-line-numbers: true
+    code-block-bg: true
+    code-line-numbers: false
 title-block-banner: "#F0F5F9"
 title-block-banner-color: "#C20055"
 search: false

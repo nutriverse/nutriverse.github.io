@@ -1,0 +1,212 @@
+---
+title: "sleacr now on CRAN"
+subtitle: "Simplified Lot Quality Assurance Sampling Evaluation of Access and Coverage (SLEAC) Tools"
+description: |
+  Simplified Lot Quality Assurance Sampling Evaluation of Access and Coverage or SLEAC, is a low resource method used regularly for monitoring, planning and importantly, timely improvement to programme quality, both for agency and Ministry of Health (MoH) led programmes. This package provides functions for use in conducting a SLEAC assessment.
+author: "nutriverse Team"
+date: "3 February 2026"
+date-modified: last-modified
+image: ../../images/sleacr.png
+draft: false
+categories:
+  - news
+  - announcement
+  - packages
+---
+
+```{r, include = FALSE}
+
+set.seed(1972)
+
+library(sleacr)
+library(tibble)
+```
+
+Our software development team is pleased to announce that [`{sleacr}`](https://nutriverse.io/sleacr), an R package for Simplified Lot Quality Assurance Sampling Evaluation of Access and Coverage (SLEAC), has been accepted to the [Comprehensive R Archive Network (CRAN)](https://CRAN.R-project.org/package=sleacr) today!
+
+## What does the package do?
+
+The `{sleacr}` package provides functions that facilitate the design, sampling, data collection, and data analysis of a SLEAC survey. The current version of the `{sleacr}` package provides the following:
+
+* Functions to calculate the sample size needed for a SLEAC survey;
+
+* Functions to draw a stage 1 sample for a SLEAC survey;
+
+* Functions to classify coverage;
+
+* Functions to determine the performance of chosen classifier cut-offs for analysis of SLEAC survey data;
+
+* Functions to estimate coverage over wide areas; and,
+
+* Functions to test for coverage homogeneity across multiple surveys over wide areas.
+
+### Lot quality assurance sampling frame
+
+To setup an LQAS sampling frame, a target sample size is first estimated. For example, if the survey area has an estimated population of about 600 severe acute malnourished (SAM) children and you want to assess whether coverage is reaching at least 50%, the sample size can be calculated as follows:
+
+```{r samp-size-1, eval = FALSE}
+get_sample_n(N = 600, dLower = 0.5, dUpper = 0.8)
+```
+
+which gives an LQAS sampling plan list with values for the target minimum sample size (`n`), the decision rule (`d`), the observed alpha error (`alpha`), and the observed beta error (`beta`).
+
+```{r samp-size-1-show, echo = FALSE}
+get_sample_n(N = 600, dLower = 0.5, dUpper = 0.8)
+```
+
+In this sampling plan, a target minimum sample size of 19 SAM cases should be aimed for with a decision rule of more than 12 SAM cases covered to determine whether programme coverage is at least 50% with alpha and beta errors no more than 10%. The alpha and beta errors requirement is set at no more than 10% by default. This can be made more precise by setting alpha and beta errors less than 10%.
+
+There are contexts where survey data has already been collected and the sample is less than what was aimed for based on the original sampling frame. The `get_sample_d()` function is used to determine the error levels of the achieved sample size. For example, if the survey described above only achieved a sample size of 16, the `get_sample_d()` function can be used as follows:
+
+```{r samp-size-2, eval = FALSE}
+get_sample_d(N = 600, n = 16, dLower = 0.5, dUpper = 0.8)
+```
+
+which gives an alternative LQAS sampling plan based on the achieved sample size.
+
+```{r samp-size-2-show, echo = FALSE}
+get_sample_d(N = 600, n = 16, dLower = 0.5, dUpper = 0.8)
+```
+
+In this updated sampling plan, the decision rule is now more than 10 SAM cases but with higher alpha and beta errors. Note that the beta error is now slightly higher than 10%.
+
+### Stage 1 sample
+
+The first stage sample of a SLEAC survey is a systematic spatial sample. Two methods can be used and both methods take the sample from all parts of the survey area: the *list-based* method and the *map-based* method. The `{sleacr}` package currently supports the implementation of the *list-based* method.
+
+In the list-based method, communities to be sampled are selected systematically from a complete list of communities in the survey area. This list of communities should sorted by one or more non-overlapping spatial factors such as district and subdistricts within districts. The `village_list` dataset is an example of such a list.
+
+```{r}
+village_list
+```
+
+The `get_sampling_list()` function implements the list-based sampling method. For example, if 40 clusters/villages are needed to be sampled to find the 19 SAM cases calculated earlier, a sampling list can be created as follows:
+
+```{r stage-1-sample, eval = FALSE}
+get_sampling_list(village_list, 40)
+```
+
+which provides the following sampling list:
+
+```{r stage-1-sample-show, echo = FALSE}
+get_sampling_list(village_list, 40) |>
+  knitr::kable()
+```
+
+### Classifying coverage
+
+With data collected from a SLEAC survey, the `lqas_classify_coverage()` function is used to classify coverage. The `{sleacr}` package comes with the `survey_data` dataset from a national SLEAC survey conducted in Sierra Leone.
+
+```{r survey-data}
+survey_data
+```
+
+Using this dataset, per district coverage classifications can be calculated as follows:
+
+```{r classify-coverage, eval = FALSE}
+with(
+  survey_data, 
+  lqas_classify(
+    cases_in = cases_in, cases_out = cases_out, rec_in = rec_in
+  )
+)
+```
+
+which outputs the following results:
+
+```{r classify-coverage-show, echo = FALSE}
+with(
+  survey_data, 
+  lqas_classify(
+    cases_in = cases_in, cases_out = cases_out, rec_in = rec_in
+  )
+)
+```
+
+The function provides estimates for *case-finding effectiveness* and for *treatment coverage* as a `data.frame` object.
+
+### Assessing classifier performance
+
+It is useful to be able to assess the performance of the classifier chosen for a SLEAC survey. For example, in the context presented above of an area with a population of 600, a sample size of 40 and a 60% and 90% threshold classifier, the performance of this classifier can be assessed by first simulating a population and then determining the classification probabilities of the chosen classifier on this population.
+
+```{r classifier-test}
+## Simulate population ----
+lqas_sim_pop <- lqas_simulate_test(
+  pop = 600, n = 40, dLower = 0.6, dUpper = 0.9
+)
+
+## Get classification probabilities ----
+lqas_get_class_prob(lqas_sim_pop)
+```
+
+This diagnostic test can also be plotted.
+
+```{r classifier-test-plot}
+plot(lqas_sim_pop)
+```
+
+### Estimating coverage over wide areas
+
+When SLEAC is implemented in several service delivery units, it is also possible to estimate an overall coverage across these service delivery units. For example, using the `survey_data` dataset from a national SLEAC survey conducted in Sierra Leone, an overall coverage estimate can be calculated. For this, additional information on the total population for each service delivery unit surveyed will be needed. For the Sierra Leone example, the `pop_data` dataset gives the population for each district in Sierra Leone.
+
+```{r pop-data}
+pop_data
+```
+
+The overall coverage estimate can be calculated as follows:
+
+```{r overall-coverage, eval = FALSE}
+pop_df <- pop_data |>
+  setNames(nm = c("strata", "pop"))
+
+estimate_coverage_overall(
+  survey_data, pop_data, strata = "district", u5 = 0.177, p = 0.01
+)
+```
+
+which gives the following results:
+
+```{r overall-coverage-show, echo = FALSE}
+pop_df <- pop_data |>
+  setNames(nm = c("strata", "pop"))
+
+estimate_coverage_overall(
+  survey_data, pop_df, strata = "district", u5 = 0.177, p = 0.01
+)
+```
+
+### Testing coverage homogeneity
+
+When estimating coverage across multiple surveys over wide areas, it is good practice to assess whether coverage across each of the service delivery units is homogenous. The function `check_coverage_homogeneity()` is used for this purpose:
+
+```{r check-homogeneity, eval = FALSE}
+check_coverage_homogeneity(survey_data)
+```
+
+which results in the following output:
+
+```{r check-homogeneity-show, echo = FALSE}
+check_coverage_homogeneity(survey_data)
+```
+
+In this example, case-finding effectiveness is homogeneous while treatment coverage is patchy.
+
+## Read more
+
+You can read more about the `{sleacr}` package from its [website](https://nutriverse.io/sleacr).
+
+## Citation
+
+If you use the `{sleacr}` package in your work, please cite both the `{sleacr}` package and the authors and developers of the **SQUEAC and SLEAC method**.
+
+A suggested citation for both is found below:
+
+```{r cite, echo = FALSE}
+citation("sleacr")
+```
+
+## Contributing
+
+We'd love to hear your feedback, bug reports, and feature requests. File issues or seek support [here](https://github.com/nutriverse/sleacr/issues). If you would like to contribute to the package, please see our [contributing guidelines](https://nutriverse.io/sleacr/CONTRIBUTING.html).
+
+This project is released with a [Contributor Code of Conduct](https://nutriverse.io/sleacr/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
