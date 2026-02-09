@@ -17,4 +17,4 @@ date-format: "DD MMMM YYYY"
 image-placeholder: ../images/nutriverse.png
 comments:
   giscus: 
-    repo: nutriverse/discussions
+    repo: nutriverse/nutriverse-discussions
