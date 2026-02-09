@@ -28,48 +28,122 @@
 
 
 
-<p>We are happy to share that nutriverse is now fiscally-hosted by the <a href="https://oscollective.org/">Open Source Collective (OSC)</a>, a non-profit fiscal host that provides essential financial and legal infrastructure for thousands of open source projects.</p>
+<div class="img-float">
+<p><img src="https://nutriverse.io/images/osc_logo.png" class="img-fluid" style="float: right; margin: 10px; width: 300px"></p>
+</div>
+<p>We are happy to share that nutriverse is now fiscally-hosted by the <a href="https://oscollective.org/" class="external" target="_blank">Open Source Collective (OSC)</a>, a non-profit fiscal host that provides essential financial and legal infrastructure for thousands of open source projects.</p>
 <p>What this means is that as nutriverse’s fiscal host, OSC will be supporting nutriverse in holding the project’s funds, handling taxes, signing legal contracts, and managing accounting. This structure allows us to focus on code and community rather than bureaucracy.</p>
 <section id="projects-that-osc-hosts" class="level2">
 <h2 class="anchored" data-anchor-id="projects-that-osc-hosts">Projects that OSC hosts</h2>
-<p>The OSC acts as a financial and legal “umbrella” for over 3,000 open source projects. These projects are highly diverse, ranging from massive pillars of the internet to niche community tools. These projects can be generally categorised into the following groups:</p>
+<p>The OSC acts as a financial and legal “umbrella” for over 2,704<sup>1</sup> open source projects. These projects are highly diverse, ranging from massive pillars of the internet to niche community tools. These projects can be generally categorised into the following groups:</p>
 <section id="core-web-infrastructure-and-frameworks" class="level3">
 <h3 class="anchored" data-anchor-id="core-web-infrastructure-and-frameworks">Core web infrastructure and frameworks</h3>
 <p>These are the “heavy lifters” of modern web development—tools that millions of developers use daily to build the websites and apps we all use.</p>
+<div class="quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://nutriverse.io/images/webpack_logo.svg" height="150" class="figure-img"></p>
+<figcaption>Webpack</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://nutriverse.io/images/babel_logo.svg" height="150" class="figure-img"></p>
+<figcaption>Babel</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
 <ul>
-<li><p><strong>Build Tools &amp; Compilers:</strong> Projects like <strong>Webpack</strong> (which bundles code for websites) and <strong>Babel</strong> (which allows code to run on older browsers) are prominent examples. These are critical dependencies for a vast portion of the commercial internet.</p></li>
-<li><p><strong>Development Platforms:</strong> Frameworks like <strong>JHipster</strong> help developers generate and deploy modern web applications quickly.</p></li>
+<li><strong>Build Tools &amp; Compilers:</strong> Projects like <a href="https://webpack.js.org/" class="external" target="_blank">Webpack</a> which bundles code for websites and <a href="https://babeljs.io/" class="external" target="_blank">Babel</a> which allows code to run on older browsers are prominent examples. These are critical dependencies for a vast portion of the commercial internet.</li>
+</ul>
+<div class="img-float">
+<p><img src="https://nutriverse.io/images/jhipster_logo.svg" class="img-fluid" style="float: left; margin: 10px; width: 200px"></p>
+</div>
+<ul>
+<li><strong>Development Platforms:</strong> Frameworks like <a href="https://www.jhipster.tech/" class="external" target="_blank">JHipster</a> help developers generate and deploy modern web applications quickly.</li>
 </ul>
 </section>
 <section id="essential-utilities-and-libraries" class="level3">
 <h3 class="anchored" data-anchor-id="essential-utilities-and-libraries">Essential utilities and libraries</h3>
 <p>These projects often run quietly in the background on servers, personal computers, and even internet-of-things (IoT) devices. They are the invisible glue of the digital world.</p>
+<div class="img-float">
+<p><img src="https://nutriverse.io/images/curl_logo.svg" class="img-fluid" style="float: right; margin: 10px; width: 200px"></p>
+</div>
 <ul>
-<li><strong>Data Transfer:</strong> A prime example is <strong>cURL</strong>, a command-line tool used in virtually every connected device (cars, routers, phones) to transfer data.</li>
-<li><strong>System Tools:</strong> This category includes universal libraries and command-line interfaces that power other software.</li>
+<li><p><strong>Data Transfer:</strong> A prime example is <a href="https://curl.se/" class="external" target="_blank">cURL</a>, a command-line tool used in virtually every connected device (cars, routers, phones) to transfer data.</p></li>
+<li><p><strong>System Tools:</strong> This category includes universal libraries and command-line interfaces that power other software.</p></li>
 </ul>
 </section>
 <section id="social-and-decentralised-web" class="level3">
 <h3 class="anchored" data-anchor-id="social-and-decentralised-web">Social and decentralised web</h3>
 <p>The OSC hosts a significant number of projects involved in the “Fediverse” and the decentralized web, supporting alternatives to mainstream, corporate-owned social media.</p>
+<div class="quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://nutriverse.io/images/mastodon_logo.png" height="150" class="figure-img"></p>
+<figcaption>Mastodon</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://nutriverse.io/images/lemmy_logo.png" height="150" class="figure-img"></p>
+<figcaption>Lemmy</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
 <ul>
-<li><strong>Social Networking:</strong> <strong>Mastodon</strong> (the decentralized microblogging platform) uses the Collective to manage its funding and operations.</li>
-<li><strong>Community Forums:</strong> Tools like <strong>Lemmy</strong> (a link aggregator and Reddit alternative) are also part of this ecosystem.</li>
+<li><p><strong>Social Networking:</strong> <a href="https://joinmastodon.org/" class="external" target="_blank">Mastodon</a>, the decentralized microblogging platform, uses the Collective to manage its funding and operations.</p></li>
+<li><p><strong>Community Forums:</strong> Tools like <a href="https://join-lemmy.org/" class="external" target="_blank">Lemmy</a>, a link aggregator and Reddit alternative, are also part of this ecosystem.</p></li>
 </ul>
 </section>
 <section id="creative-and-media-software" class="level3">
 <h3 class="anchored" data-anchor-id="creative-and-media-software">Creative and media software</h3>
 <p>These are user-facing applications used by creators to produce content, often rivaling paid proprietary software.</p>
+<div class="quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://nutriverse.io/images/obs_studio_logo.png" height="150" class="figure-img"></p>
+<figcaption>OBS Studio</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://nutriverse.io/images/opensourcedesign_logo.png" height="150" class="figure-img"></p>
+<figcaption>Open Source Design</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
 <ul>
-<li><strong>Streaming and Recording:</strong> <strong>OBS Studio</strong> (Open Broadcaster Software) is the industry standard for live streaming and screen recording, used by millions of streamers on Twitch and YouTube.</li>
-<li><strong>Design:</strong> Projects like <strong>Open Source Design</strong> focus on improving the user experience (UX) and visual design of open source software.</li>
+<li><p><strong>Streaming and Recording:</strong> OBS Studio by <a href="https://obsproject.com/" class="external" target="_blank">Open Broadcaster Software</a> is the industry standard for live streaming and screen recording, used by millions of streamers on Twitch and YouTube.</p></li>
+<li><p><strong>Design:</strong> Projects like <a href="https://opensourcedesign.net/" class="external" target="_blank">Open Source Design</a> focus on improving the user experience (UX) and visual design of open source software.</p></li>
 </ul>
 </section>
 <section id="documentation-and-standards" class="level3">
 <h3 class="anchored" data-anchor-id="documentation-and-standards">Documentation and standards</h3>
 <p>Not all hosted projects are strictly code. The OSC also hosts initiatives that maintain the knowledge base of the internet.</p>
+<div class="img-float">
+<p><img src="https://nutriverse.io/images/openwebdocs_logo.png" class="img-fluid" style="float: left; margin: 10px; width: 200px"></p>
+</div>
 <ul>
-<li><strong>Education:</strong> <strong>Open Web Docs</strong> is a collective dedicated to documenting web standards (creating content for resources like MDN Web Docs) to ensure documentation remains vendor-neutral and high-quality.</li>
+<li><strong>Education:</strong> <a href="https://openwebdocs.org/" class="external" target="_blank">Open Web Docs</a> is a collective dedicated to documenting web standards such as creating content for resources like MDN Web Docs to ensure documentation remains vendor-neutral and high-quality.</li>
 </ul>
 </section>
 </section>
@@ -89,7 +163,13 @@
 
 </section>
 
- ]]></description>
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>as of February 2026↩︎</p></li>
+</ol>
+</section></div> ]]></description>
   <category>news</category>
   <category>announcement</category>
   <guid>https://nutriverse.io/posts/2026-02-05-open-source-collective/</guid>
@@ -588,10 +668,10 @@ font-style: italic;">## Get classification probabilities ----</span></span>
 background-color: null;
 font-style: inherit;">lqas_get_class_prob</span>(lqas_sim_pop)</span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>                    Low : 0.9562
-               Moderate : 0.8339
-                   High : 0.8342
-                Overall : 0.9073
+<pre><code>                    Low : 0.9541
+               Moderate : 0.8342
+                   High : 0.8374
+                Overall : 0.9064
 Gross misclassification : 0</code></pre>
 </div>
 </div>
