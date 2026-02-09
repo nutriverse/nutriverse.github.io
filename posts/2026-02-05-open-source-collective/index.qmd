@@ -1,8 +1,8 @@
 ---
 title: "nutriverse is now fiscally-hosted by the Open Source Collective"
-subtitle: "nutriverse joins more than 3000 other open source projects ranging from massive pillars of the internet to niche community tools"
+subtitle: "nutriverse joins nearly 3000 other open source projects ranging from massive pillars of the internet to niche community tools"
 description: |
-  The [Open Source Collective](https://oscollective.org/) is a non-profit fiscal host that provides essential financial and legal infrastructure for thousands of open source projects. Functioning as an interface between coding communities and the business world, it handles complex accounting and administrative tasks so that creators can focus on their software.
+  The Open Source Collective is a non-profit fiscal host that provides essential financial and legal infrastructure for thousands of open source projects. Functioning as an interface between coding communities and the business world, it handles complex accounting and administrative tasks so that creators can focus on their software.
 author: "Ernest Guevarra"
 date: "5 February 2026"
 date-modified: last-modified
@@ -13,48 +13,99 @@ categories:
   - announcement
 ---
 
-We are happy to share that nutriverse is now fiscally-hosted by the [Open Source Collective (OSC)](https://oscollective.org/), a non-profit fiscal host that provides essential financial and legal infrastructure for thousands of open source projects.
+::: {.img-float}
+
+![](../../images/osc_logo.png){style="float: right; margin: 10px; width: 300px"}
+
+:::
+
+We are happy to share that nutriverse is now fiscally-hosted by the [Open Source Collective (OSC)](https://oscollective.org/){.external target="_blank"}, a non-profit fiscal host that provides essential financial and legal infrastructure for thousands of open source projects.
 
 What this means is that as nutriverse's fiscal host, OSC will be supporting nutriverse in holding the project's funds, handling taxes, signing legal contracts, and managing accounting. This structure allows us to focus on code and community rather than bureaucracy.
 
 ## Projects that OSC hosts
 
-The OSC acts as a financial and legal "umbrella" for over 3,000 open source projects. These projects are highly diverse, ranging from massive pillars of the internet to niche community tools. These projects can be generally categorised into the following groups:
+The OSC acts as a financial and legal "umbrella" for over 2,704[^1] open source projects. These projects are highly diverse, ranging from massive pillars of the internet to niche community tools. These projects can be generally categorised into the following groups:
 
 ### Core web infrastructure and frameworks
 
 These are the "heavy lifters" of modern web development—tools that millions of developers use daily to build the websites and apps we all use.
 
-* **Build Tools & Compilers:** Projects like **Webpack** (which bundles code for websites) and **Babel** (which allows code to run on older browsers) are prominent examples. These are critical dependencies for a vast portion of the commercial internet.
+::: {layout-ncol="2"}
 
-* **Development Platforms:** Frameworks like **JHipster** help developers generate and deploy modern web applications quickly.
+![Webpack](../../images/webpack_logo.svg){height="150"}
+
+![Babel](../../images/babel_logo.svg){height="150"}
+
+:::
+
+* **Build Tools & Compilers:** Projects like [Webpack](https://webpack.js.org/){.external target="_blank"} which bundles code for websites and [Babel](https://babeljs.io/){.external target="_blank"} which allows code to run on older browsers are prominent examples. These are critical dependencies for a vast portion of the commercial internet.
+
+::: {.img-float}
+
+![](../../images/jhipster_logo.svg){style="float: left; margin: 10px; width: 200px"}
+
+:::
+
+* **Development Platforms:** Frameworks like [JHipster](https://www.jhipster.tech/){.external target="_blank"} help developers generate and deploy modern web applications quickly.
 
 ### Essential utilities and libraries
 
 These projects often run quietly in the background on servers, personal computers, and even internet-of-things (IoT) devices. They are the invisible glue of the digital world.
 
-* **Data Transfer:** A prime example is **cURL**, a command-line tool used in virtually every connected device (cars, routers, phones) to transfer data.
+::: {.img-float}
+
+![](../../images/curl_logo.svg){style="float: right; margin: 10px; width: 200px"}
+
+:::
+
+* **Data Transfer:** A prime example is [cURL](https://curl.se/){.external target="_blank"}, a command-line tool used in virtually every connected device (cars, routers, phones) to transfer data.
+
 * **System Tools:** This category includes universal libraries and command-line interfaces that power other software.
 
 ### Social and decentralised web
 
 The OSC hosts a significant number of projects involved in the "Fediverse" and the decentralized web, supporting alternatives to mainstream, corporate-owned social media.
 
-* **Social Networking:** **Mastodon** (the decentralized microblogging platform) uses the Collective to manage its funding and operations.
-* **Community Forums:** Tools like **Lemmy** (a link aggregator and Reddit alternative) are also part of this ecosystem.
+::: {layout-ncol="2"}
+
+![Mastodon](../../images/mastodon_logo.png){height="150"}
+
+![Lemmy](../../images/lemmy_logo.png){height="150"}
+
+:::
+
+* **Social Networking:** [Mastodon](https://joinmastodon.org/){.external target="_blank"}, the decentralized microblogging platform, uses the Collective to manage its funding and operations.
+
+* **Community Forums:** Tools like [Lemmy](https://join-lemmy.org/){.external target="_blank"}, a link aggregator and Reddit alternative, are also part of this ecosystem.
 
 ### Creative and media software
 
 These are user-facing applications used by creators to produce content, often rivaling paid proprietary software.
 
-* **Streaming and Recording:** **OBS Studio** (Open Broadcaster Software) is the industry standard for live streaming and screen recording, used by millions of streamers on Twitch and YouTube.
-* **Design:** Projects like **Open Source Design** focus on improving the user experience (UX) and visual design of open source software.
+::: {layout-ncol="2"}
+
+![OBS Studio](../../images/obs_studio_logo.png){height="150"}
+
+![Open Source Design](../../images/opensourcedesign_logo.png){height="150"}
+
+:::
+
+* **Streaming and Recording:** OBS Studio by [Open Broadcaster Software](https://obsproject.com/){.external target="_blank"} is the industry standard for live streaming and screen recording, used by millions of streamers on Twitch and YouTube.
+
+* **Design:** Projects like [Open Source Design](https://opensourcedesign.net/){.external target="_blank"} focus on improving the user experience (UX) and visual design of open source software.
 
 ### Documentation and standards
 
 Not all hosted projects are strictly code. The OSC also hosts initiatives that maintain the knowledge base of the internet.
 
-* **Education:** **Open Web Docs** is a collective dedicated to documenting web standards (creating content for resources like MDN Web Docs) to ensure documentation remains vendor-neutral and high-quality.
+::: {.img-float}
+
+![](../../images/openwebdocs_logo.png){style="float: left; margin: 10px; width: 200px"}
+
+:::
+
+* **Education:** [Open Web Docs](https://openwebdocs.org/){.external target="_blank"} is a collective dedicated to documenting web standards such as creating content for resources like MDN Web Docs to ensure documentation remains vendor-neutral and high-quality.
 
 ## nutriverse in the OSC ecosystem
 
@@ -68,3 +119,5 @@ As nutriverse becomes part of the OSC family, we note a common thread with all t
 
 nutriverse prides itself with being open source and transparent with our code and its development. With OSC as our fiscal host, we extend this transparency to our finances moving forward. The public can view exactly how much money nutriverse raises and exactly how every dollar is spent.
 
+
+[^1]: as of February 2026
