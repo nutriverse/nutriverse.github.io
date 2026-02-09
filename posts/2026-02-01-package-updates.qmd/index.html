@@ -6,9 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Our collection of packages developed by and contributed to by our community. These package were developed as part of a specific project but had more general use for common nutrition data analysis tasks. These packages are available for use by anyone needing to perform the same type of data analysis.">
+<meta name="author" content="nutriverse Team">
+<meta name="dcterms.date" content="2026-02-01">
+<meta name="description" content="General update and maintenance for {nipnTK}, {micronutr}, and {anthrocheckr}">
 
-<title>R Packages – nutriverse</title>
+<title>New version of nipnTK on CRAN, new development versions of micronutr and anthrocheckr – nutriverse</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -24,28 +26,26 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<script src="../site_libs/quarto-listing/list.min.js"></script>
-<script src="../site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="../site_libs/cookie-consent/cookie-consent.js"></script>
-<link href="../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-15b7fc7245364b3b7690a71355d5bd66.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-4d8385241c7cc39cd4363ce4f83eb3b7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -73,35 +73,6 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-hex-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-project','listing-website','listing-format','listing-language','listing-page-layout','listing-title-block-banner','listing-title-block-banner-color','listing-search','listing-toc','listing-date-format','listing-image-placeholder','listing-title','listing-image','listing-path','listing-outputHref','listing-author','listing-description','listing-filename','listing-file-modified','listing-reading-time','listing-word-count','listing-text',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-file-modified-sort'] },{ data: ['listing-reading-time-sort'] },{ data: ['listing-word-count-sort'] }],
-      
-      searchColumns: ["listing-project","listing-website","listing-format","listing-language","listing-page-layout","listing-title-block-banner","listing-title-block-banner-color","listing-search","listing-toc","listing-date-format","listing-image-placeholder","listing-title","listing-image","listing-path","listing-outputHref","listing-author","listing-description","listing-filename","listing-file-modified","listing-reading-time","listing-word-count","listing-text"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-hex-listing'] = new List('listing-hex-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-Z9SDQC2LZH"></script>
 
 <script type="text/plain" cookie-consent="tracking">
@@ -147,58 +118,28 @@ background: #F0F5F9;
       }
 </style>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="../styles.css">
-<meta property="og:title" content="R Packages – nutriverse">
-<meta property="og:description" content="Our collection of packages developed by and contributed to by our community.">
-<meta property="og:image" content="https://nutriverse.io/images/dietry.png">
+<link rel="stylesheet" href="../../styles.css">
+<meta property="og:title" content="New version of nipnTK on CRAN, new development versions of micronutr and anthrocheckr – nutriverse">
+<meta property="og:description" content="General update and maintenance for {nipnTK}, {micronutr}, and {anthrocheckr}">
+<meta property="og:image" content="https://nutriverse.io/images/nipnTK.png">
 <meta property="og:site_name" content="nutriverse">
-<meta property="og:image:alt" content="dietry: Utilities for Dietary Intake Indicators for Food Security Assessments">
-<meta property="og:image:height" content="1576">
-<meta property="og:image:width" content="1396">
+<meta property="og:image:height" content="1555">
+<meta property="og:image:width" content="1344">
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="floating nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top quarto-banner">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../images/nutriverse_neg.png" alt="nutriverse" class="navbar-logo light-content">
-    <img src="../images/nutriverse_neg.png" alt="nutriverse" class="navbar-logo dark-content">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../images/nutriverse_neg.png" alt="nutriverse" class="navbar-logo light-content">
+    <img src="../../images/nutriverse_neg.png" alt="nutriverse" class="navbar-logo dark-content">
     </a>
-    <a class="navbar-brand" href="../index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">nutriverse</span>
     </a>
   </div>
@@ -209,15 +150,15 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../blog.html"> 
+    <a class="nav-link" href="../../blog.html"> 
 <span class="menu-text">Blog</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../packages/index.html" aria-current="page"> 
+    <a class="nav-link" href="../../packages/index.html"> 
 <span class="menu-text">Packages</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -226,11 +167,11 @@ window.Quarto = {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-community">    
         <li>
-    <a class="dropdown-item" href="../community/index.html">
+    <a class="dropdown-item" href="../../community/index.html">
  <span class="dropdown-text">Community</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../code-of-conduct.html">
+    <a class="dropdown-item" href="../../code-of-conduct.html">
  <span class="dropdown-text">Code of Conduct</span></a>
   </li>  
     </ul>
@@ -241,11 +182,11 @@ window.Quarto = {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-about">    
         <li>
-    <a class="dropdown-item" href="../about/team.html">
+    <a class="dropdown-item" href="../../about/team.html">
  <span class="dropdown-text">Meet the Team</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../about/contact.html">
+    <a class="dropdown-item" href="../../about/contact.html">
  <span class="dropdown-text">Contact Us</span></a>
   </li>  
     </ul>
@@ -267,288 +208,70 @@ window.Quarto = {
     </nav>
 </header>
 <!-- content -->
-<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+<header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page">
-      <h1 class="title">R Packages</h1>
-            <p class="subtitle lead">Tools for nutrition research and analysis</p>
+    <div class="quarto-title column-body">
+      <h1 class="title">New version of nipnTK on CRAN, new development versions of micronutr and anthrocheckr</h1>
+            <p class="subtitle lead">Updates to the nutriverse packages</p>
                   <div>
         <div class="description">
-          Our collection of packages developed by and contributed to by our community. These package were developed as part of a specific project but had more general use for common nutrition data analysis tasks. These packages are available for use by anyone needing to perform the same type of data analysis.
+          <p>General update and maintenance for <code>{nipnTK}</code>, <code>{micronutr}</code>, and <code>{anthrocheckr}</code></p>
         </div>
       </div>
-                </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">news</div>
+                <div class="quarto-category">packages</div>
+              </div>
+                  </div>
   </div>
     
   
-  <div class="quarto-title-meta column-page">
+  <div class="quarto-title-meta">
 
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>nutriverse Team </p>
+            </div>
+    </div>
       
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">01 February 2026</p>
+      </div>
+    </div>
     
+      <div>
+      <div class="quarto-title-meta-heading">Modified</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date-modified">09 February 2026</p>
+      </div>
+    </div>
       
     </div>
     
   
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-<!-- margin-sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
 <!-- main -->
-<main class="content quarto-banner-title-block column-page" id="quarto-document-content">
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
 
 
-<!-- ::: {.about-banner}
-::: {.content-block}
-
-# R Packages
-
-::: {style="color: #3F0042"}
-
-#### Tools for Nutrition Research and Analysis
-
-:::
-
-Our collection of packages developed by and contributed to by our community. These package were developed as part of a specific project but had more general use for common nutrition data analysis tasks. These packages are available for use by anyone needing to perform the same type of data analysis.
-
-:::
-::: -->
-<p><br></p>
-<!-- ::: {.grid}
-
-::: {.g-col-3}
-:::
-
-::: {.g-col-8}
-
-::: {#package-row1-links}
-:::
-
-:::
-
-::: {.g-col-1}
-:::
-
-:::
+<p>We’ve just released a patched version of <a href="https://nutriverse.io/nipnTK"><code>{nipnTK}</code></a> (v0.2.2), our nutrition data quality toolkit R package, on <a href="https://cloud.r-project.org/web/packages/nipnTK/index.html">CRAN</a>. This was a general upkeep and maintenance update focused on tidying up documentation including the package <a href="https://nutriverse.io/nipnTK">website</a> which now sports the new nutriverse colour and branding scheme. Existing users of the <a href="https://nutriverse.io/nipnTK"><code>{nipnTK}</code></a> package will be able to continue using the package as before after updating. If you work with nutrition data specifically anthropometric measurements data, consider looking into <a href="https://nutriverse.io/nipnTK"><code>{nipnTK}</code></a> and give it a try in your nutrition data processing workflows.</p>
+<p>We’ve also spruced up the development versions of the <a href="https://nutriverse.io/micronutr"><code>{micronutr}</code></a> and the <a href="https://nutriverse.io/anthrocheckr"><code>{anthrocheckr}</code></a> packages. Again, these updates are all general upkeep and maintenance focusing on package documentation and website. We plan to get a minor version release on CRAN for <a href="https://nutriverse.io/micronutr"><code>{micronutr}</code></a> by end of March 2026 that will include new functions for adjusting serum micronutrient biomarkers for inflammation using the <a href="https://pubmed.ncbi.nlm.nih.gov/36792034/">Biomarkers Reflecting Inflammation and Nutritional Determinants of Anemia (BRINDA) Method</a>. For <code>{anthrocheckr}</code>, we plan to get a first CRAN release by the end of February 2026.</p>
 
 
-::: {.grid}
-
-::: {.g-col-4}
-:::
-
-::: {.g-col-7}
-
-::: {#package-row2-links}
-:::
-
-:::
-
-::: {.g-col-1}
-:::
-
-::: -->
-<div class="grid">
-<div class="g-col-2">
-
-</div>
-<div class="g-col-8">
-<div id="listing-hex-listing" class="quarto-listing quarto-listing-container-custom">
-<!-- hex badge listing by jamesgoldie.dev, jan 2025 -->
-<style>
-  .hex-listing-container {
-    display: flex;
-    flex-flow: row wrap;
-    --hex-width: 150px;
-    --hex-height: calc(var(--hex-width) * 1.1547);
-    --hex-margin: 4px;
-    --hex-shape: polygon(0% 25%, 0% 75%, 50% 100%, 100% 75%, 100% 25%, 50% 0%);
-    padding-inline-start: calc(var(--hex-width) * 0.5 - var(--hex-margin));
-    padding-block-start: calc(0.25 * var(--hex-height) - 2 * var(--hex-margin));
-  }
-
-  .hex-listing-pair {
-    display: inline-flex;
-    align-items: start;
-    height: calc(2 * var(--hex-height) + 2 * var(--hex-margin) - 0.25 * var(--hex-height));
-    margin-inline-start: calc(var(--hex-width) * -0.5 + var(--hex-margin));
-    margin-block-start: calc(-0.25 * var(--hex-height) + 2 * var(--hex-margin));
-  }
-
-  .hex-listing-item {
-    place-content: center;
-    text-align: center;
-    transition-delay: 0;
-    transition:
-      transform 0.25s ease-in-out,
-      filter 0.25s linear;
-    filter: drop-shadow(0px 0px 8px #00000011);
-  }
-  
-  .hex-listing-item:has(a:hover),
-  .hex-listing-item:has(a:focus-visible) {
-    transition-delay: 0.2s;
-    transform: scale(1.15);
-    filter: drop-shadow(0px 0px 8px #00000044);
-    z-index: 1;
-  }
-  
-  .hex-listing-container a {
-    display: inline-grid;
-    width: var(--hex-width);
-    height: var(--hex-height);
-    clip-path: var(--hex-shape);
-    text-decoration: none;
-  }
-
-  .hex-listing-item a:focus-visible {
-    outline: 3px solid red;
-  }
-
-  .hex-listing-item:nth-child(2) {
-    margin-inline-start: calc(-0.5 * var(--hex-width) + var(--hex-margin));
-    align-self: end;
-  }
-
-  /* hex contents */
-
-  .hex-listing-container a > * {
-    grid-area: 1 / 1;
-  }
-
-  .hex-listing-container a img {
-    width: var(--hex-width);
-    height: var(--hex-height);
-    object-fit: cover;
-  }
-
-  .hex-listing-container a p {
-    color: grey;
-    font-size: 70%;
-    align-self: center;
-    margin: 0;
-    padding-inline: 0.75em;
-  }
-
-  /* fallback appearance when there's no image */
-
-  .hex-listing-container a:not(:has(img)) {
-    background-color: #efefef;
-  }
-
-  /* mobile sizing */
-
-  @media (max-width: 767.98px) {
-    .hex-listing-container {
-      --hex-width: 100px;
-    }
-
-    .hex-listing-container a p {
-      font-size: 50%;
-    }
-
-  }
-
-</style>
-
-<div class="hex-listing-container">
-  
-    <div class="hex-listing-pair">
-      <div class="hex-listing-item">
-        <a href="../packages/dietry.html">
-          <p>dietry: Utilities for Dietary Intake Indicators for Food Security Assessments</p>
-          
-            <img loading="lazy" src="../images/dietry.png" alt="dietry: Utilities for Dietary Intake Indicators for Food Security Assessments">
-          
-        </a>
-      </div>
-      
-        <div class="hex-listing-item">
-          <a href="../packages/micronutr.html">
-            <p>micronutr: Determining Vitamin and Mineral Status of Populations</p>
-            
-              <img loading="lazy" src="../images/micronutr.png" alt="micronutr: Determining Vitamin and Mineral Status of Populations">
-            
-          </a>
-        </div>
-      
-      </div>    
-  
-    <div class="hex-listing-pair">
-      <div class="hex-listing-item">
-        <a href="../packages/nipnTK.html">
-          <p>nipnTK: National Information Platforms for Nutrition (NiPN) Data Quality Toolkit</p>
-          
-            <img loading="lazy" src="../images/nipnTK.png" alt="nipnTK: National Information Platforms for Nutrition (NiPN) Data Quality Toolkit">
-          
-        </a>
-      </div>
-      
-        <div class="hex-listing-item">
-          <a href="../packages/riycf.html">
-            <p>riycf: Utilities for Calculating Infant and Young Child Feeding Indicators</p>
-            
-              <img loading="lazy" src="../images/riycf.png" alt="riycf: Utilities for Calculating Infant and Young Child Feeding Indicators">
-            
-          </a>
-        </div>
-      
-      </div>    
-  
-    <div class="hex-listing-pair">
-      <div class="hex-listing-item">
-        <a href="../packages/sleacr.html">
-          <p>sleacr: Simplified Lot Quality Assurance Sampling Evaluation of Access and Coverage (SLEAC) Tools in R</p>
-          
-            <img loading="lazy" src="../images/sleacr.png" alt="sleacr: Simplified Lot Quality Assurance Sampling Evaluation of Access and Coverage (SLEAC) Tools in R">
-          
-        </a>
-      </div>
-      
-        <div class="hex-listing-item">
-          <a href="../packages/smartr.html">
-            <p>smartr: Tools for Nutritional Status and Mortality Rate Assessments and Surveys</p>
-            
-              <img loading="lazy" src="../images/smartr.png" alt="smartr: Tools for Nutritional Status and Mortality Rate Assessments and Surveys">
-            
-          </a>
-        </div>
-      
-      </div>    
-  
-    <div class="hex-listing-pair">
-      <div class="hex-listing-item">
-        <a href="../packages/squeacr.html">
-          <p>squeacr: Semi-Quantitative Evaluation of Access and Coverage (SQUEAC) Tools in R</p>
-          
-            <img loading="lazy" src="../images/squeacr.png" alt="squeacr: Semi-Quantitative Evaluation of Access and Coverage (SQUEAC) Tools in R">
-          
-        </a>
-      </div>
-      
-        <div class="hex-listing-item">
-          <a href="../packages/zscorer.html">
-            <p>zscorer: Anthropometric z-score Calculator</p>
-            
-              <img loading="lazy" src="../images/zscorer.png" alt="zscorer: Anthropometric z-score Calculator">
-            
-          </a>
-        </div>
-      
-      </div>    
-  
-
-
-<div class="listing-no-matching d-none">No matching items</div>
-</div>
-</div>
-</div>
-<div class="g-col-2">
-
-</div>
-</div>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -951,6 +674,35 @@ Our collection of packages developed by and contributed to by our community. The
     }
   });
   </script>
+<input type="hidden" id="giscus-base-theme" value="light">
+<input type="hidden" id="giscus-alt-theme" value="dark">
+<script>
+  function loadGiscus() {
+    // Function to get the theme based on body class
+    const getTheme = () => {
+      let baseTheme = document.getElementById('giscus-base-theme').value;
+      let altTheme = document.getElementById('giscus-alt-theme').value;
+      return document.body.classList.contains('quarto-dark') ? altTheme : baseTheme;
+    };
+    const script = document.createElement("script");
+    script.src = "https://giscus.app/client.js";
+    script.async = true;
+    script.dataset.repo = "nutriverse/nutriverse-discussions";
+    script.dataset.repoId = "R_kgDOKi7PWA";
+    script.dataset.category = "General";
+    script.dataset.categoryId = "DIC_kwDOKi7PWM4CaTNQ";
+    script.dataset.mapping = "title";
+    script.dataset.reactionsEnabled = "1";
+    script.dataset.emitMetadata = "0";
+    script.dataset.inputPosition = "top";
+    script.dataset.theme = getTheme();
+    script.dataset.lang = "en";
+    script.crossOrigin = "anonymous";
+    // Append the script to the desired div instead of at the end of the body
+    document.getElementById("quarto-content").appendChild(script);
+  }
+  loadGiscus();
+</script>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
@@ -959,7 +711,7 @@ Our collection of packages developed by and contributed to by our community. The
     </div>   
     <div class="nav-footer-center">
 <p>Copyright 2024-2026, Oxford iHealth</p>
-<div class="toc-actions"><ul><li><a href="https://github.com/nutriverse/nutriverse.github.io/edit/main/packages/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/nutriverse/nutriverse.github.io/issues" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div><div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+<div class="toc-actions"><ul><li><a href="https://github.com/nutriverse/nutriverse.github.io/edit/main/posts/2026-02-01-package-updates.qmd/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/nutriverse/nutriverse.github.io/issues" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div><div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
     <div class="nav-footer-right">
       &nbsp;
     </div>

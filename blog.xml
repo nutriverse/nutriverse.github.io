@@ -8,7 +8,7 @@
 <title>nutriverse</title>
 <link>https://nutriverse.io/blog.html</link>
 <atom:link href="https://nutriverse.io/blog.xml" rel="self" type="application/rss+xml"/>
-<description></description>
+<description>Developing an integrated collection of R packages designed to support and facilitate various nutrition data analytics.</description>
 <image>
 <url>https://nutriverse.io/images/nutriverse.png</url>
 <title>nutriverse</title>
@@ -17,7 +17,29 @@
 <width>144</width>
 </image>
 <generator>quarto-1.8.27</generator>
-<lastBuildDate>Tue, 27 Jan 2026 00:00:00 GMT</lastBuildDate>
+<lastBuildDate>Sun, 01 Feb 2026 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>New version of nipnTK on CRAN, new development versions of micronutr and anthrocheckr</title>
+  <dc:creator>nutriverse Team</dc:creator>
+  <link>https://nutriverse.io/posts/2026-02-01-package-updates.qmd/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<p>We’ve just released a patched version of <a href="https://nutriverse.io/nipnTK"><code>{nipnTK}</code></a> (v0.2.2), our nutrition data quality toolkit R package, on <a href="https://cloud.r-project.org/web/packages/nipnTK/index.html">CRAN</a>. This was a general upkeep and maintenance update focused on tidying up documentation including the package <a href="https://nutriverse.io/nipnTK">website</a> which now sports the new nutriverse colour and branding scheme. Existing users of the <a href="https://nutriverse.io/nipnTK"><code>{nipnTK}</code></a> package will be able to continue using the package as before after updating. If you work with nutrition data specifically anthropometric measurements data, consider looking into <a href="https://nutriverse.io/nipnTK"><code>{nipnTK}</code></a> and give it a try in your nutrition data processing workflows.</p>
+<p>We’ve also spruced up the development versions of the <a href="https://nutriverse.io/micronutr"><code>{micronutr}</code></a> and the <a href="https://nutriverse.io/anthrocheckr"><code>{anthrocheckr}</code></a> packages. Again, these updates are all general upkeep and maintenance focusing on package documentation and website. We plan to get a minor version release on CRAN for <a href="https://nutriverse.io/micronutr"><code>{micronutr}</code></a> by end of March 2026 that will include new functions for adjusting serum micronutrient biomarkers for inflammation using the <a href="https://pubmed.ncbi.nlm.nih.gov/36792034/">Biomarkers Reflecting Inflammation and Nutritional Determinants of Anemia (BRINDA) Method</a>. For <code>{anthrocheckr}</code>, we plan to get a first CRAN release by the end of February 2026.</p>
+
+
+
+ ]]></description>
+  <category>news</category>
+  <category>packages</category>
+  <guid>https://nutriverse.io/posts/2026-02-01-package-updates.qmd/</guid>
+  <pubDate>Sun, 01 Feb 2026 00:00:00 GMT</pubDate>
+  <media:content url="https://nutriverse.io/images/nipnTK.png" medium="image" type="image/png" height="167" width="144"/>
+</item>
 <item>
   <title>nutriverse Monthly Round-up - January 2026</title>
   <dc:creator>nutriverse Team</dc:creator>
@@ -29,7 +51,7 @@
 
 
 <p>It’s again the start of a new year and we are starting 2026 in the same way as previous years with general update and maintenance cycle for all nutriverse packages. We have started with our three packages that are already published on the <a href="https://cran.r-project.org">Comprehensive R Archive Network (CRAN)</a> - <a href="https://nutriverse.io/zscorer"><code>{zscorer}</code></a>, <a href="https://nutriverse.io/nipnTK"><code>{nipnTK}</code></a>, and <a href="https://nutriverse.io/micronutr"><code>{micronutr}</code></a> - which have undergone routine yearly upkeep. This year, we are rolling out our new branding scheme for our package website! All three packages have been spruced up and we will have them submitted for a yearly update version by the second week of February at the latest.</p>
-<p>We have also been working on our Community-based Management of Acute Malnutrition (CMAM) coverage assessment set of packages - <a href="https://nutriverse.io/squeacr"><code>{squeacr}</code></a> and <a href="https://nutriverse.io/sleacr"><code>{sleacr}</code></a>. We have been developing these packages for more than 3 years now and we are happy to report that sleacr is ready for submission to CRAN. We will let you know once it has been accepted. squeacr on the other hand is on its final steps of development leading to a first release. We are aiming for it to be ready for submission to CRAN by the latest the end of February.</p>
+<p>We have also been working on our Community-based Management of Acute Malnutrition (CMAM) coverage assessment set of packages - <a href="https://nutriverse.io/squeacr"><code>{squeacr}</code></a> and <a href="https://nutriverse.io/sleacr"><code>{sleacr}</code></a>. We have been developing these packages for more than 3 years now and we are happy to report that <a href="https://nutriverse.io/sleacr"><code>{sleacr}</code></a> is ready for submission to CRAN. We will let you know once it has been accepted. <a href="https://nutriverse.io/sqeuacr"><code>{squeacr}</code></a> on the other hand is on its final steps of development leading to a first release. We are aiming for it to be ready for submission latest by the end of February 2026.</p>
 <p>These are all the updates for now!</p>
 
 
