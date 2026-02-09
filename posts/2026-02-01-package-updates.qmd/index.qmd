@@ -1,0 +1,19 @@
+---
+title: "New version of nipnTK on CRAN, new development versions of micronutr and anthrocheckr"
+subtitle: "Updates to the nutriverse packages"
+description: |
+  General update and maintenance for `{nipnTK}`, `{micronutr}`, and `{anthrocheckr}`
+author: "nutriverse Team"
+date: "1 February 2026"
+date-modified: last-modified
+image: ../../images/nipnTK.png
+draft: false
+categories:
+  - news
+  - packages
+---
+
+We've just released a patched version of [`{nipnTK}`](https://nutriverse.io/nipnTK) (v0.2.2), our nutrition data quality toolkit R package, on [CRAN](https://cloud.r-project.org/web/packages/nipnTK/index.html). This was a general upkeep and maintenance update focused on tidying up documentation including the package [website](https://nutriverse.io/nipnTK) which now sports the new nutriverse colour and branding scheme. Existing users of the [`{nipnTK}`](https://nutriverse.io/nipnTK) package will be able to continue using the package as before after updating. If you work with nutrition data specifically anthropometric measurements data, consider looking into [`{nipnTK}`](https://nutriverse.io/nipnTK) and give it a try in your nutrition data processing workflows.
+
+We've also spruced up the development versions of the [`{micronutr}`](https://nutriverse.io/micronutr) and the [`{anthrocheckr}`](https://nutriverse.io/anthrocheckr) packages. Again, these updates are all general upkeep and maintenance focusing on package documentation and website. We plan to get a minor version release on CRAN for [`{micronutr}`](https://nutriverse.io/micronutr) by end of March 2026 that will include new functions for adjusting serum micronutrient biomarkers for inflammation using the [Biomarkers Reflecting Inflammation and Nutritional Determinants of Anemia (BRINDA) Method](https://pubmed.ncbi.nlm.nih.gov/36792034/). For `{anthrocheckr}`, we plan to get a first CRAN release by the end of February 2026.
+
