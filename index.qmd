@@ -76,7 +76,7 @@ A grassroots collective using open, transparent nutrition data analysis to suppo
 ::: {.g-col-4}
 ![](images/cop.png){fig-align="center"}
 
-A community of practice of analysts, researchers, and practitioners to learn together and strengthen the real-world impact of nutrition data.
+A community of practice of analysts, researchers, and practitioners learning together to realise the impact of nutrition data.
 :::
 
 :::
