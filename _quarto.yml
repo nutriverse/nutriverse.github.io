@@ -7,6 +7,7 @@ project:
 website:
   title: nutriverse
   site-url: https://nutriverse.io
+  description: Developing an integrated collection of R packages designed to support and facilitate various nutrition data analytics.
   navbar:
     title: nutriverse
     #background: success
@@ -29,10 +30,6 @@ website:
     left:
       - text: Home
         href: index.qmd
-      - text: About
-        menu:
-          - href: about/team.qmd
-          - href: about/contact.qmd
       - text: Blog
         href: blog.qmd
       - text: Packages
@@ -43,6 +40,10 @@ website:
             href: community/index.qmd
           - text: Code of Conduct
             href: code-of-conduct.qmd
+      - text: About
+        menu:
+          - href: about/team.qmd
+          - href: about/contact.qmd
   open-graph:
     site-name: nutriverse
   page-footer:
