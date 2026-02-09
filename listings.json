@@ -16,10 +16,6 @@
     ]
   },
   {
-    "listing": "/community/index.html",
-    "items": []
-  },
-  {
     "listing": "/index.html",
     "items": [
       "/packages/nipnTK.html",
