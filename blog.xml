@@ -17,10 +17,88 @@
 <width>144</width>
 </image>
 <generator>quarto-1.8.27</generator>
-<lastBuildDate>Tue, 03 Feb 2026 00:00:00 GMT</lastBuildDate>
+<lastBuildDate>Thu, 05 Feb 2026 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>nutriverse is now fiscally-hosted by the Open Source Collective</title>
+  <dc:creator>Ernest Guevarra</dc:creator>
+  <link>https://nutriverse.io/posts/2026-02-05-open-source-collective/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<p>We are happy to share that nutriverse is now fiscally-hosted by the <a href="https://oscollective.org/">Open Source Collective (OSC)</a>, a non-profit fiscal host that provides essential financial and legal infrastructure for thousands of open source projects.</p>
+<p>What this means is that as nutriverse’s fiscal host, OSC will be supporting nutriverse in holding the project’s funds, handling taxes, signing legal contracts, and managing accounting. This structure allows us to focus on code and community rather than bureaucracy.</p>
+<section id="projects-that-osc-hosts" class="level2">
+<h2 class="anchored" data-anchor-id="projects-that-osc-hosts">Projects that OSC hosts</h2>
+<p>The OSC acts as a financial and legal “umbrella” for over 3,000 open source projects. These projects are highly diverse, ranging from massive pillars of the internet to niche community tools. These projects can be generally categorised into the following groups:</p>
+<section id="core-web-infrastructure-and-frameworks" class="level3">
+<h3 class="anchored" data-anchor-id="core-web-infrastructure-and-frameworks">Core web infrastructure and frameworks</h3>
+<p>These are the “heavy lifters” of modern web development—tools that millions of developers use daily to build the websites and apps we all use.</p>
+<ul>
+<li><p><strong>Build Tools &amp; Compilers:</strong> Projects like <strong>Webpack</strong> (which bundles code for websites) and <strong>Babel</strong> (which allows code to run on older browsers) are prominent examples. These are critical dependencies for a vast portion of the commercial internet.</p></li>
+<li><p><strong>Development Platforms:</strong> Frameworks like <strong>JHipster</strong> help developers generate and deploy modern web applications quickly.</p></li>
+</ul>
+</section>
+<section id="essential-utilities-and-libraries" class="level3">
+<h3 class="anchored" data-anchor-id="essential-utilities-and-libraries">Essential utilities and libraries</h3>
+<p>These projects often run quietly in the background on servers, personal computers, and even internet-of-things (IoT) devices. They are the invisible glue of the digital world.</p>
+<ul>
+<li><strong>Data Transfer:</strong> A prime example is <strong>cURL</strong>, a command-line tool used in virtually every connected device (cars, routers, phones) to transfer data.</li>
+<li><strong>System Tools:</strong> This category includes universal libraries and command-line interfaces that power other software.</li>
+</ul>
+</section>
+<section id="social-and-decentralised-web" class="level3">
+<h3 class="anchored" data-anchor-id="social-and-decentralised-web">Social and decentralised web</h3>
+<p>The OSC hosts a significant number of projects involved in the “Fediverse” and the decentralized web, supporting alternatives to mainstream, corporate-owned social media.</p>
+<ul>
+<li><strong>Social Networking:</strong> <strong>Mastodon</strong> (the decentralized microblogging platform) uses the Collective to manage its funding and operations.</li>
+<li><strong>Community Forums:</strong> Tools like <strong>Lemmy</strong> (a link aggregator and Reddit alternative) are also part of this ecosystem.</li>
+</ul>
+</section>
+<section id="creative-and-media-software" class="level3">
+<h3 class="anchored" data-anchor-id="creative-and-media-software">Creative and media software</h3>
+<p>These are user-facing applications used by creators to produce content, often rivaling paid proprietary software.</p>
+<ul>
+<li><strong>Streaming and Recording:</strong> <strong>OBS Studio</strong> (Open Broadcaster Software) is the industry standard for live streaming and screen recording, used by millions of streamers on Twitch and YouTube.</li>
+<li><strong>Design:</strong> Projects like <strong>Open Source Design</strong> focus on improving the user experience (UX) and visual design of open source software.</li>
+</ul>
+</section>
+<section id="documentation-and-standards" class="level3">
+<h3 class="anchored" data-anchor-id="documentation-and-standards">Documentation and standards</h3>
+<p>Not all hosted projects are strictly code. The OSC also hosts initiatives that maintain the knowledge base of the internet.</p>
+<ul>
+<li><strong>Education:</strong> <strong>Open Web Docs</strong> is a collective dedicated to documenting web standards (creating content for resources like MDN Web Docs) to ensure documentation remains vendor-neutral and high-quality.</li>
+</ul>
+</section>
+</section>
+<section id="nutriverse-in-the-osc-ecosystem" class="level2">
+<h2 class="anchored" data-anchor-id="nutriverse-in-the-osc-ecosystem">nutriverse in the OSC ecosystem</h2>
+<p>As nutriverse becomes part of the OSC family, we note a common thread with all the other open source projects in that we are outgrowing our “small hobbyist” phase and we aim to grow further. Such growth requires <strong>institutional sustainability</strong> and by joining OSC, we gain the ability to:</p>
+<ul>
+<li>Accept transparent donations and corporate sponsorships;</li>
+<li>Pay maintainers and contributors for their time; and,</li>
+<li>Cover costs for server infrastructure, compute costs, and communications technology.</li>
+</ul>
+</section>
+<section id="transparent-code-transparent-finances" class="level2">
+<h2 class="anchored" data-anchor-id="transparent-code-transparent-finances">Transparent code, transparent finances</h2>
+<p>nutriverse prides itself with being open source and transparent with our code and its development. With OSC as our fiscal host, we extend this transparency to our finances moving forward. The public can view exactly how much money nutriverse raises and exactly how every dollar is spent.</p>
+
+
+</section>
+
+ ]]></description>
+  <category>news</category>
+  <category>announcement</category>
+  <guid>https://nutriverse.io/posts/2026-02-05-open-source-collective/</guid>
+  <pubDate>Thu, 05 Feb 2026 00:00:00 GMT</pubDate>
+  <media:content url="https://nutriverse.io/images/osc_logo.png" medium="image" type="image/png" height="29" width="144"/>
+</item>
 <item>
   <title>sleacr now on CRAN</title>
-  <dc:creator>nutriverse Team</dc:creator>
+  <dc:creator>Ernest Guevarra</dc:creator>
   <link>https://nutriverse.io/posts/2026-02-03-sleacr-release/</link>
   <description><![CDATA[ 
 
@@ -510,10 +588,10 @@ font-style: italic;">## Get classification probabilities ----</span></span>
 background-color: null;
 font-style: inherit;">lqas_get_class_prob</span>(lqas_sim_pop)</span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>                    Low : 0.9552
-               Moderate : 0.832
-                   High : 0.8361
-                Overall : 0.9063
+<pre><code>                    Low : 0.9562
+               Moderate : 0.8339
+                   High : 0.8342
+                Overall : 0.9073
 Gross misclassification : 0</code></pre>
 </div>
 </div>
@@ -705,7 +783,7 @@ bibtex=TRUE)', 'toBibtex(.)', or set
 </item>
 <item>
   <title>New version of nipnTK on CRAN, new development versions of micronutr and anthrocheckr</title>
-  <dc:creator>nutriverse Team</dc:creator>
+  <dc:creator>Ernest Guevarra</dc:creator>
   <link>https://nutriverse.io/posts/2026-02-01-package-updates/</link>
   <description><![CDATA[ 
 
@@ -727,7 +805,7 @@ bibtex=TRUE)', 'toBibtex(.)', or set
 </item>
 <item>
   <title>nutriverse Monthly Round-up - January 2026</title>
-  <dc:creator>nutriverse Team</dc:creator>
+  <dc:creator>Ernest Guevarra</dc:creator>
   <link>https://nutriverse.io/posts/2026-01-27-monthly-roundup/</link>
   <description><![CDATA[ 
 
