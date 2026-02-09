@@ -3,7 +3,7 @@ title: "New version of nipnTK on CRAN, new development versions of micronutr and
 subtitle: "Updates to the nutriverse packages"
 description: |
   General update and maintenance for `{nipnTK}`, `{micronutr}`, and `{anthrocheckr}`
-author: "nutriverse Team"
+author: "Ernest Guevarra"
 date: "1 February 2026"
 date-modified: last-modified
 image: ../../images/nipnTK.png
