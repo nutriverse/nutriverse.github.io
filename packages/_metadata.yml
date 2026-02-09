@@ -1,6 +1,6 @@
 page-layout: full
-# title-block-banner: "#E4F0EF"
-# title-block-banner-color: "#7F055F"
+title-block-banner: "#F0F5F9"
+title-block-banner-color: "#C20055"
 search: false
 toc: false
 date-format: "DD MMM YYYY"
