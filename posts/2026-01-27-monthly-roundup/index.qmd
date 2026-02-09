@@ -3,7 +3,7 @@ title: "nutriverse Monthly Round-up - January 2026"
 subtitle: "All the nutriverse news, stories, and events"
 description: |
   General update and maintenance for nutriverse packages, new branding scheme for package websites, new packages published to CRAN
-author: "nutriverse Team"
+author: "Ernest Guevarra"
 date: "27 January 2026"
 date-modified: last-modified
 image: ../../images/nutriverse.png

@@ -3,7 +3,7 @@ title: "sleacr now on CRAN"
 subtitle: "Simplified Lot Quality Assurance Sampling Evaluation of Access and Coverage (SLEAC) Tools"
 description: |
   Simplified Lot Quality Assurance Sampling Evaluation of Access and Coverage or SLEAC, is a low resource method used regularly for monitoring, planning and importantly, timely improvement to programme quality, both for agency and Ministry of Health (MoH) led programmes. This package provides functions for use in conducting a SLEAC assessment.
-author: "nutriverse Team"
+author: "Ernest Guevarra"
 date: "3 February 2026"
 date-modified: last-modified
 image: ../../images/sleacr.png
