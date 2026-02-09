@@ -18,8 +18,8 @@
   {
     "listing": "/index.html",
     "items": [
-      "/packages/micronutr.html",
       "/packages/nipnTK.html",
+      "/packages/sleacr.html",
       "/packages/zscorer.html"
     ]
   },
