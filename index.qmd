@@ -4,16 +4,23 @@ page-layout: custom
 section-divs: false
 toc: false
 listing:
-  id: featured-packages
-  contents:
-    - packages/zscorer.qmd
-    - packages/nipnTK.qmd
-    - packages/sleacr.qmd
-  type: grid
-  image-height: 400px
-  image-placeholder: images/nutriverse.png
-  grid-item-border: false
-  max-items: 3
+  - id: featured-packages
+    contents:
+      - packages/zscorer.qmd
+      - packages/nipnTK.qmd
+      - packages/sleacr.qmd
+    type: grid
+    image-height: 400px
+    image-placeholder: images/nutriverse.png
+    grid-item-border: false
+    max-items: 3
+  - id: featured-posts
+    contents: posts
+    type: grid
+    image-height: 250px
+    sort: "date desc"
+    grid-item-border: false
+    max-items: 3
 ---
 
 ```{r}
@@ -85,6 +92,15 @@ A community of practice of analysts, researchers, and practitioners learning tog
 
 :::
 
+
+::: {.info-block}
+
+# Latest posts
+
+::: {#featured-posts}
+:::
+
+:::
 
 
 ::: {.theme-banner}
