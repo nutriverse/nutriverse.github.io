@@ -12,11 +12,6 @@ image: ../images/sleacr.png
 <!-- badges: start -->
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
-[![CRAN status](https://www.r-pkg.org/badges/version/sleacr)](https://CRAN.R-project.org/package=sleacr)
-[![cran checks](https://badges.cranchecks.info/worst/sleacr.svg)](https://cran.r-project.org/web/checks/check_results_sleacr.html)
-[![CRAN](https://img.shields.io/cran/l/sleacr.svg)](https://CRAN.R-project.org/package=sleacr)
-[![CRAN](http://cranlogs.r-pkg.org/badges/sleacr)](https://cran.r-project.org/package=sleacr)
-[![CRAN](http://cranlogs.r-pkg.org/badges/grand-total/sleacr)](https://cran.r-project.org/package=sleacr)
 [![DOI](https://zenodo.org/badge/186984529.svg)](https://doi.org/10.5281/zenodo.7510932)
 [![DOI](https://img.shields.io/badge/DOI-10.32614/CRAN.package.sleacr-blue)](https://doi.org/10.32614/CRAN.package.sleacr)
 <!-- badges: end -->
