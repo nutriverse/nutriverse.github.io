@@ -17,7 +17,55 @@
 <width>144</width>
 </image>
 <generator>quarto-1.8.27</generator>
-<lastBuildDate>Thu, 05 Feb 2026 00:00:00 GMT</lastBuildDate>
+<lastBuildDate>Fri, 13 Feb 2026 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>Welcome to nutriverse</title>
+  <dc:creator>Ernest Guevarra</dc:creator>
+  <link>https://nutriverse.io/posts/2026-02-13-welcome-to-nutriverse/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<p>On the last day of January 2018, I made my first git commit to the <code>{zscorer}</code> package in the <a href="https://github.com/nutriverse">GitHub organisation</a> account that I named <strong>nutriverse</strong>. A little over eight years later, the <strong>nutriverse</strong> now has four R packages published on the <a href="https://cran.r-project.org">Comprehensive R Archive Network (CRAN)</a> and another four in various stages of active development. What started out as my desire to learn how to write R packages that I can use and re-use for every nutrition research and nutrition analytics project that I worked on turned into the beginnings of an ecosystem of tools that I and a handful of other nutrition researchers, data analysts, and practitioners use routinely. Now, in 2026, we are transitioning nutriverse from its small <em>“hobbyist phase”</em> and grow it towards <em>institutional sustainability</em>.</p>
+<div class="img-float">
+<p><img src="https://nutriverse.io/images/open_source.png" class="img-fluid" style="float: left; margin: 10px; width: 200px"></p>
+</div>
+<section id="nutriverse-is-open-source" class="level2">
+<h2 class="anchored" data-anchor-id="nutriverse-is-open-source">nutriverse is open source</h2>
+<p>nutriverse is an open source project developing robust, well-tested, and high-performance R packages for nutrition data analysis. The goal is to provide reliable tools that support the full lifecycle of nutrition analytics, from data ingestion and cleaning to statistical analysis, modelling, and reproducible reporting.</p>
+<div class="img-float">
+<p><img src="https://nutriverse.io/images/collective.png" class="img-fluid" style="float: right; margin: 10px; width: 200px"></p>
+</div>
+</section>
+<section id="nutriverse-is-a-collective" class="level2">
+<h2 class="anchored" data-anchor-id="nutriverse-is-a-collective">nutriverse is a collective</h2>
+<p>nutriverse is a collective that brings together people committed to transforming how nutrition data is used, understood, and shared. We organize around the belief that better, more transparent nutrition data analytics can challenge inequities, strengthen public health, and support food systems that work for everyone.</p>
+<p>Through collaboration, open tools, and critical inquiry, we push for analytical practices that are rigorous, reproducible, and accountable to real-world impact. The collective exists to share power and knowledge, support one another’s work, and turn nutrition data into a force for social and health justice.</p>
+<div class="img-float">
+<p><img src="https://nutriverse.io/images/practice.png" class="img-fluid" style="float: left; margin: 10px; width: 200px"></p>
+</div>
+</section>
+<section id="nutriverse-is-a-community-of-practice" class="level2">
+<h2 class="anchored" data-anchor-id="nutriverse-is-a-community-of-practice">nutriverse is a community-of-practice</h2>
+<p>nutriverse is a community of practice that brings together nutrition data analysts, researchers, and practitioners who are committed to learning from one another and improving how nutrition data is analysed and applied. It provides a shared space to exchange methods, tools, and real-world experiences across research, policy, and practice.</p>
+<p>Through peer learning, collaborative problem-solving, and open discussion, the community supports rigorous, reproducible analytics while staying grounded in practical impact. The goal is to strengthen individual practice, build collective capacity, and advance better nutrition decisions through better use of data.</p>
+</section>
+<section id="nutriverse-is-all-of-us" class="level2">
+<h2 class="anchored" data-anchor-id="nutriverse-is-all-of-us">nutriverse is all of us</h2>
+<p>I can’t help but be hopeful for the nutriverse’s transition and keen to welcome all of you to our community!</p>
+
+
+</section>
+
+ ]]></description>
+  <category>news</category>
+  <category>announcement</category>
+  <guid>https://nutriverse.io/posts/2026-02-13-welcome-to-nutriverse/</guid>
+  <pubDate>Fri, 13 Feb 2026 00:00:00 GMT</pubDate>
+  <media:content url="https://nutriverse.io/images/nutriverse.png" medium="image" type="image/png" height="158" width="144"/>
+</item>
 <item>
   <title>nutriverse is now fiscally-hosted by the Open Source Collective</title>
   <dc:creator>Ernest Guevarra</dc:creator>
@@ -668,10 +716,10 @@ font-style: italic;">## Get classification probabilities ----</span></span>
 background-color: null;
 font-style: inherit;">lqas_get_class_prob</span>(lqas_sim_pop)</span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>                    Low : 0.9551
-               Moderate : 0.8301
-                   High : 0.834
-                Overall : 0.9055
+<pre><code>                    Low : 0.9555
+               Moderate : 0.836
+                   High : 0.8379
+                Overall : 0.9079
 Gross misclassification : 0</code></pre>
 </div>
 </div>
