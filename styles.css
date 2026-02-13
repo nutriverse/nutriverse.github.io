@@ -25,13 +25,13 @@
 
 .hero-banner {
   position: relative;
-  background-color: rgb(240,245,249);
+  background-color: #E4F0EF;
   display: flex;
   justify-content: center;
 }
 
 .hero-banner h1 {
-  color: #C20055; /* #7F055F; */
+  color: #C20055;
   font-size: 2.5rem;
 }
 
@@ -145,7 +145,7 @@
 }
 
 .hero-banner #btn-guide {
-  background-color: #3F0042 /* #776885*/ !important;
+  background-color: #3F0042 !important;
   border: none;
 }
 
@@ -181,7 +181,7 @@
 }
 
 .info-block h1 {
-  color: #C20055; /* #7F055F; */
+  color: #C20055;
   text-align: center;
 }
 
@@ -213,7 +213,7 @@
 }
 
 .info-block-alt h1 {
-  color: #C20055; /* #7F055F; */
+  color: #C20055;
   text-align: center;
 }
 
@@ -226,6 +226,18 @@
   /*background-color: #E4F0EF;*/
   display: flex;
 }
+
+.theme-banner h1 {
+  color: #C20055;
+  font-size: 2.5rem;
+}
+
+.theme-banner h3 {
+  margin-top: 1.3rem;
+  margin-bottom: 1.3rem;
+  font-size: 1.75rem;
+}
+
 
 .about-banner {
   position: relative;
@@ -272,12 +284,29 @@
   font-size: 1.75rem;
 }
 
+.sponsor-banner {
+  position: relative;
+  background-color: #E4F0EF;
+  display: flex;
+}
+
+.sponsor-banner h1 {
+  color: #C20055;
+  font-size: 2.5rem;
+}
+
+.sponsor-banner h3 {
+  margin-top: 1.3rem;
+  margin-bottom: 1.3rem;
+  font-size: 1.75rem;
+}
+
 .contact-banner {
   background-color: #E4F0EF;
 }
 
 .contact-banner h1 {
-  color: #C20055; /* #7F055F; */
+  color: #C20055;
   font-size: 2.5rem;
 }
 
@@ -285,6 +314,29 @@
   margin-top: 1.3rem;
   margin-bottom: 1.3rem;
   font-size: 1.75rem;
+}
+
+.community-banner {
+  position: relative;
+  /* background-color: #E4F0EF; */
+  display: flex;
+}
+
+.community-banner .community-image {
+  position: absolute;
+  display: none;
+  height: auto;
+}
+
+.community-banner h1 {
+  color: #7F055F;
+  font-size: 1.75rem;
+}
+
+.community-banner h3 {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  font-size: 1rem;
 }
 
 @media (max-width: 575px) {
@@ -352,4 +404,29 @@
 
 .card .source-code {
   margin-top: 3px;
+}
+
+blockquote {
+  position: relative;
+  /* background: #E4F0EF; */
+  border-left: 10px solid #ccc;
+  margin: 1.5em 0.5em 0.5em 0.5em !important;
+  padding: 1em 2em 0 2em !important;
+  font-size: 150%;
+  quotes: "\201C" "\201D";
+}
+
+blockquote:before {
+  position: absolute;
+  top: -0.5em; /* relative to padding blockquote size */
+  left: 0;
+  color: #ccc;
+  content: open-quote;
+  font-size: 8em;
+}
+
+blockquote p {
+  display: inline;
+  font-size: 3em;
+  color: #C20055;
 }
