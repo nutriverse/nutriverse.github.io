@@ -76,20 +76,20 @@ ul.task-list li input[type="checkbox"] {
 <script>
 
   window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-featured-events .list');
+    const listingTargetEl = window.document.querySelector('#listing-current-events .list');
     if (!listingTargetEl) {
       // No listing discovered, do not attach.
       return; 
     }
 
     const options = {
-      valueNames: ['listing-title','listing-author','listing-subtitle','listing-image','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      valueNames: ['listing-date','listing-title','listing-author','listing-subtitle','listing-image','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
       
-      searchColumns: ["listing-title","listing-author","listing-subtitle","listing-image","listing-description"],
+      searchColumns: ["listing-date","listing-title","listing-author","listing-subtitle","listing-image","listing-description"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-featured-events'] = new List('listing-featured-events', options);
+    window['quarto-listings']['listing-current-events'] = new List('listing-current-events', options);
 
     if (window['quarto-listing-loaded']) {
       window['quarto-listing-loaded']();
@@ -298,12 +298,12 @@ window.Quarto = {
 
 
 
-<div id="listing-featured-events" class="quarto-listing quarto-listing-container-default">
+<div id="listing-current-events" class="quarto-listing quarto-listing-container-default">
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-listing-file-modified-sort="1770997281734" data-listing-reading-time-sort="2" data-listing-word-count-sort="284">
+<div class="quarto-post image-left" data-index="0" data-listing-date-sort="1770999599000" data-listing-file-modified-sort="1770999599980" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="284">
 <div class="thumbnail"><a href="../events/2026-02-27-nutriverse-launch.html" class="no-external">
 
-<img loading="lazy" src="../images/nutriverse.png" class="thumbnail-image" style="height: 400px;">
+<img loading="lazy" src="../images/nutriverse.png" class="thumbnail-image" style="height: 200px;">
 
 </a></div>
 <div class="body">
@@ -311,16 +311,20 @@ window.Quarto = {
 <a href="../events/2026-02-27-nutriverse-launch.html" class="no-external">nutriverse Project Launch</a>
 </h3>
 <div class="listing-subtitle">
-<a href="../events/2026-02-27-nutriverse-launch.html" class="no-external">The nutriverse Project Launch will be online in a webinar format and held at three different one hour periods on the 27th of February 2026 to cater for a global audience participating at different time zones.</a>
+<a href="../events/2026-02-27-nutriverse-launch.html" class="no-external">Online launch of the nutriverse project</a>
 </div>
 <div class="delink listing-description"><a href="../events/2026-02-27-nutriverse-launch.html" class="no-external">
-<strong>Date:</strong> Friday, 27 February 2026<br>
-<strong>Time:</strong> multiple time slots<br>
-<strong>Venue:</strong> Online via Zoom
+<p>The nutriverse Project Launch will be online in a webinar format and held at three different one hour periods on the 27th of February 2026 to cater for a global audience participating at different time zones.</p>
 </a></div>
 </div>
 <div class="metadata">
 <a href="../events/2026-02-27-nutriverse-launch.html" class="no-external">
+<div class="listing-date">
+Friday, 13 February 2026
+</div>
+<div class="listing-author">
+Ernest Guevarra
+</div>
 </a>
 </div>
 </div>
