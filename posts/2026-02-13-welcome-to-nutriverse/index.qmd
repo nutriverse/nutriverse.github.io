@@ -1,0 +1,54 @@
+---
+title: "Welcome to nutriverse"
+subtitle: "nutriverse is an open source project, a collective, and a community of practice"
+description: |
+  We are a community of data analysts, researchers, and practitioners engaged in various nutrition topics and issues. Members of the community support each other through the development of robust and performant R packages as tools for their analytical tasks, open and accessible technical guidance, and impactful peer-to-peer learning.
+author: "Ernest Guevarra"
+date: "13 February 2026"
+date-modified: last-modified
+image: ../../images/nutriverse.png
+draft: false
+categories:
+  - news
+  - announcement
+---
+
+On the last day of January 2018, I made my first git commit to the `{zscorer}` package in the [GitHub organisation](https://github.com/nutriverse) account that I named **nutriverse**. A little over eight years later, the **nutriverse** now has four R packages published on the [Comprehensive R Archive Network (CRAN)](https://cran.r-project.org) and another four in various stages of active development. What started out as my desire to learn how to write R packages that I can use and re-use for every nutrition research and nutrition analytics project that I worked on turned into the beginnings of an ecosystem of tools that I and a handful of other nutrition researchers, data analysts, and practitioners use routinely. Now, in 2026, we are transitioning nutriverse from its small *"hobbyist phase"* and grow it towards *institutional sustainability*.
+
+::: {.img-float}
+
+![](../../images/open_source.png){style="float: left; margin: 10px; width: 200px"}
+
+:::
+
+## nutriverse is open source
+
+nutriverse is an open source project developing robust, well-tested, and high-performance R packages for nutrition data analysis. The goal is to provide reliable tools that support the full lifecycle of nutrition analytics, from data ingestion and cleaning to statistical analysis, modelling, and reproducible reporting.
+
+::: {.img-float}
+
+![](../../images/collective.png){style="float: right; margin: 10px; width: 200px"}
+
+:::
+
+## nutriverse is a collective
+
+nutriverse is a collective that brings together people committed to transforming how nutrition data is used, understood, and shared. We organize around the belief that better, more transparent nutrition data analytics can challenge inequities, strengthen public health, and support food systems that work for everyone.
+
+Through collaboration, open tools, and critical inquiry, we push for analytical practices that are rigorous, reproducible, and accountable to real-world impact. The collective exists to share power and knowledge, support one another’s work, and turn nutrition data into a force for social and health justice.
+
+::: {.img-float}
+
+![](../../images/practice.png){style="float: left; margin: 10px; width: 200px"}
+
+:::
+
+## nutriverse is a community-of-practice
+
+nutriverse is a community of practice that brings together nutrition data analysts, researchers, and practitioners who are committed to learning from one another and improving how nutrition data is analysed and applied. It provides a shared space to exchange methods, tools, and real-world experiences across research, policy, and practice.
+
+Through peer learning, collaborative problem-solving, and open discussion, the community supports rigorous, reproducible analytics while staying grounded in practical impact. The goal is to strengthen individual practice, build collective capacity, and advance better nutrition decisions through better use of data.
+
+## nutriverse is all of us
+
+I can't help but be hopeful for the nutriverse's transition and keen to welcome all of you to our community!
