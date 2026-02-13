@@ -234,7 +234,7 @@
 }
 
 .about-banner h1 {
-  color: #C20055; /* #7F055F; */
+  color: #C20055;
   font-size: 2.5rem;
 }
 
@@ -245,11 +245,28 @@
 }
 
 .approach-banner h1 {
-  color: #C20055; /* #7F055F; */
+  color: #C20055;
   font-size: 2.5rem;
 }
 
 .approach-banner h3 {
+  margin-top: 1.3rem;
+  margin-bottom: 1.3rem;
+  font-size: 1.75rem;
+}
+
+.event-banner {
+  position: relative;
+  background-color: #E4F0EF;
+  display: flex;
+}
+
+.event-banner h1 {
+  color: #7F055F;
+  font-size: 2.5rem;
+}
+
+.event-banner h3 {
   margin-top: 1.3rem;
   margin-bottom: 1.3rem;
   font-size: 1.75rem;

@@ -25,6 +25,12 @@
     ]
   },
   {
+    "listing": "/events/index.html",
+    "items": [
+      "/events/2026-02-27-nutriverse-launch.html"
+    ]
+  },
+  {
     "listing": "/blog.html",
     "items": [
       "/posts/2026-02-05-open-source-collective/index.html",
