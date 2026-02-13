@@ -1,0 +1,13 @@
+page-layout: article
+format:
+  html:
+    grid:
+      sidebar-width: 250px
+      body-width: 800px
+      margin-width: 300px
+      gutter-width: 1.5rem
+title-block-banner: "#F0F5F9"
+title-block-banner-color: "#C20055"
+search: false
+date-format: "DD MMM YYYY"
+image-placeholder: ../images/nutriverse.png

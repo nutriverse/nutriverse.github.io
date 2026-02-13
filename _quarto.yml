@@ -38,6 +38,8 @@ website:
         menu:
           - text: Community
             href: community/index.qmd
+          - text: Events
+            href: events/index.qmd
           - text: Code of Conduct
             href: code-of-conduct.qmd
       - text: About
