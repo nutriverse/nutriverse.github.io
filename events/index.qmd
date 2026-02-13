@@ -5,16 +5,17 @@ page-layout: full
 section-divs: false
 toc: false
 listing:
-  - id: featured-events
+  - id: current-events
     contents:
       - +([[:digit:]]){\-}+([[:digit:]]){\-}+([[:digit:]])*{\.qmd}
     type: default
-    image-height: 400px
+    image-height: 200px
+    image-align: left
     image-placeholder: ../images/nutriverse.png
     grid-item-border: false
 ---
 
 
-::: {#featured-events}
+::: {#current-events}
 
 :::
