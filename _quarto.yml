@@ -46,6 +46,7 @@ website:
         menu:
           - href: about/team.qmd
           - href: about/contact.qmd
+  favicon: images/nutriverse.png
   open-graph:
     site-name: nutriverse
   page-footer:

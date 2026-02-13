@@ -8,8 +8,8 @@ format:
       body-width: 800px
       margin-width: 300px
       gutter-width: 1.5rem
-title-block-banner: "#E4F0EF"
-title-block-banner-color: "#7F055F"
+title-block-banner: "#F0F5F9"
+title-block-banner-color: "#C20055"
 search: false
 toc: true
 date-format: "DD MMM YYYY"
@@ -65,7 +65,7 @@ Examples of representing our community include using an official e-mail address,
 ## Enforcement
 
 Instances of abusive, harassing, or otherwise unacceptable behaviour may be
-reported to the community leaders responsible for enforcement at ernest@oxford-ihtm.io. All complaints will be reviewed and investigated promptly and fairly.
+reported to the community leaders responsible for enforcement at ernest@nutriverse.io. All complaints will be reviewed and investigated promptly and fairly.
 
 All community leaders are obligated to respect the privacy and security of the
 reporter of any incident.
