@@ -1,30 +1,20 @@
 ---
-page-layout: custom
+title: Events
+subtitle: Upcoming events including those in which our team members are speaking and/or participating
+page-layout: full
 section-divs: false
 toc: false
 listing:
   - id: featured-events
     contents:
       - +([[:digit:]]){\-}+([[:digit:]]){\-}+([[:digit:]])*{\.qmd}
-    type: grid
-    image-height: 300px
+    type: default
+    image-height: 400px
     image-placeholder: ../images/nutriverse.png
     grid-item-border: false
-    # max-items: 6
 ---
 
 
-::: {.event-banner}
-
-::: {.info-block}
-
-# Events
-
-Upcoming events including those in which our team members are speaking.
-
 ::: {#featured-events}
-:::
-
-:::
 
 :::

@@ -92,7 +92,8 @@ A community of practice of analysts, researchers, and practitioners learning tog
 
 :::
 
-::: {.hero-banner}
+
+::: {.about-banner}
 
 ::: {.info-block}
 
@@ -106,6 +107,7 @@ A community of practice of analysts, researchers, and practitioners learning tog
 :::
 
 
+
 ::: {.theme-banner}
 
 ::: {.info-block}
@@ -113,6 +115,69 @@ A community of practice of analysts, researchers, and practitioners learning tog
 # Featured packages
 
 ::: {#featured-packages}
+:::
+
+:::
+
+:::
+
+
+
+::: {.sponsor-banner}
+
+::: {.info-block}
+
+# Support nutriverse
+
+[![](images/osc_logo.png){fig-align="center" width="60%"}](https://oscollective.org/)
+
+Since January 2018 to currently, the nutriverse project has produced its open source software through the contributions of volunteer developers using personal resources. As nutriverse launches into this new year, it is outgrowing its "small hobbyist" phase and aims to grow further.
+
+nutriverse is now a sponsored project of [Open Source Collective (OSC)](https://oscollective.org/), a 501(c)(6) organisation in the United States - a non-profit designation for entities that promote the shared interests of a specific field or industry which in this case is open source. OSC provides nutriverse with fiscal, legal, and administrative support to help ensure the health and sustainability of the project. Through OSC, the nutriverse project gains the ability to accept transparent donations/sponsorships and apply for relevant grants that can be used to cover costs to support developers, pay for web services, and to host community events.
+
+If you would like to contribute to supporting the goals of the nutriverse project, donate via the nutriverse [Open Collective portal](https://opencollective.com/nutriverse#category-CONTRIBUTE).
+
+:::
+
+:::
+
+
+::: {.theme-banner}
+
+::: {.info-block}
+
+# Working together
+
+### nutriverse packages are used by these partners
+
+::: {.grid}
+
+::: {.g-col-1}
+:::
+
+::: {.g-col-2}
+[![](images/katilingban_bw.png){fig-align="center" height="150px"}](https://katilingban.io)
+:::
+
+::: {.g-col-2}
+[![](images/ulsoph.png){fig-align="center" height="150px"}](https://soph.ulchs.edu.lr/)
+:::
+
+::: {.g-col-2}
+[![](images/pon.jpeg){fig-align="center" height="150px"}](https://www.powerofnutrition.org/)
+:::
+
+::: {.g-col-2}
+[![](images/ihealth_base_pos.png){fig-align="center" height="150px"}](https://oxford-ihtm.io)
+:::
+
+::: {.g-col-2}
+[![](images/ihtm-square.png){fig-align="center" height="150px"}](https://www.tropicalmedicine.ox.ac.uk/study-with-us/msc-ihtm)
+:::
+
+::: {.g-col-1}
+:::
+
 :::
 
 :::
