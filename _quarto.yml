@@ -36,8 +36,7 @@ website:
         href: packages/index.qmd
       - text: Community
         menu:
-          - text: Community
-            href: community/index.qmd
+          - href: community/index.qmd
           - text: Events
             href: events/index.qmd
           - text: Code of Conduct

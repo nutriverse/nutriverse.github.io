@@ -11,7 +11,7 @@ format:
     code-block-border-left: "#C20055"
     code-block-bg: true
     code-line-numbers: false
-title-block-banner: "#F0F5F9"
+title-block-banner: "#E4F0EF"
 title-block-banner-color: "#C20055"
 search: false
 date-format: "DD MMMM YYYY"

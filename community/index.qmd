@@ -8,7 +8,7 @@ description:
   Through peer learning, collaborative problem-solving, and open discussion, the community supports rigorous, reproducible analytics while staying grounded in practical impact. The goal is to strengthen individual practice, build collective capacity, and advance better nutrition decisions through better use of data.
 section-divs: false
 toc: false
-title-block-banner: "#F0F5F9"
+title-block-banner: "#E4F0EF"
 title-block-banner-color: "#C20055"
 search: false
 # listing:
@@ -23,19 +23,22 @@ search: false
 ---
 
 
-<!-- ::: {.community-banner}
+::: {.community-banner}
 
 ::: {.info-block}
 
-![](../images/community.png){fig-align="center" width="70%"}
-
-> Go to the people. Live with them. Learn from them. Love them.
-> Start with what they know. Build with what they have.
-> But with the best leaders, when the work is done, the task accomplished, the people will say **'We have done it ourselves'**.
+> Tell me and I’ll forget.     
+> Show me, and I may not remember.     
+> Involve me, and I’ll understand.    
 
 :::
 
-::: -->
+:::
+
+
+::: {.info-block}
+
+:::
 
 
 ::: {.approach-banner}
@@ -79,7 +82,12 @@ See a full listing and calendar of upcoming events [here](https://oxford-ihtm.io
 ::: -->
 
 
-::: {.aproach-banner}
+::: {.info-block}
+
+:::
+
+
+::: {.approach-banner}
 
 ::: {.info-block}
 
