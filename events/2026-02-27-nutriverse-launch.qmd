@@ -5,7 +5,7 @@ description: |
   Join us online for the nutriverse project launch on Friday, 27 February 2026 to learn more about nutriverse, meet its core team members, get introduced to its community of practice
 author: Ernest Guevarra
 date: last-modified
-image: ../images/nutriverse.png
+image: ../images/nutriverse_project_launch.png
 ---
 
 ::: {.column-margin}
