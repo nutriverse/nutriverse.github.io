@@ -13,6 +13,8 @@ listing:
     image-align: left
     image-placeholder: ../images/nutriverse.png
     grid-item-border: false
+    fields: [image, title, subtitle, description]
+    max-description-length: 350
 ---
 
 

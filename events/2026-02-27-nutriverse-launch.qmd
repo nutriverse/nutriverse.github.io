@@ -2,10 +2,10 @@
 title: nutriverse Project Launch
 subtitle: Online launch of the nutriverse project
 description: |
-  The nutriverse Project Launch will be online in a webinar format and held at three different one hour periods on the 27th of February 2026 to cater for a global audience participating at different time zones.
+  Join us online for the nutriverse project launch on Friday, 27 February 2026 to learn more about nutriverse, meet its core team members, get introduced to its community of practice
 author: Ernest Guevarra
 date: last-modified
-image: ../images/nutriverse.png
+image: ../images/nutriverse_project_launch.png
 ---
 
 ::: {.column-margin}
@@ -18,7 +18,7 @@ image: ../images/nutriverse.png
 
 We will be launching the **nutriverse**, an *open-source project*, a *collective*, and a *community-of-practice*.
 
-We will present on how **nutriverse** came to be, *who the core team members* are, *what tools and products* we have created and made available to the nutrition community-at-large, and our plans for *more tools development* and in *growing this community-of-practice*.
+We will present on how **nutriverse** came to be, *who the core team members* are, *what tools and products* we have created and made available to the nutrition community-at-large, and our plans for *more tools development* and in *growing this community of practice*.
 
 The nutriverse Project Launch will be online in a webinar format and held at three different one hour periods on the 27th of February 2026 to cater for a global audience participating at different time zones.
 
@@ -30,7 +30,7 @@ The nutriverse Project Launch will be online in a webinar format and held at thr
 
 We are requiring registration as we can only accommodate a fixed number of participants in each of the three sessions above. You may register for a session time that is convenient for you (and not necessarily from where you are located) but we would like to ask that you book only one time session to allow as many people the chance to participate.
 
-Registration is open now at [https://forms.gle/eLH2xxprZ2PoaEFg9](https://forms.gle/eLH2xxprZ2PoaEFg9).
+Registration is open now at [https://forms.gle/eLH2xxprZ2PoaEFg9](https://forms.gle/eLH2xxprZ2PoaEFg9){.external target="_blank"}.
 
 The session Zoom link will be provided via email after your registration. Please note that this process of receiving your registration and emailing with project launch session details is human-powered (not automated). We aim to get back to you within 24 hours of receiving your registration.
 

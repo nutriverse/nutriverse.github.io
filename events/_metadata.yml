@@ -9,5 +9,5 @@ format:
 title-block-banner: "#E4F0EF"
 title-block-banner-color: "#C20055"
 search: false
-date-format: "dddd, DD MMMM YYYY"
+date-format: "DD MMMM YYYY"
 image-placeholder: ../images/nutriverse.png
