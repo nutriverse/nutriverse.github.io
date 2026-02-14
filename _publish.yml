@@ -1,0 +1,4 @@
+- source: project
+  netlify:
+    - id: "a6e57162-c6d1-4b50-a6d3-c119c8c7e922"
+      url: "https://nutriverse-community.netlify.app"
