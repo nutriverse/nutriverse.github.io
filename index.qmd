@@ -183,3 +183,13 @@ If you would like to contribute to supporting the goals of the nutriverse projec
 :::
 
 :::
+
+::: {.sponsor-banner}
+
+:::{.info-block-alt}
+
+<script async data-uid="2b90c581d1" src="https://nutriverse.kit.com/2b90c581d1/index.js"></script>
+
+:::
+
+:::
