@@ -10,7 +10,6 @@ website:
   description: Developing an integrated collection of R packages designed to support and facilitate various nutrition data analytics.
   navbar:
     title: nutriverse
-    #background: success
     logo: images/nutriverse_neg.png
     logo-alt: nutriverse
     tools:
@@ -27,6 +26,9 @@ website:
       - icon: github
         aria-label: GitHub
         href: https://github.com/nutriverse
+      - icon: rss
+        aria-label: Blog RSS
+        href: https://nutriverse.io/blog.xml
     left:
       - text: Home
         href: index.qmd
@@ -49,7 +51,26 @@ website:
   open-graph:
     site-name: nutriverse
   page-footer:
-    center: "Copyright 2024-2026, Oxford iHealth"
+    left: |
+      [![](https://www.netlify.com/assets/badges/netlify-badge-color-bg.svg){fig-alt="Deploys by Netlify"}](https://www.netlify.com)
+    center: "Copyright 2024-2026, nutriverse"
+    right:
+      - icon: mastodon
+        aria-label: Mastodon
+        href: https://mastodon.social/@nutriverse
+        rel: me
+      - icon: bluesky
+        aria-label: Bluesky
+        href: https://bsky.app/profile/nutriverse.io
+      - icon: linkedin
+        aria-label: LinkedIn
+        href: https://www.linkedin.com/company/nutriverse-community
+      - icon: github
+        aria-label: GitHub
+        href: https://github.com/nutriverse
+      - icon: rss
+        aria-label: Blog RSS
+        href: https://nutriverse.io/blog.xml
     background: light
     border: false
   reader-mode: true
