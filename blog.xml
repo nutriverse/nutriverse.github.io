@@ -28,6 +28,11 @@
 
 
 
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://nutriverse.io/images/nutriverse_banner.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+</figure>
+</div>
 <p>On the last day of January 2018, I made my first git commit to the <code>{zscorer}</code> package in the <a href="https://github.com/nutriverse">GitHub organisation</a> account that I named <strong>nutriverse</strong>. A little over eight years later, the <strong>nutriverse</strong> now has four R packages published on the <a href="https://cran.r-project.org">Comprehensive R Archive Network (CRAN)</a> and another four in various stages of active development. What started out as my desire to learn how to write R packages that I can use and re-use for every nutrition research and nutrition analytics project that I worked on turned into the beginnings of an ecosystem of tools that I and a handful of other nutrition researchers, data analysts, and practitioners use routinely. Now, in 2026, we are transitioning nutriverse from its small <em>“hobbyist phase”</em> and grow it towards <em>institutional sustainability</em>.</p>
 <div class="img-float">
 <p><img src="https://nutriverse.io/images/open_source.png" class="img-fluid" style="float: left; margin: 10px; width: 200px"></p>
@@ -64,7 +69,7 @@
   <category>announcement</category>
   <guid>https://nutriverse.io/posts/2026-02-13-welcome-to-nutriverse/</guid>
   <pubDate>Fri, 13 Feb 2026 00:00:00 GMT</pubDate>
-  <media:content url="https://nutriverse.io/images/nutriverse.png" medium="image" type="image/png" height="158" width="144"/>
+  <media:content url="https://nutriverse.io/images/nutriverse_banner.png" medium="image" type="image/png" height="79" width="144"/>
 </item>
 <item>
   <title>nutriverse is now fiscally-hosted by the Open Source Collective</title>
@@ -716,10 +721,10 @@ font-style: italic;">## Get classification probabilities ----</span></span>
 background-color: null;
 font-style: inherit;">lqas_get_class_prob</span>(lqas_sim_pop)</span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>                    Low : 0.9554
-               Moderate : 0.8347
-                   High : 0.8364
-                Overall : 0.9073
+<pre><code>                    Low : 0.9556
+               Moderate : 0.8298
+                   High : 0.8375
+                Overall : 0.906
 Gross misclassification : 0</code></pre>
 </div>
 </div>
