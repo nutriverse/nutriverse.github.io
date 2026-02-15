@@ -2,16 +2,18 @@
 title: "Welcome to nutriverse"
 subtitle: "nutriverse is an open source project, a collective, and a community of practice"
 description: |
-  We are a community of data analysts, researchers, and practitioners engaged in various nutrition topics and issues. Members of the community support each other through the development of robust and performant R packages as tools for their analytical tasks, open and accessible technical guidance, and impactful peer-to-peer learning.
+  We are a community of data analysts, researchers, and practitioners engaged in various nutrition topics and issues. Members of the community support each other through the development of robust and performant R packages as tools for their various tasks, open and accessible technical guidance, and impactful peer-to-peer learning.
 author: "Ernest Guevarra"
 date: "13 February 2026"
 date-modified: last-modified
-image: ../../images/nutriverse.png
+image: ../../images/nutriverse_banner.png
 draft: false
 categories:
   - news
   - announcement
 ---
+
+![](../../images/nutriverse_banner.png){fig-align="center"}
 
 On the last day of January 2018, I made my first git commit to the `{zscorer}` package in the [GitHub organisation](https://github.com/nutriverse) account that I named **nutriverse**. A little over eight years later, the **nutriverse** now has four R packages published on the [Comprehensive R Archive Network (CRAN)](https://cran.r-project.org) and another four in various stages of active development. What started out as my desire to learn how to write R packages that I can use and re-use for every nutrition research and nutrition analytics project that I worked on turned into the beginnings of an ecosystem of tools that I and a handful of other nutrition researchers, data analysts, and practitioners use routinely. Now, in 2026, we are transitioning nutriverse from its small *"hobbyist phase"* and grow it towards *institutional sustainability*.
 
