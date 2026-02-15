@@ -52,7 +52,8 @@ website:
     site-name: nutriverse
   page-footer:
     left: |
-      [![](https://www.netlify.com/assets/badges/netlify-badge-color-bg.svg){fig-alt="Deploys by Netlify"}](https://www.netlify.com)
+      Fiscally hosted by
+      [![](/images/osc_logo.png){fig-alt="Fiscally hosted by Open Source Collective" width="100px"}](https://oscollective.org/)
     center: "Copyright 2024-2026, nutriverse"
     right:
       - icon: mastodon
