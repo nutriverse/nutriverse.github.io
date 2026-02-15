@@ -2,10 +2,10 @@
 title: nutriverse Project Launch
 subtitle: Online launch of the nutriverse project
 description: |
-  Join us online for the nutriverse project launch on Friday, 27 February 2026 to learn more about nutriverse, meet its core team members, get introduced to its community of practice
+  Join us online for the nutriverse project launch on Friday, 27 February 2026 to know more about the nutriverse, meet its core team members, get introduced to its community of practice, and learn how you can contribute
 author: Ernest Guevarra
 date: last-modified
-image: ../images/nutriverse_project_launch.png
+image: ../images/nutriverse_banner.png
 ---
 
 ::: {.column-margin}
@@ -20,7 +20,9 @@ We will be launching the **nutriverse**, an *open-source project*, a *collective
 
 We will present on how **nutriverse** came to be, *who the core team members* are, *what tools and products* we have created and made available to the nutrition community-at-large, and our plans for *more tools development* and in *growing this community of practice*.
 
-The nutriverse Project Launch will be online in a webinar format and held at three different one hour periods on the 27th of February 2026 to cater for a global audience participating at different time zones.
+![](../images/nutriverse_launch_banner.png){fig-align="center"}
+
+The **nutriverse project launch** will be online in a webinar format and held at three different one hour periods on the 27th of February 2026 to cater for a global audience participating at different time zones.
 
 * 08:00 - 09:00 GMT - this time period will hopefully cater for those from Asia Pacific
 
