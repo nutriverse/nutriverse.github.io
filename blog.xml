@@ -721,10 +721,10 @@ font-style: italic;">## Get classification probabilities ----</span></span>
 background-color: null;
 font-style: inherit;">lqas_get_class_prob</span>(lqas_sim_pop)</span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>                    Low : 0.9556
-               Moderate : 0.8298
-                   High : 0.8375
-                Overall : 0.906
+<pre><code>                    Low : 0.9551
+               Moderate : 0.8342
+                   High : 0.8379
+                Overall : 0.9071
 Gross misclassification : 0</code></pre>
 </div>
 </div>
