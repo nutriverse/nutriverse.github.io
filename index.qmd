@@ -164,7 +164,7 @@ If you would like to contribute to supporting the goals of the nutriverse projec
 :::
 
 ::: {.g-col-2}
-[![](images/pon.jpeg){fig-align="center" height="150px"}](https://www.powerofnutrition.org/)
+[![](images/pon_logo.png){fig-align="center" height="150px"}](https://www.powerofnutrition.org/)
 :::
 
 ::: {.g-col-2}

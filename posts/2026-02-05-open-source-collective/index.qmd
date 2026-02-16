@@ -6,7 +6,7 @@ description: |
 author: "Ernest Guevarra"
 date: "5 February 2026"
 date-modified: last-modified
-image: ../../images/osc_logo.png
+image: ../../images/osc_logo_square.png
 draft: false
 categories:
   - news
