@@ -6,7 +6,7 @@ description: |
 author: "Ernest Guevarra"
 date: "3 February 2026"
 date-modified: last-modified
-image: ../../images/sleacr.png
+image: ../../images/sleacr_banner.svg
 draft: false
 categories:
   - news
@@ -21,6 +21,12 @@ set.seed(1972)
 library(sleacr)
 library(tibble)
 ```
+
+::: {.column-margin}
+
+[![](../../images/sleacr.png){fig-align="center"}](https://nutriverse.io/sleacr)
+
+:::
 
 Our software development team is pleased to announce that [`{sleacr}`](https://nutriverse.io/sleacr), an R package for Simplified Lot Quality Assurance Sampling Evaluation of Access and Coverage (SLEAC), has been accepted to the [Comprehensive R Archive Network (CRAN)](https://CRAN.R-project.org/package=sleacr) today!
 
