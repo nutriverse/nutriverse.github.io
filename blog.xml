@@ -239,7 +239,14 @@
 
 
 
-<p>Our software development team is pleased to announce that <a href="https://nutriverse.io/sleacr"><code>{sleacr}</code></a>, an R package for Simplified Lot Quality Assurance Sampling Evaluation of Access and Coverage (SLEAC), has been accepted to the <a href="https://CRAN.R-project.org/package=sleacr">Comprehensive R Archive Network (CRAN)</a> today!</p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://nutriverse.io/sleacr"><img src="https://nutriverse.io/images/sleacr.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></a></p>
+</figure>
+</div>
+</div></div><p>Our software development team is pleased to announce that <a href="https://nutriverse.io/sleacr"><code>{sleacr}</code></a>, an R package for Simplified Lot Quality Assurance Sampling Evaluation of Access and Coverage (SLEAC), has been accepted to the <a href="https://CRAN.R-project.org/package=sleacr">Comprehensive R Archive Network (CRAN)</a> today!</p>
 <section id="what-does-the-package-do" class="level2">
 <h2 class="anchored" data-anchor-id="what-does-the-package-do">What does the package do?</h2>
 <p>The <code>{sleacr}</code> package provides functions that facilitate the design, sampling, data collection, and data analysis of a SLEAC survey. The current version of the <code>{sleacr}</code> package provides the following:</p>
@@ -721,10 +728,10 @@ font-style: italic;">## Get classification probabilities ----</span></span>
 background-color: null;
 font-style: inherit;">lqas_get_class_prob</span>(lqas_sim_pop)</span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>                    Low : 0.9548
-               Moderate : 0.8321
-                   High : 0.8372
-                Overall : 0.9062
+<pre><code>                    Low : 0.9547
+               Moderate : 0.833
+                   High : 0.8299
+                Overall : 0.9057
 Gross misclassification : 0</code></pre>
 </div>
 </div>
@@ -912,7 +919,7 @@ bibtex=TRUE)', 'toBibtex(.)', or set
   <category>packages</category>
   <guid>https://nutriverse.io/posts/2026-02-03-sleacr-release/</guid>
   <pubDate>Tue, 03 Feb 2026 00:00:00 GMT</pubDate>
-  <media:content url="https://nutriverse.io/images/sleacr.png" medium="image" type="image/png" height="165" width="144"/>
+  <media:content url="https://nutriverse.io/images/sleacr_banner.svg" medium="image" type="image/svg+xml"/>
 </item>
 <item>
   <title>New version of nipnTK on CRAN, new development versions of micronutr and anthrocheckr</title>
