@@ -17,7 +17,49 @@
 <width>144</width>
 </image>
 <generator>quarto-1.8.27</generator>
-<lastBuildDate>Fri, 13 Feb 2026 00:00:00 GMT</lastBuildDate>
+<lastBuildDate>Sat, 21 Feb 2026 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>Meet nutriverse’s Executive Director</title>
+  <dc:creator>Ernest Guevarra</dc:creator>
+  <link>https://nutriverse.io/posts/2026-02-21-aziz-executive-director/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+
+<div class="no-row-height column-margin column-container"><div class="">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="../../team/aziz-goza.html"><img src="https://nutriverse.io/images/azizgoza.jpeg" class="img-fluid quarto-figure quarto-figure-center figure-img"></a></p>
+</figure>
+</div>
+</div></div><p>When we started nutriverse in 2018, we firmly believed that health and nutrition data can and should work better. Not through one-off, limited, and fragmented data and analysis tools but through transparent, coordinated data systems, robust and performant data tools, and a community of practice that is empowered to participate, utilise, and govern the use of this data.</p>
+<p>This is why we are incredibly proud to share that Abdoul-Aziz Goza, one of the three stalwarts of nutriverse when we started in 2018, is taking on the role of Executive Director.</p>
+<p>With over 15 years of experience in large-scale child nutrition data systems, Aziz is an expert in survey design, health and nutrition data quality assurance, and advanced statistical analysis. He has supported large-scale child nutrition systems across Africa and Asia, strengthening national platforms, and designing complex surveys.</p>
+<p>As a former UNICEF Emergency Health and Nutrition Specialist in Niger, he brings experience and expertise in health and nutrition assessments such as KAP, SMART, and SQUEAC/SLEAC surveys in humanitarian contexts.</p>
+<p>Aziz’s field experience stretches across the Sahel and beyond in countries such as Senegal, Mauritania, Mali, Burkina Faso, Cameroon, Kenya, Ethiopia, and Niger where he’s led surveys, training, and data system strengthening efforts. It’s this blend of technical expertise and on-the-ground experience that makes his insights so valuable.</p>
+<p>Aziz’s strategic leadership marks an important step forward for nutriverse as we continue building not just the tools and systems around health and nutrition data but most importantly an empowered community of practice that actively participates in, leverages, and stewards the use of this data.</p>
+<p>Join us in celebrating this important milestone for nutriverse and in supporting Aziz’s tenure as Exective Director!</p>
+<section id="related-content-for-abdoul-aziz-goza" class="level2">
+<h2 class="anchored" data-anchor-id="related-content-for-abdoul-aziz-goza">Related content for Abdoul-Aziz Goza</h2>
+<ul>
+<li><p><a href="https://www.linkedin.com/posts/abdoul-aziz-goza-86402090_listening-and-adapting-how-the-red-cross-activity-7343239312164986882-AocB?utm_source=share&amp;utm_medium=member_desktop&amp;rcm=ACoAAAGDNx8B1IQdnO3BfizE0c8LTL6j33B9x-o">Case study on feedback mechanism that truly works even in the complex context of migration</a></p></li>
+<li><p><a href="https://www.linkedin.com/posts/abdoul-aziz-goza-86402090_colearning-cogrowing-pmeal-activity-7330140291716247553-NwvS?utm_source=share&amp;utm_medium=member_desktop&amp;rcm=ACoAAAGDNx8B1IQdnO3BfizE0c8LTL6j33B9x-o">“I don’t believe in ‘training people’. I believe in co-growing.” - on training and capacity-building</a></p></li>
+</ul>
+
+
+</section>
+
+ ]]></description>
+  <category>news</category>
+  <category>announcement</category>
+  <category>meet-the-team</category>
+  <guid>https://nutriverse.io/posts/2026-02-21-aziz-executive-director/</guid>
+  <pubDate>Sat, 21 Feb 2026 00:00:00 GMT</pubDate>
+  <media:content url="https://nutriverse.io/images/azizgoza.jpeg" medium="image" type="image/jpeg"/>
+</item>
 <item>
   <title>Welcome to nutriverse</title>
   <dc:creator>Ernest Guevarra</dc:creator>
@@ -728,10 +770,10 @@ font-style: italic;">## Get classification probabilities ----</span></span>
 background-color: null;
 font-style: inherit;">lqas_get_class_prob</span>(lqas_sim_pop)</span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>                    Low : 0.9547
-               Moderate : 0.833
-                   High : 0.8299
-                Overall : 0.9057
+<pre><code>                    Low : 0.9565
+               Moderate : 0.8324
+                   High : 0.8335
+                Overall : 0.907
 Gross misclassification : 0</code></pre>
 </div>
 </div>
