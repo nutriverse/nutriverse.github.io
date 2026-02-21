@@ -4,19 +4,18 @@ image: ../../images/azizgoza.jpeg
 about:
   template: solana
   links:
-    # - icon: globe
-    #   text: Website
-    #   href: https://ernest.guevarra.io
     - icon: linkedin
       text: LinkedIn
       href: https://www.linkedin.com/in/abdoul-aziz-goza-86402090/
     - icon: github
       text: Github
       href: https://github.com/azizGoza
-    # - icon: mastodon
-    #   text: Mastodon
-    #   href: https://fosstodon.org/@ernestguevarra
 ---
 
-Aziz has strong expertise in nutrition issues management (planning, implementation, monitoring and evaluation) and a proven experience in data management, database design and mHealth (ODK, Dimagi, Smartphone). Aziz has managed nutrition survey programmes (KAP, LQAS, SQUEAC, SMART) with strong field experience through the whole Sahel area (Senegal, Mauritania, Mali, Burkina-Faso and Niger). He has advanced knowledge in epidemiology and biostatistics and use of statistical software packages such as SPSS, Sphinx, EpiData, and ENA for SMART. Aziz has expertise in adult training and community mobilisation.
+With over 15 years of experience across Africa and Asia, I am a nutrition and statistics specialist dedicated to strengthening large-scale child nutrition data systems. My career has been deeply rooted in the Sahel region including Senegal, Mauritania, Mali, Burkina Faso, and Niger where I formerly served as a UNICEF Emergency Health and Nutrition Specialist.
 
+I specialise in the end-to-end management of nutrition issues, from planning and implementation to monitoring and evaluation. I have managed and designed complex nutrition survey programs (including KAP, LQAS, [SQUEAC/SLEAC](https://www.fantaproject.org/sites/default/files/resources/SQUEAC-SLEAC-Technical-Reference-Oct2012_0.pdf), and [SMART](https://smartmethodology.org/)) and have expertise in developing and implementing innovative measurement methodologies.
+
+My technical background is grounded in advanced epidemiology and biostatistics. I leverage mHealth technologies ([ODK](https://getodk.org/), [Dimagi](https://dimagi.com/)) and software tools like [R](https://r-project.org), Power BI, SPSS, Sphinx, [EpiData](https://www.epidata.dk/), and [ENA for SMART](https://smartmethodology.org/survey-planning-tools/smart-emergency-nutrition-assessment/) to build automated data workflows. Whether I am transforming datasets into actionable insights, designing databases, or leading community mobilisation and adult training, my ultimate goal is to support evidence-based health and nutrition programming.
+
+I currently serve as the Executive Director of nutriverse.
