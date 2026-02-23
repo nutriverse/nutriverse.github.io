@@ -71,15 +71,15 @@ This Code of Conduct applies to all people participating in the nutriverse commu
 
 ## Reporting Guidelines
 
-The nutriverse Code of Conduct Committee includes [Professor Proochista Ariana](https://proochista.org) (independent community member) and [Abdoul-Aziz Goza](https://nutriverse.io/team/aziz-goza.html) (nutriverse Executive Director).
+The nutriverse Code of Conduct Committee includes [Professor Proochista Ariana](https://proochista.org){.external target="_blank"} (independent community member) and [Abdoul-Aziz Goza](https://nutriverse.io/team/aziz-goza.html) (nutriverse Executive Director).
 
 If you experience or witness unacceptable behaviour, or have any other concerns, please submit a [report to the Committee as soon as possible using this form](https://forms.gle/nXJ3QUCHd9qA4kwV7). Alternatively, you may email [conduct@nutriverse.io](mailto:conduct@nutriverse.io), which will go to the Committee members. You may also make a report directly to one member of the Committee by contacting them directly. If any member of the Committee has a conflict of interest with a report, they will be recused and will not have access to the content or process of the report follow-up. At an in-person nutriverse event, please reach out to anyone named as a member of that event-specific Code of Conduct Committee, or to venue staff or security who will be present throughout the event.
 
 If you are planning to attend an upcoming event or join an online channel, and have concerns regarding another individual who may be present, please submit a report as described above. We will work with you to take precautions to ensure your comfort and safety. These precautions may include: providing an escort, preparing on-site event staff, and/or providing on-site contact cell phone numbers for immediate contact. In some cases, we may take action to prevent a harasser from attending the conference.
 
-The Code of Conduct Committee will investigate and decide responses to reports with the aim of making a decision and implementing enforcement as soon as is reasonably possible. We are committed to transparency with our community while upholding the privacy of victims and people who report incidents. We will publish brief, anonymized summaries of incidents on the forum in a dedicated, read-only category, and will publish on the rOpenSci blog an annual transparency report.
+The Code of Conduct Committee will investigate and decide responses to reports with the aim of making a decision and implementing enforcement as soon as is reasonably possible. We are committed to transparency with our community while upholding the privacy of victims and people who report incidents. We will publish brief, anonymised summaries of incidents on the forum in a dedicated, read-only category, and will publish on the nutriverse blog an annual transparency report.
 
-We welcome your feedback by email to [conduct@nutriverse.io](mailto:conduct@nutriverse.io), and we thank you for working with us to make rOpenSci a safe, enjoyable, friendly and enriching experience for everyone who participates.
+We welcome your feedback by email to [conduct@nutriverse.io](mailto:conduct@nutriverse.io), and we thank you for working with us to make nutriverse a safe, enjoyable, friendly and enriching experience for everyone who participates.
 
 
 
