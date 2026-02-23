@@ -42,7 +42,9 @@ website:
           - text: Events
             href: events/index.qmd
           - text: Code of Conduct
-            href: code-of-conduct.qmd
+            href: code-of-conduct/index.qmd
+          - text: Contributing Guide
+            href: contributing/index.qmd
       - text: About
         menu:
           - href: about/team.qmd

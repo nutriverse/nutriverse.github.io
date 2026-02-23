@@ -11,7 +11,7 @@ format:
 title-block-banner: "#E4F0EF"
 title-block-banner-color: "#C20055"
 search: false
-toc: true
+toc: false
 date: 22 February 2026
 date-format: "DD MMMM YYYY"
 image-placeholder: images/nutriverse.png
