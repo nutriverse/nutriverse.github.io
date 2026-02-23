@@ -1,5 +1,5 @@
 ---
-title: Contributor Covenant Code of Conduct
+title: Code of Conduct
 page-layout: article
 format:
   html:
@@ -12,99 +12,73 @@ title-block-banner: "#E4F0EF"
 title-block-banner-color: "#C20055"
 search: false
 toc: true
-date-format: "DD MMM YYYY"
+date: 22 February 2026
+date-format: "DD MMMM YYYY"
 image-placeholder: images/nutriverse.png
 ---
 
-## Our Pledge
+::: {.community-banner}
 
-We as members, contributors, and leaders pledge to make participation in our
-community a harassment-free experience for everyone, regardless of age, body size, visible or invisible disability, ethnicity, sex characteristics, gender identity and expression, level of experience, education, socio-economic status, nationality, personal appearance, race, caste, colour, religion, or sexual identity and orientation.
+::: {.info-block}
 
-We pledge to act and interact in ways that contribute to an open, welcoming,
-diverse, inclusive, and healthy community.
+> The greatness of a community is most accurately measured by the compassionate actions of its members.     
+> — Coretta Scott King
 
-## Our Standards
+:::
 
-Examples of behaviour that contributes to a positive environment for our
-community include:
+:::
 
-* Demonstrating empathy and kindness toward other people
-* Being respectful of differing opinions, viewpoints, and experiences
-* Giving and gracefully accepting constructive feedback
-* Accepting responsibility and apologizing to those affected by our mistakes, and learning from the experience
-* Focusing on what is best not just for us as individuals, but for the overall community
+<br/>
+<br/>
 
-Examples of unacceptable behaviour include:
+Our community is our greatest asset, and we believe our diversity is our strength. We are committed to cultivating a welcoming, globally diverse community of software users and developers. Whether you’re a long-time contributor or just getting started, we are dedicated to ensuring this is a safe and supportive space for you. We are committed to fostering a safe, inclusive, welcoming, and harassment-free experience for all.
 
-* The use of sexualized language or imagery, and sexual attention or advances of any kind
-* Trolling, insulting or derogatory comments, and personal or political attacks
-* Public or private harassment
-* Publishing others' private information, such as a physical or email address, without their explicit permission
-* Other conduct which could reasonably be considered inappropriate in a professional setting
+We strive to foster a community grounded in shared values, a community where people feel comfortable exploring ideas, asking questions, and saying things like *"I don’t understand"* or *"Why?"*. We encourage everyone to assume good intent and recognise the competence of those they engage with. There are no foolish questions here.
 
-## Enforcement Responsibilities
+Be thoughtful in both your words and actions. Make an active effort to recognise and respect the boundaries of those participating in various nutriverse activities.
 
-Community leaders are responsible for clarifying and enforcing our standards of acceptable behaviour and will take appropriate and fair corrective action in response to any behaviour that they deem inappropriate, threatening, offensive, or harmful.
+Look out for one another. If you become aware of a potentially harmful situation, someone in distress, or a possible breach of this Code of Conduct (no matter how minor it may seem), please inform a member of the Code of Conduct Committee listed below.
 
-Community leaders have the right and responsibility to remove, edit, or reject comments, commits, code, wiki edits, issues, and other contributions that are not aligned to this Code of Conduct, and will communicate reasons for moderation decisions when appropriate.
+We do not tolerate harassment in any form. Upholding our Code of Conduct means refraining from any demeaning, discriminatory, or harassing behaviour or language, including but not limited to:
 
-## Scope
+* Offensive remarks related to gender, gender identity or expression, age, sexual orientation, disability, physical appearance, body size, race, ethnicity, religion (or lack thereof), nationality, native language, or choice of technology.
+* Unwelcome commentary about a person’s lifestyle choices or practices, including those related to food, health, parenting, substance use, or employment.
+* Persistent or intentional disruption of discussions, presentations, or events, including in online spaces.
+* Intimidation or threats.
+* Continuing one-on-one communication after being asked to stop.
+* Unwanted photography or recording, including capturing or logging online activity for the purpose of harassment.
+* Repeated or inappropriate social contact, such as assuming or requesting undue levels of intimacy.
+* Physical contact without consent or after being asked to stop. In virtual settings, this includes simulated physical contact without consent (e.g., textual descriptions like "hug" or "backrub", or emojis implying such contact).
+* Stalking or following behaviour, including persistent unwanted direct messages, sending unsolicited images or malicious links, or monitoring someone’s online activity.
+* Threats of violence or encouragement of self-harm or suicide.
+* Sexual or discriminatory images, language, or jokes.
+* Unwanted sexual attention, such as intrusive sexual questions, requests for sexual favours, or repeated requests for dates or contact information.
+* Deliberately revealing (“outing”) any aspect of someone’s identity without their consent, except when necessary to protect individuals from intentional harm.
+* Intentional mis-gendering or the use of a person’s former or rejected name.
+* Sharing private communications without consent, including screenshots of private conversations or direct messages, even if the content itself is not harassing.
 
-This Code of Conduct applies within all community spaces, and also applies when an individual is officially representing the community in public spaces.
-Examples of representing our community include using an official e-mail address, posting via an official social media account, or acting as an appointed representative at an online or offline event.
+We place greater importance on the safety and well-being of marginalized individuals than on the comfort of those in positions of privilege. We will not pursue complaints based on:
 
-## Enforcement
+* Claims of "reverse" discrimination, such as "reverse racism", "reverse sexism", or "cisphobia".
+* Clear and reasonable boundary-setting, including statements like "leave me alone", "go away" or "I'm not discussing this with you".
+* Objections to someone’s tone when it does not feel agreeable or accommodating.
+* Calling out racist, sexist, cissexist, or otherwise oppressive behaviour, language, or assumptions.
 
-Instances of abusive, harassing, or otherwise unacceptable behaviour may be
-reported to the community leaders responsible for enforcement at [ernest@nutriverse.io](mailto:ernest@nutriverse.io). All complaints will be reviewed and investigated promptly and fairly.
+If someone engages in harassing conduct, the Committee will respond appropriately. Actions may include issuing a warning, removing the individual from an event or online space temporarily or permanently, or involving law enforcement when necessary.
 
-All community leaders are obligated to respect the privacy and security of the reporter of any incident.
+This Code of Conduct applies to all people participating in the nutriverse community, including nutriverse core team and leadership. It applies to all modes of interaction online including GitHub project repositories, the nutriverse discussion forum, Zulip, Community Calls, and in person at nutriverse-hosted events or events officially endorsed by nutriverse, including social gatherings affiliated with the event.
 
-## Enforcement Guidelines
 
-Community leaders will follow these Community Impact Guidelines in determining the consequences for any action they deem in violation of this Code of Conduct:
+Reporting Guidelines
+The nutriverse Code of Conduct Committee includes [Professor Proochista Ariana](https://proochista.org) (independent community member) and [Abdoul-Aziz Goza](https://nutriverse.io/team/aziz-goza.html) (nutriverse Executive Director).
 
-### 1. Correction
+If you experience or witness unacceptable behaviour, or have any other concerns, please submit a report to the Committee as soon as possible using this form. Alternatively, you may email [conduct@nutriverse.io](mailto:conduct@nutriverse.io), which will go to the Committee members. You may also make a report directly to one member of the Committee by contacting them directly. If any member of the Committee has a conflict of interest with a report, they will be recused and will not have access to the content or process of the report follow-up. At an in-person nutriverse event, please reach out to anyone named as a member of that event-specific Code of Conduct Committee, or to venue staff or security who will be present throughout the event.
 
-**Community Impact**: Use of inappropriate language or other behaviour deemed unprofessional or unwelcome in the community.
+If you are planning to attend an upcoming event or join an online channel, and have concerns regarding another individual who may be present, please submit a report as described above. We will work with you to take precautions to ensure your comfort and safety. These precautions may include: providing an escort, preparing on-site event staff, and/or providing on-site contact cell phone numbers for immediate contact. In some cases, we may take action to prevent a harasser from attending the conference.
 
-**Consequence**: A private, written warning from community leaders, providing clarity around the nature of the violation and an explanation of why the behaviour was inappropriate. A public apology may be requested.
+The Code of Conduct Committee will investigate and decide responses to reports with the aim of making a decision and implementing enforcement as soon as is reasonably possible. We are committed to transparency with our community while upholding the privacy of victims and people who report incidents. We will publish brief, anonymized summaries of incidents on the forum in a dedicated, read-only category, and will publish on the rOpenSci blog an annual transparency report.
 
-### 2. Warning
+We welcome your feedback by email to [conduct@ropensci.org](mailto:conduct@nutriverse.io), and we thank you for working with us to make rOpenSci a safe, enjoyable, friendly and enriching experience for everyone who participates.
 
-**Community Impact**: A violation through a single incident or series of
-actions.
 
-**Consequence**: A warning with consequences for continued behaviour. No
-interaction with the people involved, including unsolicited interaction with
-those enforcing the Code of Conduct, for a specified period of time. This
-includes avoiding interactions in community spaces as well as external channels like social media. Violating these terms may lead to a temporary or permanent ban.
 
-### 3. Temporary Ban
-
-**Community Impact**: A serious violation of community standards, including
-sustained inappropriate behaviour.
-
-**Consequence**: A temporary ban from any sort of interaction or public
-communication with the community for a specified period of time. No public or private interaction with the people involved, including unsolicited interaction with those enforcing the Code of Conduct, is allowed during this period. Violating these terms may lead to a permanent ban.
-
-### 4. Permanent Ban
-
-**Community Impact**: Demonstrating a pattern of violation of community
-standards, including sustained inappropriate behaviour, harassment of an
-individual, or aggression toward or disparagement of classes of individuals.
-
-**Consequence**: A permanent ban from any sort of public interaction within the community.
-
-## Attribution
-
-This Code of Conduct is adapted from the [Contributor Covenant][homepage],
-version 2.1, available at <https://www.contributor-covenant.org/version/2/1/code_of_conduct.html>.
-
-Community Impact Guidelines were inspired by [Mozilla's code of conduct enforcement ladder][https://github.com/mozilla/inclusion].
-
-For answers to common questions about this code of conduct, see the FAQ at
-<https://www.contributor-covenant.org/faq>. Translations are available at <https://www.contributor-covenant.org/translations>.
-
-[homepage]: https://www.contributor-covenant.org
