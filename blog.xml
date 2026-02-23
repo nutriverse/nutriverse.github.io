@@ -770,10 +770,10 @@ font-style: italic;">## Get classification probabilities ----</span></span>
 background-color: null;
 font-style: inherit;">lqas_get_class_prob</span>(lqas_sim_pop)</span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>                    Low : 0.9548
-               Moderate : 0.8351
-                   High : 0.8328
-                Overall : 0.9067
+<pre><code>                    Low : 0.9557
+               Moderate : 0.8364
+                   High : 0.836
+                Overall : 0.908
 Gross misclassification : 0</code></pre>
 </div>
 </div>
@@ -973,7 +973,14 @@ bibtex=TRUE)', 'toBibtex(.)', or set
 
 
 
-<p>We’ve just released a patched version of <a href="https://nutriverse.io/nipnTK"><code>{nipnTK}</code></a> (v0.2.2), our nutrition data quality toolkit R package, on <a href="https://cloud.r-project.org/web/packages/nipnTK/index.html">CRAN</a>. This was a general upkeep and maintenance update focused on tidying up documentation including the package <a href="https://nutriverse.io/nipnTK">website</a> which now sports the new nutriverse colour and branding scheme. Existing users of the <a href="https://nutriverse.io/nipnTK"><code>{nipnTK}</code></a> package will be able to continue using the package as before after updating. If you work with nutrition data specifically anthropometric measurements data, consider looking into <a href="https://nutriverse.io/nipnTK"><code>{nipnTK}</code></a> and give it a try in your nutrition data processing workflows.</p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://nutriverse.io/nipnTK"><img src="https://nutriverse.io/images/nipnTK.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></a></p>
+</figure>
+</div>
+</div></div><p>We’ve just released a patched version of <a href="https://nutriverse.io/nipnTK"><code>{nipnTK}</code></a> (v0.2.2), our nutrition data quality toolkit R package, on <a href="https://cloud.r-project.org/web/packages/nipnTK/index.html">CRAN</a>. This was a general upkeep and maintenance update focused on tidying up documentation including the package <a href="https://nutriverse.io/nipnTK">website</a> which now sports the new nutriverse colour and branding scheme. Existing users of the <a href="https://nutriverse.io/nipnTK"><code>{nipnTK}</code></a> package will be able to continue using the package as before after updating. If you work with nutrition data specifically anthropometric measurements data, consider looking into <a href="https://nutriverse.io/nipnTK"><code>{nipnTK}</code></a> and give it a try in your nutrition data processing workflows.</p>
 <p>We’ve also spruced up the development versions of the <a href="https://nutriverse.io/micronutr"><code>{micronutr}</code></a> and the <a href="https://nutriverse.io/anthrocheckr"><code>{anthrocheckr}</code></a> packages. Again, these updates are all general upkeep and maintenance focusing on package documentation and website. We plan to get a minor version release on CRAN for <a href="https://nutriverse.io/micronutr"><code>{micronutr}</code></a> by end of March 2026 that will include new functions for adjusting serum micronutrient biomarkers for inflammation using the <a href="https://pubmed.ncbi.nlm.nih.gov/36792034/">Biomarkers Reflecting Inflammation and Nutritional Determinants of Anemia (BRINDA) Method</a>. For <code>{anthrocheckr}</code>, we plan to get a first CRAN release by the end of February 2026.</p>
 
 
@@ -983,7 +990,7 @@ bibtex=TRUE)', 'toBibtex(.)', or set
   <category>packages</category>
   <guid>https://nutriverse.io/posts/2026-02-01-package-updates/</guid>
   <pubDate>Sun, 01 Feb 2026 00:00:00 GMT</pubDate>
-  <media:content url="https://nutriverse.io/images/nipnTK.png" medium="image" type="image/png" height="167" width="144"/>
+  <media:content url="https://nutriverse.io/images/nipntk_banner.svg" medium="image" type="image/svg+xml"/>
 </item>
 <item>
   <title>nutriverse Monthly Round-up - January 2026</title>
