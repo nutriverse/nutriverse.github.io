@@ -1,5 +1,5 @@
 ---
-page-layout: full
+page-layout: article
 title: Community
 subtitle: A community of practice connecting nutrition data analysts, researchers, and practitioners to learn together and strengthen the real-world impact of nutrition data.
 description:
@@ -27,9 +27,13 @@ search: false
 
 ::: {.info-block}
 
-> Tell me and I’ll forget.     
+<!-- > Tell me and I’ll forget.     
 > Show me, and I may not remember.     
-> Involve me, and I’ll understand.    
+> Involve me, and I’ll understand.     -->
+
+> I hear and I forget;     
+> I see and I remember;     
+> I do and I understand.
 
 :::
 
