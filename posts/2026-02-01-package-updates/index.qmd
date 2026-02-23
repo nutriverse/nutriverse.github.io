@@ -6,12 +6,18 @@ description: |
 author: "Ernest Guevarra"
 date: "1 February 2026"
 date-modified: last-modified
-image: ../../images/nipnTK.png
+image: ../../images/nipntk_banner.svg
 draft: false
 categories:
   - news
   - packages
 ---
+
+::: {.column-margin}
+
+[![](../../images/nipnTK.png){fig-align="center"}](https://nutriverse.io/nipnTK)
+
+:::
 
 We've just released a patched version of [`{nipnTK}`](https://nutriverse.io/nipnTK) (v0.2.2), our nutrition data quality toolkit R package, on [CRAN](https://cloud.r-project.org/web/packages/nipnTK/index.html). This was a general upkeep and maintenance update focused on tidying up documentation including the package [website](https://nutriverse.io/nipnTK) which now sports the new nutriverse colour and branding scheme. Existing users of the [`{nipnTK}`](https://nutriverse.io/nipnTK) package will be able to continue using the package as before after updating. If you work with nutrition data specifically anthropometric measurements data, consider looking into [`{nipnTK}`](https://nutriverse.io/nipnTK) and give it a try in your nutrition data processing workflows.
 
