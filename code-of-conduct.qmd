@@ -69,7 +69,8 @@ If someone engages in harassing conduct, the Committee will respond appropriatel
 This Code of Conduct applies to all people participating in the nutriverse community, including nutriverse core team and leadership. It applies to all modes of interaction online including GitHub project repositories, the nutriverse discussion forum, Zulip, Community Calls, and in person at nutriverse-hosted events or events officially endorsed by nutriverse, including social gatherings affiliated with the event.
 
 
-Reporting Guidelines
+## Reporting Guidelines
+
 The nutriverse Code of Conduct Committee includes [Professor Proochista Ariana](https://proochista.org) (independent community member) and [Abdoul-Aziz Goza](https://nutriverse.io/team/aziz-goza.html) (nutriverse Executive Director).
 
 If you experience or witness unacceptable behaviour, or have any other concerns, please submit a [report to the Committee as soon as possible using this form](https://forms.gle/nXJ3QUCHd9qA4kwV7). Alternatively, you may email [conduct@nutriverse.io](mailto:conduct@nutriverse.io), which will go to the Committee members. You may also make a report directly to one member of the Committee by contacting them directly. If any member of the Committee has a conflict of interest with a report, they will be recused and will not have access to the content or process of the report follow-up. At an in-person nutriverse event, please reach out to anyone named as a member of that event-specific Code of Conduct Committee, or to venue staff or security who will be present throughout the event.
