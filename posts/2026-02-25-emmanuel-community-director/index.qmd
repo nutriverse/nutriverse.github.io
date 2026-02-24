@@ -14,6 +14,12 @@ categories:
   - meet-the-team
 ---
 
+::: {.column-margin}
+
+[![](../../images/emmanuelmandalazi.jpeg){fig-align="center"}](../../team/emmanuel-mandalazi.qmd)
+
+:::
+
 We believe that lasting impact in nutrition starts with strong communities, evidence-based practice, and leaders who understand both. That’s why we’re excited to announce that **Emmanuel Mandalazi**, an experienced nutrition and public health specialist, is **stepping into the role of Director of Community** at nutriverse.
 
 With over 15 years of experience spanning emergency nutrition, public health, and research, Emmanuel brings a rare blend of technical depth and community-centred thinking to our growing community.
