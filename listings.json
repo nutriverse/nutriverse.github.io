@@ -1,35 +1,14 @@
 [
   {
-    "listing": "/packages/index.html",
+    "listing": "/blog.html",
     "items": [
-      "/packages/dietry.html",
-      "/packages/micronutr.html",
-      "/packages/nipnTK.html",
-      "/packages/riycf.html",
-      "/packages/sleacr.html",
-      "/packages/smartr.html",
-      "/packages/squeacr.html",
-      "/packages/zscorer.html"
-    ]
-  },
-  {
-    "listing": "/index.html",
-    "items": [
+      "/posts/2026-02-24-community-our-asset/index.html",
       "/posts/2026-02-21-aziz-executive-director/index.html",
       "/posts/2026-02-13-welcome-to-nutriverse/index.html",
       "/posts/2026-02-05-open-source-collective/index.html",
       "/posts/2026-02-03-sleacr-release/index.html",
       "/posts/2026-02-01-package-updates/index.html",
-      "/posts/2026-01-27-monthly-roundup/index.html",
-      "/packages/nipnTK.html",
-      "/packages/sleacr.html",
-      "/packages/zscorer.html"
-    ]
-  },
-  {
-    "listing": "/events/index.html",
-    "items": [
-      "/events/2026-02-27-nutriverse-launch.html"
+      "/posts/2026-01-27-monthly-roundup/index.html"
     ]
   },
   {
@@ -43,14 +22,37 @@
     ]
   },
   {
-    "listing": "/blog.html",
+    "listing": "/events/index.html",
     "items": [
+      "/events/2026-02-27-nutriverse-launch.html"
+    ]
+  },
+  {
+    "listing": "/index.html",
+    "items": [
+      "/posts/2026-02-24-community-our-asset/index.html",
       "/posts/2026-02-21-aziz-executive-director/index.html",
       "/posts/2026-02-13-welcome-to-nutriverse/index.html",
       "/posts/2026-02-05-open-source-collective/index.html",
       "/posts/2026-02-03-sleacr-release/index.html",
       "/posts/2026-02-01-package-updates/index.html",
-      "/posts/2026-01-27-monthly-roundup/index.html"
+      "/posts/2026-01-27-monthly-roundup/index.html",
+      "/packages/nipnTK.html",
+      "/packages/sleacr.html",
+      "/packages/zscorer.html"
+    ]
+  },
+  {
+    "listing": "/packages/index.html",
+    "items": [
+      "/packages/dietry.html",
+      "/packages/micronutr.html",
+      "/packages/nipnTK.html",
+      "/packages/riycf.html",
+      "/packages/sleacr.html",
+      "/packages/smartr.html",
+      "/packages/squeacr.html",
+      "/packages/zscorer.html"
     ]
   }
 ]

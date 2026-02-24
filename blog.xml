@@ -17,7 +17,96 @@
 <width>144</width>
 </image>
 <generator>quarto-1.8.27</generator>
-<lastBuildDate>Sat, 21 Feb 2026 00:00:00 GMT</lastBuildDate>
+<lastBuildDate>Tue, 24 Feb 2026 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>Our community is our greatest asset, diversity our greatest strength</title>
+  <dc:creator>Ernest Guevarra</dc:creator>
+  <link>https://nutriverse.io/posts/2026-02-24-community-our-asset/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<div class="community-banner">
+<div class="info-block">
+<!-- > I hear and I forget;     
+> I see and I remember;     
+> I do and I understand. -->
+<blockquote class="blockquote">
+<p>Go to the people. Live with them. Learn from them. Love them. Start with what they know. Build with what they have. But with the best leaders, when the work is done, the task accomplished, the people will say <strong>‘We have done it ourselves’</strong>.<br>
+- Lao Tzu</p>
+</blockquote>
+</div>
+</div>
+<p><br> <br></p>
+<p>The <a href="https://nutriverse.io">nutriverse</a> community of practice brings together nutrition data analysts, researchers, and practitioners who are committed to learning from one another and improving how nutrition data is analysed and applied. It provides a shared space to exchange methods, tools, and real-world experiences across research, policy, and practice.</p>
+<p>Through peer learning, collaborative problem-solving, and open discussion, the community supports rigorous, reproducible analytics while staying grounded in practical impact. The goal is to strengthen individual practice, build collective capacity, and advance better nutrition decisions through better use of data.</p>
+<p>We are committed to cultivating a welcoming, globally diverse community of software users and developers, data analysts, researchers, and practitioners. Whether you’re a long-time contributor or just getting started, we are dedicated to ensuring this is a safe and supportive space for you. We are committed to fostering a safe, inclusive, welcoming, and harassment-free experience for all.</p>
+<p>We strive to foster a community grounded in shared values, a community where people feel comfortable exploring ideas and asking questions. We encourage everyone to assume good intent and recognise the competence of those they engage with.</p>
+<p>To this end, we have a <a href="https://nutriverse.io/code-of-conduct/">Code of Conduct</a> by which we expect members of the community to abide by.</p>
+<section id="ready-to-contribute" class="level2">
+<h2 class="anchored" data-anchor-id="ready-to-contribute">Ready to contribute?</h2>
+<p>There are many ways that you can contribute to the nutriverse community. We can summarise these into five types.</p>
+<div class="grid">
+<div class="g-col-1">
+
+</div>
+<div class="g-col-2">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://nutriverse.io/images/explore.svg" height="100" class="figure-img"></p>
+<figcaption>Explore</figcaption>
+</figure>
+</div>
+</div>
+<div class="g-col-2">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://nutriverse.io/images/link.svg" height="100" class="figure-img"></p>
+<figcaption>Link</figcaption>
+</figure>
+</div>
+</div>
+<div class="g-col-2">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://nutriverse.io/images/learn.svg" height="100" class="figure-img"></p>
+<figcaption>Learn</figcaption>
+</figure>
+</div>
+</div>
+<div class="g-col-2">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://nutriverse.io/images/create.svg" height="100" class="figure-img"></p>
+<figcaption>Create</figcaption>
+</figure>
+</div>
+</div>
+<div class="g-col-2">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://nutriverse.io/images/support.svg" height="100" class="figure-img"></p>
+<figcaption>Support</figcaption>
+</figure>
+</div>
+</div>
+<div class="g-col-1">
+
+</div>
+</div>
+<p>Read more about how to contribute to nutriverse from our <a href="https://nutriverse.io/contributing/">contributing guide</a>.</p>
+
+
+</section>
+
+ ]]></description>
+  <category>community-notes</category>
+  <guid>https://nutriverse.io/posts/2026-02-24-community-our-asset/</guid>
+  <pubDate>Tue, 24 Feb 2026 00:00:00 GMT</pubDate>
+  <media:content url="https://nutriverse.io/images/community.png" medium="image" type="image/png" height="144" width="144"/>
+</item>
 <item>
   <title>Meet nutriverse’s Executive Director</title>
   <dc:creator>Ernest Guevarra</dc:creator>
@@ -770,10 +859,10 @@ font-style: italic;">## Get classification probabilities ----</span></span>
 background-color: null;
 font-style: inherit;">lqas_get_class_prob</span>(lqas_sim_pop)</span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>                    Low : 0.955
-               Moderate : 0.8312
-                   High : 0.8383
-                Overall : 0.9062
+<pre><code>                    Low : 0.9554
+               Moderate : 0.8292
+                   High : 0.8327
+                Overall : 0.9053
 Gross misclassification : 0</code></pre>
 </div>
 </div>
