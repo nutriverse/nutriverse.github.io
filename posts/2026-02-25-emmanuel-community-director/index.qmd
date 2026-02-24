@@ -1,0 +1,55 @@
+---
+title: "Meet nutriverse's Director of Community"
+subtitle: "Announcing Emmanuel Mandalazi as nutriverse Director of Community"
+description: |
+  We’re proud to announce that Emmanuel Mandalazi is now nutriverse's Director of Community. Part of nutriverse's original core team since it started, Emmanuel brings over 15 years of experience in emergency nutrition, public health, and research. Emmanuel has been working at the intersection of health and nutrition systems strengthening and community engagement across Sub-Saharan Africa and Asia.
+author: "Ernest Guevarra"
+date: "25 February 2026"
+date-modified: last-modified
+image: ../../images/emmanuelmandalazi.jpeg
+draft: false
+categories:
+  - news
+  - announcement
+  - meet-the-team
+---
+
+We believe that lasting impact in nutrition starts with strong communities, evidence-based practice, and leaders who understand both. That’s why we’re excited to announce that **Emmanuel Mandalazi**, an experienced nutrition and public health specialist, is **stepping into the role of Director of Community** at nutriverse.
+
+With over 15 years of experience spanning emergency nutrition, public health, and research, Emmanuel brings a rare blend of technical depth and community-centred thinking to our growing community.
+
+## A Career Rooted in Impact
+
+Emmanuel’s professional journey has taken him across Sub-Saharan Africa and Asia, working with United Nations agencies including UNICEF, UNHCR, and WFP, as well as international NGOs and Ministries of Health. His work has focused on one of the most urgent global health challenges: acute malnutrition in children less than 5 years old.
+
+He has extensive expertise in all aspects of Community-based Management of Acute Malnutrition (CMAM), from design and setup to training, implementation, mentoring, and evaluation. Whether in emergency settings or longer-term development contexts, Emmanuel has helped build and strengthen systems that identify and treat vulnerable children early, improving outcomes where it matters most.
+
+## Data-Driven, Community-Focused
+
+Emmanuel is not only a practitioner but also a researcher and joint author of several research papers. His work combines strong quantitative and qualitative approaches to ensure that programs are both evidence-based and context-sensitive.
+
+He has applied advanced CMAM coverage assessment methodologies such as SLEAC, SQUEAC, and S3M. Using these tools, he has assessed the coverage of critical interventions including: vitamin A supplementation, deworming, ron and folic acid supplementation, micronutrient powders, growth monitoring programmes, and vaccination coverage among under-five children.
+
+His field experience in countries such as Liberia and Ethiopia has strengthened national and subnational nutrition strategies and informed improvements in programme delivery.
+
+## Understanding the "why"
+
+Beyond surveys and coverage data, Emmanuel is deeply experienced in qualitative research approaches, including focused ethnographic studies. He understands that improving nutrition outcomes requires more than distributing supplements or therapeutic foods. It requires understanding communities.
+
+His work includes rapid socio-cultural context assessments; analysis of local socio-political structures; understanding health attitudes and health-seeking behaviors; and, identifying barriers to access.
+
+These insights have helped shape context-specific and culturally appropriate social and behaviour change communication strategies, ensuring that programs resonate with the communities they serve.
+
+## Leading Community at nutriverse
+
+As Director of Community, Emmanuel will help shape how nutriverse connects practitioners, researchers, policymakers, and innovators across the global nutrition landscape.
+
+His leadership will focus on building meaningful engagement within the nutriverse community of practice; strengthening collaboration between field practitioners and researchers; promoting evidence-based dialogue and shared learning; and, elevating community voices in global nutrition conversations.
+
+Emmanuel’s career has always centred on empowering communities. At nutriverse, that philosophy aligns perfectly with our mission to create a collaborative, accessible, and impact-driven community of practice on nutrition data.
+
+Join us in congratulating Emmanuel Mandalazi, Director of Community at nutriverse.
+
+## Related content for Emmanuel Mandalazi
+
+* Mandalazi E, Drake I, Wirfält E, Orho-Melander M, Sonestedt E. A High Diet Quality Based on Dietary Recommendations Is Not Associated with Lower Incidence of Type 2 Diabetes in the Malmö Diet and Cancer Cohort. Int J Mol Sci. 2016 Jun 8;17(6):901. [doi: 10.3390/ijms17060901](https://doi.org/10.3390/ijms17060901). PMID: 27338354; PMCID: PMC4926435.
