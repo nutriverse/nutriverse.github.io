@@ -52,7 +52,13 @@ The [nutriverse](https://nutriverse.io) community is a self-identifying network 
 
 Diversity is central to our values. We welcome anyone committed to making their approach to health and nutrition data more open and to supporting others in doing the same, regardless of technical background, career stage, or professional sector. We embrace people of all backgrounds, including but not limited to all sexual orientations, gender identities, and races. We are anti-racist and recognise that inclusion does not happen automatically, especially as communities grow, that it requires intention and care. Through various initiatives and localisation efforts, we strive to ensure that our research software serves and reflects the full breadth of our community. Our work is supported by [nutriverse](https://nutriverse.io)’s Community Director and guided by a [Code of Conduct](https://nutriverse.io/code-of-conduct/) with clear behavioural expectations and reporting processes, upheld by a committee that includes core team and independent community member/s.
 
-## Discover
+## Explore
+
+::: {.img-float}
+
+![](../images/explore.svg){style="float: right; margin: 10px; width: 250px"}
+
+:::
 
 Improving the discoverability of health and nutrition data, tools, and best practices is central to our aims. For many people, using our package/s is their first introduction to [nutriverse](https://nutriverse.io). It often serves as a starting point for deeper engagement whether by connecting with other users or sharing their own use cases.
 
@@ -60,7 +66,7 @@ Browse the *"I want to"* statements below to find opportunities that spark your 
 
 ### I want to ...
 
-#### Discover packages I can use to facilitate my research and access open health and nutrition data
+#### Explore and discover packages I can use to facilitate my research and access open health and nutrition data
 
 * [Browse nutriverse packages](https://nutriverse.io/packages)
 
@@ -72,7 +78,7 @@ Browse the *"I want to"* statements below to find opportunities that spark your 
 
 * Explore our [R-Universe](https://nutriverse.r-universe.dev){.external target="_blank"}
 
-#### Discover resources on best practices for software development
+#### Explore and discover resources on best practices for software development
 
 * Read or ask questions on our [Zulip chat forum](https://nutriverse.zulipchat.com){.external target="_blank"}
 
@@ -80,7 +86,13 @@ Browse the *"I want to"* statements below to find opportunities that spark your 
 
 * [Read blog posts or tech notes](https://nutriverse.io/blog.html#category=packages)
 
-## Connect
+## Link
+
+::: {.img-float}
+
+![](../images/link.svg){style="float: right; margin: 10px; width: 250px"}
+
+:::
 
 An important benefit of participating in [nutriverse](https://nutriverse.io) is the opportunity to build connections with scientists, [R](https://r-project.org) users, developers, and research software engineers who are committed to conducting health and nutrition analysis and research in an open and reproducible way. The [nutriverse](https://nutriverse.io) community offers a welcoming space to engage with like-minded individuals who share similar interests and values, and who are motivated to grow their skills, methods, and practices together.
 
@@ -115,6 +127,12 @@ Browse the *"I want to"* statements below to find opportunities that spark your 
 * Write a blog post or tech note to share your experiences
 
 ## Learn
+
+::: {.img-float}
+
+![](../images/learn.svg){style="float: right; margin: 10px; width: 250px"}
+
+:::
 
 nutriverse offers opportunities for both new and experienced [R](https://r-project.org){.external target="_blank"} users and developers to grow, whether by reading and listening, or by learning through hands-on experience. All of this takes place in a culture grounded in trust, generosity, proper attribution, and appreciation.
 
@@ -170,9 +188,15 @@ Follow discussions about open science, open source software, best practices, and
 
 * Ask or answer questions on our [Zulip chat forum](https://nutriverse.zulipchat.com){.external target="_blank"}
 
-## Build
+## Create
 
-People often think of contributing to [nutriverse](https://nutriverse.io) in terms of shaping and advancing the research software ecosystem for health and nutrition in R. This can include participating in package development and documentation, joining discussions around new initiatives such as helping promote more open and reproducible research practices within your department, institution, or broader field.
+::: {.img-float}
+
+![](../images/create.svg){style="float: right; margin: 10px; width: 250px"}
+
+:::
+
+People often think of contributing to [nutriverse](https://nutriverse.io) in terms of shaping and advancing the research software ecosystem for health and nutrition in [R](https://r-project.org){.external target="_blank"}. This can include participating in package development and documentation, joining discussions around new initiatives such as helping promote more open and reproducible research practices within your department, institution, or broader field.
 
 Browse the *"I want to"* statements below to find opportunities that spark your interest. Click on any action listed under a statement to learn more about the related [nutriverse](https://nutriverse.io) resource and how you can get involved.
 
@@ -216,7 +240,13 @@ Browse the *"I want to"* statements below to find opportunities that spark your 
 
 * Help organize a Community Call
 
-## Help
+## Support
+
+::: {.img-float}
+
+![](../images/support.svg){style="float: right; margin: 10px; width: 250px"}
+
+:::
 
 A key reason many people contribute to nutriverse is a desire to give back in gratitude for the high-quality software, strong infrastructure, and supportive community where appreciation is shared openly and often. There are countless ways to contribute. We encourage everyone to support others by sharing their knowledge and experiences. Even describing your first time trying something can be incredibly valuable; it can help others see that their own early experiences and contributions matter too.
 
