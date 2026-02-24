@@ -17,7 +17,60 @@
 <width>144</width>
 </image>
 <generator>quarto-1.8.27</generator>
-<lastBuildDate>Tue, 24 Feb 2026 00:00:00 GMT</lastBuildDate>
+<lastBuildDate>Wed, 25 Feb 2026 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>Meet nutriverse’s Director of Community</title>
+  <dc:creator>Ernest Guevarra</dc:creator>
+  <link>https://nutriverse.io/posts/2026-02-25-emmanuel-community-director/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<p>We believe that lasting impact in nutrition starts with strong communities, evidence-based practice, and leaders who understand both. That’s why we’re excited to announce that <strong>Emmanuel Mandalazi</strong>, an experienced nutrition and public health specialist, is <strong>stepping into the role of Director of Community</strong> at nutriverse.</p>
+<p>With over 15 years of experience spanning emergency nutrition, public health, and research, Emmanuel brings a rare blend of technical depth and community-centred thinking to our growing community.</p>
+<section id="a-career-rooted-in-impact" class="level2">
+<h2 class="anchored" data-anchor-id="a-career-rooted-in-impact">A Career Rooted in Impact</h2>
+<p>Emmanuel’s professional journey has taken him across Sub-Saharan Africa and Asia, working with United Nations agencies including UNICEF, UNHCR, and WFP, as well as international NGOs and Ministries of Health. His work has focused on one of the most urgent global health challenges: acute malnutrition in children less than 5 years old.</p>
+<p>He has extensive expertise in all aspects of Community-based Management of Acute Malnutrition (CMAM), from design and setup to training, implementation, mentoring, and evaluation. Whether in emergency settings or longer-term development contexts, Emmanuel has helped build and strengthen systems that identify and treat vulnerable children early, improving outcomes where it matters most.</p>
+</section>
+<section id="data-driven-community-focused" class="level2">
+<h2 class="anchored" data-anchor-id="data-driven-community-focused">Data-Driven, Community-Focused</h2>
+<p>Emmanuel is not only a practitioner but also a researcher and joint author of several research papers. His work combines strong quantitative and qualitative approaches to ensure that programs are both evidence-based and context-sensitive.</p>
+<p>He has applied advanced CMAM coverage assessment methodologies such as SLEAC, SQUEAC, and S3M. Using these tools, he has assessed the coverage of critical interventions including: vitamin A supplementation, deworming, ron and folic acid supplementation, micronutrient powders, growth monitoring programmes, and vaccination coverage among under-five children.</p>
+<p>His field experience in countries such as Liberia and Ethiopia has strengthened national and subnational nutrition strategies and informed improvements in programme delivery.</p>
+</section>
+<section id="understanding-the-why" class="level2">
+<h2 class="anchored" data-anchor-id="understanding-the-why">Understanding the “why”</h2>
+<p>Beyond surveys and coverage data, Emmanuel is deeply experienced in qualitative research approaches, including focused ethnographic studies. He understands that improving nutrition outcomes requires more than distributing supplements or therapeutic foods. It requires understanding communities.</p>
+<p>His work includes rapid socio-cultural context assessments; analysis of local socio-political structures; understanding health attitudes and health-seeking behaviors; and, identifying barriers to access.</p>
+<p>These insights have helped shape context-specific and culturally appropriate social and behaviour change communication strategies, ensuring that programs resonate with the communities they serve.</p>
+</section>
+<section id="leading-community-at-nutriverse" class="level2">
+<h2 class="anchored" data-anchor-id="leading-community-at-nutriverse">Leading Community at nutriverse</h2>
+<p>As Director of Community, Emmanuel will help shape how nutriverse connects practitioners, researchers, policymakers, and innovators across the global nutrition landscape.</p>
+<p>His leadership will focus on building meaningful engagement within the nutriverse community of practice; strengthening collaboration between field practitioners and researchers; promoting evidence-based dialogue and shared learning; and, elevating community voices in global nutrition conversations.</p>
+<p>Emmanuel’s career has always centred on empowering communities. At nutriverse, that philosophy aligns perfectly with our mission to create a collaborative, accessible, and impact-driven community of practice on nutrition data.</p>
+<p>Join us in congratulating Emmanuel Mandalazi, Director of Community at nutriverse.</p>
+</section>
+<section id="related-content-for-emmanuel-mandalazi" class="level2">
+<h2 class="anchored" data-anchor-id="related-content-for-emmanuel-mandalazi">Related content for Emmanuel Mandalazi</h2>
+<ul>
+<li>Mandalazi E, Drake I, Wirfält E, Orho-Melander M, Sonestedt E. A High Diet Quality Based on Dietary Recommendations Is Not Associated with Lower Incidence of Type 2 Diabetes in the Malmö Diet and Cancer Cohort. Int J Mol Sci. 2016 Jun 8;17(6):901. <a href="https://doi.org/10.3390/ijms17060901">doi: 10.3390/ijms17060901</a>. PMID: 27338354; PMCID: PMC4926435.</li>
+</ul>
+
+
+</section>
+
+ ]]></description>
+  <category>news</category>
+  <category>announcement</category>
+  <category>meet-the-team</category>
+  <guid>https://nutriverse.io/posts/2026-02-25-emmanuel-community-director/</guid>
+  <pubDate>Wed, 25 Feb 2026 00:00:00 GMT</pubDate>
+  <media:content url="https://nutriverse.io/images/emmanuelmandalazi.jpeg" medium="image" type="image/jpeg"/>
+</item>
 <item>
   <title>Our community is our greatest asset, diversity our greatest strength</title>
   <dc:creator>Ernest Guevarra</dc:creator>
@@ -859,10 +912,10 @@ font-style: italic;">## Get classification probabilities ----</span></span>
 background-color: null;
 font-style: inherit;">lqas_get_class_prob</span>(lqas_sim_pop)</span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>                    Low : 0.956
-               Moderate : 0.8378
-                   High : 0.8381
-                Overall : 0.9087
+<pre><code>                    Low : 0.9554
+               Moderate : 0.8317
+                   High : 0.8339
+                Overall : 0.9061
 Gross misclassification : 0</code></pre>
 </div>
 </div>
