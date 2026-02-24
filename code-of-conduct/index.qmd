@@ -31,7 +31,7 @@ image-placeholder: images/nutriverse.png
 <br/>
 <br/>
 
-Our community is our greatest asset, and we believe our diversity is our strength. We are committed to cultivating a welcoming, globally diverse community of software users and developers. Whether you’re a long-time contributor or just getting started, we are dedicated to ensuring this is a safe and supportive space for you. We are committed to fostering a safe, inclusive, welcoming, and harassment-free experience for all.
+Our community is our greatest asset, and we believe our diversity is our strength. We are committed to cultivating a welcoming, globally diverse community of software users and developers, data analysts, researchers, and practitioners. Whether you’re a long-time contributor or just getting started, we are dedicated to ensuring this is a safe and supportive space for you. We are committed to fostering a safe, inclusive, welcoming, and harassment-free experience for all.
 
 We strive to foster a community grounded in shared values, a community where people feel comfortable exploring ideas, asking questions, and saying things like *"I don’t understand"* or *"Why?"*. We encourage everyone to assume good intent and recognise the competence of those they engage with. There are no foolish questions here.
 

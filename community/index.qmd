@@ -23,21 +23,16 @@ search: false
 ---
 
 
-::: {.community-banner}
+<!-- ::: {.community-banner}
 
 ::: {.info-block}
-
-<!-- > I hear and I forget;     
-> I see and I remember;     
-> I do and I understand. -->
 
 > Go to the people. Live with them. Learn from them. Love them. Start with what they know. Build with what they have. But with the best leaders, when the work is done, the task accomplished, the people will say **‘We have done it ourselves’**.     
 > - Lao Tzu
 
-
 :::
 
-:::
+::: -->
 
 
 ::: {.info-block}
@@ -57,7 +52,7 @@ search: false
 
 # Community calls
 
-Our quarterly community call is when our community gets to come together and connect. We envision a forum by which the community is able to discuss on the various topics relevant and important to the community.
+Our quarterly community call is open to everyone and it is when our wider community gets to come together and connect. We envision a forum by which the community is able to discuss on the various topics relevant and important to the community. Each community call is a rich resource with a video recording and collaborative notes.
 
 Our first community call will be on 18th of March 2026.
 
@@ -110,4 +105,10 @@ The publicly-available forum can be viewed at [https://nutriverse.zulipchat.com]
 :::
 
 :::
+
+
+::: {.info-block}
+
+:::
+
 
