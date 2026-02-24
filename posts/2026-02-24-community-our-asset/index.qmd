@@ -6,7 +6,7 @@ description: |
 author: "Ernest Guevarra"
 date: "24 February 2026"
 date-modified: last-modified
-image: ../../images/community.png
+image: ../../images/contributing_banner.svg
 draft: false
 categories:
   - community-notes
