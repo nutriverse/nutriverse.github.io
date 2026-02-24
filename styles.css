@@ -427,6 +427,6 @@ blockquote:before {
 
 blockquote p {
   display: inline;
-  font-size: 2em;
+  font-size: 1.5em;
   color: #C20055;
 }
