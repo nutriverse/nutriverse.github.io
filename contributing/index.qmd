@@ -21,7 +21,7 @@ date-format: "DD MMMM YYYY"
 image-placeholder: images/nutriverse.png
 ---
 
-nutriverse develops open source technical tools and systems along with a community of practice infrastructure that actively participates in, leverages, and stewards the use of these tools and systems for the purpose of open and reproducible nutrition data analytics and research. Our core team and community cultivate an inclusive and welcoming space where people with diverse backgrounds and experience levels can learn, exchange ideas, and collaborate openly through shared norms and open-source software. All participation in nutriverse activities is guided by our [Code of Conduct](https://nutriverse.io/code-of-conduct.html).
+[nutriverse](https://nutriverse.io) develops open source technical tools and systems along with a community of practice infrastructure that actively participates in, leverages, and stewards the use of these tools and systems for the purpose of open and reproducible nutrition data analytics and research. Our core team and community cultivate an inclusive and welcoming space where people with diverse backgrounds and experience levels can learn, exchange ideas, and collaborate openly through shared norms and open-source software. All participation in nutriverse activities is guided by our [Code of Conduct](https://nutriverse.io/code-of-conduct.html).
 
 We encourage contributions from people of all backgrounds and skill levels, whether in coding, documentation, mentoring, localisation, or other forms of participation. Your perspective matters, whether you’re an experienced programmer or just getting started. You don’t have to identify as a developer to make a meaningful impact. You might **spend 30 minutes** sharing how you use a package in our [Zulip chat forum](https://nutriverse.zulipchat.com){.external target="_blank"} or reporting a bug, **an hour** attending a Community Call to learn something new, or **take on a longer-term role** helping to maintain a package.
 
@@ -134,7 +134,7 @@ Browse the *"I want to"* statements below to find opportunities that spark your 
 
 :::
 
-nutriverse offers opportunities for both new and experienced [R](https://r-project.org){.external target="_blank"} users and developers to grow, whether by reading and listening, or by learning through hands-on experience. All of this takes place in a culture grounded in trust, generosity, proper attribution, and appreciation.
+[nutriverse](https://nutriverse.io) offers opportunities for both new and experienced [R](https://r-project.org){.external target="_blank"} users and developers to grow, whether by reading and listening, or by learning through hands-on experience. All of this takes place in a culture grounded in trust, generosity, proper attribution, and appreciation.
 
 Our focus is on using, developing, and documenting code, as well as strengthening the community as these are areas that directly support our aims. Those seeking more general [R](https://r-project.org){.external target="_blank"} training may wish to explore resources such as [RStudio Education](https://education.rstudio.com/){.external target="_blank"} and [The Carpentries](https://carpentries.org/){.external target="_blank"}.
 

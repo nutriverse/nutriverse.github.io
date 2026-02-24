@@ -27,13 +27,13 @@ search: false
 
 ::: {.info-block}
 
-<!-- > Tell me and I’ll forget.     
-> Show me, and I may not remember.     
-> Involve me, and I’ll understand.     -->
-
-> I hear and I forget;     
+<!-- > I hear and I forget;     
 > I see and I remember;     
-> I do and I understand.
+> I do and I understand. -->
+
+> Go to the people. Live with them. Learn from them. Love them. Start with what they know. Build with what they have. But with the best leaders, when the work is done, the task accomplished, the people will say **‘We have done it ourselves’**.     
+> - Lao Tzu
+
 
 :::
 
@@ -57,9 +57,9 @@ search: false
 
 # Community calls
 
-Our quarterly community call is when our community gets to come together and connect. We envision a forum by which the community is able to discuss on the relevant topics of the time.
+Our quarterly community call is when our community gets to come together and connect. We envision a forum by which the community is able to discuss on the various topics relevant and important to the community.
 
-We plan to hold our first community call sometime in March 2026.
+Our first community call will be on 18th of March 2026.
 
 :::
 
@@ -103,8 +103,11 @@ See a full listing and calendar of upcoming events [here](https://oxford-ihtm.io
 
 # Community chat and forum
 
-We offer our community a forum for discussing, connecting, and collaborating. We are fortunate to have been gifted with sponsored hosting by [Zulip](https://zulip.com){.external target="_blank"}, an organised team chat app designed for efficient communication. Invitations to join the community chat group on Zulip are usually handed out during or after a nutriverse-led event. If you would like to join the nutriverse community chat group on Zulip but have not had the chance to be invited, please send us a message via our [contacts page](../about/contact.qmd) requesting an invite.
+We offer our community a forum for discussing, connecting, and collaborating. We are fortunate to have been gifted with sponsored hosting by [Zulip](https://zulip.com){.external target="_blank"}, an organised team chat app designed for efficient communication. 
+
+The publicly-available forum can be viewed at [https://nutriverse.zulipchat.com](https://nutriverse.zulipchat.com) where you can see topics that the community talks about and the progress and updates on the projects that we are working on. To join the discussion, you will need to be invited to join the community chat group on Zulip which are usually handed out during or after a nutriverse-led event. If you would like to join the nutriverse community chat group on Zulip but have not had the chance to be invited, please send us a message via our [contacts page](../about/contact.qmd) requesting an invite.
 
 :::
 
 :::
+
