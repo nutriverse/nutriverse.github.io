@@ -3,7 +3,7 @@ title: "nutriverse is now fiscally-hosted by the Open Source Collective"
 subtitle: "nutriverse joins nearly 3000 other open source projects ranging from massive pillars of the internet to niche community tools"
 description: |
   The Open Source Collective is a non-profit fiscal host that provides essential financial and legal infrastructure for thousands of open source projects. Functioning as an interface between coding communities and the business world, it handles complex accounting and administrative tasks so that creators can focus on their software.
-author: "Ernest Guevarra"
+author: "nutriverse Core Team"
 date: "5 February 2026"
 date-modified: last-modified
 image: ../../images/osc_logo_square.png

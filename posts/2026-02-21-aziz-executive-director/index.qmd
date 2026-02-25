@@ -3,7 +3,7 @@ title: "Meet nutriverse's Executive Director"
 subtitle: "Announcing Abdoul-Aziz Goza as first nutriverse Executive Director"
 description: |
   We’re excited to announce that Abdoul-Aziz Goza is now nutriverse's Executive Director. One of the three original stalwarts of nutriverse when it started in 2018, Aziz is a nutrition and statistics specialist with over 15 years of experience supporting large-scale child nutrition data systems across Africa and Asia. A former UNICEF Emergency Health and Nutrition Specialist in Niger, he brings deep expertise in various nutrition surveys including SMART and SQUEAC/SLEAC surveys, and advanced statistical analysis.
-author: "Ernest Guevarra"
+author: "nutriverse Core Team"
 date: "21 February 2026"
 date-modified: last-modified
 image: ../../images/azizgoza.jpeg

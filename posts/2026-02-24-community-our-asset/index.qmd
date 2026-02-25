@@ -3,7 +3,7 @@ title: "Our community is our greatest asset, diversity our greatest strength"
 subtitle: "The nutriverse community of practice"
 description: |
   A community of practice connecting nutrition data analysts, researchers, and practitioners to learn together and strengthen the real-world impact of nutrition data.
-author: "Ernest Guevarra"
+author: "nutriverse Core Team"
 date: "24 February 2026"
 date-modified: last-modified
 image: ../../images/contributing_banner.svg
