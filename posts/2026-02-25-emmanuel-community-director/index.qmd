@@ -12,6 +12,7 @@ categories:
   - news
   - announcement
   - meet-the-team
+  - community-notes
 ---
 
 ::: {.column-margin}
