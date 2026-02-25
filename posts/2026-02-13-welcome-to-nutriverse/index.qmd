@@ -3,7 +3,7 @@ title: "Welcome to nutriverse"
 subtitle: "nutriverse is an open source project, a collective, and a community of practice"
 description: |
   We are a community of data analysts, researchers, and practitioners engaged in various nutrition topics and issues. Members of the community support each other through the development of robust and performant R packages as tools for their various tasks, open and accessible technical guidance, and impactful peer-to-peer learning.
-author: "Ernest Guevarra"
+author: "nutriverse Core Team"
 date: "13 February 2026"
 date-modified: last-modified
 image: ../../images/nutriverse_banner.png

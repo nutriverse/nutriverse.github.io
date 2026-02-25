@@ -3,7 +3,7 @@ title: "Meet nutriverse's Director of Community"
 subtitle: "Announcing Emmanuel Mandalazi as nutriverse Director of Community"
 description: |
   We’re proud to announce that Emmanuel Mandalazi is now nutriverse's Director of Community. Part of nutriverse's original core team since it started, Emmanuel brings over 15 years of experience in emergency nutrition, public health, and research. Emmanuel has been working at the intersection of health and nutrition systems strengthening and community engagement across Sub-Saharan Africa and Asia.
-author: "Ernest Guevarra"
+author: "nutriverse Core Team"
 date: "25 February 2026"
 date-modified: last-modified
 image: ../../images/emmanuelmandalazi.jpeg
