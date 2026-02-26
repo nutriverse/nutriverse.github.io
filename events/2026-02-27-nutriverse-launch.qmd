@@ -2,7 +2,7 @@
 title: nutriverse Project Launch
 subtitle: Online launch of the nutriverse project
 description: |
-  Join us online for the nutriverse project launch on Friday, 27 February 2026 to know more about the nutriverse, meet its core team members, get introduced to its community of practice, and learn how you can contribute
+  Join us online for the nutriverse project launch on **Friday, 27 February 2026** to know more about the nutriverse, meet its core team members, get introduced to its community of practice, and learn how you can contribute
 author: Ernest Guevarra
 date: last-modified
 image: ../images/nutriverse_banner.png
