@@ -6,8 +6,10 @@ description: |
 author: "Ernest Guevarra"
 date: "18 February 2026"
 date-modified: last-modified
-image: ../../images/ropensci-logo-300.png
+image: ../../images/patadyong.jpg
 ---
+
+![](../images/katilingban_banner.png){fig-align="center"}
 
 ::: {.callout-note collapse="true"}
 
