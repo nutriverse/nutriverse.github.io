@@ -31,23 +31,8 @@
   {
     "listing": "/events/index.html",
     "items": [
+      "/events/2026-03-18-community-call.html",
       "/events/2026-02-27-nutriverse-launch.html"
-    ]
-  },
-  {
-    "listing": "/community-calls/index.html",
-    "items": [
-      "/community-calls/2026-03-18-community-call.html"
-    ]
-  },
-  {
-    "listing": "/about/team.html",
-    "items": [
-      "/team/aziz-goza.html",
-      "/team/emmanuel-mandalazi.html",
-      "/team/ernest-guevarra.html",
-      "/team/nicholus-tint-zaw.html",
-      "/team/tomas-zaba.html"
     ]
   },
   {
@@ -61,6 +46,22 @@
       "/posts/2026-02-03-sleacr-release/index.html",
       "/posts/2026-02-01-package-updates/index.html",
       "/posts/2026-01-27-monthly-roundup/index.html"
+    ]
+  },
+  {
+    "listing": "/about/team.html",
+    "items": [
+      "/team/aziz-goza.html",
+      "/team/emmanuel-mandalazi.html",
+      "/team/ernest-guevarra.html",
+      "/team/nicholus-tint-zaw.html",
+      "/team/tomas-zaba.html"
+    ]
+  },
+  {
+    "listing": "/community-calls/index.html",
+    "items": [
+      "/community-calls/2026-03-18-community-call.html"
     ]
   }
 ]
