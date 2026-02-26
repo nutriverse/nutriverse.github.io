@@ -1,0 +1,44 @@
+---
+title: Community Calls
+subtitle: Join us in our quarterly Community Calls
+description: |
+  Our Community Calls are free and open sessions for everyone and offer a great opportunity to connect with nutriverse community members from around the world.
+listing:
+  - id: current-community-call
+    contents:
+      - +([[:digit:]]){\-}+([[:digit:]]){\-}+([[:digit:]])*{\.qmd}
+    type: default
+    image-height: 200px
+    image-align: left
+    image-placeholder: ../images/nutriverse.png
+    grid-item-border: false
+    fields: [image, title, subtitle]
+    #max-description-length: 350
+---
+
+::: {.column-margin}
+
+![](../images/community.png){fig-align="center"}
+
+:::
+
+Join us in our quarterly Community Calls to hear about the latest nutriverse developments, talk about current and new projects by nutriverse or by our community members, discuss best practices, and listen to Q&As with our nutriverse developers or well-known developers of packages and tools that our community members love to use. Each community call is a rich resource with a video recording and collaborative notes.
+
+We aim to make our Community Calls truly representative of the diversity that exists in the nutriverse community. We name each call with a term or phrase for *"community"* used in the different countries represented in nutriverse and we theme the programme based on the concept that this term represents.
+
+## Upcoming call
+
+::: {#current-community-call}
+
+:::
+
+<!-- 
+Our first community call will be on **18th of March 2026** and we have themed this call around ***katilingban*** (*[ka-ti-ling-ban]*), a word for *community*, *society*, or *group* from the Cebuano or Bisaya language spoken in parts of the Visayas and Mindanao regions of the Philippines.
+
+[Read more here](../community-calls/2026-03-18-community-call.qmd) about our first community call.
+
+## Our next session
+
+Title: Open Science and Reproducible Research: The rOpenSci Experience and Perspective    
+Guest: Noam Ross, Executive Director, [rOpenSci](https://ropensci.org/) -->
+
