@@ -17,7 +17,7 @@ It's that time of the month again for a round-up of everything nutriverse in Feb
 
 ## nutriverse Launch event
 
-We had a great launch event on 27th of February 2026. Thank you to all of you who have come to listen to what nutriverse is all about. We have made the the [slide deck to the presentation made during the launch](https://nutriverse.io/nutriverse-launch) available to everyone including those that missed the event. The link to the recording of the event has been sent by email to those who have registered and have signified that they would like to have access to the recording of the event afterwards.
+We had a great launch event on 27th of February 2026. Thank you to all of you who have come to listen to what nutriverse is all about. We have made the [slide deck to the launch presentation](https://nutriverse.io/nutriverse-launch) available to everyone. The link to the recording of the event has been sent by email to those who have registered and have signified that they would like to have access to the recording of the event afterwards.
 
 ## Executive Director and Director of Community announced
 
@@ -35,7 +35,7 @@ We are having our [first Community Call](https://nutriverse.io/community-calls/2
 
 Thanks for taking the time to read our updates for February 2026. 
 
-If you want to get involved with [nutriverse](https://nutriverse.io), check out our [Contributing Guide](https://nutriverse.io/contributing/) that can help guide you on how to participate and contribute either through code contributions, non-code contributions, or contribute in other ways including sharing your experience in using our packages. You can also support our work through [donations](https://opencollective.com/nutriverse).
+If you want to get involved with [nutriverse](https://nutriverse.io), check out our [Contributing Guide](https://nutriverse.io/contributing/) to help navigate how to participate and contribute to nutriverse either through code contributions, non-code contributions, or contribute in other ways including sharing your experience in using our packages. You can also support our work through [donations](https://opencollective.com/nutriverse).
 
 Until the next newsletter, you can keep in touch with us via our [website](https://nutriverse.io), our [Zulip chat forum](https://nutriverse.zulipchat.com), and our [Mastodon](https://mastodon.social/@nutriverse) or [Bluesky](https://bsky.app/profile/nutriverse.io) account.
 
