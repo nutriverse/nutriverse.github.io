@@ -6,7 +6,7 @@ description: |
 author: "nutriverse Core Team"
 date: "28 February 2026"
 date-modified: last-modified
-image: ../../images/nutriverse_banner.png
+image: ../../images/nutriverse_banner_medium.png
 draft: false
 categories:
   - news
