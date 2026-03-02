@@ -50,7 +50,7 @@ library(quarto)
 ::: {.hero-image-right}
 
 <!-- ![](images/nutriverse.png){fig-align="right" height="400px"} -->
-![](images/nutriverse.png){fig-align="right"}
+![](images/nutriverse.png){fig-align="right" height="300px"}
 
 :::
 
@@ -188,8 +188,11 @@ If you would like to contribute to supporting the goals of the nutriverse projec
 
 :::{.info-block-alt}
 
-<script async data-uid="2b90c581d1" src="https://nutriverse.kit.com/2b90c581d1/index.js"></script>
+<!-- <script async data-uid="2b90c581d1" src="https://nutriverse.kit.com/2b90c581d1/index.js"></script> -->
 
+```{=html}
+<iframe src="https://cdn.forms-content-1.sg-form.com/1196c8bf-1559-11f1-a32a-8e56155f6258" width="550px" height="450px" /></iframe>
+```
 :::
 
 :::
