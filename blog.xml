@@ -43,7 +43,8 @@
 </section>
 <section id="first-community-call" class="level2">
 <h2 class="anchored" data-anchor-id="first-community-call">First Community Call</h2>
-<p>We are having our <a href="https://nutriverse.io/community-calls/2026-03-18-community-call.html">first Community Call</a> on the <strong>18th of March 2026</strong>! We are theming each of the quarterly calls based on a term and concept used for <em>“community”</em> in the various countries represented in the nutriverse community. Our first Community Call, entitled <strong><em>“Tawag sa Katilingban/A Call to Community”</em></strong> builds on the concept of <strong><em>katilingban</em></strong>, a term for community from the Bisaya or Cebuano language spoken in many areas in the Visayas and Mindanao regions of the Philippines.</p>
+<p>We are having our <a href="https://nutriverse.io/community-calls/2026-03-18-community-call.html">first Community Call</a> on the <strong>18th of March 2026</strong>! We are theming each of the quarterly calls based on a term and concept used for <em>“community”</em> in the various countries represented in the nutriverse community. Our first Community Call, entitled <strong><em>“Tawag sa Katilingban/A Call to Community”</em></strong>, builds on the concept of <strong><em>katilingban</em></strong> which is a term for <strong><em>community</em></strong> from the Bisaya or Cebuano language spoken in many areas in the Visayas and Mindanao regions of the Philippines.</p>
+<p>We will be joined by <a href="https://www.noamross.net/">Dr Noam Ross</a>, Executive Director of <a href="https://ropensci.org/">rOpenSci</a>, who will be chatting to us about all things open science and reproducible research based on his many years of experience as a community member and now a community leader not just of rOpenSci but of the wider open science movement.</p>
 </section>
 <section id="final-words" class="level2">
 <h2 class="anchored" data-anchor-id="final-words">Final words</h2>
@@ -964,10 +965,10 @@ font-style: italic;">## Get classification probabilities ----</span></span>
 background-color: null;
 font-style: inherit;">lqas_get_class_prob</span>(lqas_sim_pop)</span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>                    Low : 0.9565
-               Moderate : 0.8296
-                   High : 0.8296
-                Overall : 0.9057
+<pre><code>                    Low : 0.9546
+               Moderate : 0.8323
+                   High : 0.8309
+                Overall : 0.9056
 Gross misclassification : 0</code></pre>
 </div>
 </div>
