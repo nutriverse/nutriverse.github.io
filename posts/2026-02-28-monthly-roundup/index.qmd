@@ -29,7 +29,9 @@ Our [{sleacr} package is now out on CRAN](https://nutriverse.io/posts/2026-02-03
 
 ## First Community Call
 
-We are having our [first Community Call](https://nutriverse.io/community-calls/2026-03-18-community-call.html) on the **18th of March 2026**! We are theming each of the quarterly calls based on a term and concept used for *"community"* in the various countries represented in the nutriverse community. Our first Community Call, entitled ***"Tawag sa Katilingban/A Call to Community"*** builds on the concept of ***katilingban***, a term for community from the Bisaya or Cebuano language spoken in many areas in the Visayas and Mindanao regions of the Philippines.
+We are having our [first Community Call](https://nutriverse.io/community-calls/2026-03-18-community-call.html) on the **18th of March 2026**! We are theming each of the quarterly calls based on a term and concept used for *"community"* in the various countries represented in the nutriverse community. Our first Community Call, entitled ***"Tawag sa Katilingban/A Call to Community"***, builds on the concept of ***katilingban*** which is a term for ***community*** from the Bisaya or Cebuano language spoken in many areas in the Visayas and Mindanao regions of the Philippines.
+
+We will be joined by [Dr Noam Ross](https://www.noamross.net/), Executive Director of [rOpenSci](https://ropensci.org/), who will be chatting to us about all things open science and reproducible research based on his many years of experience as a community member and now a community leader not just of rOpenSci but of the wider open science movement.
 
 ## Final words
 
