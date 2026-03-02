@@ -64,7 +64,9 @@ Improving the discoverability of health and nutrition data, tools, and best prac
 
 Browse the *"I want to"* statements below to find opportunities that spark your interest. Click on any action listed under a statement to learn more about the related [nutriverse](https://nutriverse.io) resource and how you can get involved.
 
-### I want to ...
+::: {.callout-tip }
+
+## I want to ...
 
 #### Explore and discover packages I can use to facilitate my research and access open health and nutrition data
 
@@ -86,6 +88,8 @@ Browse the *"I want to"* statements below to find opportunities that spark your 
 
 * [Read blog posts or tech notes](https://nutriverse.io/blog.html#category=packages)
 
+:::
+
 ## Link
 
 ::: {.img-float}
@@ -98,7 +102,9 @@ An important benefit of participating in [nutriverse](https://nutriverse.io) is 
 
 Browse the *"I want to"* statements below to find opportunities that spark your interest. Click on any action listed under a statement to learn more about the related [nutriverse](https://nutriverse.io) resource and how you can get involved.
 
-### I want to ...
+::: {.callout-tip}
+
+## I want to ...
 
 #### Belong to a supportive community
 
@@ -126,6 +132,8 @@ Browse the *"I want to"* statements below to find opportunities that spark your 
 
 * Write a blog post or tech note to share your experiences
 
+:::
+
 ## Learn
 
 ::: {.img-float}
@@ -142,7 +150,9 @@ We will be offering fee-based training services for use of [R](https://r-project
 
 Browse the *"I want to"* statements below to find opportunities that spark your interest. Click on any action listed under a statement to learn more about the related [nutriverse](https://nutriverse.io) resource and how you can get involved.
 
-### I want to ...
+::: {.callout-tip}
+
+## I want to ...
 
 #### Be informed by reading and listening
 
@@ -188,6 +198,8 @@ Follow discussions about open science, open source software, best practices, and
 
 * Ask or answer questions on our [Zulip chat forum](https://nutriverse.zulipchat.com){.external target="_blank"}
 
+:::
+
 ## Create
 
 ::: {.img-float}
@@ -200,7 +212,9 @@ People often think of contributing to [nutriverse](https://nutriverse.io) in ter
 
 Browse the *"I want to"* statements below to find opportunities that spark your interest. Click on any action listed under a statement to learn more about the related [nutriverse](https://nutriverse.io) resource and how you can get involved.
 
-### I want to ...
+::: {.callout-tip}
+
+## I want to ...
 
 #### Improve and promote open science in my field
 
@@ -240,6 +254,8 @@ Browse the *"I want to"* statements below to find opportunities that spark your 
 
 * Help organize a Community Call
 
+:::
+
 ## Support
 
 ::: {.img-float}
@@ -252,7 +268,9 @@ A key reason many people contribute to nutriverse is a desire to give back in gr
 
 Browse the *"I want to"* statements below to find opportunities that spark your interest. Click on any action listed under a statement to learn more about the related [nutriverse](https://nutriverse.io) resource and how you can get involved.
 
-### I want to ...
+::: {.callout-tip}
+
+## I want to ...
 
 #### Support nutriverse or give back to open source
 
@@ -276,4 +294,4 @@ Browse the *"I want to"* statements below to find opportunities that spark your 
 
 * Support fellow community members (e.g., by welcoming newcomers, giving credit, connecting members with people or resources)
 
-
+:::
