@@ -36,9 +36,11 @@ library(quarto)
 
 ::: {.hero-text}
 
-# Developing an integrated collection of R packages designed to support and facilitate various nutrition data analytics.
+<!-- # Developing an integrated collection of R packages designed to support and facilitate various nutrition data analytics. -->
 
-We are a community of data analysts, researchers, and practitioners engaged in various nutrition topics and issues. Members of the community support each other through the development of robust and performant R packages as tools for their various tasks, open and accessible technical guidance, and impactful peer-to-peer learning. 
+# Promoting open and reproducible science in nutrition research and programming
+
+nutriverse is a community of data analysts, researchers, and practitioners engaged in various nutrition topics and issues. We support each other through the development of robust and performant R packages, open and accessible technical guidance, and impactful peer-to-peer learning.
 
 ::: {.hero-buttons}
 [Our packages](/packages/){#btn-guide .btn-action .btn .btn-info .btn-lg role="button"} 
