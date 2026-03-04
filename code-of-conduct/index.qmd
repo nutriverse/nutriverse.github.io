@@ -1,5 +1,6 @@
 ---
 title: Code of Conduct
+subtitle: version 0.1.1
 page-layout: article
 format:
   html:
@@ -13,6 +14,7 @@ title-block-banner-color: "#C20055"
 search: false
 toc: false
 date: 22 February 2026
+date-modified: last-modified
 date-format: "DD MMMM YYYY"
 image-placeholder: images/nutriverse.png
 ---
@@ -73,7 +75,7 @@ This Code of Conduct applies to all people participating in the nutriverse commu
 
 The nutriverse Code of Conduct Committee includes [Professor Proochista Ariana](https://proochista.org){.external target="_blank"} (independent community member) and [Abdoul-Aziz Goza](https://nutriverse.io/team/aziz-goza.html) (nutriverse Executive Director).
 
-If you experience or witness unacceptable behaviour, or have any other concerns, please submit a [report to the Committee as soon as possible using this form](https://forms.gle/nXJ3QUCHd9qA4kwV7). Alternatively, you may email [conduct@nutriverse.io](mailto:conduct@nutriverse.io), which will go to the Committee members. You may also make a report directly to one member of the Committee by contacting them directly. If any member of the Committee has a conflict of interest with a report, they will be recused and will not have access to the content or process of the report follow-up. At an in-person nutriverse event, please reach out to anyone named as a member of that event-specific Code of Conduct Committee, or to venue staff or security who will be present throughout the event.
+If you experience or witness unacceptable behaviour, or have any other concerns, please submit a [report to the Committee as soon as possible using this form](https://forms.gle/nXJ3QUCHd9qA4kwV7){.external target="_blank"}. Alternatively, you may email [conduct@nutriverse.io](mailto:conduct@nutriverse.io), which will go to the Committee members. You may also make a report directly to one member of the Committee by contacting them directly. If any member of the Committee has a conflict of interest with a report, they will be recused and will not have access to the content or process of the report follow-up. At an in-person nutriverse event, please reach out to anyone named as a member of that event-specific Code of Conduct Committee, or to venue staff or security who will be present throughout the event.
 
 If you are planning to attend an upcoming event or join an online channel, and have concerns regarding another individual who may be present, please submit a report as described above. We will work with you to take precautions to ensure your comfort and safety. These precautions may include: providing an escort, preparing on-site event staff, and/or providing on-site contact cell phone numbers for immediate contact. In some cases, we may take action to prevent a harasser from attending the conference.
 
@@ -82,4 +84,8 @@ The Code of Conduct Committee will investigate and decide responses to reports w
 We welcome your feedback by email to [conduct@nutriverse.io](mailto:conduct@nutriverse.io), and we thank you for working with us to make nutriverse a safe, enjoyable, friendly and enriching experience for everyone who participates.
 
 
+## License and Credits
+The nutriverse Code of Conduct has been heavily influenced by and adapted from the [rOpenSci Code of Conduct](https://ropensci.org/code-of-conduct/) which in turn was influenced by many sources including the [Open Source and Feelings talk](https://youtu.be/nizfHxg8y3o?si=aSgTAc9orMgARSMy) by [Audrey Eschright](https://lifeofaudrey.com/), the R Consortium R Community Diversity and Inclusion Working Group’s template [Code of Conduct](https://github.com/RConsortium/IDEA-WG/blob/0ca0a91dccc9296ff53a5806f52a2a49dbb8850d/conduct/code-of-conduct.md), the [Geek Feminism anti-harassment policy]d(https://geekfeminism.fandom.com/wiki/Community_anti-harassment/Policy), the [useR! 2021 Code of Conduct](https://user2021.r-project.org/participation/coc/), and our [rOpenSci's Community Call: How do I create a Code of Conduct for my event/lab/codebase](https://ropensci.org/commcalls/2016-12-15/)?
+
+To the extent possible under law, nutriverse has waived all copyright and related or neighbouring rights to the nutriverse Code of Conduct.
 
