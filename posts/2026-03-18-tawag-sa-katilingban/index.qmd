@@ -1,0 +1,35 @@
+---
+title: "Tawag sa Katilingban / A Call to Community"
+subtitle: "Reflection on concepts and notions of katilingban/community from a Filipino context"
+description: |
+  **Ernest Guevarra**, a member of our software development team, reflects on his lived experience growing up in the Philippines that has shaped his notions of what a community is and what it means to belong to one. Ernest shared his reflections during nutriverse's first Community Call on the 18th of March 2026 as a way of introducing our guest Dr Noam Ross, Executive Director of rOpenSci.
+author: "Ernest Guevarra"
+date: "18 March 2026"
+date-modified: last-modified
+image: ../../images/katilingban_community_call_banner.png
+draft: false
+categories:
+  - community-call
+  - community-notes
+---
+
+My notions and concepts of community stem from my growing up years in the Philippines. Coming from a relatively large extended family - 9 uncles and aunts on my mother's side and 6 from my father's side - I grew up nurtured by my immediate family but at the same time supported by a strong network of extended family. And whenever we went to my father's or mother's hometowns where everyone knew everyone and everyone was ready to help anyone, that sense of home and community identity grew.
+
+Entering into medical school at 16 years old is the beginning for me of finding my "own tribe", of where I belong in the context of what I wanted to become in the future. I became active in the student movement starting in those early years and joined a progressive health organisation that aligned itself with the organised groups of the working class - collective of farmers in the rural areas, unions of factory workers in the cities, associations of nurses and allied medical professionals in the hospital I trained in. With the internet still relatively new at that time and mobile phones still uncommon, we communicated mainly through notes and passing on of messages through our networks of comrades. Within our own student organisation, we would use a logbook stationed in a location that was allocated to us by the university as our "tambayan" or hangout. This was our social media during those times. When passing through our hangout after a 24-hour duty at the hospital, we would check the pages of the logbook to appraise ourselves of what went on with our friends and colleagues since we last visited. We would post ideas, jokes, poems, etc. This was also our means to announce a meeting, a celebration, or an educational discussion. These events were usually always not just us students but with invited guests from our allies. Representatives from the collective of farmers would speak to us about what was going in terms of issues of land grabbing by wealthy families, or the challenges poised by new governments policies on produce and livestock. Members of the factory workers union would share with us union-busting strategies implored by companies to stymie their efforts and campaigns for fairer minimum wages and more human working conditions. Our nurse and allied medical professional colleagues would speak to us about challenges in the hospital that we don't see as students - policies that impact nursing staff and as such threaten patient safety and welfare.
+
+These logbooks were also our means to receive and send out calls for help and support. I remember a call for help from our union allies after most of those in their union were summarily dismissed without cause by the factory they worked for. To them, this was clearly a way to bust their union but outwardly this was reported as them being unprofessional, always late for work, and cause a lot of problems that affect the productivity of the factory. Through the help of allied lawyers, the union filed a lawsuit against the factory and won their case in the lower courts. The factory brought the case to the court of appeals which sided with the factory owners immediately triggering a review of the case by the Supreme Court. In fear that the money and power that the factory owners have and seeming influence they had on the higher courts, our union colleagues went on hunger strike over the 3 month period that the Supreme Court was hearing this case. The calls of help we received via those logbooks was to monitor the health of our colleagues who were on hunger strike as a form of solidarity. Over a three month period, we organised ourselves to make sure that at least one of us was with them at their picket lines to check in on them and see that they were OK. The Supreme Court sided with our colleagues and the factory owners were ordered by court to give them back pay plus damages as a result of their summary dismissal without cause.
+
+These events shaped me and my consciousness and will direct me to doing more community health and public health work, working alongside communities, supporting their causes whilst they supported ours. Such work is not always safe. Those with power fear such community organisation and those involved get identified and threatened. In my last role back home in the Philippines as a community organiser and community doctor in a war-torn municipality in the southern Philippines, I faced such threats that eventually forced me to leave the country. Since then, I've never felt the same sense of community as I have. Not until I met and got to work with, and be involved in the work that our invited guest today does.
+
+To say that it is an honour to be able to introduce to you Dr Noam Ross is an understatement.
+
+Noam Ross is Executive Director of rOpenSci, a non-profit organization that helps researchers develop and use R packages to better produce and share scientific data, methods, and results. Noam was a founding member of the organization's software peer-review program, and also oversees rOpenSci's work in training, mentorship, scientific infrastructure and multilingualism. Noam is a scientist whose work focuses on studying and forecasting the circulation of infectious diseases and their emergence in wildlife populations. He is also a co-founder of Grant Witness, an organization that tracks changes in federal science funding policy to inform journalism, litigation, and activism. He holds a Ph.D. in Ecology from UC Davis.
+
+They say not to meet your heroes. I say they haven't met a person like Noam.
+
+Ladies and Gentlemen, Dr Noam Ross.
+
+
+{{< video https://vimeo.com/1175084135 >}}
+
+

@@ -1,6 +1,6 @@
 ---
 title: Tomás Zaba
-image: ../../images/tomaszaba.jpeg
+image: ../../images/tomaszaba.jpg
 about:
   template: solana
   links:
