@@ -26,19 +26,9 @@ Join us in our quarterly Community Calls to hear about the latest nutriverse dev
 
 We aim to make our Community Calls truly representative of the diversity that exists in the nutriverse community. We name each call with a term or phrase for *"community"* used in the different countries represented in nutriverse and we theme the programme based on the concept that this term represents.
 
-## Upcoming call
+## Upcoming or most recent call
 
 ::: {#current-community-call}
 
 :::
-
-<!-- 
-Our first community call will be on **18th of March 2026** and we have themed this call around ***katilingban*** (*[ka-ti-ling-ban]*), a word for *community*, *society*, or *group* from the Cebuano or Bisaya language spoken in parts of the Visayas and Mindanao regions of the Philippines.
-
-[Read more here](../community-calls/2026-03-18-community-call.qmd) about our first community call.
-
-## Our next session
-
-Title: Open Science and Reproducible Research: The rOpenSci Experience and Perspective    
-Guest: Noam Ross, Executive Director, [rOpenSci](https://ropensci.org/) -->
 

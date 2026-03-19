@@ -40,6 +40,8 @@ website:
         menu:
           - text: Community
             href: community/index.qmd
+          - text: Community Calls
+            href: community-calls/index.qmd
           - text: Events
             href: events/index.qmd
           - text: Code of Conduct

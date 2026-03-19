@@ -2,38 +2,22 @@
 title: "Open Science and Reproducible Research: The rOpenSci Experience and Perspective"
 subtitle: "Tawag sa Katilingban / A Call to Community"
 description: |
-  Join us for our first Community Call on the **Wednesday, 18th of March 2026** featuring **Dr Noam Ross, Executive Director of rOpenSci**, who will be chatting with us on all things **open science**, **reproducible research**, and the growing global community around these concepts and practices.
-author: "Ernest Guevarra"
-date: "18 February 2026"
+  We had our first Community Call on the 18th of March 2026 with our special guest **Dr Noam Ross**, Executive Director of **rOpenSci**.
+author: "nutriverse Core Team"
+date: "18 March 2026"
 date-modified: last-modified
-image: ../../images/patadyong.jpg
+image: ../../images/katilingban_community_call_banner.png
 ---
 
-![](../images/katilingban_banner.png){fig-align="center"}
+{{< video https://vimeo.com/1175084135 >}}
 
-::: {.callout-note collapse="true"}
+Ernest Guevarra opened the Community Call with his reflections on concepts and notions of community from his lived experienced in the Philippines as part of the call's theme of **"Tawag sa Katilingban/A Call to Community"** leading up to introducing Noam Ross.
 
-## Zoom calling in details
+Noam started out by sharing with us when and how he got started with Open Science in general and with [rOpenSci](https://ropensci.org) specifically. He then responded to a question on why open science was important then when he was starting out and why he thought Open Science is important now in his role as Executive Director of rOpenSci and given the current geopolitical context. We then transitioned to reflecting on the current state of global health and nutrition monitoring data and systems such as the DHS, SMART, and FEWS-NET to name a few that have been impacted on by the demise of USAID and the cuts to other sources of funding. Finally, Noam closed off the call with his thoughts about the future of data and open science and what he thinks we should be looking into as a way of thinking and approach to responding to current challenges.
 
-**Join Zoom Meeting:**    
-[https://us06web.zoom.us/j/83300874682?pwd=6Tgs3en7veQn1JgE5dsy24Y5k5UKlb.1&jst=2](https://us06web.zoom.us/j/83300874682?pwd=6Tgs3en7veQn1JgE5dsy24Y5k5UKlb.1&jst=2)
+## About Noam Ross
 
-**ID:** 83300874682    
-**Passcode:** 532051
+![](https://ropensci.org/img/team/noam_ross.png){style="float: left; margin: 10px; width: 200px"}
 
-:::
-
-We will be having our first ever Community Call on **Wednesday, 18th of March 2026**.
-
-Our theme for our first Community Call is around the term ***katilingban*** (*[ka-ti-ling-ban]*), a word for *community*, *society*, or *group* from the Cebuano or Bisaya language spoken in parts of the Visayas and Mindanao regions of the Philippines.
-
-We have named this session *"Tawag sa Katilingban / A Call to Community"* which we believe is apt for our first ever Community Call and for this early stage of growing the nutriverse community. We call on those who identify with the nutriverse mission and values to come and join us on this day!
-
-::: {.img-float}
-
-![](../images/ropensci-logo-300.png){style="float: right; margin: 10px; width: 300px"}
-
-:::
-
-We are joined on this day by [Dr Noam Ross](https://www.noamross.net/), Executive Director of [rOpenSci](https://ropensci.org/), an organisation that fosters a culture of open and reproducible research using shared data and reusable software. rOpenSci builds social and technical infrastructure for the [R](https://r-project.org) language to enable researchers and engineers to collaborate, share, and publish their science, data, and methods. Noam will be chatting with us on all things open science and reproducible research based on his many years of experience as a community member and now a community leader not just of rOpenSci but of the wider open science movement.
+[Noam Ross](https://www.noamross.net/) is Executive Director of [rOpenSci](https://ropensci.org/), a non-profit organization that helps researchers develop and use R packages to better produce and share scientific data, methods, and results. Noam was a founding member of the organization's software peer-review program, and also oversees rOpenSci's work in training, mentorship, scientific infrastructure and multilingualism. Noam is a scientist whose work focuses on studying and forecasting the circulation of infectious diseases and their emergence in wildlife populations. He is also a co-founder of Grant Witness, an organization that tracks changes in federal science funding policy to inform journalism, litigation, and activism. He holds a Ph.D. in Ecology from UC Davis.
 
