@@ -1,44 +1,21 @@
 [
   {
-    "listing": "/community-calls/index.html",
+    "listing": "/packages/index.html",
     "items": [
-      "/community-calls/2026-03-18-community-call.html"
-    ]
-  },
-  {
-    "listing": "/about/team.html",
-    "items": [
-      "/team/aziz-goza.html",
-      "/team/emmanuel-mandalazi.html",
-      "/team/ernest-guevarra.html",
-      "/team/nicholus-tint-zaw.html",
-      "/team/tomas-zaba.html"
-    ]
-  },
-  {
-    "listing": "/blog.html",
-    "items": [
-      "/posts/2026-02-28-monthly-roundup/index.html",
-      "/posts/2026-02-25-emmanuel-community-director/index.html",
-      "/posts/2026-02-24-community-our-asset/index.html",
-      "/posts/2026-02-21-aziz-executive-director/index.html",
-      "/posts/2026-02-13-welcome-to-nutriverse/index.html",
-      "/posts/2026-02-05-open-source-collective/index.html",
-      "/posts/2026-02-03-sleacr-release/index.html",
-      "/posts/2026-02-01-package-updates/index.html",
-      "/posts/2026-01-27-monthly-roundup/index.html"
-    ]
-  },
-  {
-    "listing": "/events/index.html",
-    "items": [
-      "/events/2026-02-27-nutriverse-launch.html",
-      "/events/2026-03-18-community-call.html"
+      "/packages/dietry.html",
+      "/packages/micronutr.html",
+      "/packages/nipnTK.html",
+      "/packages/riycf.html",
+      "/packages/sleacr.html",
+      "/packages/smartr.html",
+      "/packages/squeacr.html",
+      "/packages/zscorer.html"
     ]
   },
   {
     "listing": "/index.html",
     "items": [
+      "/posts/2026-03-18-tawag-sa-katilingban/index.html",
       "/posts/2026-02-28-monthly-roundup/index.html",
       "/posts/2026-02-25-emmanuel-community-director/index.html",
       "/posts/2026-02-24-community-our-asset/index.html",
@@ -54,16 +31,41 @@
     ]
   },
   {
-    "listing": "/packages/index.html",
+    "listing": "/events/index.html",
     "items": [
-      "/packages/dietry.html",
-      "/packages/micronutr.html",
-      "/packages/nipnTK.html",
-      "/packages/riycf.html",
-      "/packages/sleacr.html",
-      "/packages/smartr.html",
-      "/packages/squeacr.html",
-      "/packages/zscorer.html"
+      "/events/2026-02-27-nutriverse-launch.html",
+      "/events/2026-03-18-community-call.html"
+    ]
+  },
+  {
+    "listing": "/blog.html",
+    "items": [
+      "/posts/2026-03-18-tawag-sa-katilingban/index.html",
+      "/posts/2026-02-28-monthly-roundup/index.html",
+      "/posts/2026-02-25-emmanuel-community-director/index.html",
+      "/posts/2026-02-24-community-our-asset/index.html",
+      "/posts/2026-02-21-aziz-executive-director/index.html",
+      "/posts/2026-02-13-welcome-to-nutriverse/index.html",
+      "/posts/2026-02-05-open-source-collective/index.html",
+      "/posts/2026-02-03-sleacr-release/index.html",
+      "/posts/2026-02-01-package-updates/index.html",
+      "/posts/2026-01-27-monthly-roundup/index.html"
+    ]
+  },
+  {
+    "listing": "/about/team.html",
+    "items": [
+      "/team/aziz-goza.html",
+      "/team/emmanuel-mandalazi.html",
+      "/team/ernest-guevarra.html",
+      "/team/nicholus-tint-zaw.html",
+      "/team/tomas-zaba.html"
+    ]
+  },
+  {
+    "listing": "/community-calls/index.html",
+    "items": [
+      "/community-calls/2026-03-18-community-call.html"
     ]
   }
 ]
